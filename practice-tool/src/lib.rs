@@ -1,10 +1,8 @@
 #![feature(once_cell)]
 
 use std::path::Path;
-use std::ptr::null_mut;
 
 use imgui::*;
-use windows::{Win32::System::LibraryLoader::GetModuleHandleA, core::PCSTR};
 
 use hudhook::hooks::dx12::{ImguiRenderLoop, ImguiRenderLoopFlags};
 

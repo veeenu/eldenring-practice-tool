@@ -1,3 +1,7 @@
+#![feature(array_chunks)]
+
+mod codegen;
+
 use std::env;
 use std::fs::File;
 use std::io::{Read, Write};
@@ -24,6 +28,7 @@ fn main() -> Result<()> {
     let task = env::args().nth(1);
     match task.as_deref() {
         Some("dist") => dist()?,
+        Some("codegen") => codegen()?,
         Some("help") => print_help(),
         _ => print_help(),
     }
@@ -88,6 +93,11 @@ fn dist() -> Result<()> {
         "jdsd_er_practice_tool.toml",
     )?;
 
+    Ok(())
+}
+
+fn codegen() -> Result<()> {
+    crate::codegen::aob_scans::get_base_addresses();
     Ok(())
 }
 

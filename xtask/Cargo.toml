@@ -8,6 +8,8 @@ widestring = "0.5.1"
 zip = "0.5.13"
 regex = "1.5.4"
 serde_json = "1.0.73"
+rayon = "1.5.1"
+log = "0.4.16"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -17,4 +19,15 @@ features = [
   "winuser",
   "winbase",
   "ntdef",
+]
+
+[dependencies.windows]
+version = "0.34.0"
+features = [
+  "Win32_Foundation",
+  "Win32_Security", 
+  "Win32_Storage_FileSystem",
+  "Win32_System_Diagnostics_Debug", 
+  "Win32_System_Diagnostics_ToolHelp", 
+  "Win32_System_Threading", 
 ]
