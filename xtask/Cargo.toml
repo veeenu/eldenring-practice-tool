@@ -1,0 +1,20 @@
+[package]
+name = "xtask"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+widestring = "0.5.1"
+zip = "0.5.13"
+regex = "1.5.4"
+serde_json = "1.0.73"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies.winapi]
+version = "0.3.9"
+features = [
+  "winuser",
+  "winbase",
+  "ntdef",
+]

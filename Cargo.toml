@@ -1,0 +1,9 @@
+[workspace]
+members = [
+  "practice-tool",
+  "lib/libeldenring",
+  "xtask",
+]
+exclude = [
+  "lib/hudhook"
+]
