@@ -1,9 +1,13 @@
+use std::env;
 use std::ffi::c_void;
+use std::fs::File;
+use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::ptr::{null, null_mut};
 
 use log::*;
 use rayon::prelude::*;
+use textwrap::dedent;
 use widestring::U16CString;
 use windows::core::{PCWSTR, PWSTR};
 use windows::Win32::Foundation::{CloseHandle, GetLastError, BOOL, CHAR, DBG_CONTINUE};
@@ -24,6 +28,7 @@ const AOBS: &[(&'static str, &'static str)] = &[
     ("CSFlipper", "48 8B 0D ?? ?? ?? ?? 80 BB D7 00 00 00 00 0F 84 CE 00 00 00 48 85 C9 75 2E"),
     ("CSLuaEventManager", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 ?? 41 BE 01 00 00 00 44 89 74"),
     ("CSMenuMan", "E8 ?? ?? ?? ?? 4C 8B F8 48 85 C0 0F 84 ?? ?? ?? ?? 48 8B 0D"),
+    ("CSMenuManImp", "48 8B 0D ?? ?? ?? ?? 48 8B 49 08 E8 ?? ?? ?? ?? 48 8B D0 48 8B CE E8 ?? ?? ?? ??"),
     ("CSNetMan", "48 8B 0D ?? ?? ?? ?? 48 85 C9 74 5E 48 8B 89 ?? ?? ?? ?? B2 01"),
     ("CSRegulationManager", "48 8B 0D ?? ?? ?? ?? 48 85 C9 74 0B 4C 8B C0 48 8B D7"),
     ("CSSessionManager", "48 8B 05 ?? ?? ?? ?? 48 89 9C 24 E8 00 00 00 48 89 B4 24 B0 00 00 00 4C 89 A4 24 A8 00 00 00 4C 89 AC 24 A0 00 00 00 48 85 C0"),
@@ -34,8 +39,9 @@ const AOBS: &[(&'static str, &'static str)] = &[
     ("MapItemMan", "48 8B 0D ?? ?? ?? ?? C7 44 24 50 FF FF FF FF C7 45 A0 FF FF FF FF 48 85 C9 75 2E"),
     ("MenuManIns", "48 8b 0d ?? ?? ?? ?? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b"),
     ("MsgRepository", "48 8B 3D ?? ?? ?? ?? 44 0F B6 30 48 85 FF 75 26"),
+    // ("NewMenuSystem", "48 8B 0D ?? ?? ?? ?? 83 79 ?? 00 0F 85 ?? ?? ?? ?? 49 8B 87 ?? ?? ?? ?? 48 8B 88 ?? ?? ?? ?? E8"), // for 1.03.x
+    // ("NewMenuSystem", "4C 8B 05 ?? ?? ?? ?? 4C 89 45 10 BA 08 00 00 00 B9 ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 89 45 20"), // for 1.02.x
     ("SoloParamRepository", "48 8B 0D ?? ?? ?? ?? 48 85 C9 0F 84 ?? ?? ?? ?? 45 33 C0 BA 8D 00 00 00 E8"),
-    ("UNK_BaseAddrForQuitout", "48 8B 0D ?? ?? ?? ?? 83 79 ?? 00 0F 85 ?? ?? ?? ?? 49 8B 87 ?? ?? ?? ?? 48 8B 88 ?? ?? ?? ?? E8"),
     ("WorldChrMan", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 0F 48 39 88 ?? ?? ?? ?? 75 06 89 B1 5C 03 00 00 0F 28 05 ?? ?? ?? ?? 4C 8D 45 E7"),
     ("WorldChrManDbg", "48 8B 0D ?? ?? ?? ?? 89 5C 24 20 48 85 C9 74 12 B8 ?? ?? ?? ?? 8B D8"),
     ("WorldChrManImp", "48 8b 05 ?? ?? ?? ?? 48 89 98 70 84 01 00 4c 89 ab 74 06 00 00 4c 89 ab 7c 06 00 00 44 88 ab 84 06 00 00 41 83 7f 4c 00"),
@@ -180,7 +186,7 @@ fn find_aobs(bytes: Vec<u8>) -> Vec<(&'static str, usize)> {
             if let Some(r) = naive_search(&bytes, &into_needle(aob)) {
                 Some((name, r))
             } else {
-                error!("{name:24} not found");
+                eprintln!("{name:24} not found");
                 None
             }
         })
@@ -196,9 +202,6 @@ fn find_aobs(bytes: Vec<u8>) -> Vec<(&'static str, usize)> {
 
     aob_offsets.sort_by(|a, b| a.0.cmp(b.0));
 
-    // for (name, addr) in &aob_offsets {
-    //     println!("{name:24} {:x}", addr);
-    // }
     aob_offsets
 }
 
@@ -235,20 +238,13 @@ fn get_file_version(file: &Path) -> Version {
     Version(major, minor, patch)
 }
 
-fn exe_path() -> PathBuf {
-    Path::new(&env!("CARGO_MANIFEST_DIR"))
-        .to_path_buf()
-        .join("codegen-data")
-        .join("exe")
-}
-
 fn codegen_struct() -> String {
     let mut struct_string = AOBS.into_iter().fold(
         String::from("pub struct BaseAddresses {\n"),
         |mut o, (name, _)| {
-            o.extend("    ".chars());
-            o.extend(name.chars());
-            o.extend(": usize,\n".chars());
+            o.push_str("    ");
+            o.push_str(&name);
+            o.push_str(": usize,\n");
             o
         },
     );
@@ -257,44 +253,67 @@ fn codegen_struct() -> String {
 }
 
 fn codegen_version(ver: &Version, aobs: &[(&str, usize)]) -> String {
-    let mut string = aobs.into_iter().fold(format!(
-        "const BASE_ADDRESSES_{}_{:02}_{}: BaseAddresses = BaseAddresses {{\n",
-        ver.0, ver.1, ver.2
-    ), |mut o, (name, offset)| {
-        o.extend(format!("    {}: 0x{:x},\n", name, offset).chars());
-        o
-    });
-    string.extend("}\n\n".chars());
+    let mut string = aobs.into_iter().fold(
+        format!(
+            "pub const BASE_ADDRESSES_{}_{:02}_{}: BaseAddresses = BaseAddresses {{\n",
+            ver.0, ver.1, ver.2
+        ),
+        |mut o, (name, offset)| {
+            o.push_str(&format!("    {}: 0x{:x},\n", name, offset));
+            o
+        },
+    );
+    string.push_str("};\n\n");
     string
 }
 
+fn patches_paths() -> impl Iterator<Item = PathBuf> {
+    let base_path = PathBuf::from(
+        env::var("ERPT_PATCHES_PATH").expect(&dedent(r#"
+            ERPT_PATCHES_PATH environment variable undefined.
+            Check the documentation: https://github.com/veeenu/eldenring-practice-tool/README.md#building
+        "#)),
+    );
+    base_path
+        .read_dir()
+        .expect("Couldn't scan patches directory")
+        .map(Result::unwrap)
+        .map(|dir| dir.path().join("Game").join("eldenring.exe"))
+}
+
+fn codegen_addresses_path() -> PathBuf {
+    Path::new(&env!("CARGO_MANIFEST_DIR"))
+        .ancestors()
+        .nth(1)
+        .unwrap()
+        .to_path_buf()
+        .join("lib")
+        .join("libeldenring")
+        .join("src")
+        .join("addresses.rs")
+}
+
 pub(crate) fn get_base_addresses() {
-    let exe_path = exe_path();
-    let exes = [
-        "eldenring-1.02.1.exe",
-        "eldenring-1.02.2.exe",
-        "eldenring-1.02.3.exe",
-        "eldenring-1.03.0.exe",
-        "eldenring-1.03.1.exe",
-        "eldenring-1.03.2.exe",
-    ]
-    .into_iter()
-    .map(|p| exe_path.join(p));
+    let codegen = patches_paths()
+        .map(|exe| {
+            let version = get_file_version(&exe);
+            let exe = exe.canonicalize().unwrap();
+            println!("\nVERSION {}: {:?}", version.to_fromsoft_string(), exe);
 
-    println!("{}", codegen_struct());
-
-    for exe in exes {
-        let version = get_file_version(&exe);
-        let exe = exe.canonicalize().unwrap();
-        println!("\nVERSION {}: {:?}\n", version.to_fromsoft_string(), exe);
-
-        if let Some((base_addr, bytes)) = get_base_module_bytes(&exe) {
-            println!("Base addr {:x}", base_addr);
+            let (_base_addr, bytes) = get_base_module_bytes(&exe).unwrap();
             let mem_aobs = find_aobs(bytes);
             let version_base_addrs = codegen_version(&version, &mem_aobs);
-            println!("{}", version_base_addrs);
-        }
-    }
+            version_base_addrs
+        })
+        .fold(codegen_struct(), |mut o, i| {
+            o.extend(i.chars());
+            o
+        });
+
+    File::create(codegen_addresses_path())
+        .unwrap()
+        .write_all(codegen.as_bytes())
+        .unwrap();
 }
 
 /*
@@ -304,6 +323,7 @@ pub(crate) fn get_base_addresses() {
  * Damipoli         DamageCtrl, A4
  * PlayerIns is at offset 0x18468 in WorldChrManImp
  * Position         WorldChrManImp, 18468, F68 (old patch)
+ * Quitout          CSMenuManImp + 8, 0x5d
  */
 
 /*
@@ -344,3 +364,22 @@ CHR_DBG_FLAGS
   All no AOW FP Consume:  12
 
 */
+
+/*
+eldenring.exe+8898B0 - 48 8B 0D 490E3E03     - mov rcx,[eldenring.exe+3C6A700]
+eldenring.exe+8898B7 - 48 8B 49 08           - mov rcx,[rcx+08]
+eldenring.exe+8898BB - E8 F061EBFF           - call eldenring.exe+73FAB0
+eldenring.exe+8898C0 - 48 8B D0              - mov rdx,rax
+eldenring.exe+8898C3 - 48 8B CE              - mov rcx,rsi
+eldenring.exe+8898C6 - E8 D55CEBFF           - call eldenring.exe+73F5A0
+
+eldenring.exe+886310 - 48 8B 0D 19F83C03     - mov rcx,[eldenring.exe+3C55B30] { (7FF2E9BBB2A0) }
+eldenring.exe+886317 - 48 8B 49 08           - mov rcx,[rcx+08]
+eldenring.exe+88631B - E8 A082EBFF           - call eldenring.exe+73E5C0
+eldenring.exe+886320 - 48 8B D0              - mov rdx,rax
+eldenring.exe+886323 - 48 8B CE              - mov rcx,rsi
+eldenring.exe+886326 - E8 857DEBFF           - call eldenring.exe+73E0B0
+
+48 8B 0D ?? ?? ?? ?? 48 8B 49 08 E8 ?? ?? ?? ?? 48 8B D0 48 8B CE E8 ?? ?? ?? ??
+
+ */

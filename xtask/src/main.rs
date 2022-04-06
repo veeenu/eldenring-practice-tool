@@ -25,6 +25,7 @@ type Result<T> = std::result::Result<T, DynError>;
 //
 
 fn main() -> Result<()> {
+    dotenv::dotenv().ok();
     let task = env::args().nth(1);
     match task.as_deref() {
         Some("dist") => dist()?,
