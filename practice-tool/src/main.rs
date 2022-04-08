@@ -30,6 +30,7 @@ fn main() {
         ConfigBuilder::new()
             .build(),
         TerminalMode::Mixed,
+        ColorChoice::Auto,
     )])
     .ok();
     log::info!("test");

@@ -5,6 +5,7 @@ use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::ptr::{null, null_mut};
 
+use heck::AsSnakeCase;
 use log::*;
 use rayon::prelude::*;
 use textwrap::dedent;
@@ -23,7 +24,7 @@ use windows::Win32::System::Diagnostics::ToolHelp::{
 use windows::Win32::System::Threading::{CreateProcessW, OpenProcess, *};
 
 const AOBS: &[(&'static str, &'static str)] = &[
-    ("CHR_DBG_FLAGS", "?? 80 3D ?? ?? ?? ?? 00 0F 85 ?? ?? ?? ?? 32 C0 48"),
+    ("ChrDbgFlags", "?? 80 3D ?? ?? ?? ?? 00 0F 85 ?? ?? ?? ?? 32 C0 48"),
     ("CSFD4VirtualMemoryFlag", "48 8B 3D ?? ?? ?? ?? 48 85 FF 74 ?? 48 8B 49"),
     ("CSFlipper", "48 8B 0D ?? ?? ?? ?? 80 BB D7 00 00 00 00 0F 84 CE 00 00 00 48 85 C9 75 2E"),
     ("CSLuaEventManager", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 ?? 41 BE 01 00 00 00 44 89 74"),
@@ -36,11 +37,11 @@ const AOBS: &[(&'static str, &'static str)] = &[
     ("FieldArea", "48 8B 3D ?? ?? ?? ?? 48 85 FF 0F 84 ?? ?? ?? ?? 45 38 66 34"),
     ("GameDataMan", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 05 48 8B 40 58 C3 C3"),
     ("GameMan", "48 8B 15 ?? ?? ?? ?? 41 B0 01 48 8B 0D ?? ?? ?? ?? 48 81 C2 10 0E 00 00"),
+    ("GroupMask", "?? 80 3D ?? ?? ?? ?? 00 0F 10 00 0F 11 45 D0 0F 84 ?? ?? ?? ?? 80 3D"),
+    ("HitIns", "48 8B 05 ?? ?? ?? ?? 48 8D 4C 24 ?? 48 89 4c 24 ?? 0F 10 44 24 70"),
     ("MapItemMan", "48 8B 0D ?? ?? ?? ?? C7 44 24 50 FF FF FF FF C7 45 A0 FF FF FF FF 48 85 C9 75 2E"),
     ("MenuManIns", "48 8b 0d ?? ?? ?? ?? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b"),
     ("MsgRepository", "48 8B 3D ?? ?? ?? ?? 44 0F B6 30 48 85 FF 75 26"),
-    // ("NewMenuSystem", "48 8B 0D ?? ?? ?? ?? 83 79 ?? 00 0F 85 ?? ?? ?? ?? 49 8B 87 ?? ?? ?? ?? 48 8B 88 ?? ?? ?? ?? E8"), // for 1.03.x
-    // ("NewMenuSystem", "4C 8B 05 ?? ?? ?? ?? 4C 89 45 10 BA 08 00 00 00 B9 ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 89 45 20"), // for 1.02.x
     ("SoloParamRepository", "48 8B 0D ?? ?? ?? ?? 48 85 C9 0F 84 ?? ?? ?? ?? 45 33 C0 BA 8D 00 00 00 E8"),
     ("WorldChrMan", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 0F 48 39 88 ?? ?? ?? ?? 75 06 89 B1 5C 03 00 00 0F 28 05 ?? ?? ?? ?? 4C 8D 45 E7"),
     ("WorldChrManDbg", "48 8B 0D ?? ?? ?? ?? 89 5C 24 20 48 85 C9 74 12 B8 ?? ?? ?? ?? 8B D8"),
@@ -239,17 +240,29 @@ fn get_file_version(file: &Path) -> Version {
 }
 
 fn codegen_struct() -> String {
-    let mut struct_string = AOBS.into_iter().fold(
-        String::from("pub struct BaseAddresses {\n"),
-        |mut o, (name, _)| {
-            o.push_str("    ");
-            o.push_str(&name);
-            o.push_str(": usize,\n");
-            o
-        },
+    let mut generated = String::new();
+
+    generated.extend("pub struct BaseAddresses {\n".chars());
+    generated.extend(
+        AOBS.into_iter()
+            .map(|(name, _)| format!("    pub {}: usize,\n", AsSnakeCase(name)))
+            .collect::<Vec<_>>()
+            .join("")
+            .chars(),
     );
-    struct_string.extend("}\n\n".chars());
-    struct_string
+    generated.extend("}\n\n".chars());
+    generated.extend("impl BaseAddresses {\n".chars());
+    generated.extend("    pub fn with_module_base_addr(self, base: usize) -> BaseAddresses {\n".chars());
+    generated.extend("        BaseAddresses {\n".chars());
+    generated.extend(
+        AOBS.into_iter()
+            .map(|(name, _)| format!("            {}: self.{} + base,\n", AsSnakeCase(name), AsSnakeCase(name)))
+            .collect::<Vec<_>>()
+            .join("")
+            .chars(),
+    );
+    generated.extend("        }\n    }\n}\n\n".chars());
+    generated
 }
 
 fn codegen_version(ver: &Version, aobs: &[(&str, usize)]) -> String {
@@ -259,7 +272,7 @@ fn codegen_version(ver: &Version, aobs: &[(&str, usize)]) -> String {
             ver.0, ver.1, ver.2
         ),
         |mut o, (name, offset)| {
-            o.push_str(&format!("    {}: 0x{:x},\n", name, offset));
+            o.push_str(&format!("    {}: 0x{:x},\n", AsSnakeCase(name), offset));
             o
         },
     );
@@ -281,7 +294,7 @@ fn patches_paths() -> impl Iterator<Item = PathBuf> {
         .map(|dir| dir.path().join("Game").join("eldenring.exe"))
 }
 
-fn codegen_addresses_path() -> PathBuf {
+fn codegen_base_addresses_path() -> PathBuf {
     Path::new(&env!("CARGO_MANIFEST_DIR"))
         .ancestors()
         .nth(1)
@@ -290,11 +303,12 @@ fn codegen_addresses_path() -> PathBuf {
         .join("lib")
         .join("libeldenring")
         .join("src")
-        .join("addresses.rs")
+        .join("base_addresses.rs")
 }
 
 pub(crate) fn get_base_addresses() {
     let codegen = patches_paths()
+        .filter(|p| p.exists())
         .map(|exe| {
             let version = get_file_version(&exe);
             let exe = exe.canonicalize().unwrap();
@@ -310,7 +324,7 @@ pub(crate) fn get_base_addresses() {
             o
         });
 
-    File::create(codegen_addresses_path())
+    File::create(codegen_base_addresses_path())
         .unwrap()
         .write_all(codegen.as_bytes())
         .unwrap();
@@ -325,27 +339,6 @@ pub(crate) fn get_base_addresses() {
  * Position         WorldChrManImp, 18468, F68 (old patch)
  * Quitout          CSMenuManImp + 8, 0x5d
  */
-
-/*
-CSFD4VirtualMemoryFlag   3c672a8
-CSFlipper                4487908
-CSLuaEventManager        3c66cb8
-CSMenuMan                8ba63d14
-CSNetMan                 3c59d20
-CSRegulationManager      3c84e38
-CSSessionManager         3c78900
-DamageCtrl               3c65228
-FieldArea                3c68040
-GameDataMan              3c5cd78
-GameMan                  3c68758
-MapItemMan               3c668c0
-MenuManIns               3c6a700
-MsgRepository            3c7b928
-SoloParamRepository      3c80158
-WorldChrMan              3c64e38
-WorldChrManDbg           3c65048
-WorldChrManImp           3c64e38
-*/
 
 /* Flags
 
