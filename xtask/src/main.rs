@@ -73,7 +73,7 @@ fn dist() -> Result<()> {
             .map_err(|e| format!("{}: Couldn't open file: {}", dst, e))?
             .read_to_end(&mut buf)
             .map_err(|e| format!("{}: Couldn't read file: {}", dst, e))?;
-        zip.start_file(dst.clone(), file_options)
+        zip.start_file(dst, file_options)
             .map_err(|e| format!("{}: Couldn't start zip file: {}", dst, e))?;
         zip.write_all(&buf)
             .map_err(|e| format!("{}: Couldn't write zip: {}", dst, e))?;

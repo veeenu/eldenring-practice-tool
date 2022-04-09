@@ -110,7 +110,7 @@ impl SavefileManager {
     }
 
     fn import_savefile(&mut self) {
-        if self.savefile_name.len() == 0 {
+        if self.savefile_name.is_empty() {
             self.log = Some(String::from("Cannot save to empty filename"));
             return;
         }
@@ -221,12 +221,13 @@ impl Widget for SavefileManager {
 
             ui.separator();
 
-            let tok = ui.push_item_width(174.);
-            ui.input_text("##savefile_name", &mut self.savefile_name)
-                .hint("file name")
-                .build();
-            self.input_edited = ui.is_item_active();
-            drop(tok);
+            {
+                let _tok = ui.push_item_width(174.);
+                ui.input_text("##savefile_name", &mut self.savefile_name)
+                    .hint("file name")
+                    .build();
+                self.input_edited = ui.is_item_active();
+            }
 
             ui.same_line();
 
@@ -389,7 +390,7 @@ impl DirStack {
         } else {
             let mut breadcrumbs = String::new();
             for e in &self.stack {
-                breadcrumbs.push_str("/");
+                breadcrumbs.push('/');
                 breadcrumbs.push_str(e.path().file_name().unwrap().to_str().unwrap());
             }
             breadcrumbs

@@ -20,7 +20,7 @@ pub enum Version {
     V1_03_2,
 }
 
-pub static VERSION: SyncLazy<Version> = SyncLazy::new(|| get_version());
+pub static VERSION: SyncLazy<Version> = SyncLazy::new(get_version);
 
 impl From<(u32, u32, u32)> for Version {
     fn from(v: (u32, u32, u32)) -> Self {

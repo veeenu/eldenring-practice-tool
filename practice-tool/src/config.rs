@@ -113,7 +113,7 @@ impl Config {
                 )) as Box<dyn Widget>,
                 CfgCommand::MultiFlag { flags, hotkey, label } => Box::new(MultiFlag::new(
                     label,
-                    flags.into_iter().map(|flag| (flag.getter)(chains).clone()).collect(),
+                    flags.iter().map(|flag| (flag.getter)(chains).clone()).collect(),
                     hotkey.clone(),
                 )) as Box<dyn Widget>,
                 CfgCommand::SavefileManager {
@@ -159,7 +159,6 @@ impl Config {
                     chains.quitout.clone(),
                     hotkey.clone(),
                 )),
-                _ => todo!()
             })
             .collect()
     }

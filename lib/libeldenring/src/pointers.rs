@@ -1,3 +1,5 @@
+#![allow(clippy::new_without_default)]
+
 use std::ptr::null_mut;
 
 use windows::core::PCSTR;
@@ -67,27 +69,14 @@ impl Pointers {
         let base_module_address = unsafe { GetModuleHandleA(PCSTR(null_mut())) }.0 as usize;
         let BaseAddresses {
             chr_dbg_flags,
-            csfd4_virtual_memory_flag,
-            cs_flipper,
-            cs_lua_event_manager,
-            cs_menu_man,
             cs_menu_man_imp,
-            cs_net_man,
-            cs_regulation_manager,
-            cs_session_manager,
             damage_ctrl,
             field_area,
             game_data_man,
-            game_man,
             group_mask,
             hit_ins,
-            map_item_man,
-            menu_man_ins,
-            msg_repository,
-            solo_param_repository,
             world_chr_man,
-            world_chr_man_dbg,
-            world_chr_man_imp,
+            ..
         } = match *crate::version::VERSION {
             Version::V1_02_0 => base_addresses::BASE_ADDRESSES_1_02_0,
             Version::V1_02_1 => base_addresses::BASE_ADDRESSES_1_02_1,
@@ -151,29 +140,6 @@ impl Pointers {
         }
     }
 }
-
-// PlayerIns = WorldChrMan, 18468
-//   Position  = WorldChrMan, 18468, 6B8
-//                                   6BC
-//                                   6C0
-//                                   6C4   x y z rad   floats
-//   StablePos = WorldChrMan, 18468, 6CC
-//                                   6D0
-//                                   6D4
-//                                   6D8
-//   Display stable pos = WorldChrMan, 18468, 6FD byte
-//   Chunks = WorldChrMan, 18468, 190, 68, 54 rad <- this is the good position
-//                                         70 x
-//                                         74 y
-//                                         78 z
-// HIT_INS = 48 8B 05 ?? ?? ?? ?? 48 8D 4C 24 ?? 48 89 4c 24 ?? 0F 10 44 24 70
-//   Low hit = HIT_INS + C
-//   High hit = HIT_INS + D
-//   Char Hitbox = HIT_INS  F
-// FieldArea, 9/A/B direction/altimeter/compass
-// GroupMask = ?? 80 3D ?? ?? ?? ?? 00 0F 10 00 0F 11 45 D0 0F 84 ?? ?? ?? ?? 80 3D
-//   Show Map = +1
-//   Show Chr = +D
 
 /*
 [ENABLE]

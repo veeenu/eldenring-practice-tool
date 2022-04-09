@@ -6,7 +6,6 @@ use std::path::{Path, PathBuf};
 use std::ptr::{null, null_mut};
 
 use heck::AsSnakeCase;
-use log::*;
 use rayon::prelude::*;
 use textwrap::dedent;
 use widestring::U16CString;
@@ -23,7 +22,7 @@ use windows::Win32::System::Diagnostics::ToolHelp::{
 };
 use windows::Win32::System::Threading::{CreateProcessW, OpenProcess, *};
 
-const AOBS: &[(&'static str, &'static str)] = &[
+const AOBS: &[(&str, &str)] = &[
     ("ChrDbgFlags", "?? 80 3D ?? ?? ?? ?? 00 0F 85 ?? ?? ?? ?? 32 C0 48"),
     ("CSFD4VirtualMemoryFlag", "48 8B 3D ?? ?? ?? ?? 48 85 FF 74 ?? 48 8B 49"),
     ("CSFlipper", "48 8B 0D ?? ?? ?? ?? 80 BB D7 00 00 00 00 0F 84 CE 00 00 00 48 85 C9 75 2E"),
@@ -83,8 +82,10 @@ fn naive_search(bytes: &[u8], pattern: &[Option<u8>]) -> Option<usize> {
 
 fn read_base_module_data(proc_name: &str, pid: u32) -> Option<(usize, Vec<u8>)> {
     let module_snapshot = unsafe { CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid) };
-    let mut module_entry = MODULEENTRY32::default();
-    module_entry.dwSize = std::mem::size_of::<MODULEENTRY32>() as _;
+    let mut module_entry = MODULEENTRY32 {
+        dwSize: std::mem::size_of::<MODULEENTRY32>() as _,
+        ..Default::default()
+    };
 
     unsafe { Module32First(module_snapshot, &mut module_entry) };
 
@@ -116,10 +117,12 @@ fn read_base_module_data(proc_name: &str, pid: u32) -> Option<(usize, Vec<u8>)> 
     None
 }
 
-fn get_base_module_bytes(exe_path: &PathBuf) -> Option<(usize, Vec<u8>)> {
+fn get_base_module_bytes(exe_path: &Path) -> Option<(usize, Vec<u8>)> {
     let mut process_info = PROCESS_INFORMATION::default();
-    let mut startup_info = STARTUPINFOW::default();
-    startup_info.cb = std::mem::size_of::<STARTUPINFOW>() as _;
+    let startup_info = STARTUPINFOW {
+        cb: std::mem::size_of::<STARTUPINFOW>() as _,
+        ..Default::default()
+    };
 
     let mut exe = U16CString::from_str(exe_path.to_str().unwrap())
         .unwrap()
@@ -136,7 +139,7 @@ fn get_base_module_bytes(exe_path: &PathBuf) -> Option<(usize, Vec<u8>)> {
             DEBUG_PROCESS | DETACHED_PROCESS,
             null(),
             PCWSTR(null()),
-            &mut startup_info,
+            &startup_info,
             &mut process_info,
         )
     };
@@ -242,31 +245,37 @@ fn get_file_version(file: &Path) -> Version {
 fn codegen_struct() -> String {
     let mut generated = String::new();
 
-    generated.extend("pub struct BaseAddresses {\n".chars());
-    generated.extend(
-        AOBS.into_iter()
+    generated.push_str("pub struct BaseAddresses {\n");
+    generated.push_str(
+        &AOBS
+            .iter()
             .map(|(name, _)| format!("    pub {}: usize,\n", AsSnakeCase(name)))
             .collect::<Vec<_>>()
-            .join("")
-            .chars(),
+            .join(""),
     );
-    generated.extend("}\n\n".chars());
-    generated.extend("impl BaseAddresses {\n".chars());
-    generated.extend("    pub fn with_module_base_addr(self, base: usize) -> BaseAddresses {\n".chars());
-    generated.extend("        BaseAddresses {\n".chars());
-    generated.extend(
-        AOBS.into_iter()
-            .map(|(name, _)| format!("            {}: self.{} + base,\n", AsSnakeCase(name), AsSnakeCase(name)))
+    generated.push_str("}\n\n");
+    generated.push_str("impl BaseAddresses {\n");
+    generated.push_str("    pub fn with_module_base_addr(self, base: usize) -> BaseAddresses {\n");
+    generated.push_str("        BaseAddresses {\n");
+    generated.push_str(
+        &AOBS
+            .iter()
+            .map(|(name, _)| {
+                format!(
+                    "            {}: self.{} + base,\n",
+                    AsSnakeCase(name),
+                    AsSnakeCase(name)
+                )
+            })
             .collect::<Vec<_>>()
-            .join("")
-            .chars(),
+            .join(""),
     );
-    generated.extend("        }\n    }\n}\n\n".chars());
+    generated.push_str("        }\n    }\n}\n\n");
     generated
 }
 
 fn codegen_version(ver: &Version, aobs: &[(&str, usize)]) -> String {
-    let mut string = aobs.into_iter().fold(
+    let mut string = aobs.iter().fold(
         format!(
             "pub const BASE_ADDRESSES_{}_{:02}_{}: BaseAddresses = BaseAddresses {{\n",
             ver.0, ver.1, ver.2
@@ -282,10 +291,10 @@ fn codegen_version(ver: &Version, aobs: &[(&str, usize)]) -> String {
 
 fn patches_paths() -> impl Iterator<Item = PathBuf> {
     let base_path = PathBuf::from(
-        env::var("ERPT_PATCHES_PATH").expect(&dedent(r#"
+        env::var("ERPT_PATCHES_PATH").unwrap_or_else(|_| panic!("{}", dedent(r#"
             ERPT_PATCHES_PATH environment variable undefined.
             Check the documentation: https://github.com/veeenu/eldenring-practice-tool/README.md#building
-        "#)),
+        "#))),
     );
     base_path
         .read_dir()
@@ -316,11 +325,10 @@ pub(crate) fn get_base_addresses() {
 
             let (_base_addr, bytes) = get_base_module_bytes(&exe).unwrap();
             let mem_aobs = find_aobs(bytes);
-            let version_base_addrs = codegen_version(&version, &mem_aobs);
-            version_base_addrs
+            codegen_version(&version, &mem_aobs)
         })
         .fold(codegen_struct(), |mut o, i| {
-            o.extend(i.chars());
+            o.push_str(&i);
             o
         });
 
