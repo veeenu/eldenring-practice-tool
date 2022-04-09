@@ -1,63 +1,40 @@
 commands = [
-  # { savefile_manager = "o", hotkey_back = "q", hotkey_close = "escape" },
   # { item_spawner = "u", hotkey_back = "q", hotkey_close = "escape" },
-  # { flag = "all_no_damage", hotkey = "1" },
-  # { flag = "inf_stamina", hotkey = "2" },
-  # { flag = "inf_focus", hotkey = "3" },
-  # { flag = "inf_consumables", hotkey = "4" },
-  # { flag = "deathcam", hotkey = "5" },
-  # { flag = "no_death", hotkey = "6" },
-  # { flag = "one_shot", hotkey = "7" },
-  # { flag = "evt_draw", hotkey = "F1" },
-  # { flag = "evt_disable", hotkey = "F2" },
-  # { flag = "ai_disable", hotkey = "F3" },
-  # { flag = "rend_chr", hotkey = "F4" },
-  # { flag = "rend_obj", hotkey = "F5" },
-  # { flag = "rend_map", hotkey = "F6" },
-  # { flag = "rend_mesh_hi", hotkey = "F7" },
-  # { flag = "rend_mesh_lo", hotkey = "F8" },
-  # { flag = "all_draw_hit", hotkey = "F9" },
-  # { flag = "ik_foot_ray", hotkey = "F9" },
-  # { flag = "debug_sphere_1", hotkey = "F9" },
-  # { flag = "debug_sphere_2", hotkey = "F9" },
-  # { flag = "gravity", hotkey = "F10" },
-  # { position = "H", modifier = "rshift" },
-  # { position = "J", modifier = "rshift" },
-  # { position = "K", modifier = "rshift" },
-  # { cycle_speed = [1, 3], hotkey = "8" },
-  # { souls = 10000, hotkey = "9" },
+
+  { savefile_manager = "o", hotkey_back = "q", hotkey_close = "escape" },
   { flag = "one_shot" },
   { flag = "no_damage", hotkey = "1" },
-  { flag = "no_dead" },
-  { flag = "no_hit" },
-  { flag = "no_goods_consume" },
+  { flag = "no_dead", hotkey = "2" },
+  { flag = "no_update_ai", hotkey = "3" },
+  { flags = ["no_goods_consume", "no_arrows_consume"], label = "Inf Consumables" },
   { flag = "no_stamina_consume" },
-  { flag = "no_fp_consume" },
-  { flag = "no_ashes_of_war_fp_consume" },
-  { flag = "no_arrows_consume" },
-  { flag = "no_attack" },
-  { flag = "no_move" },
-  { flag = "no_update_ai" },
+  { flags = ["no_fp_consume", "no_ashes_of_war_fp_consume"], label = "Inf Focus" },
 
-  { flag = "gravity" },
+  # These flags are probably not that useful.
+  # { flag = "no_hit" },
+  # { flag = "no_attack" },
+  # { flag = "no_move" },
+
+  { flag = "gravity", hotkey = "4" },
+
+  { flag = "hitbox_high", hotkey = "5" },
+  { flag = "hitbox_low", hotkey = "6" },
+  { flag = "hitbox_character", hotkey = "7" },
+  { flags = ["weapon_hitbox1", "weapon_hitbox2", "weapon_hitbox3"], hotkey = "8", label = "Weapon hitboxes" },
   { flag = "display_stable_pos" },
-
-  { flag = "weapon_hitbox1", hotkey = "8" },
-  { flag = "weapon_hitbox2", hotkey = "8" },
-  { flag = "weapon_hitbox3", hotkey = "8" },
-
-  { flag = "hitbox_high", hotkey = "8" },
-  { flag = "hitbox_low", hotkey = "8" },
-  { flag = "hitbox_character", hotkey = "8" },
-
-  { flag = "field_area_direction", hotkey = "9" },
-  { flag = "field_area_altimeter", hotkey = "9" },
-  { flag = "field_area_compass", hotkey = "9" },
-
   { flag = "show_map" },
   { flag = "show_chr" },
 
-  { quitout = "P" }
+  # These flags are currently broken for some reason. TODO investigate.
+  # { flags = ["field_area_direction", "field_area_altimeter" , "field_area_compass"], hotkey = "9", label = "Field area HUD" },
+
+  { position = "H", modifier = "rshift" },
+  { position = "J", modifier = "rshift" },
+  # Decomment the following line if you want an extra save/load position.
+  # { position = "K", modifier = "rshift" },
+  { runes = 10000, hotkey = "9" },
+
+  { quitout = "P" },
 ]
 
 [settings]

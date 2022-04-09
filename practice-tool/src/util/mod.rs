@@ -74,10 +74,10 @@ impl KeyState {
         prev_state && !state
     }
 
-    // pub(crate) fn keydown(&self) -> bool {
-    //     let (prev_state, state) = self.update();
-    //     !prev_state && state
-    // }
+    pub(crate) fn keydown(&self) -> bool {
+        let (prev_state, state) = self.update();
+        !prev_state && state
+    }
 
     pub(crate) fn is_key_down(&self) -> bool {
         unsafe { GetAsyncKeyState(self.0) < 0 }

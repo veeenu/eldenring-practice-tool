@@ -7,16 +7,18 @@ use serde::Deserialize;
 
 use crate::util;
 use crate::util::KeyState;
-// use crate::widgets::cycle_speed::CycleSpeed;
+use crate::widgets::cycle_speed::CycleSpeed;
 use crate::widgets::flag::Flag;
+use crate::widgets::multiflag::MultiFlag;
 // use crate::widgets::item_spawn::ItemSpawner;
-// use crate::widgets::position::SavePosition;
+use crate::widgets::position::SavePosition;
 use crate::widgets::quitout::Quitout;
-// use crate::widgets::savefile_manager::SavefileManager;
-// use crate::widgets::souls::Souls;
+use crate::widgets::savefile_manager::SavefileManager;
+use crate::widgets::runes::Runes;
 use crate::widgets::Widget;
 
-#[derive(Debug, Deserialize)]
+#[cfg_attr(test, derive(Debug))]
+#[derive(Deserialize)]
 pub(crate) struct Config {
     pub(crate) settings: Settings,
     commands: Vec<CfgCommand>,
@@ -28,7 +30,8 @@ pub(crate) struct Settings {
     pub(crate) display: KeyState,
 }
 
-#[derive(Debug, Deserialize)]
+#[cfg_attr(test, derive(Debug))]
+#[derive(Deserialize)]
 #[serde(untagged)]
 enum CfgCommand {
     SavefileManager {
@@ -37,15 +40,20 @@ enum CfgCommand {
         hotkey_back: KeyState,
         hotkey_close: KeyState,
     },
-    ItemSpawner {
-        #[serde(rename = "item_spawner")]
-        hotkey_load: KeyState,
-        hotkey_back: KeyState,
-        hotkey_close: KeyState,
-    },
+    // ItemSpawner {
+    //     #[serde(rename = "item_spawner")]
+    //     hotkey_load: KeyState,
+    //     hotkey_back: KeyState,
+    //     hotkey_close: KeyState,
+    // },
     Flag {
         flag: FlagSpec,
         hotkey: Option<KeyState>,
+    },
+    MultiFlag {
+        flags: Vec<FlagSpec>,
+        hotkey: Option<KeyState>,
+        label: String,
     },
     Position {
         #[serde(rename = "position")]
@@ -57,8 +65,8 @@ enum CfgCommand {
         cycle_speed: Vec<f32>,
         hotkey: KeyState,
     },
-    Souls {
-        #[serde(rename = "souls")]
+    Runes {
+        #[serde(rename = "runes")]
         amount: u32,
         hotkey: KeyState,
     },
@@ -103,15 +111,20 @@ impl Config {
                     (flag.getter)(chains).clone(),
                     hotkey.clone(),
                 )) as Box<dyn Widget>,
-                // CfgCommand::SavefileManager {
-                //     hotkey_load,
-                //     hotkey_back,
-                //     hotkey_close,
-                // } => SavefileManager::new_widget(
-                //     hotkey_load.clone(),
-                //     hotkey_back.clone(),
-                //     hotkey_close.clone(),
-                // ),
+                CfgCommand::MultiFlag { flags, hotkey, label } => Box::new(MultiFlag::new(
+                    label,
+                    flags.into_iter().map(|flag| (flag.getter)(chains).clone()).collect(),
+                    hotkey.clone(),
+                )) as Box<dyn Widget>,
+                CfgCommand::SavefileManager {
+                    hotkey_load,
+                    hotkey_back,
+                    hotkey_close,
+                } => SavefileManager::new_widget(
+                    hotkey_load.clone(),
+                    hotkey_back.clone(),
+                    hotkey_close.clone(),
+                ),
                 // CfgCommand::ItemSpawner {
                 //     hotkey_load,
                 //     hotkey_back,
@@ -124,24 +137,24 @@ impl Config {
                 //     hotkey_back.clone(),
                 //     hotkey_close.clone(),
                 // )),
-                // CfgCommand::Position { hotkey, modifier } => Box::new(SavePosition::new(
-                //     chains.position.clone(),
-                //     hotkey.clone(),
-                //     modifier.clone(),
-                // )),
-                // CfgCommand::CycleSpeed {
-                //     cycle_speed,
-                //     hotkey,
-                // } => Box::new(CycleSpeed::new(
-                //     cycle_speed,
-                //     chains.speed.clone(),
-                //     hotkey.clone(),
-                // )),
-                // CfgCommand::Souls { amount, hotkey } => Box::new(Souls::new(
-                //     *amount,
-                //     chains.souls.clone(),
-                //     hotkey.clone(),
-                // )),
+                CfgCommand::Position { hotkey, modifier } => Box::new(SavePosition::new(
+                    chains.world_position.clone(),
+                    hotkey.clone(),
+                    modifier.clone(),
+                )),
+                CfgCommand::CycleSpeed {
+                    cycle_speed,
+                    hotkey,
+                } => Box::new(CycleSpeed::new(
+                    cycle_speed,
+                    chains.animation_speed.clone(),
+                    hotkey.clone(),
+                )),
+                CfgCommand::Runes { amount, hotkey } => Box::new(Runes::new(
+                    *amount,
+                    chains.runes.clone(),
+                    hotkey.clone(),
+                )),
                 CfgCommand::Quitout { hotkey } => Box::new(Quitout::new(
                     chains.quitout.clone(),
                     hotkey.clone(),
@@ -201,13 +214,13 @@ impl TryFrom<String> for FlagSpec {
         flag_spec!(value.as_str(), [
             (one_shot, "One shot"),
             (no_damage, "All no damage"),
-            (no_dead, "No Death"),
-            (no_hit, "No Hit"),
-            (no_goods_consume, "Inf Consumables"),
-            (no_stamina_consume, "Inf Stamina"),
-            (no_fp_consume, "Inf Focus"),
-            (no_ashes_of_war_fp_consume, "Inf Focus (AoW)"),
-            (no_arrows_consume, "Inf Arrows"),
+            (no_dead, "No death"),
+            (no_hit, "No hit"),
+            (no_goods_consume, "Inf consumables"),
+            (no_stamina_consume, "Inf stamina"),
+            (no_fp_consume, "Inf focus"),
+            (no_ashes_of_war_fp_consume, "Inf focus (AoW)"),
+            (no_arrows_consume, "Inf arrows"),
             (no_attack, "No attack"),
             (no_move, "No move"),
             (no_update_ai, "No update AI"),
@@ -235,11 +248,11 @@ mod tests {
     #[test]
     fn test_parse() {
         println!(
-            "{:#?}",
+            "{:?}",
             toml::from_str::<toml::Value>(include_str!("../jdsd_er_practice_tool.toml"))
         );
         println!(
-            "{:#?}",
+            "{:?}",
             Config::parse(include_str!("../jdsd_er_practice_tool.toml"))
         );
     }
