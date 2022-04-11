@@ -37,7 +37,7 @@ impl PracticeTool {
                 })
                 .ok_or_else(|| "Couldn't find config file".to_string())?;
             let config_content = std::fs::read_to_string(config_path)
-                .map_err(|e| format!("Couldn't read config file: {:?}", e))?;
+                .map_err(|e| format!("Couldn't read config file: {}", e))?;
             println!("{}", config_content);
             config::Config::parse(&config_content).map_err(String::from)
         }
@@ -90,11 +90,11 @@ impl PracticeTool {
         }
 
         if let Some(err) = config_err {
-            debug!("{:?}", err);
+            debug!("{}", err);
         }
 
         let pointers = Pointers::new();
-        debug!("{:#?}", pointers);
+        debug!("{:?}", pointers);
         let widgets = config.make_commands(&pointers);
 
         PracticeTool {
@@ -154,7 +154,14 @@ impl PracticeTool {
                 ui.text("johndisandonato's Elden Ring Practice Tool");
 
                 ui.same_line();
-                if ui.small_button("?") {
+
+                if ui.small_button("Open") {
+                    self.is_shown = true;
+                }
+
+                ui.same_line();
+
+                if ui.small_button("Help") {
                     ui.open_popup("##help_window");
                 }
 
@@ -163,29 +170,36 @@ impl PracticeTool {
                     .movable(false)
                     .title_bar(false)
                     .build(ui, || {
-                        if ui.small_button("X") {
-                            ui.close_current_popup();
-                        }
-                        ui.same_line();
                         ui.text("Elden Ring Practice Tool");
+                        ui.separator();
                         ui.text(format!(
-                            "\nPress the {} key to open/close the tool's\n\
+                            "Press the {} key to open/close the tool's\n\
                              interface.\n\n\
                              You can toggle flags/launch commands by\n\
-                             either clicking in the UI or by pressing\n\
+                             clicking in the UI or by pressing\n\
                              the hotkeys (in the parentheses).\n\n\
                              You can configure your tool by editing\n\
                              the jdsd_er_practice_tool.toml file with\n\
                              a text editor. If you break something,\n\
                              just download a fresh file!\n\n\
-                             Thank you for using my tool! <3\n\n",
+                             Thank you for using my tool! <3\n",
                             self.config.settings.display
                         ));
+                        ui.separator();
                         ui.text("-- johndisandonato");
                         ui.text("   https://twitch.tv/johndisandonato");
                         if ui.is_item_clicked() {
                             open::that("https://twitch.tv/johndisandonato").ok();
                         }
+                        ui.separator();
+                        if ui.button("Close") {
+                            ui.close_current_popup();
+                        }
+                        ui.same_line();
+                        if ui.button("Submit issue") {
+                            open::that("https://github.com/veeenu/eldenring-practice-tool/issues/new").ok();
+                        }
+
                     });
 
                 if let Some(igt) = self.pointers.igt.read() {

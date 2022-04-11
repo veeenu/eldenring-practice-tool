@@ -13,8 +13,8 @@ use crate::widgets::multiflag::MultiFlag;
 // use crate::widgets::item_spawn::ItemSpawner;
 use crate::widgets::position::SavePosition;
 use crate::widgets::quitout::Quitout;
-use crate::widgets::savefile_manager::SavefileManager;
 use crate::widgets::runes::Runes;
+use crate::widgets::savefile_manager::SavefileManager;
 use crate::widgets::Widget;
 
 #[cfg_attr(test, derive(Debug))]
@@ -99,7 +99,9 @@ impl TryFrom<String> for LevelFilterSerde {
 
 impl Config {
     pub(crate) fn parse(cfg: &str) -> Result<Self, String> {
-        toml::from_str::<Config>(cfg).map_err(|e| format!("TOML configuration parse error: {}", e))
+        let de = &mut toml::de::Deserializer::new(cfg);
+        serde_path_to_error::deserialize(de)
+            .map_err(|e| format!("TOML config error at {}: {}", e.path(), e.inner()))
     }
 
     pub(crate) fn make_commands(&self, chains: &Pointers) -> Vec<Box<dyn Widget>> {
@@ -111,9 +113,16 @@ impl Config {
                     (flag.getter)(chains).clone(),
                     hotkey.clone(),
                 )) as Box<dyn Widget>,
-                CfgCommand::MultiFlag { flags, hotkey, label } => Box::new(MultiFlag::new(
+                CfgCommand::MultiFlag {
+                    flags,
+                    hotkey,
                     label,
-                    flags.iter().map(|flag| (flag.getter)(chains).clone()).collect(),
+                } => Box::new(MultiFlag::new(
+                    label,
+                    flags
+                        .iter()
+                        .map(|flag| (flag.getter)(chains).clone())
+                        .collect(),
                     hotkey.clone(),
                 )) as Box<dyn Widget>,
                 CfgCommand::SavefileManager {
@@ -147,18 +156,18 @@ impl Config {
                     hotkey,
                 } => Box::new(CycleSpeed::new(
                     cycle_speed,
-                    chains.animation_speed.clone(),
+                    [
+                        chains.animation_speed.clone(),
+                        chains.torrent_animation_speed.clone(),
+                    ],
                     hotkey.clone(),
                 )),
-                CfgCommand::Runes { amount, hotkey } => Box::new(Runes::new(
-                    *amount,
-                    chains.runes.clone(),
-                    hotkey.clone(),
-                )),
-                CfgCommand::Quitout { hotkey } => Box::new(Quitout::new(
-                    chains.quitout.clone(),
-                    hotkey.clone(),
-                )),
+                CfgCommand::Runes { amount, hotkey } => {
+                    Box::new(Runes::new(*amount, chains.runes.clone(), hotkey.clone()))
+                }
+                CfgCommand::Quitout { hotkey } => {
+                    Box::new(Quitout::new(chains.quitout.clone(), hotkey.clone()))
+                }
             })
             .collect()
     }
@@ -210,33 +219,37 @@ impl TryFrom<String> for FlagSpec {
                 }
             }
         }
-        flag_spec!(value.as_str(), [
-            (one_shot, "One shot"),
-            (no_damage, "All no damage"),
-            (no_dead, "No death"),
-            (no_hit, "No hit"),
-            (no_goods_consume, "Inf consumables"),
-            (no_stamina_consume, "Inf stamina"),
-            (no_fp_consume, "Inf focus"),
-            (no_ashes_of_war_fp_consume, "Inf focus (AoW)"),
-            (no_arrows_consume, "Inf arrows"),
-            (no_attack, "No attack"),
-            (no_move, "No move"),
-            (no_update_ai, "No update AI"),
-            (gravity, "Gravity"),
-            (display_stable_pos, "Display stable position"),
-            (weapon_hitbox1, "Weapon hitbox #1"),
-            (weapon_hitbox2, "Weapon hitbox #2"),
-            (weapon_hitbox3, "Weapon hitbox #3"),
-            (hitbox_high, "High world hitbox"),
-            (hitbox_low, "Low world hitbox"),
-            (hitbox_character, "Character hitbox"),
-            (field_area_direction, "Direction HUD"),
-            (field_area_altimeter, "Altimeter HUD"),
-            (field_area_compass, "Compass HUD"),
-            (show_map, "Show/hide map"),
-            (show_chr, "Show/hide character"),
-        ])
+        flag_spec!(
+            value.as_str(),
+            [
+                (one_shot, "One shot"),
+                (no_damage, "All no damage"),
+                (no_dead, "No death"),
+                (no_hit, "No hit"),
+                (no_goods_consume, "Inf consumables"),
+                (no_stamina_consume, "Inf stamina"),
+                (no_fp_consume, "Inf focus"),
+                (no_ashes_of_war_fp_consume, "Inf focus (AoW)"),
+                (no_arrows_consume, "Inf arrows"),
+                (no_attack, "No attack"),
+                (no_move, "No move"),
+                (no_update_ai, "No update AI"),
+                (gravity, "No Gravity"),
+                (torrent_gravity, "No Gravity (Torrent)"),
+                (display_stable_pos, "Show stable pos"),
+                (weapon_hitbox1, "Weapon hitbox #1"),
+                (weapon_hitbox2, "Weapon hitbox #2"),
+                (weapon_hitbox3, "Weapon hitbox #3"),
+                (hitbox_high, "High world hitbox"),
+                (hitbox_low, "Low world hitbox"),
+                (hitbox_character, "Character hitbox"),
+                (field_area_direction, "Direction HUD"),
+                (field_area_altimeter, "Altimeter HUD"),
+                (field_area_compass, "Compass HUD"),
+                (show_map, "Show/hide map"),
+                (show_chr, "Show/hide character"),
+            ]
+        )
     }
 }
 
@@ -248,11 +261,11 @@ mod tests {
     fn test_parse() {
         println!(
             "{:?}",
-            toml::from_str::<toml::Value>(include_str!("../jdsd_er_practice_tool.toml"))
+            toml::from_str::<toml::Value>(include_str!("../../jdsd_er_practice_tool.toml"))
         );
         println!(
             "{:?}",
-            Config::parse(include_str!("../jdsd_er_practice_tool.toml"))
+            Config::parse(include_str!("../../jdsd_er_practice_tool.toml"))
         );
     }
 

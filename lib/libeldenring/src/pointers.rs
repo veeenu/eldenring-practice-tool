@@ -24,6 +24,8 @@ pub struct Pointers {
     pub no_update_ai: Bitflag<u8>,
     pub no_ashes_of_war_fp_consume: Bitflag<u8>,
 
+    pub torrent_gravity: Bitflag<u8>,
+
     pub runes: PointerChain<u32>,
     pub igt: PointerChain<usize>,
 
@@ -40,6 +42,7 @@ pub struct Pointers {
     pub stable_position: Position,
     pub world_position: Position,
     pub animation_speed: PointerChain<f32>,
+    pub torrent_animation_speed: PointerChain<f32>,
 
     // HitIns
     pub hitbox_high: Bitflag<u8>,
@@ -91,7 +94,9 @@ impl Pointers {
         Self {
             one_shot: bitflag!(0b1; chr_dbg_flags + 0x3),
             no_damage: bitflag!(0b1; chr_dbg_flags + 0xC),
-            no_dead: bitflag!(0b1; chr_dbg_flags + 0xB),
+            no_dead: bitflag!(0b1; chr_dbg_flags),
+            // horse_no_dead: bitflag!(0b1; chr_dbg_flags + 0x1),
+            // all_no_dead: bitflag!(0b1; chr_dbg_flags + 0xB),
             no_hit: bitflag!(0b1; chr_dbg_flags + 0xD),
             no_goods_consume: bitflag!(0b1; chr_dbg_flags + 0x4),
             no_stamina_consume: bitflag!(0b1; chr_dbg_flags + 0x5),
@@ -101,6 +106,7 @@ impl Pointers {
             no_move: bitflag!(0b1; chr_dbg_flags + 0xF),
             no_update_ai: bitflag!(0b1; chr_dbg_flags + 0x10),
             no_ashes_of_war_fp_consume: bitflag!(0b1; chr_dbg_flags + 0x12),
+            torrent_gravity: bitflag!(0b1; world_chr_man, 0x18390, 0x18, 0, 0x190, 0x68, 0x1d3),
             runes: pointer_chain!(game_data_man, 0x8, 0x6C),
             igt: pointer_chain!(game_data_man, 0xA0),
             quitout: pointer_chain!(cs_menu_man_imp, 0x8, 0x5d),
@@ -126,6 +132,7 @@ impl Pointers {
                 angle: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x54),
             },
             animation_speed: pointer_chain!(world_chr_man, 0xB658, 0, 0x190, 0x28, 0x17C8),
+            torrent_animation_speed: pointer_chain!(world_chr_man, 0x18390, 0x18, 0, 0x190, 0x28, 0x17C8),
             field_area_direction: bitflag!(0b1; field_area + 0x9),
             field_area_altimeter: bitflag!(0b1; field_area + 0xA),
             field_area_compass: bitflag!(0b1; field_area + 0xB),

@@ -2,39 +2,39 @@ commands = [
   # { item_spawner = "u", hotkey_back = "q", hotkey_close = "escape" },
 
   { savefile_manager = "o", hotkey_back = "q", hotkey_close = "escape" },
-  { flag = "one_shot" },
   { flag = "no_damage", hotkey = "1" },
   { flag = "no_dead", hotkey = "2" },
   { flag = "no_update_ai", hotkey = "3" },
+  { flag = "one_shot", hotkey = "4" },
   { flags = ["no_goods_consume", "no_arrows_consume"], label = "Inf Consumables" },
   { flag = "no_stamina_consume" },
   { flags = ["no_fp_consume", "no_ashes_of_war_fp_consume"], label = "Inf Focus" },
+
+  { flags = ["gravity", "torrent_gravity"], hotkey = "5", label = "No Gravity" },
+
+  { flag = "hitbox_high", hotkey = "F1" },
+  { flag = "hitbox_low", hotkey = "F2" },
+  { flag = "hitbox_character", hotkey = "F3" },
+  { flags = ["weapon_hitbox1", "weapon_hitbox2", "weapon_hitbox3"], hotkey = "F4", label = "Weapon hitboxes" },
+  { flag = "display_stable_pos", hotkey = "F5" },
+  { flag = "show_map", hotkey = "F6" },
+  { flag = "show_chr", hotkey = "F7" },
+
+  { position = "H", modifier = "rshift" },
+  { position = "J", modifier = "rshift" },
+  { cycle_speed = [1.0, 3.0, 8.0], hotkey = "6" },
+  { runes = 10000, hotkey = "7" },
+
+  { quitout = "P" }
 
   # These flags are probably not that useful.
   # { flag = "no_hit" },
   # { flag = "no_attack" },
   # { flag = "no_move" },
-
-  { flag = "gravity", hotkey = "4" },
-
-  { flag = "hitbox_high", hotkey = "5" },
-  { flag = "hitbox_low", hotkey = "6" },
-  { flag = "hitbox_character", hotkey = "7" },
-  { flags = ["weapon_hitbox1", "weapon_hitbox2", "weapon_hitbox3"], hotkey = "8", label = "Weapon hitboxes" },
-  { flag = "display_stable_pos" },
-  { flag = "show_map" },
-  { flag = "show_chr" },
-
   # These flags are currently broken for some reason. TODO investigate.
   # { flags = ["field_area_direction", "field_area_altimeter" , "field_area_compass"], hotkey = "9", label = "Field area HUD" },
-
-  { position = "H", modifier = "rshift" },
-  { position = "J", modifier = "rshift" },
   # Decomment the following line if you want an extra save/load position.
   # { position = "K", modifier = "rshift" },
-  { runes = 10000, hotkey = "9" },
-
-  { quitout = "P" },
 ]
 
 [settings]

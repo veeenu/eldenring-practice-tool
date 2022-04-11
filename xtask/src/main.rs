@@ -90,7 +90,7 @@ fn dist() -> Result<()> {
         "jdsd_er_practice_tool.dll",
     )?;
     add_zip(
-        project_root().join("practice-tool/jdsd_er_practice_tool.toml"),
+        project_root().join("jdsd_er_practice_tool.toml"),
         "jdsd_er_practice_tool.toml",
     )?;
 
