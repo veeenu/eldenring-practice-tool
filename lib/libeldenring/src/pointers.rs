@@ -24,7 +24,13 @@ pub struct Pointers {
     pub no_update_ai: Bitflag<u8>,
     pub no_ashes_of_war_fp_consume: Bitflag<u8>,
 
+    pub collision: Bitflag<u8>,
+
+    pub torrent_no_dead: Bitflag<u8>,
     pub torrent_gravity: Bitflag<u8>,
+    pub torrent_collision: Bitflag<u8>,
+
+    pub all_no_dead: Bitflag<u8>,
 
     pub runes: PointerChain<u32>,
     pub igt: PointerChain<usize>,
@@ -56,6 +62,7 @@ pub struct Pointers {
 
     // GroupMask
     pub show_map: Bitflag<u8>,
+    pub show_geom: Vec<Bitflag<u8>>,
     pub show_chr: Bitflag<u8>,
 }
 
@@ -95,8 +102,6 @@ impl Pointers {
             one_shot: bitflag!(0b1; chr_dbg_flags + 0x3),
             no_damage: bitflag!(0b1; chr_dbg_flags + 0xC),
             no_dead: bitflag!(0b1; chr_dbg_flags + 0x1),
-            // horse_no_dead: bitflag!(0b1; chr_dbg_flags + 0x1),
-            // all_no_dead: bitflag!(0b1; chr_dbg_flags + 0xB),
             no_hit: bitflag!(0b1; chr_dbg_flags + 0xD),
             no_goods_consume: bitflag!(0b1; chr_dbg_flags + 0x4),
             no_stamina_consume: bitflag!(0b1; chr_dbg_flags + 0x5),
@@ -106,7 +111,18 @@ impl Pointers {
             no_move: bitflag!(0b1; chr_dbg_flags + 0xF),
             no_update_ai: bitflag!(0b1; chr_dbg_flags + 0x10),
             no_ashes_of_war_fp_consume: bitflag!(0b1; chr_dbg_flags + 0x12),
+
+            all_no_dead: bitflag!(0b1; chr_dbg_flags + 0xB),
+
+            torrent_no_dead: bitflag!(0b1; chr_dbg_flags + 0x2),
             torrent_gravity: bitflag!(0b1; world_chr_man, 0x18390, 0x18, 0, 0x190, 0x68, 0x1d3),
+
+            // WorldChrMan -> Player
+            collision: bitflag!(0b1000; world_chr_man, 0x18468, 0x58, 0xf0),
+            
+            // WorldChrMan -> Torrent
+            torrent_collision: bitflag!(0b1000; world_chr_man, 0x18390, 0x18, 0, 0x58, 0xf0),
+
             runes: pointer_chain!(game_data_man, 0x8, 0x6C),
             igt: pointer_chain!(game_data_man, 0xA0),
             quitout: pointer_chain!(cs_menu_man_imp, 0x8, 0x5d),
@@ -132,7 +148,15 @@ impl Pointers {
                 angle: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x54),
             },
             animation_speed: pointer_chain!(world_chr_man, 0xB658, 0, 0x190, 0x28, 0x17C8),
-            torrent_animation_speed: pointer_chain!(world_chr_man, 0x18390, 0x18, 0, 0x190, 0x28, 0x17C8),
+            torrent_animation_speed: pointer_chain!(
+                world_chr_man,
+                0x18390,
+                0x18,
+                0,
+                0x190,
+                0x28,
+                0x17C8
+            ),
             field_area_direction: bitflag!(0b1; field_area + 0x9),
             field_area_altimeter: bitflag!(0b1; field_area + 0xA),
             field_area_compass: bitflag!(0b1; field_area + 0xB),
@@ -142,8 +166,25 @@ impl Pointers {
             hitbox_high: bitflag!(0b1; hit_ins + 0xC),
             hitbox_low: bitflag!(0b1; hit_ins + 0xD),
             hitbox_character: bitflag!(0b1; hit_ins + 0xF),
-            show_map: bitflag!(0b1; group_mask + 0x1),
-            show_chr: bitflag!(0b1; group_mask + 0xD),
+            show_map: bitflag!(0b1; group_mask + 0x2),
+            show_geom: vec![
+                bitflag!(0b1; group_mask + 0x3),
+                bitflag!(0b1; group_mask + 0x4),
+                bitflag!(0b1; group_mask + 0x5),
+                bitflag!(0b1; group_mask + 0x6),
+                bitflag!(0b1; group_mask + 0x7),
+                bitflag!(0b1; group_mask + 0x8),
+                bitflag!(0b1; group_mask + 0x9),
+                bitflag!(0b1; group_mask + 0xA),
+                bitflag!(0b1; group_mask + 0xB),
+                bitflag!(0b1; group_mask + 0xC),
+                bitflag!(0b1; group_mask + 0xD),
+                bitflag!(0b1; group_mask + 0xF), // VFX
+                bitflag!(0b1; group_mask + 0x10), // Cutscene
+                bitflag!(0b1; group_mask + 0x11), // Unknown
+                bitflag!(0b1; group_mask + 0x12), // Grass
+            ],
+            show_chr: bitflag!(0b1; group_mask + 0xE),
         }
     }
 }

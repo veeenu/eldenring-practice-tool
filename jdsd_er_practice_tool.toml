@@ -11,6 +11,7 @@ commands = [
   { flags = ["no_fp_consume", "no_ashes_of_war_fp_consume"], label = "Inf Focus" },
 
   { flags = ["gravity", "torrent_gravity"], hotkey = "5", label = "No Gravity" },
+  { flags = ["collision", "torrent_collision"], label = "No Collision" },
 
   { flag = "hitbox_high", hotkey = "F1" },
   { flag = "hitbox_low", hotkey = "F2" },
@@ -22,10 +23,10 @@ commands = [
 
   { position = "H", modifier = "rshift" },
   { position = "J", modifier = "rshift" },
-  { cycle_speed = [1.0, 3.0, 8.0], hotkey = "6" },
+  { cycle_speed = [1.0, 3.0, 6.0], hotkey = "6" },
   { runes = 10000, hotkey = "7" },
 
-  { quitout = "P" }
+  { quitout = "P" },
 
   # These flags are probably not that useful.
   # { flag = "no_hit" },
