@@ -94,7 +94,7 @@ impl PracticeTool {
         }
 
         let pointers = Pointers::new();
-        debug!("{:?}", pointers);
+        debug!("{:#?}", pointers);
         let widgets = config.make_commands(&pointers);
 
         PracticeTool {
