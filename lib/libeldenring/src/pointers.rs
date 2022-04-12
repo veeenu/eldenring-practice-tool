@@ -94,7 +94,7 @@ impl Pointers {
         Self {
             one_shot: bitflag!(0b1; chr_dbg_flags + 0x3),
             no_damage: bitflag!(0b1; chr_dbg_flags + 0xC),
-            no_dead: bitflag!(0b1; chr_dbg_flags),
+            no_dead: bitflag!(0b1; chr_dbg_flags + 0x1),
             // horse_no_dead: bitflag!(0b1; chr_dbg_flags + 0x1),
             // all_no_dead: bitflag!(0b1; chr_dbg_flags + 0xB),
             no_hit: bitflag!(0b1; chr_dbg_flags + 0xD),
