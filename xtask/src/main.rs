@@ -30,6 +30,7 @@ fn main() -> Result<()> {
     match task.as_deref() {
         Some("dist") => dist()?,
         Some("codegen") => codegen()?,
+        Some("run") => run()?,
         Some("help") => print_help(),
         _ => print_help(),
     }
@@ -61,9 +62,7 @@ fn dist() -> Result<()> {
     std::fs::remove_dir_all(dist_dir()).ok();
     std::fs::create_dir_all(dist_dir())?;
 
-    let mut zip = ZipWriter::new(File::create(
-        dist_dir().join("jdsd_er_practice_tool.zip"),
-    )?);
+    let mut zip = ZipWriter::new(File::create(dist_dir().join("jdsd_er_practice_tool.zip"))?);
     let file_options = FileOptions::default().compression_method(CompressionMethod::Deflated);
 
     let mut buf: Vec<u8> = Vec::new();
@@ -97,6 +96,41 @@ fn dist() -> Result<()> {
     Ok(())
 }
 
+fn run() -> Result<()> {
+    let cargo = env::var("CARGO").unwrap_or_else(|_| "cargo".to_string());
+    let status = Command::new(&cargo)
+        .current_dir(project_root())
+        .args(&["build", "--release", "--package", "eldenring-practice-tool"])
+        .status()
+        .map_err(|e| format!("cargo: {}", e))?;
+
+    if !status.success() {
+        return Err("cargo build failed".into());
+    }
+
+    let mut buf = String::new();
+    File::open(project_root().join("jdsd_er_practice_tool.toml"))?.read_to_string(&mut buf)?;
+    File::create(
+        project_root()
+            .join("target")
+            .join("release")
+            .join("jdsd_er_practice_tool.toml"),
+    )?
+    .write_all(buf.as_bytes())?;
+
+    let status = Command::new(&cargo)
+        .current_dir(project_root().join("target").join("release"))
+        .args(&["run", "--release", "--bin", "jdsd_er_practice_tool"])
+        .status()
+        .map_err(|e| format!("cargo: {}", e))?;
+
+    if !status.success() {
+        return Err("cargo run failed".into());
+    }
+
+    Ok(())
+}
+
 fn codegen() -> Result<()> {
     crate::codegen::aob_scans::get_base_addresses();
     Ok(())
@@ -107,8 +141,9 @@ fn print_help() {
         r#"
 Tasks:
 
+run ........... compile and start the practice tool
 dist .......... build distribution artifacts
-codegen ....... generate Rust code for the parameters
+codegen ....... generate Rust code: parameters, base addresses, ...
 help .......... print this help
 "#
     );
