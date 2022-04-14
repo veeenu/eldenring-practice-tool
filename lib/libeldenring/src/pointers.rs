@@ -50,6 +50,8 @@ pub struct Pointers {
     pub animation_speed: PointerChain<f32>,
     pub torrent_animation_speed: PointerChain<f32>,
 
+    pub deathcam: (Bitflag<u8>, PointerChain<u8>),
+
     // HitIns
     pub hitbox_high: Bitflag<u8>,
     pub hitbox_low: Bitflag<u8>,
@@ -86,6 +88,7 @@ impl Pointers {
             group_mask,
             hit_ins,
             world_chr_man,
+            bullet_man,
             ..
         } = match *crate::version::VERSION {
             Version::V1_02_0 => base_addresses::BASE_ADDRESSES_1_02_0,
@@ -119,7 +122,7 @@ impl Pointers {
 
             // WorldChrMan -> Player
             collision: bitflag!(0b1000; world_chr_man, 0x18468, 0x58, 0xf0),
-            
+
             // WorldChrMan -> Torrent
             torrent_collision: bitflag!(0b1000; world_chr_man, 0x18390, 0x18, 0, 0x58, 0xf0),
 
@@ -157,6 +160,12 @@ impl Pointers {
                 0x28,
                 0x17C8
             ),
+
+            deathcam: (
+                bitflag!(0b100; world_chr_man, 0x18468, 0x1c8),
+                pointer_chain!(field_area, 0x98, 0x7c),
+            ),
+
             field_area_direction: bitflag!(0b1; field_area + 0x9),
             field_area_altimeter: bitflag!(0b1; field_area + 0xA),
             field_area_compass: bitflag!(0b1; field_area + 0xB),
@@ -179,7 +188,7 @@ impl Pointers {
                 bitflag!(0b1; group_mask + 0xB),
                 bitflag!(0b1; group_mask + 0xC),
                 bitflag!(0b1; group_mask + 0xD),
-                bitflag!(0b1; group_mask + 0xF), // VFX
+                bitflag!(0b1; group_mask + 0xF),  // VFX
                 bitflag!(0b1; group_mask + 0x10), // Cutscene
                 bitflag!(0b1; group_mask + 0x11), // Unknown
                 bitflag!(0b1; group_mask + 0x12), // Grass

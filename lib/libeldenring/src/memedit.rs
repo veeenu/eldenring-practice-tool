@@ -156,9 +156,12 @@ where
         Bitflag(c, mask)
     }
 
-    pub fn toggle(&self) {
+    pub fn toggle(&self) -> Option<bool> {
         if let Some(x) = self.0.read() {
             self.0.write(x ^ self.1);
+            Some(x == self.1)
+        } else {
+            None
         }
     }
 

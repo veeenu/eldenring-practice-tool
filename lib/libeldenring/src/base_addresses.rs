@@ -1,4 +1,5 @@
 pub struct BaseAddresses {
+    pub bullet_man: usize,
     pub chr_dbg_flags: usize,
     pub csfd4_virtual_memory_flag: usize,
     pub cs_flipper: usize,
@@ -26,6 +27,7 @@ pub struct BaseAddresses {
 impl BaseAddresses {
     pub fn with_module_base_addr(self, base: usize) -> BaseAddresses {
         BaseAddresses {
+            bullet_man: self.bullet_man + base,
             chr_dbg_flags: self.chr_dbg_flags + base,
             csfd4_virtual_memory_flag: self.csfd4_virtual_memory_flag + base,
             cs_flipper: self.cs_flipper + base,
@@ -53,6 +55,7 @@ impl BaseAddresses {
 }
 
 pub const BASE_ADDRESSES_1_02_0: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3c4c9c8,
     csfd4_virtual_memory_flag: 0x3c526e8,
     cs_flipper: 0x4473138,
     cs_lua_event_manager: 0x3c520f8,
@@ -78,6 +81,7 @@ pub const BASE_ADDRESSES_1_02_0: BaseAddresses = BaseAddresses {
 };
 
 pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3c4c9e8,
     csfd4_virtual_memory_flag: 0x3c52708,
     cs_flipper: 0x4472d58,
     cs_lua_event_manager: 0x3c52118,
@@ -103,6 +107,7 @@ pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
 };
 
 pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3c4ca08,
     csfd4_virtual_memory_flag: 0x3c52728,
     cs_flipper: 0x4472d78,
     cs_lua_event_manager: 0x3c52138,
@@ -128,6 +133,7 @@ pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
 };
 
 pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3c4fa28,
     csfd4_virtual_memory_flag: 0x3c55748,
     cs_flipper: 0x4475d98,
     cs_lua_event_manager: 0x3c55158,
@@ -153,6 +159,7 @@ pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
 };
 
 pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3c61588,
     csfd4_virtual_memory_flag: 0x3c672a8,
     cs_flipper: 0x4487918,
     cs_lua_event_manager: 0x3c66cb8,
@@ -178,6 +185,7 @@ pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
 };
 
 pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3c61588,
     csfd4_virtual_memory_flag: 0x3c672a8,
     cs_flipper: 0x4487908,
     cs_lua_event_manager: 0x3c66cb8,
@@ -203,6 +211,7 @@ pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
 };
 
 pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3c61588,
     csfd4_virtual_memory_flag: 0x3c672a8,
     cs_flipper: 0x4487908,
     cs_lua_event_manager: 0x3c66cb8,
@@ -226,3 +235,4 @@ pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
     world_chr_man_dbg: 0x3c65048,
     world_chr_man_imp: 0x3c64e38,
 };
+

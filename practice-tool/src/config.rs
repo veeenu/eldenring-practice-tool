@@ -2,12 +2,13 @@ use libeldenring::prelude::*;
 
 use std::str::FromStr;
 
-use log::LevelFilter;
+use log::{LevelFilter, error};
 use serde::Deserialize;
 
 use crate::util;
 use crate::util::KeyState;
 use crate::widgets::cycle_speed::CycleSpeed;
+use crate::widgets::deathcam::Deathcam;
 use crate::widgets::flag::Flag;
 use crate::widgets::multiflag::MultiFlag;
 // use crate::widgets::item_spawn::ItemSpawner;
@@ -48,6 +49,10 @@ enum CfgCommand {
     // },
     Flag {
         flag: FlagSpec,
+        hotkey: Option<KeyState>,
+    },
+    SpecialFlag {
+        flag: String,
         hotkey: Option<KeyState>,
     },
     MultiFlag {
@@ -107,7 +112,7 @@ impl Config {
     pub(crate) fn make_commands(&self, chains: &Pointers) -> Vec<Box<dyn Widget>> {
         self.commands
             .iter()
-            .map(|cmd| match cmd {
+            .filter_map(|cmd| Some(match cmd {
                 CfgCommand::Flag { flag, hotkey } => Box::new(Flag::new(
                     &flag.label,
                     (flag.getter)(chains).clone(),
@@ -125,6 +130,17 @@ impl Config {
                         .collect(),
                     hotkey.clone(),
                 )) as Box<dyn Widget>,
+                CfgCommand::SpecialFlag { flag, hotkey } if flag == "deathcam" => {
+                    Box::new(Deathcam::new(
+                        chains.deathcam.0.clone(),
+                        chains.deathcam.1.clone(),
+                        hotkey.clone(),
+                    ))
+                }
+                CfgCommand::SpecialFlag { flag, hotkey: _ } => {
+                    error!("Invalid flag {}", flag);
+                    return None;
+                }
                 CfgCommand::SavefileManager {
                     hotkey_load,
                     hotkey_back,
@@ -168,7 +184,7 @@ impl Config {
                 CfgCommand::Quitout { hotkey } => {
                     Box::new(Quitout::new(chains.quitout.clone(), hotkey.clone()))
                 }
-            })
+            }))
             .collect()
     }
 }

@@ -13,6 +13,8 @@ commands = [
   { flags = ["gravity", "torrent_gravity"], hotkey = "5", label = "No Gravity" },
   { flags = ["collision", "torrent_collision"], label = "No Collision" },
 
+  { flag = "deathcam", hotkey = "L" },
+
   { flag = "hitbox_high", hotkey = "F1" },
   { flag = "hitbox_low", hotkey = "F2" },
   { flag = "hitbox_character", hotkey = "F3" },
