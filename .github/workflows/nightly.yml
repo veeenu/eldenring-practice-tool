@@ -1,0 +1,22 @@
+name: Nightly Build
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          submodules: recursive
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: nightly
+          override: true
+          target: x86_64-pc-windows-msvc
+      - name: Build Rust
+        run: cargo xtask dist
+      - uses: actions/upload-artifact@v2
+        with:
+          name: jdsd-er-practice-tool
+          path: target/dist/jdsd_er_practice_tool.zip
