@@ -1,5 +1,8 @@
-name: Nightly Build
-on: [push]
+name: Build
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -18,5 +21,5 @@ jobs:
         run: cargo xtask dist
       - uses: actions/upload-artifact@v2
         with:
-          name: jdsd-er-practice-tool
+          name: jdsd_er_practice_tool
           path: target/dist/jdsd_er_practice_tool.zip
