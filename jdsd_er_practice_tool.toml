@@ -25,6 +25,7 @@ commands = [
 
   { position = "H", modifier = "rshift" },
   { position = "J", modifier = "rshift" },
+  { nudge = 0.25, nudge_up = "[", nudge_down = "]" },
   { cycle_speed = [1.0, 3.0, 6.0], hotkey = "6" },
   { runes = 10000, hotkey = "7" },
 

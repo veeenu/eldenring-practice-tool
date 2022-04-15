@@ -11,6 +11,7 @@ use crate::widgets::cycle_speed::CycleSpeed;
 use crate::widgets::deathcam::Deathcam;
 use crate::widgets::flag::Flag;
 use crate::widgets::multiflag::MultiFlag;
+use crate::widgets::nudge_pos::NudgePosition;
 // use crate::widgets::item_spawn::ItemSpawner;
 use crate::widgets::position::SavePosition;
 use crate::widgets::quitout::Quitout;
@@ -69,6 +70,11 @@ enum CfgCommand {
         hotkey: KeyState,
         modifier: KeyState,
     },
+    NudgePosition {
+        nudge: f32,
+        nudge_up: Option<KeyState>,
+        nudge_down: Option<KeyState>,
+    },
     CycleSpeed {
         #[serde(rename = "cycle_speed")]
         cycle_speed: Vec<f32>,
@@ -125,10 +131,7 @@ impl Config {
                     )) as Box<dyn Widget>,
                     CfgCommand::MultiFlag { flag, hotkey } => Box::new(MultiFlag::new(
                         &flag.label,
-                        flag.items
-                            .iter()
-                            .map(|flag| flag(chains).clone())
-                            .collect(),
+                        flag.items.iter().map(|flag| flag(chains).clone()).collect(),
                         hotkey.clone(),
                     ))
                         as Box<dyn Widget>,
@@ -181,6 +184,16 @@ impl Config {
                         chains.chunk_position.clone(),
                         hotkey.clone(),
                         modifier.clone(),
+                    )),
+                    CfgCommand::NudgePosition {
+                        nudge,
+                        nudge_up,
+                        nudge_down,
+                    } => Box::new(NudgePosition::new(
+                        chains.chunk_position.clone(),
+                        *nudge,
+                        nudge_up.clone(),
+                        nudge_down.clone(),
                     )),
                     CfgCommand::CycleSpeed {
                         cycle_speed,
@@ -314,24 +327,27 @@ impl TryFrom<String> for MultiFlagSpec {
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
         match value.as_str() {
-            "show_map" => Ok(MultiFlagSpec::new("Show/hide map", vec![
-                |c| &c.show_geom[0],
-                |c| &c.show_geom[1],
-                |c| &c.show_geom[2],
-                |c| &c.show_geom[3],
-                |c| &c.show_geom[4],
-                |c| &c.show_geom[5],
-                |c| &c.show_geom[6],
-                |c| &c.show_geom[7],
-                |c| &c.show_geom[8],
-                |c| &c.show_geom[9],
-                |c| &c.show_geom[10],
-                |c| &c.show_geom[11],
-                |c| &c.show_geom[12],
-                |c| &c.show_geom[13],
-                |c| &c.show_geom[14],
-                |c| &c.show_map,
-            ])),
+            "show_map" => Ok(MultiFlagSpec::new(
+                "Show/hide map",
+                vec![
+                    |c| &c.show_geom[0],
+                    |c| &c.show_geom[1],
+                    |c| &c.show_geom[2],
+                    |c| &c.show_geom[3],
+                    |c| &c.show_geom[4],
+                    |c| &c.show_geom[5],
+                    |c| &c.show_geom[6],
+                    |c| &c.show_geom[7],
+                    |c| &c.show_geom[8],
+                    |c| &c.show_geom[9],
+                    |c| &c.show_geom[10],
+                    |c| &c.show_geom[11],
+                    |c| &c.show_geom[12],
+                    |c| &c.show_geom[13],
+                    |c| &c.show_geom[14],
+                    |c| &c.show_map,
+                ],
+            )),
             e => Err(format!("\"{}\" is not a valid multiflag specifier", e)),
         }
     }
