@@ -44,9 +44,9 @@ pub struct Pointers {
 
     pub gravity: Bitflag<u8>,
     pub display_stable_pos: Bitflag<u8>,
-    pub position: Position,
+    pub global_position: Position,
     pub stable_position: Position,
-    pub world_position: Position,
+    pub chunk_position: Position,
     pub animation_speed: PointerChain<f32>,
     pub torrent_animation_speed: PointerChain<f32>,
 
@@ -88,7 +88,6 @@ impl Pointers {
             group_mask,
             hit_ins,
             world_chr_man,
-            bullet_man,
             ..
         } = match *crate::version::VERSION {
             Version::V1_02_0 => base_addresses::BASE_ADDRESSES_1_02_0,
@@ -132,7 +131,7 @@ impl Pointers {
             cursor_show: bitflag!(0b1; cs_menu_man_imp, 0xAC),
             gravity: bitflag!(0b1; world_chr_man, 0x18468, 0x190, 0x68, 0x1d3),
             display_stable_pos: bitflag!(0b1; world_chr_man, 0x18468, 0x6FD),
-            position: Position {
+            global_position: Position {
                 x: pointer_chain!(world_chr_man, 0x18468, 0x6b8),
                 y: pointer_chain!(world_chr_man, 0x18468, 0x6bc),
                 z: pointer_chain!(world_chr_man, 0x18468, 0x6c0),
@@ -144,7 +143,7 @@ impl Pointers {
                 z: pointer_chain!(world_chr_man, 0x18468, 0x6d4),
                 angle: pointer_chain!(world_chr_man, 0x18468, 0x6d8),
             },
-            world_position: Position {
+            chunk_position: Position {
                 x: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x70),
                 y: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x74),
                 z: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x78),

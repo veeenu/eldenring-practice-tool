@@ -6,16 +6,18 @@ use super::Widget;
 
 #[derive(Debug)]
 pub(crate) struct SavePosition {
-    pos: Position,
+    global_position: Position,
+    chunk_position: Position,
     hotkey: KeyState,
     modifier: KeyState,
     saved_position: [f32; 4],
 }
 
 impl SavePosition {
-    pub(crate) fn new(pos: Position, hotkey: KeyState, modifier: KeyState) -> Self {
+    pub(crate) fn new(global_position: Position, chunk_position: Position, hotkey: KeyState, modifier: KeyState) -> Self {
         SavePosition {
-            pos,
+            global_position,
+            chunk_position,
             hotkey,
             modifier,
             saved_position: [0f32; 4],
@@ -24,31 +26,45 @@ impl SavePosition {
 
     fn save_position(&mut self) {
         if let (Some(x), Some(y), Some(z), Some(angle)) = (
-            self.pos.x.read(),
-            self.pos.y.read(),
-            self.pos.z.read(),
-            self.pos.angle.read(),
+            self.global_position.x.read(),
+            self.global_position.y.read(),
+            self.global_position.z.read(),
+            self.global_position.angle.read(),
         ) {
             self.saved_position = [x, y, z, angle];
         }
     }
 
     fn load_position(&mut self) {
-        let [x, y, z, angle] = self.saved_position;
-        self.pos.x.write(x);
-        self.pos.y.write(y);
-        self.pos.z.write(z);
-        self.pos.angle.write(angle);
+        let [sx, sy, sz, sr] = self.saved_position;
+        if let (Some(gx), Some(gy), Some(gz), Some(gr),
+            Some(cx), Some(cy), Some(cz), Some(cr),
+
+            ) = (
+            self.global_position.x.read(),
+            self.global_position.y.read(),
+            self.global_position.z.read(),
+            self.global_position.angle.read(),
+            self.chunk_position.x.read(),
+            self.chunk_position.y.read(),
+            self.chunk_position.z.read(),
+            self.chunk_position.angle.read(),
+        ) {
+            self.chunk_position.x.write(sx - gx + cx);
+            self.chunk_position.y.write(sy - gy + cy);
+            self.chunk_position.z.write(sz - gz + cz);
+            self.chunk_position.angle.write(sr - gr + cr);
+        }
     }
 }
 
 impl Widget for SavePosition {
     fn render(&mut self, ui: &imgui::Ui) {
         let (x, y, z, angle) = (
-            self.pos.x.read(),
-            self.pos.y.read(),
-            self.pos.z.read(),
-            self.pos.angle.read(),
+            self.global_position.x.read(),
+            self.global_position.y.read(),
+            self.global_position.z.read(),
+            self.global_position.angle.read(),
         );
         let saved_pos = self.saved_position;
 
