@@ -2,7 +2,7 @@ use libeldenring::prelude::*;
 
 use std::str::FromStr;
 
-use log::{LevelFilter, error};
+use log::{error, LevelFilter};
 use serde::Deserialize;
 
 use crate::util;
@@ -51,11 +51,15 @@ enum CfgCommand {
         flag: FlagSpec,
         hotkey: Option<KeyState>,
     },
+    MultiFlag {
+        flag: MultiFlagSpec,
+        hotkey: Option<KeyState>,
+    },
     SpecialFlag {
         flag: String,
         hotkey: Option<KeyState>,
     },
-    MultiFlag {
+    MultiFlagUser {
         flags: Vec<FlagSpec>,
         hotkey: Option<KeyState>,
         label: String,
@@ -112,80 +116,91 @@ impl Config {
     pub(crate) fn make_commands(&self, chains: &Pointers) -> Vec<Box<dyn Widget>> {
         self.commands
             .iter()
-            .filter_map(|cmd| Some(match cmd {
-                CfgCommand::Flag { flag, hotkey } => Box::new(Flag::new(
-                    &flag.label,
-                    (flag.getter)(chains).clone(),
-                    hotkey.clone(),
-                )) as Box<dyn Widget>,
-                CfgCommand::MultiFlag {
-                    flags,
-                    hotkey,
-                    label,
-                } => Box::new(MultiFlag::new(
-                    label,
-                    flags
-                        .iter()
-                        .map(|flag| (flag.getter)(chains).clone())
-                        .collect(),
-                    hotkey.clone(),
-                )) as Box<dyn Widget>,
-                CfgCommand::SpecialFlag { flag, hotkey } if flag == "deathcam" => {
-                    Box::new(Deathcam::new(
-                        chains.deathcam.0.clone(),
-                        chains.deathcam.1.clone(),
+            .filter_map(|cmd| {
+                Some(match cmd {
+                    CfgCommand::Flag { flag, hotkey } => Box::new(Flag::new(
+                        &flag.label,
+                        (flag.getter)(chains).clone(),
+                        hotkey.clone(),
+                    )) as Box<dyn Widget>,
+                    CfgCommand::MultiFlag { flag, hotkey } => Box::new(MultiFlag::new(
+                        &flag.label,
+                        flag.items
+                            .iter()
+                            .map(|flag| flag(chains).clone())
+                            .collect(),
                         hotkey.clone(),
                     ))
-                }
-                CfgCommand::SpecialFlag { flag, hotkey: _ } => {
-                    error!("Invalid flag {}", flag);
-                    return None;
-                }
-                CfgCommand::SavefileManager {
-                    hotkey_load,
-                    hotkey_back,
-                    hotkey_close,
-                } => SavefileManager::new_widget(
-                    hotkey_load.clone(),
-                    hotkey_back.clone(),
-                    hotkey_close.clone(),
-                ),
-                // CfgCommand::ItemSpawner {
-                //     hotkey_load,
-                //     hotkey_back,
-                //     hotkey_close,
-                // } => Box::new(ItemSpawner::new(
-                //     chains.spawn_item_func_ptr,
-                //     chains.map_item_man,
-                //     chains.gravity.clone(),
-                //     hotkey_load.clone(),
-                //     hotkey_back.clone(),
-                //     hotkey_close.clone(),
-                // )),
-                CfgCommand::Position { hotkey, modifier } => Box::new(SavePosition::new(
-                    chains.global_position.clone(),
-                    chains.chunk_position.clone(),
-                    hotkey.clone(),
-                    modifier.clone(),
-                )),
-                CfgCommand::CycleSpeed {
-                    cycle_speed,
-                    hotkey,
-                } => Box::new(CycleSpeed::new(
-                    cycle_speed,
-                    [
-                        chains.animation_speed.clone(),
-                        chains.torrent_animation_speed.clone(),
-                    ],
-                    hotkey.clone(),
-                )),
-                CfgCommand::Runes { amount, hotkey } => {
-                    Box::new(Runes::new(*amount, chains.runes.clone(), hotkey.clone()))
-                }
-                CfgCommand::Quitout { hotkey } => {
-                    Box::new(Quitout::new(chains.quitout.clone(), hotkey.clone()))
-                }
-            }))
+                        as Box<dyn Widget>,
+                    CfgCommand::MultiFlagUser {
+                        flags,
+                        hotkey,
+                        label,
+                    } => Box::new(MultiFlag::new(
+                        label,
+                        flags
+                            .iter()
+                            .map(|flag| (flag.getter)(chains).clone())
+                            .collect(),
+                        hotkey.clone(),
+                    )) as Box<dyn Widget>,
+                    CfgCommand::SpecialFlag { flag, hotkey } if flag == "deathcam" => {
+                        Box::new(Deathcam::new(
+                            chains.deathcam.0.clone(),
+                            chains.deathcam.1.clone(),
+                            hotkey.clone(),
+                        ))
+                    }
+                    CfgCommand::SpecialFlag { flag, hotkey: _ } => {
+                        error!("Invalid flag {}", flag);
+                        return None;
+                    }
+                    CfgCommand::SavefileManager {
+                        hotkey_load,
+                        hotkey_back,
+                        hotkey_close,
+                    } => SavefileManager::new_widget(
+                        hotkey_load.clone(),
+                        hotkey_back.clone(),
+                        hotkey_close.clone(),
+                    ),
+                    // CfgCommand::ItemSpawner {
+                    //     hotkey_load,
+                    //     hotkey_back,
+                    //     hotkey_close,
+                    // } => Box::new(ItemSpawner::new(
+                    //     chains.spawn_item_func_ptr,
+                    //     chains.map_item_man,
+                    //     chains.gravity.clone(),
+                    //     hotkey_load.clone(),
+                    //     hotkey_back.clone(),
+                    //     hotkey_close.clone(),
+                    // )),
+                    CfgCommand::Position { hotkey, modifier } => Box::new(SavePosition::new(
+                        chains.global_position.clone(),
+                        chains.chunk_position.clone(),
+                        hotkey.clone(),
+                        modifier.clone(),
+                    )),
+                    CfgCommand::CycleSpeed {
+                        cycle_speed,
+                        hotkey,
+                    } => Box::new(CycleSpeed::new(
+                        cycle_speed,
+                        [
+                            chains.animation_speed.clone(),
+                            chains.torrent_animation_speed.clone(),
+                        ],
+                        hotkey.clone(),
+                    )),
+                    CfgCommand::Runes { amount, hotkey } => {
+                        Box::new(Runes::new(*amount, chains.runes.clone(), hotkey.clone()))
+                    }
+                    CfgCommand::Quitout { hotkey } => {
+                        Box::new(Quitout::new(chains.quitout.clone(), hotkey.clone()))
+                    }
+                })
+            })
             .collect()
     }
 }
@@ -265,10 +280,60 @@ impl TryFrom<String> for FlagSpec {
                 (field_area_direction, "Direction HUD"),
                 (field_area_altimeter, "Altimeter HUD"),
                 (field_area_compass, "Compass HUD"),
-                (show_map, "Show/hide map"),
+                // (show_map, "Show/hide map"),
                 (show_chr, "Show/hide character"),
             ]
         )
+    }
+}
+
+#[derive(Deserialize)]
+#[serde(try_from = "String")]
+struct MultiFlagSpec {
+    label: String,
+    items: Vec<fn(&Pointers) -> &Bitflag<u8>>,
+}
+
+impl std::fmt::Debug for MultiFlagSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "FlagSpec {{ label: {:?} }}", self.label)
+    }
+}
+
+impl MultiFlagSpec {
+    fn new(label: &str, items: Vec<fn(&Pointers) -> &Bitflag<u8>>) -> MultiFlagSpec {
+        MultiFlagSpec {
+            label: label.to_string(),
+            items,
+        }
+    }
+}
+
+impl TryFrom<String> for MultiFlagSpec {
+    type Error = String;
+
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        match value.as_str() {
+            "show_map" => Ok(MultiFlagSpec::new("Show/hide map", vec![
+                |c| &c.show_geom[0],
+                |c| &c.show_geom[1],
+                |c| &c.show_geom[2],
+                |c| &c.show_geom[3],
+                |c| &c.show_geom[4],
+                |c| &c.show_geom[5],
+                |c| &c.show_geom[6],
+                |c| &c.show_geom[7],
+                |c| &c.show_geom[8],
+                |c| &c.show_geom[9],
+                |c| &c.show_geom[10],
+                |c| &c.show_geom[11],
+                |c| &c.show_geom[12],
+                |c| &c.show_geom[13],
+                |c| &c.show_geom[14],
+                |c| &c.show_map,
+            ])),
+            e => Err(format!("\"{}\" is not a valid multiflag specifier", e)),
+        }
     }
 }
 
