@@ -4,6 +4,7 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 use imgui::{ChildWindow, Condition, ListBox, PopupModal, Selectable, WindowFlags};
+use log::error;
 
 use crate::util::{get_key_code, KeyState};
 
@@ -92,20 +93,23 @@ impl SavefileManager {
     }
 
     fn load_savefile(&mut self) {
-        let src_path = self.dir_stack.current();
-        if src_path.is_file() {
-            self.log = match load_savefile(src_path, &self.savefile_path) {
-                Ok(()) => Some(format!(
-                    "Loaded {}/{}",
-                    if self.breadcrumbs == "/" {
-                        ""
-                    } else {
-                        &self.breadcrumbs
-                    },
-                    src_path.file_name().unwrap().to_str().unwrap()
-                )),
-                Err(e) => Some(format!("Error loading savefile: {}", e)),
-            };
+        if let Some(src_path) = self.dir_stack.current() {
+            if src_path.is_file() {
+                self.log = match load_savefile(src_path, &self.savefile_path) {
+                    Ok(()) => Some(format!(
+                        "Loaded {}/{}",
+                        if self.breadcrumbs == "/" {
+                            ""
+                        } else {
+                            &self.breadcrumbs
+                        },
+                        src_path.file_name().unwrap().to_str().unwrap()
+                    )),
+                    Err(e) => Some(format!("Error loading savefile: {}", e)),
+                };
+            }
+        } else {
+            error!("No current path! Can't load savefile.");
         }
     }
 
@@ -118,8 +122,7 @@ impl SavefileManager {
             self.log = Some(String::from("Savefile name cannot contain path separator"));
             return;
         }
-        let mut dst_path = self.dir_stack.current().clone();
-        dst_path.pop();
+        let mut dst_path = PathBuf::from(self.dir_stack.path());
         dst_path.push(&self.savefile_name);
         self.log = match import_savefile(&dst_path, &self.savefile_path) {
             Ok(()) => {
@@ -323,8 +326,8 @@ impl DirEntry {
             .map(|(i, f)| (i, i == self.cursor, f.1.as_str()))
     }
 
-    fn current(&self) -> &PathBuf {
-        &self.list[self.cursor].0
+    fn current(&self) -> Option<&PathBuf> {
+        self.list.get(self.cursor).as_ref().map(|i| &i.0)
     }
 
     fn path(&self) -> &PathBuf {
@@ -361,17 +364,18 @@ impl DirStack {
     }
 
     fn enter(&mut self) {
-        let new_entry = {
-            let current_entry = self.stack.last().unwrap_or(&self.top).current();
-            if current_entry.is_dir() {
-                Some(DirEntry::new(current_entry))
-            } else {
-                None
-            }
-        };
+        let new_entry = self
+            .stack
+            .last()
+            .unwrap_or(&self.top)
+            .current()
+            .filter(|current_entry| current_entry.is_dir())
+            .map(|current_entry| DirEntry::new(current_entry));
 
         if let Some(e) = new_entry {
             self.stack.push(e);
+        } else {
+            error!("Can't enter!");
         }
     }
 
@@ -401,7 +405,7 @@ impl DirStack {
         self.stack.last().unwrap_or(&self.top).values()
     }
 
-    fn current(&self) -> &PathBuf {
+    fn current(&self) -> Option<&PathBuf> {
         self.stack.last().unwrap_or(&self.top).current()
     }
 
