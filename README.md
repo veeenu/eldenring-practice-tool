@@ -1,7 +1,8 @@
 # eldenring-practice-tool
 
 A tool for practicing speedruns. It is compatible with all Elden Ring patches.
-Made with ❤️ by [johndisandonato](https://twitch.tv/johndisandonato) .
+
+Made with ❤️ by [johndisandonato](https://twitch.tv/johndisandonato).
 
 To run the tool, extract all files from the zip archive and double-click the
 `.exe` file he tool will automatically appear over the game, and it can be
@@ -53,18 +54,20 @@ Sure! See you over here 👉 [https://twitch.tv/johndisandonato](https://twitch.
   [Param definitions](https://github.com/soulsmods/Paramdex) and the
   Cheat Engine table maintained by Pav.
 - Pav and wasted for technical help in figuring out pointers.
-- [curiouspeanut](https://www.twitch.tv/curiouspeanut), [Weider96](https://www.twitch.tv/weider96),
-  [Siegbruh](https://twitch.tv/siegbruh), [catalystz](https://www.twitch.tv/catalystz) for beta
-  testing the tool.
+- [curiouspeanut](https://twitch.tv/curiouspeanut), [Weider96](https://twitch.tv/weider96),
+  [Siegbruh](https://twitch.tv/siegbruh), [catalystz](https://twitch.tv/catalystz),
+  [danisangb](https://twitch.tv/danisangb), [GiantCookieJar](https://twitch.tv/GiantCookieJar),
+  [Ahady](https://twitch.tv/ahady), [Gin](https://twitch.tv/g1nnz)
+  for beta testing the tool.
 
 ## Development
 
 You will need:
 
-- A recent (Rust nightly)[https://rustup.rs/]
-- The (MSVC toolchain)[https://visualstudio.microsoft.com/vs/features/cplusplus/]
+- A recent [Rust nightly](https://rustup.rs/)
+- The [MSVC toolchain](https://visualstudio.microsoft.com/vs/features/cplusplus/)
 
-Most building functions are exposed by the (xtasks)[https://github.com/matklad/cargo-xtask].
+Most building functions are exposed by the [xtasks](https://github.com/matklad/cargo-xtask).
 
 ### Run the tool
 
