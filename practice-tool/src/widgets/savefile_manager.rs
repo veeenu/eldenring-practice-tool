@@ -240,7 +240,7 @@ impl Widget for SavefileManager {
 
             ui.separator();
 
-            if ui.button_with_size("Show folder", [240., 20.]) || self.key_close.keyup() {
+            if ui.button_with_size("Show folder", [240., 20.]) {
                 if let Err(e) = Command::new("explorer.exe")
                     .arg(OsStr::new(self.dir_stack.path().to_str().unwrap()))
                     .spawn()

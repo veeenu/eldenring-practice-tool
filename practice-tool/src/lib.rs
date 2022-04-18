@@ -121,7 +121,7 @@ impl PracticeTool {
                 for w in self.widgets.iter_mut() {
                     w.render(ui);
                 }
-                if flags.focused {
+                if flags.focused && !ui.io().want_capture_keyboard && !ui.io().want_capture_mouse {
                     for w in self.widgets.iter_mut() {
                         w.interact();
                     }
@@ -197,9 +197,11 @@ impl PracticeTool {
                         }
                         ui.same_line();
                         if ui.button("Submit issue") {
-                            open::that("https://github.com/veeenu/eldenring-practice-tool/issues/new").ok();
+                            open::that(
+                                "https://github.com/veeenu/eldenring-practice-tool/issues/new",
+                            )
+                            .ok();
                         }
-
                     });
 
                 if let Some(igt) = self.pointers.igt.read() {
@@ -214,7 +216,7 @@ impl PracticeTool {
                     ));
                 }
 
-                if flags.focused {
+                if flags.focused && !ui.io().want_capture_keyboard && !ui.io().want_capture_mouse {
                     for w in self.widgets.iter_mut() {
                         w.interact();
                     }
@@ -268,7 +270,11 @@ impl PracticeTool {
 
 impl ImguiRenderLoop for PracticeTool {
     fn render(&mut self, ui: &mut imgui::Ui, flags: &ImguiRenderLoopFlags) {
-        if flags.focused && self.config.settings.display.keyup() {
+        if flags.focused
+            && !ui.io().want_capture_keyboard
+            && !ui.io().want_capture_mouse
+            && self.config.settings.display.keyup()
+        {
             self.is_shown = !self.is_shown;
             if !self.is_shown {
                 self.pointers.cursor_show.set(false);
