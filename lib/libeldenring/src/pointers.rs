@@ -97,6 +97,7 @@ impl Pointers {
             Version::V1_03_0 => base_addresses::BASE_ADDRESSES_1_03_0,
             Version::V1_03_1 => base_addresses::BASE_ADDRESSES_1_03_1,
             Version::V1_03_2 => base_addresses::BASE_ADDRESSES_1_03_2,
+            Version::V1_04_0 => base_addresses::BASE_ADDRESSES_1_04_0,
         }
         .with_module_base_addr(base_module_address);
 

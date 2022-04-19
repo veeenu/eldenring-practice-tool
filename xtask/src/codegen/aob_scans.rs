@@ -1,3 +1,4 @@
+use std::collections::HashSet;
 use std::env;
 use std::ffi::c_void;
 use std::fs::File;
@@ -27,7 +28,7 @@ const AOBS: &[(&str, &str)] = &[
     ("ChrDbgFlags", "?? 80 3D ?? ?? ?? ?? 00 0F 85 ?? ?? ?? ?? 32 C0 48"),
     ("CSFD4VirtualMemoryFlag", "48 8B 3D ?? ?? ?? ?? 48 85 FF 74 ?? 48 8B 49"),
     ("CSFlipper", "48 8B 0D ?? ?? ?? ?? 80 BB D7 00 00 00 00 0F 84 CE 00 00 00 48 85 C9 75 2E"),
-    ("CSLuaEventManager", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 ?? 41 BE 01 00 00 00 44 89 74"),
+    // ("CSLuaEventManager", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 ?? 41 BE 01 00 00 00 44 89 74"),
     ("CSMenuMan", "E8 ?? ?? ?? ?? 4C 8B F8 48 85 C0 0F 84 ?? ?? ?? ?? 48 8B 0D"),
     ("CSMenuManImp", "48 8B 0D ?? ?? ?? ?? 48 8B 49 08 E8 ?? ?? ?? ?? 48 8B D0 48 8B CE E8 ?? ?? ?? ??"),
     ("CSNetMan", "48 8B 0D ?? ?? ?? ?? 48 85 C9 74 5E 48 8B 89 ?? ?? ?? ?? B2 01"),
@@ -36,18 +37,20 @@ const AOBS: &[(&str, &str)] = &[
     ("DamageCtrl", "48 8B 05 ?? ?? ?? ?? 49 8B D9 49 8B F8 48 8B F2 48 85 C0 75 2E"),
     ("FieldArea", "48 8B 3D ?? ?? ?? ?? 48 85 FF 0F 84 ?? ?? ?? ?? 45 38 66 34"),
     ("GameDataMan", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 05 48 8B 40 58 C3 C3"),
-    ("GameMan", "48 8B 15 ?? ?? ?? ?? 41 B0 01 48 8B 0D ?? ?? ?? ?? 48 81 C2 10 0E 00 00"),
+    ("GameMan", "48 8B 1D ?? ?? ?? ?? 48 8B F8 48 85 DB 74 18 4C 8B 03"),
     ("GroupMask", "?? 80 3D ?? ?? ?? ?? 00 0F 10 00 0F 11 45 D0 0F 84 ?? ?? ?? ?? 80 3D"),
     ("HitIns", "48 8B 05 ?? ?? ?? ?? 48 8D 4C 24 ?? 48 89 4c 24 ?? 0F 10 44 24 70"),
+    // ("HitIns", "48 8D 05 ?? ?? ?? ?? 48 89 01 48 8B 0D ?? ?? ?? ?? 48 85 C9"),
     ("MapItemMan", "48 8B 0D ?? ?? ?? ?? C7 44 24 50 FF FF FF FF C7 45 A0 FF FF FF FF 48 85 C9 75 2E"),
     ("MenuManIns", "48 8b 0d ?? ?? ?? ?? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b"),
     ("MsgRepository", "48 8B 3D ?? ?? ?? ?? 44 0F B6 30 48 85 FF 75 26"),
     ("SoloParamRepository", "48 8B 0D ?? ?? ?? ?? 48 85 C9 0F 84 ?? ?? ?? ?? 45 33 C0 BA 8D 00 00 00 E8"),
     ("WorldChrMan", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 0F 48 39 88 ?? ?? ?? ?? 75 06 89 B1 5C 03 00 00 0F 28 05 ?? ?? ?? ?? 4C 8D 45 E7"),
     ("WorldChrManDbg", "48 8B 0D ?? ?? ?? ?? 89 5C 24 20 48 85 C9 74 12 B8 ?? ?? ?? ?? 8B D8"),
-    ("WorldChrManImp", "48 8b 05 ?? ?? ?? ?? 48 89 98 70 84 01 00 4c 89 ab 74 06 00 00 4c 89 ab 7c 06 00 00 44 88 ab 84 06 00 00 41 83 7f 4c 00"),
+    ("WorldChrManImp", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 0F 48 39 88 ?? ?? ?? ?? 75 06 89 B1 5C 03 00 00 0F 28 05 ?? ?? ?? ?? 4C 8D 45 E7")
 ];
 
+#[derive(PartialEq, Eq, Hash)]
 pub struct Version(u32, u32, u32);
 
 impl Version {
@@ -317,16 +320,24 @@ fn codegen_base_addresses_path() -> PathBuf {
 }
 
 pub(crate) fn get_base_addresses() {
+    let mut processed_versions: HashSet<Version> = HashSet::new();
+
     let codegen = patches_paths()
         .filter(|p| p.exists())
-        .map(|exe| {
-            let version = get_file_version(&exe);
-            let exe = exe.canonicalize().unwrap();
-            println!("\nVERSION {}: {:?}", version.to_fromsoft_string(), exe);
+        .filter_map(|exe| {
+            let version = get_file_version(&exe); 
+            if processed_versions.contains(&version) {
+                None
+            } else {
+                let exe = exe.canonicalize().unwrap();
+                println!("\nVERSION {}: {:?}", version.to_fromsoft_string(), exe);
 
-            let (_base_addr, bytes) = get_base_module_bytes(&exe).unwrap();
-            let mem_aobs = find_aobs(bytes);
-            codegen_version(&version, &mem_aobs)
+                let (_base_addr, bytes) = get_base_module_bytes(&exe).unwrap();
+                let mem_aobs = find_aobs(bytes);
+                let codegen = codegen_version(&version, &mem_aobs);
+                processed_versions.insert(version);
+                Some(codegen)
+            }
         })
         .fold(codegen_struct(), |mut o, i| {
             o.push_str(&i);

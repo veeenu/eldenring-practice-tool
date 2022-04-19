@@ -18,6 +18,7 @@ pub enum Version {
     V1_03_0,
     V1_03_1,
     V1_03_2,
+    V1_04_0,
 }
 
 pub static VERSION: SyncLazy<Version> = SyncLazy::new(get_version);
@@ -32,6 +33,7 @@ impl From<(u32, u32, u32)> for Version {
             (1, 3, 0) => Version::V1_03_0,
             (1, 3, 1) => Version::V1_03_1,
             (1, 3, 2) => Version::V1_03_2,
+            (1, 4, 0) => Version::V1_04_0,
             _ => {
                 error!("Unrecognized version {}.{:02}.{}", v.0, v.1, v.2);
                 panic!()
