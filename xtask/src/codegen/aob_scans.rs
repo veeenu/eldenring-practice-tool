@@ -40,7 +40,6 @@ const AOBS: &[(&str, &str)] = &[
     ("GameMan", "48 8B 1D ?? ?? ?? ?? 48 8B F8 48 85 DB 74 18 4C 8B 03"),
     ("GroupMask", "?? 80 3D ?? ?? ?? ?? 00 0F 10 00 0F 11 45 D0 0F 84 ?? ?? ?? ?? 80 3D"),
     ("HitIns", "48 8B 05 ?? ?? ?? ?? 48 8D 4C 24 ?? 48 89 4c 24 ?? 0F 10 44 24 70"),
-    // ("HitIns", "48 8D 05 ?? ?? ?? ?? 48 89 01 48 8B 0D ?? ?? ?? ?? 48 85 C9"),
     ("MapItemMan", "48 8B 0D ?? ?? ?? ?? C7 44 24 50 FF FF FF FF C7 45 A0 FF FF FF FF 48 85 C9 75 2E"),
     ("MenuManIns", "48 8b 0d ?? ?? ?? ?? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b"),
     ("MsgRepository", "48 8B 3D ?? ?? ?? ?? 44 0F B6 30 48 85 FF 75 26"),
@@ -316,6 +315,7 @@ fn codegen_base_addresses_path() -> PathBuf {
         .join("lib")
         .join("libeldenring")
         .join("src")
+        .join("codegen")
         .join("base_addresses.rs")
 }
 

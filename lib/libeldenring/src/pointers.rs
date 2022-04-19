@@ -5,7 +5,7 @@ use std::ptr::null_mut;
 use windows::core::PCSTR;
 use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 
-use crate::base_addresses::{self, BaseAddresses};
+use crate::codegen::base_addresses::{self, BaseAddresses};
 use crate::memedit::*;
 use crate::prelude::Version;
 
