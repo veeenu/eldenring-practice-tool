@@ -33,7 +33,7 @@ fn run_python_script() -> Result<()> {
         return Err("python codegen failed".into());
     }
 
-    File::create(project_root().join("lib/libeldenring/src/params/param_data.rs"))?
+    File::create(project_root().join("lib/libeldenring/src/codegen/param_data.rs"))?
         .write_all(&cmd.stdout)?;
 
     Ok(())
@@ -77,7 +77,7 @@ fn codegen_param_names() -> Result<()> {
     }
 
     serde_json::to_writer(
-        File::create(project_root().join("lib/libds3/src/params/param_names.json"))?,
+        File::create(project_root().join("lib/libeldenring/src/codegen/param_names.json"))?,
         &data,
     )?;
 

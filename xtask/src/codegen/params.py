@@ -36,6 +36,10 @@ def to_snake_case(s):
     return SNAKECASE_CLEAN_RE.sub('_', SNAKECASE_RE.sub(r'_\1', s).lower())
 
 
+def to_camel_case(s):
+    return ''.join(i.title() for i in s.split('_'))
+
+
 def to_slug(s):
     return SLUG_RE.sub('', s).lower()
 
@@ -51,10 +55,10 @@ def build_param_layouts(paramdex_path, xtask_path):
     )
 
     # Param names from the game's memory
-    param_names = dict(
-        (to_slug(i), i)
-        for i in (xtask_path / 'src' / 'param_names.txt').read_text().splitlines()
-    )
+    # param_names = dict(
+    #     (to_slug(i), i)
+    #     for i in (xtask_path / 'src' / 'param_names.txt').read_text().splitlines()
+    # )
 
     # Manual corrections
     xml_files['atkparampc'] = xml_files['atkparam']
@@ -62,50 +66,56 @@ def build_param_layouts(paramdex_path, xtask_path):
     xml_files['behaviorparampc'] = xml_files['behaviorparam']
     xml_files['bullet'] = xml_files['bulletparam']
     xml_files['ceremony'] = xml_files['ceremonyparam']
-    xml_files['charainitparam'] = xml_files['characterinitparam']
-    xml_files['calccorrectgraph'] = xml_files['caclcorrectgraph']
+    # xml_files['charainitparam'] = xml_files['characterinitparam']
+    # xml_files['calccorrectgraph'] = xml_files['caclcorrectgraph']
     xml_files['hpestusflaskrecoveryparam'] = xml_files['estusflaskrecoveryparam']
     xml_files['mpestusflaskrecoveryparam'] = xml_files['estusflaskrecoveryparam']
-    xml_files['lodparam'] = xml_files['lodbank']
-    xml_files['lodparamps'] = xml_files['lodbank']
-    xml_files['lodparamxb'] = xml_files['lodbank']
+    # xml_files['lodparam'] = xml_files['lodbank']
+    # xml_files['lodparamps'] = xml_files['lodbank']
+    # xml_files['lodparamxb'] = xml_files['lodbank']
     xml_files['magic'] = xml_files['magicparam']
-    xml_files['menupropertylayoutparam'] = xml_files['menupropertylayout']
-    xml_files['menupropertyspecparam'] = xml_files['menupropertyspec']
-    xml_files['menuvaluetableparam'] = xml_files['menuvaluetablespec']
+    # xml_files['menupropertylayoutparam'] = xml_files['menupropertylayout']
+    # xml_files['menupropertyspecparam'] = xml_files['menupropertyspec']
+    # xml_files['menuvaluetableparam'] = xml_files['menuvaluetablespec']
     xml_files['multihpestusflaskbonusparam'] = xml_files['multiestusflaskbonusparam']
     xml_files['multimpestusflaskbonusparam'] = xml_files['multiestusflaskbonusparam']
     xml_files['newmenucolortableparam'] = xml_files['menuparamcolortable']
-    xml_files['throwparam'] = xml_files['throwinfobank']
-    xml_files['wind'] = xml_files['windparam']
+    # xml_files['throwparam'] = xml_files['throwinfobank']
+    # xml_files['wind'] = xml_files['windparam']
+
+    # print(xml_files.keys())
 
     del xml_files['atkparam']
     del xml_files['bulletparam']
     del xml_files['ceremonyparam']
-    del xml_files['characterinitparam']
-    del xml_files['caclcorrectgraph']
+    # del xml_files['characterinitparam']
+    # del xml_files['caclcorrectgraph']
     del xml_files['estusflaskrecoveryparam']
-    del xml_files['lodbank']
+    # del xml_files['lodbank']
     del xml_files['magicparam']
-    del xml_files['menupropertylayout']
-    del xml_files['menupropertyspec']
-    del xml_files['menuvaluetablespec']
+    # del xml_files['menupropertylayout']
+    # del xml_files['menupropertyspec']
+    # del xml_files['menuvaluetablespec']
     del xml_files['multiestusflaskbonusparam']
     del xml_files['menuparamcolortable']
-    del xml_files['throwinfobank']
-    del xml_files['windparam']
+    # del xml_files['throwinfobank']
+    # del xml_files['windparam']
 
-    assert(xml_files.keys() == param_names.keys())
+    # Currently broken
+    del xml_files['defaultkeyassign']
+
+    # assert(xml_files.keys() == param_names.keys())
 
     return [
-        ParamLayout(name=param_names[i], layout=xml_files[i])
-        for i in param_names.keys()
+        ParamLayout(name=i, layout=xml_files[i])
+        for i in xml_files.keys()
     ]
 
 
 class ParamLayout:
     def __init__(self, name, layout):
         self.name = name
+        # self.name = to_camel_case(pd.read_xml(layout)['ParamType'][0])
         self.name_snake_case = to_snake_case(name)
         self.fields = ParamLayout.dedup_fields(ParamLayout.group_bitfields([
             Field(i) for i in pd.read_xml(layout, xpath='./Fields/*')['Def']
@@ -205,13 +215,17 @@ class Field:
         elif matches := Field.def_bitfield_re.match(definition):
             self.kind = 'bitfield'
             self.name = matches.group(2)
-            self.type = matches.group(1)
+            self.type = Field.type_map.get(matches.group(1))
             if self.type == 'u8':
                 self.size = 8
             elif self.type == 'u16':
                 self.size = 16
             elif self.type == 'u32':
                 self.size = 32
+            elif self.type == 'u64':
+                self.size = 64
+            else:
+                print(f'[{self.type}]')
         elif matches := Field.def_basic_re.match(definition):
             self.kind = 'normal'
             self.name = matches.group(2)
@@ -234,10 +248,11 @@ if __name__ == '__main__':
     print('// **********************************')
     print('// *** AUTOGENERATED, DO NOT EDIT ***')
     print('// **********************************')
-    print('use super::*;')
+    print('use crate::params::*;')
+    print('use crate::prelude::*;')
     print('use std::collections::HashMap;')
+    print('use std::ffi::c_void;')
     print('use std::lazy::SyncLazy;')
-    print('use crate::{ParamVisitor, ParamStruct};')
     print('use macro_param::ParamStruct;')
 
     print('''

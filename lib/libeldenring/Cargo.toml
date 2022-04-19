@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+macro-param = { path = "../macro-param" }
 log = "0.4.16"
 widestring = "0.5.1"
 windows = { version = "0.34.0", features = [
@@ -14,3 +15,6 @@ windows = { version = "0.34.0", features = [
   "Win32_System_ProcessStatus",
   "Win32_System_Threading",
 ] }
+serde = "1.0.136"
+serde_json = "1.0.79"
+parking_lot = "0.12.0"
