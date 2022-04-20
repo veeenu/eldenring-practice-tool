@@ -86,7 +86,7 @@ impl Pointers {
             field_area,
             game_data_man,
             group_mask,
-            hit_ins,
+            hit_ins_hitbox_offset,
             world_chr_man,
             ..
         } = match *crate::version::VERSION {
@@ -100,6 +100,16 @@ impl Pointers {
             Version::V1_04_0 => base_addresses::BASE_ADDRESSES_1_04_0,
         }
         .with_module_base_addr(base_module_address);
+
+        // Special cases
+
+        let global_position_offset = {
+            use Version::*;
+            match *crate::version::VERSION {
+                V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6b8,
+                V1_04_0 => 0x6b0,
+            }
+        };
 
         Self {
             one_shot: bitflag!(0b1; chr_dbg_flags + 0x3),
@@ -133,17 +143,29 @@ impl Pointers {
             gravity: bitflag!(0b1; world_chr_man, 0x18468, 0x190, 0x68, 0x1d3),
             display_stable_pos: bitflag!(0b1; world_chr_man, 0x18468, 0x6FD),
             global_position: Position {
-                x: pointer_chain!(world_chr_man, 0x18468, 0x6b8),
-                y: pointer_chain!(world_chr_man, 0x18468, 0x6bc),
-                z: pointer_chain!(world_chr_man, 0x18468, 0x6c0),
-                angle: pointer_chain!(world_chr_man, 0x18468, 0x6c4),
+                x: pointer_chain!(world_chr_man, 0x18468, global_position_offset),
+                y: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x4),
+                z: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x8),
+                angle: pointer_chain!(world_chr_man, 0x18468, 0x6bc),
             },
             stable_position: Position {
-                x: pointer_chain!(world_chr_man, 0x18468, 0x6cc),
-                y: pointer_chain!(world_chr_man, 0x18468, 0x6d0),
-                z: pointer_chain!(world_chr_man, 0x18468, 0x6d4),
+                x: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x14),
+                y: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x18),
+                z: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x1C),
                 angle: pointer_chain!(world_chr_man, 0x18468, 0x6d8),
             },
+            // global_position: Position {
+            //     x: pointer_chain!(world_chr_man, 0x18468, 0x6b8),
+            //     y: pointer_chain!(world_chr_man, 0x18468, 0x6bc),
+            //     z: pointer_chain!(world_chr_man, 0x18468, 0x6c0),
+            //     angle: pointer_chain!(world_chr_man, 0x18468, 0x6c4),
+            // },
+            // stable_position: Position {
+            //     x: pointer_chain!(world_chr_man, 0x18468, 0x6cc),
+            //     y: pointer_chain!(world_chr_man, 0x18468, 0x6d0),
+            //     z: pointer_chain!(world_chr_man, 0x18468, 0x6d4),
+            //     angle: pointer_chain!(world_chr_man, 0x18468, 0x6d8),
+            // },
             chunk_position: Position {
                 x: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x70),
                 y: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x74),
@@ -172,9 +194,12 @@ impl Pointers {
             weapon_hitbox1: bitflag!(0b1; damage_ctrl, 0xA0),
             weapon_hitbox2: bitflag!(0b1; damage_ctrl, 0xA1),
             weapon_hitbox3: bitflag!(0b1; damage_ctrl, 0xA4),
-            hitbox_high: bitflag!(0b1; hit_ins + 0xC),
-            hitbox_low: bitflag!(0b1; hit_ins + 0xD),
-            hitbox_character: bitflag!(0b1; hit_ins + 0xF),
+            // hitbox_high: bitflag!(0b1; hit_ins + 0xC),
+            // hitbox_low: bitflag!(0b1; hit_ins + 0xD),
+            // hitbox_character: bitflag!(0b1; hit_ins + 0xF),
+            hitbox_high: bitflag!(0b1; hit_ins_hitbox_offset + 0x0),
+            hitbox_low: bitflag!(0b1; hit_ins_hitbox_offset + 0x1),
+            hitbox_character: bitflag!(0b1; hit_ins_hitbox_offset + 0x3),
             show_map: bitflag!(0b1; group_mask + 0x2),
             show_geom: vec![
                 bitflag!(0b1; group_mask + 0x3),
