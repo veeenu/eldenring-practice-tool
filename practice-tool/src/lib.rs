@@ -121,7 +121,7 @@ impl PracticeTool {
                 for w in self.widgets.iter_mut() {
                     w.render(ui);
                 }
-                if flags.focused && !ui.io().want_capture_keyboard && !ui.io().want_capture_mouse {
+                if flags.focused && !ui.io().want_capture_keyboard {
                     for w in self.widgets.iter_mut() {
                         w.interact();
                     }
@@ -216,7 +216,7 @@ impl PracticeTool {
                     ));
                 }
 
-                if flags.focused && !ui.io().want_capture_keyboard && !ui.io().want_capture_mouse {
+                if flags.focused && !ui.io().want_capture_keyboard {
                     for w in self.widgets.iter_mut() {
                         w.interact();
                     }
@@ -272,7 +272,6 @@ impl ImguiRenderLoop for PracticeTool {
     fn render(&mut self, ui: &mut imgui::Ui, flags: &ImguiRenderLoopFlags) {
         if flags.focused
             && !ui.io().want_capture_keyboard
-            && !ui.io().want_capture_mouse
             && self.config.settings.display.keyup()
         {
             self.is_shown = !self.is_shown;

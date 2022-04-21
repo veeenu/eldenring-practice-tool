@@ -19,6 +19,7 @@ impl ItemIDNode {
     fn render(&self, ui: &imgui::Ui, current: &mut u32) {
         match self {
             ItemIDNode::Leaf { node, value } => {
+                unsafe { imgui_sys::igUnindent(imgui_sys::igGetTreeNodeToLabelSpacing()) };
                 TreeNode::<&String>::new(node)
                     .label::<&String, &String>(node)
                     .flags(if current == value {
@@ -27,6 +28,7 @@ impl ItemIDNode {
                         TreeNodeFlags::LEAF | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
                     })
                     .build(ui, || {});
+                unsafe { imgui_sys::igIndent(imgui_sys::igGetTreeNodeToLabelSpacing()) };
                 if ui.is_item_clicked() {
                     *current = *value;
                 }
@@ -36,11 +38,9 @@ impl ItemIDNode {
                     .label::<&String, &String>(node)
                     .flags(TreeNodeFlags::SPAN_AVAIL_WIDTH)
                     .build(ui, || {
-                        unsafe { imgui_sys::igUnindent(imgui_sys::igGetTreeNodeToLabelSpacing()) };
                         for node in children {
                             node.render(ui, current);
                         }
-                        unsafe { imgui_sys::igIndent(imgui_sys::igGetTreeNodeToLabelSpacing()) };
                     });
             }
         }
@@ -50,8 +50,6 @@ impl ItemIDNode {
 const ISP_TAG: &str = "##item-spawn";
 static ITEM_ID_TREE: SyncLazy<Vec<ItemIDNode>> =
     SyncLazy::new(|| serde_json::from_str(include_str!("item_ids.json")).unwrap());
-//     SyncLazy::new(|| serde_json::from_str(include_str!("item_ids.json")).unwrap());
-// use super::item_ids::ITEM_ID_TREE;
 
 #[derive(Debug)]
 pub(crate) struct ItemSpawner {
