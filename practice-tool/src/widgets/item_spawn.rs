@@ -1,8 +1,6 @@
 use super::Widget;
 use crate::util::KeyState;
-use libeldenring::prelude::*;
 
-use std::collections::HashMap;
 use std::ffi::c_void;
 use std::fmt::Display;
 use std::lazy::SyncLazy;
@@ -11,15 +9,49 @@ use imgui::*;
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
-struct ItemIDMaster(HashMap<String, ItemIDGroup>);
+#[serde(untagged)]
+enum ItemIDNode {
+    Leaf { node: String, value: u32 },
+    Node { node: String, children: Vec<ItemIDNode> },
+}
 
-#[derive(Debug, Deserialize)]
-struct ItemIDGroup(HashMap<String, u32>);
+impl ItemIDNode {
+    fn render(&self, ui: &imgui::Ui, current: &mut u32) {
+        match self {
+            ItemIDNode::Leaf { node, value } => {
+                TreeNode::<&String>::new(node)
+                    .label::<&String, &String>(node)
+                    .flags(if current == value {
+                        TreeNodeFlags::LEAF | TreeNodeFlags::SELECTED | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
+                    } else {
+                        TreeNodeFlags::LEAF | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
+                    })
+                    .build(ui, || {});
+                if ui.is_item_clicked() {
+                    *current = *value;
+                }
+            }
+            ItemIDNode::Node { node, children } => {
+                TreeNode::<&String>::new(node)
+                    .label::<&String, &String>(node)
+                    .flags(TreeNodeFlags::SPAN_AVAIL_WIDTH)
+                    .build(ui, || {
+                        unsafe { imgui_sys::igUnindent(imgui_sys::igGetTreeNodeToLabelSpacing()) };
+                        for node in children {
+                            node.render(ui, current);
+                        }
+                        unsafe { imgui_sys::igIndent(imgui_sys::igGetTreeNodeToLabelSpacing()) };
+                    });
+            }
+        }
+    }
+}
 
 const ISP_TAG: &str = "##item-spawn";
-// static ITEM_ID_TREE: SyncLazy<ItemIDMaster> =
+static ITEM_ID_TREE: SyncLazy<Vec<ItemIDNode>> =
+    SyncLazy::new(|| serde_json::from_str(include_str!("item_ids.json")).unwrap());
 //     SyncLazy::new(|| serde_json::from_str(include_str!("item_ids.json")).unwrap());
-use super::item_ids::ITEM_ID_TREE;
+// use super::item_ids::ITEM_ID_TREE;
 
 #[derive(Debug)]
 pub(crate) struct ItemSpawner {
@@ -86,25 +118,8 @@ impl Widget for ItemSpawner {
             ChildWindow::new("##item-spawn-list")
                 .size([240., 240.])
                 .build(ui, || {
-                    for (label, items) in &*ITEM_ID_TREE {
-                        TreeNode::<&str>::new(*label)
-                            .label::<&str, &str>(label)
-                            .flags(TreeNodeFlags::SPAN_AVAIL_WIDTH)
-                            .build(ui, || {
-                                for (label, item_id) in items {
-                                    TreeNode::<&str>::new("")
-                                        .label::<&str, &str>(&label)
-                                        .flags(if item_id == &self.item_id {
-                                            TreeNodeFlags::LEAF | TreeNodeFlags::SELECTED
-                                        } else {
-                                            TreeNodeFlags::LEAF
-                                        })
-                                        .build(ui, || {});
-                                    if ui.is_item_clicked() {
-                                        self.item_id = *item_id;
-                                    }
-                                }
-                            });
+                    for node in &*ITEM_ID_TREE {
+                        node.render(ui, &mut self.item_id);
                     }
                 });
 

@@ -30,6 +30,7 @@ fn main() -> Result<()> {
     match task.as_deref() {
         Some("dist") => dist()?,
         Some("codegen") => codegen()?,
+        Some("codegen-yml") => codegen::item_ids::codegen()?,
         Some("run") => run()?,
         Some("help") => print_help(),
         _ => print_help(),
