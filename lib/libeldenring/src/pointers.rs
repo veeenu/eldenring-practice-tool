@@ -66,6 +66,11 @@ pub struct Pointers {
     pub show_map: Bitflag<u8>,
     pub show_geom: Vec<Bitflag<u8>>,
     pub show_chr: Bitflag<u8>,
+
+    // Functions
+    pub item_spawn_func_ptr: usize,
+
+    pub base_addresses: BaseAddresses,
 }
 
 #[derive(Debug, Clone)]
@@ -79,17 +84,7 @@ pub struct Position {
 impl Pointers {
     pub fn new() -> Self {
         let base_module_address = unsafe { GetModuleHandleA(PCSTR(null_mut())) }.0 as usize;
-        let BaseAddresses {
-            chr_dbg_flags,
-            cs_menu_man_imp,
-            damage_ctrl,
-            field_area,
-            game_data_man,
-            group_mask,
-            hit_ins_hitbox_offset,
-            world_chr_man,
-            ..
-        } = match *crate::version::VERSION {
+        let base_addresses = match *crate::version::VERSION {
             Version::V1_02_0 => base_addresses::BASE_ADDRESSES_1_02_0,
             Version::V1_02_1 => base_addresses::BASE_ADDRESSES_1_02_1,
             Version::V1_02_2 => base_addresses::BASE_ADDRESSES_1_02_2,
@@ -100,6 +95,18 @@ impl Pointers {
             Version::V1_04_0 => base_addresses::BASE_ADDRESSES_1_04_0,
         }
         .with_module_base_addr(base_module_address);
+
+        let BaseAddresses {
+            chr_dbg_flags,
+            cs_menu_man_imp,
+            damage_ctrl,
+            field_area,
+            game_data_man,
+            group_mask,
+            hit_ins_hitbox_offset,
+            world_chr_man,
+            ..
+        } = base_addresses;
 
         // Special cases
 
@@ -219,6 +226,9 @@ impl Pointers {
                 bitflag!(0b1; group_mask + 0x12), // Grass
             ],
             show_chr: bitflag!(0b1; group_mask + 0xE),
+
+            item_spawn_func_ptr: base_module_address + 0x54c950,
+            base_addresses,
         }
     }
 }

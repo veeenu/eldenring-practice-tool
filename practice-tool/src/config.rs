@@ -12,7 +12,7 @@ use crate::widgets::deathcam::Deathcam;
 use crate::widgets::flag::Flag;
 use crate::widgets::multiflag::MultiFlag;
 use crate::widgets::nudge_pos::NudgePosition;
-// use crate::widgets::item_spawn::ItemSpawner;
+use crate::widgets::item_spawn::ItemSpawner;
 use crate::widgets::position::SavePosition;
 use crate::widgets::quitout::Quitout;
 use crate::widgets::runes::Runes;
@@ -42,12 +42,12 @@ enum CfgCommand {
         hotkey_back: KeyState,
         hotkey_close: KeyState,
     },
-    // ItemSpawner {
-    //     #[serde(rename = "item_spawner")]
-    //     hotkey_load: KeyState,
-    //     hotkey_back: KeyState,
-    //     hotkey_close: KeyState,
-    // },
+    ItemSpawner {
+        #[serde(rename = "item_spawner")]
+        hotkey_load: KeyState,
+        hotkey_back: KeyState,
+        hotkey_close: KeyState,
+    },
     Flag {
         flag: FlagSpec,
         hotkey: Option<KeyState>,
@@ -167,18 +167,18 @@ impl Config {
                         hotkey_back.clone(),
                         hotkey_close.clone(),
                     ),
-                    // CfgCommand::ItemSpawner {
-                    //     hotkey_load,
-                    //     hotkey_back,
-                    //     hotkey_close,
-                    // } => Box::new(ItemSpawner::new(
-                    //     chains.spawn_item_func_ptr,
-                    //     chains.map_item_man,
-                    //     chains.gravity.clone(),
-                    //     hotkey_load.clone(),
-                    //     hotkey_back.clone(),
-                    //     hotkey_close.clone(),
-                    // )),
+                    CfgCommand::ItemSpawner {
+                        hotkey_load,
+                        hotkey_back,
+                        hotkey_close,
+                    } => Box::new(ItemSpawner::new(
+                        chains.item_spawn_func_ptr,
+                        chains.base_addresses.map_item_man,
+                        // chains.gravity.clone(),
+                        hotkey_load.clone(),
+                        // hotkey_back.clone(),
+                        // hotkey_close.clone(),
+                    )),
                     CfgCommand::Position { hotkey, modifier } => Box::new(SavePosition::new(
                         chains.global_position.clone(),
                         chains.chunk_position.clone(),
