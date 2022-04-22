@@ -10,12 +10,36 @@ toggled by pressing `0`.
 
 You can download the latest release [here](https://github.com/veeenu/eldenring-practice-tool/releases).
 
-If you need help, please read the [FAQ](#troubleshooting--faq) section for
-solutions or ways to get in touch.
+If you need help, **please first read** the [Known Issues](#known-issues) and [FAQ](#troubleshooting--faq) sections for
+solutions, or ways to get in touch.
 
-## Troubleshooting / FAQ
+# Known issues
 
-### I found a bug. What do I do?
+## Stake of Marika instant quitouts (Issue: https://github.com/veeenu/eldenring-practice-tool/issues/6)
+
+If you use the *instant quitout* feature in a Stake of Marika area while dying, the usual choice dialog will pop up.
+If you choose "Stake of Marika", you will spawn dead. If you choose "Last visited Grace", you will
+instantly quitout instead, as requested.
+
+Always choose the Grace. Hopefully, in the future, a workaround will be found.
+
+## Character rotation in teleportation function (Issue: https://github.com/veeenu/eldenring-practice-tool/issues/15)
+
+When saving/loading position, the character doesn't retain rotation appropriately as the rotation
+assignment algorithm is rather enigmatic. Loading the position many times will make the rotation
+converge to the intended one.
+
+## My game crashes / the tool doesn't start
+
+- Always start with a clean zip of the latest release.
+- When in doubt, wait for the main menu of the game to appear before launching the tool
+- Antivirus software and old Windows versions will interact poorly with the tool, as it
+  employs some techniques that are usually typical of malware. Don't worry, the tool is
+  safe! The source code is fully available and auditable in this repository.
+
+# Troubleshooting / FAQ
+
+## I found an issue. What do I do?
 
 - Set the `log_level = "DEBUG"` option in `jdsd_er_practice_tool.toml`.
 - Reproduce the steps that cause your bug.
@@ -25,7 +49,7 @@ solutions or ways to get in touch.
 
 I'll do my best to get back to you and fix the bug.
 
-### Where are all the key bindings?
+## Where are all the key bindings?
 
 You can customize the default ones or add your own by editing
 `jdsd_er_practice_tool.toml` with your favorite text editor.
@@ -35,20 +59,24 @@ mostly self-explanatory.
 
 You can find a list of supported hotkey codes [here](https://github.com/veeenu/darksoulsiii-practice-tool/blob/7aa6ac33c6f155d35d0fa99ab100c8caa13913f9/practice-tool/src/util/vk.rs#L15-L186).
 
-### What versions of the game are supported?
+## What versions of the game are supported?
 
-All of them! When new patches come out, a new release with compatibility will be drafted as soon as
-possible.
+All of them! When new patches come out, a new release with compatibility will be drafted as soon as possible.
 
-### I want to talk to you!
+## Will I get banned if I use this online?
+
+Use at your own risk. Bans are unlikely, but in doubt, make backups of your savefiles and only use the tool offline.
+By using the tool, you agree that I will not be held liable for any bans or unintended side effects resulting from the usage of the tool.
+
+## I want to talk to you!
 
 You can contact me on Discord at `johndisandonato#4484` or on [Twitter](https://twitter.com/johndisandonato).
 
-### I want to watch your speedruns!
+## I want to watch your speedruns!
 
 Sure! See you over here 👉 [https://twitch.tv/johndisandonato](https://twitch.tv/johndisandonato)!
 
-## Credits
+# Credits
 
 - The [Soulsmodding community](http://soulsmodding.wikidot.com/) for the
   [Param definitions](https://github.com/soulsmods/Paramdex) and the
@@ -60,7 +88,7 @@ Sure! See you over here 👉 [https://twitch.tv/johndisandonato](https://twitch.
   [Ahady](https://twitch.tv/ahady), [Gin](https://twitch.tv/g1nnz)
   for beta testing the tool.
 
-## Development
+# Development
 
 You will need:
 
@@ -69,7 +97,7 @@ You will need:
 
 Most building functions are exposed by the [xtasks](https://github.com/matklad/cargo-xtask).
 
-### Run the tool
+## Run the tool
 
 ```
 cargo xtask run
@@ -77,7 +105,7 @@ cargo xtask run
 
 This task will compile and run the practice tool from the repo.
 
-### Distribution artifacts
+## Distribution artifacts
 
 ```
 cargo xtask dist
@@ -85,7 +113,7 @@ cargo xtask dist
 
 This task will create release artifacts in `target/dist/jdsd_er_practice_tool.zip`.
 
-### Codegen
+## Codegen
 
 ```
 cargo xtask codegen
@@ -95,7 +123,7 @@ This task is responsible for generating Rust code from various external sources.
 Examples: params from [Paramdex](https://github.com/soulsmods/Paramdex), base pointers for
 array-of-byte scans from the Elden Ring executables.
 
-### Environment
+## Environment
 
 Some tasks require you to have environment variables defined that are dependent on your system.
 You can put all your task-specific environment variables in a `.env` file in the top level directory
