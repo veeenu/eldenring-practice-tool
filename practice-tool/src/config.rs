@@ -176,6 +176,7 @@ impl Config {
                     CfgCommand::Position { hotkey, modifier } => Box::new(SavePosition::new(
                         chains.global_position.clone(),
                         chains.chunk_position.clone(),
+                        chains.torrent_chunk_position.clone(),
                         hotkey.clone(),
                         modifier.clone(),
                     )),

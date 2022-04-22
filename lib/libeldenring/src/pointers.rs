@@ -47,6 +47,7 @@ pub struct Pointers {
     pub global_position: Position,
     pub stable_position: Position,
     pub chunk_position: Position,
+    pub torrent_chunk_position: Position,
     pub animation_speed: PointerChain<f32>,
     pub torrent_animation_speed: PointerChain<f32>,
 
@@ -119,6 +120,7 @@ impl Pointers {
             }
         };
 
+        // Torrent ptr: world_chr_man, 0x18390, 0x18, 0
         Self {
             one_shot: bitflag!(0b1; chr_dbg_flags + 0x3),
             no_damage: bitflag!(0b1; chr_dbg_flags + 0xC),
@@ -162,23 +164,17 @@ impl Pointers {
                 z: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x1C),
                 angle: pointer_chain!(world_chr_man, 0x18468, 0x6d8),
             },
-            // global_position: Position {
-            //     x: pointer_chain!(world_chr_man, 0x18468, 0x6b8),
-            //     y: pointer_chain!(world_chr_man, 0x18468, 0x6bc),
-            //     z: pointer_chain!(world_chr_man, 0x18468, 0x6c0),
-            //     angle: pointer_chain!(world_chr_man, 0x18468, 0x6c4),
-            // },
-            // stable_position: Position {
-            //     x: pointer_chain!(world_chr_man, 0x18468, 0x6cc),
-            //     y: pointer_chain!(world_chr_man, 0x18468, 0x6d0),
-            //     z: pointer_chain!(world_chr_man, 0x18468, 0x6d4),
-            //     angle: pointer_chain!(world_chr_man, 0x18468, 0x6d8),
-            // },
             chunk_position: Position {
                 x: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x70),
                 y: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x74),
                 z: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x78),
                 angle: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x54),
+            },
+            torrent_chunk_position: Position {
+                x: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x70),
+                y: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x74),
+                z: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x78),
+                angle: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x54),
             },
             animation_speed: pointer_chain!(world_chr_man, 0xB658, 0, 0x190, 0x28, 0x17C8),
             torrent_animation_speed: pointer_chain!(

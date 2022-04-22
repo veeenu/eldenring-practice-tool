@@ -8,16 +8,18 @@ use super::Widget;
 pub(crate) struct SavePosition {
     global_position: Position,
     chunk_position: Position,
+    torrent_chunk_position: Position,
     hotkey: KeyState,
     modifier: KeyState,
     saved_position: [f32; 4],
 }
 
 impl SavePosition {
-    pub(crate) fn new(global_position: Position, chunk_position: Position, hotkey: KeyState, modifier: KeyState) -> Self {
+    pub(crate) fn new(global_position: Position, chunk_position: Position, torrent_chunk_position: Position, hotkey: KeyState, modifier: KeyState) -> Self {
         SavePosition {
             global_position,
             chunk_position,
+            torrent_chunk_position,
             hotkey,
             modifier,
             saved_position: [0f32; 4],
@@ -39,8 +41,8 @@ impl SavePosition {
         let [sx, sy, sz, sr] = self.saved_position;
         if let (Some(gx), Some(gy), Some(gz), Some(gr),
             Some(cx), Some(cy), Some(cz), Some(cr),
-
-            ) = (
+            Some(tcx), Some(tcy), Some(tcz), Some(tcr),
+        ) = (
             self.global_position.x.read(),
             self.global_position.y.read(),
             self.global_position.z.read(),
@@ -49,11 +51,22 @@ impl SavePosition {
             self.chunk_position.y.read(),
             self.chunk_position.z.read(),
             self.chunk_position.angle.read(),
+            self.torrent_chunk_position.x.read(),
+            self.torrent_chunk_position.y.read(),
+            self.torrent_chunk_position.z.read(),
+            self.torrent_chunk_position.angle.read(),
         ) {
+            use std::f32::consts::PI;
+
             self.chunk_position.x.write(sx - gx + cx);
             self.chunk_position.y.write(sy - gy + cy);
             self.chunk_position.z.write(sz - gz + cz);
-            self.chunk_position.angle.write(sr - gr + cr);
+            self.chunk_position.angle.write((sr - gr) / PI + cr);
+
+            self.torrent_chunk_position.x.write(sx - gx + tcx);
+            self.torrent_chunk_position.y.write(sy - gy + tcy);
+            self.torrent_chunk_position.z.write(sz - gz + tcz);
+            self.torrent_chunk_position.angle.write((sr - gr) / PI + tcr);
         }
     }
 }
