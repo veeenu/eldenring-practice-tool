@@ -29,13 +29,11 @@ When saving/loading position, the character doesn't retain rotation appropriatel
 assignment algorithm is rather enigmatic. Loading the position many times will make the rotation
 converge to the intended one.
 
-## My game crashes / the tool doesn't start
+## Spawning on horseback deathcam oddity (Issue: https://github.com/veeenu/eldenring-practice-tool/issues/5)
 
-- Always start with a clean zip of the latest release.
-- When in doubt, wait for the main menu of the game to appear before launching the tool
-- Antivirus software and old Windows versions will interact poorly with the tool, as it
-  employs some techniques that are usually typical of malware. Don't worry, the tool is
-  safe! The source code is fully available and auditable in this repository.
+If you spawn on horseback, the `deathcam` flag will not work properly at first.
+It will just lock the camera in place. It is enough to get off the horse and then the
+flag should work as intended again. If it doesn't work, a quitout will most likely fix it.
 
 # Troubleshooting / FAQ
 
@@ -67,6 +65,15 @@ All of them! When new patches come out, a new release with compatibility will be
 
 Use at your own risk. Bans are unlikely, but in doubt, make backups of your savefiles and only use the tool offline.
 By using the tool, you agree that I will not be held liable for any bans or unintended side effects resulting from the usage of the tool.
+
+## My game crashes / the tool doesn't start
+
+- Always start with a clean zip of the latest release.
+- When in doubt, wait for the main menu of the game to appear before launching the tool
+- Antivirus software and old Windows versions will interact poorly with the tool, as it
+  employs some techniques that are usually typical of malware. Don't worry, the tool is
+  safe! The source code is fully available and auditable in this repository.
+- If all else fails, [submit an issue](#i-found-an-issue-what-do-i-do).
 
 ## I want to talk to you!
 
