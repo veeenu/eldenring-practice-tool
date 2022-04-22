@@ -109,12 +109,13 @@ impl PracticeTool {
     fn render_visible(&mut self, ui: &mut imgui::Ui, flags: &ImguiRenderLoopFlags) {
         imgui::Window::new("##tool_window")
             .position([16., 16.], Condition::Always)
+            .size_constraints([240., 0.], ui.window_size())
             .bg_alpha(0.8)
             .flags({
                 WindowFlags::NO_TITLE_BAR
                     | WindowFlags::NO_RESIZE
                     | WindowFlags::NO_MOVE
-                    | WindowFlags::NO_SCROLLBAR
+                    // | WindowFlags::NO_SCROLLBAR
                     | WindowFlags::ALWAYS_AUTO_RESIZE
             })
             .build(ui, || {

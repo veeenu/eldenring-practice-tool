@@ -13,19 +13,39 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 enum ItemIDNode {
-    Leaf { node: String, value: u32 },
-    Node { node: String, children: Vec<ItemIDNode> },
+    Leaf {
+        node: String,
+        value: u32,
+    },
+    Node {
+        node: String,
+        children: Vec<ItemIDNode>,
+    },
 }
 
-impl ItemIDNode {
-    fn render(&self, ui: &imgui::Ui, current: &mut u32) {
+#[derive(Debug)]
+enum ItemIDNodeRef<'a> {
+    Leaf {
+        node: &'a str,
+        value: u32,
+    },
+    Node {
+        node: &'a str,
+        children: Vec<ItemIDNodeRef<'a>>,
+    },
+}
+
+impl<'a> ItemIDNodeRef<'a> {
+    fn render(&self, ui: &imgui::Ui, current: &mut u32, filtered: bool) {
         match self {
-            ItemIDNode::Leaf { node, value } => {
+            ItemIDNodeRef::Leaf { node, value } => {
                 unsafe { imgui_sys::igUnindent(imgui_sys::igGetTreeNodeToLabelSpacing()) };
-                TreeNode::<&String>::new(node)
-                    .label::<&String, &String>(node)
+                TreeNode::<&str>::new(*node)
+                    .label::<&str, &str>(node)
                     .flags(if current == value {
-                        TreeNodeFlags::LEAF | TreeNodeFlags::SELECTED | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
+                        TreeNodeFlags::LEAF
+                            | TreeNodeFlags::SELECTED
+                            | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
                     } else {
                         TreeNodeFlags::LEAF | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
                     })
@@ -35,18 +55,88 @@ impl ItemIDNode {
                     *current = *value;
                 }
             }
-            ItemIDNode::Node { node, children } => {
-                TreeNode::<&String>::new(node)
-                    .label::<&String, &String>(node)
-                    .flags(TreeNodeFlags::SPAN_AVAIL_WIDTH)
-                    .build(ui, || {
-                        for node in children {
-                            node.render(ui, current);
-                        }
-                    });
+            ItemIDNodeRef::Node { node, children } => {
+                let n = TreeNode::<&str>::new(*node).label::<&str, &str>(node);
+
+                let n = if filtered {
+                    n.opened(filtered, Condition::Always)
+                } else {
+                    n
+                };
+
+                n.flags(TreeNodeFlags::SPAN_AVAIL_WIDTH).build(ui, || {
+                    for node in children {
+                        node.render(ui, current, filtered);
+                    }
+                });
             }
         }
     }
+}
+
+impl<'a> From<&'a ItemIDNode> for ItemIDNodeRef<'a> {
+    fn from(v: &'a ItemIDNode) -> Self {
+        match v {
+            ItemIDNode::Leaf { node, value } => ItemIDNodeRef::Leaf {
+                node: &node,
+                value: *value,
+            },
+            ItemIDNode::Node { node, children } => ItemIDNodeRef::Node {
+                node: &node,
+                children: children.into_iter().map(ItemIDNodeRef::from).collect(),
+            },
+        }
+    }
+}
+
+impl ItemIDNode {
+    fn filter(&self, filter: &str) -> Option<ItemIDNodeRef> {
+        if filter.is_empty() {
+            Some(ItemIDNodeRef::from(self))
+        } else {
+            match self {
+                ItemIDNode::Leaf { node, value } => {
+                    if string_match(&filter, &node) {
+                        Some(ItemIDNodeRef::Leaf {
+                            node: &node,
+                            value: *value,
+                        })
+                    } else {
+                        None
+                    }
+                }
+                ItemIDNode::Node { node, children } => {
+                    let children: Vec<_> = children
+                        .iter()
+                        .filter_map(|c| c.filter(filter).map(ItemIDNodeRef::from))
+                        .collect();
+                    if children.is_empty() {
+                        None
+                    } else {
+                        Some(ItemIDNodeRef::Node {
+                            node: &node,
+                            children,
+                        })
+                    }
+                },
+            }
+        }
+    }
+}
+
+fn string_match(needle: &str, haystack: &str) -> bool {
+    let needle = needle.chars().flat_map(char::to_lowercase);
+    let mut haystack = haystack.chars().flat_map(char::to_lowercase);
+
+    'o: for c in needle {
+        for d in &mut haystack {
+            if c == d {
+                continue 'o;
+            }
+        }
+        return false;
+    }
+    true
 }
 
 const ISP_TAG: &str = "##item-spawn";
@@ -54,18 +144,25 @@ static ITEM_ID_TREE: SyncLazy<Vec<ItemIDNode>> =
     SyncLazy::new(|| serde_json::from_str(include_str!("item_ids.json")).unwrap());
 
 #[derive(Debug)]
-pub(crate) struct ItemSpawner {
+pub(crate) struct ItemSpawner<'a> {
     func_ptr: usize,
     map_item_man: usize,
     hotkey: KeyState,
     sentinel: Bitflag<u8>,
     qty: u32,
     item_id: u32,
+    filter_string: String,
     log: Option<Vec<String>>,
+    item_id_tree: Vec<ItemIDNodeRef<'a>>,
 }
 
-impl ItemSpawner {
-    pub(crate) fn new(func_ptr: usize, map_item_man: usize, sentinel: Bitflag<u8>, hotkey: KeyState) -> Self {
+impl ItemSpawner<'_> {
+    pub(crate) fn new(
+        func_ptr: usize,
+        map_item_man: usize,
+        sentinel: Bitflag<u8>,
+        hotkey: KeyState,
+    ) -> Self {
         ItemSpawner {
             func_ptr,
             map_item_man,
@@ -73,7 +170,9 @@ impl ItemSpawner {
             sentinel,
             qty: 1,
             item_id: 0x40000000 + 2919,
+            filter_string: String::new(),
             log: None,
+            item_id_tree: ITEM_ID_TREE.iter().map(ItemIDNodeRef::from).collect(),
         }
     }
 
@@ -109,21 +208,21 @@ impl ItemSpawner {
     }
 }
 
-impl Widget for ItemSpawner {
+impl Widget for ItemSpawner<'_> {
     fn render(&mut self, ui: &imgui::Ui) {
         if ui.button_with_size("Spawn item", [super::BUTTON_WIDTH, super::BUTTON_HEIGHT]) {
             ui.open_popup(ISP_TAG);
         }
-        let [cx, cy] = ui.cursor_pos();
-        let [wx, wy] = ui.window_pos();
-        let [x, y] = [cx + wx, cy + wy - super::BUTTON_HEIGHT];
-        unsafe {
-            imgui_sys::igSetNextWindowPos(
-                imgui_sys::ImVec2 { x, y },
-                Condition::Always as _,
-                imgui_sys::ImVec2 { x: 0., y: 0. },
-            )
-        };
+        // let [cx, cy] = ui.cursor_pos();
+        // let [wx, wy] = ui.window_pos();
+        // let [x, y] = [cx + wx, cy + wy - super::BUTTON_HEIGHT - ui.scroll_y()];
+        // unsafe {
+        //     imgui_sys::igSetNextWindowPos(
+        //         imgui_sys::ImVec2 { x, y },
+        //         Condition::Always as _,
+        //         imgui_sys::ImVec2 { x: 0., y: 0. },
+        //     )
+        // };
 
         let style_tokens =
             [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, [0., 0., 0., 0.])];
@@ -138,11 +237,20 @@ impl Widget for ItemSpawner {
             )
             .begin_popup(ui)
         {
+            if ui
+                .input_text("##item-spawn-filter", &mut self.filter_string)
+                .build()
+            {
+                self.item_id_tree = ITEM_ID_TREE
+                    .iter()
+                    .filter_map(|n| n.filter(&self.filter_string))
+                    .collect();
+            }
             ChildWindow::new("##item-spawn-list")
-                .size([240., 240.])
+                .size([240., 200.])
                 .build(ui, || {
-                    for node in &*ITEM_ID_TREE {
-                        node.render(ui, &mut self.item_id);
+                    for node in &self.item_id_tree {
+                        node.render(ui, &mut self.item_id, !self.filter_string.is_empty());
                     }
                 });
 
