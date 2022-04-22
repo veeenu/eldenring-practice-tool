@@ -30,7 +30,6 @@ fn main() -> Result<()> {
     match task.as_deref() {
         Some("dist") => dist()?,
         Some("codegen") => codegen()?,
-        Some("codegen-yml") => codegen::item_ids::codegen()?,
         Some("run") => run()?,
         Some("help") => print_help(),
         _ => print_help(),
@@ -135,6 +134,7 @@ fn run() -> Result<()> {
 fn codegen() -> Result<()> {
     crate::codegen::aob_scans::get_base_addresses();
     crate::codegen::params::codegen()?;
+    crate::codegen::item_ids::codegen()?;
     Ok(())
 }
 

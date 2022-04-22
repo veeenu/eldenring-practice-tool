@@ -23,6 +23,7 @@ use windows::Win32::System::Diagnostics::ToolHelp::{
 };
 use windows::Win32::System::Threading::{CreateProcessW, OpenProcess, *};
 
+// Indirect AoB patterns -- grab the bytes 3-7 as a u32 offset.
 const AOBS: &[(&str, &str)] = &[
     ("BulletMan", "48 8B 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 44 24 ?? 48 89 44 24 ?? 48 89 7C 24 ?? C7 44 24 ?? ?? ?? ?? ?? 48"),
     ("ChrDbgFlags", "?? 80 3D ?? ?? ?? ?? 00 0F 85 ?? ?? ?? ?? 32 C0 48"),
@@ -49,6 +50,10 @@ const AOBS: &[(&str, &str)] = &[
     ("WorldChrMan", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 0F 48 39 88 ?? ?? ?? ?? 75 06 89 B1 5C 03 00 00 0F 28 05 ?? ?? ?? ?? 4C 8D 45 E7"),
     ("WorldChrManDbg", "48 8B 0D ?? ?? ?? ?? 89 5C 24 20 48 85 C9 74 12 B8 ?? ?? ?? ?? 8B D8"),
     ("WorldChrManImp", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 0F 48 39 88 ?? ?? ?? ?? 75 06 89 B1 5C 03 00 00 0F 28 05 ?? ?? ?? ?? 4C 8D 45 E7"),
+];
+
+// Direct AoB patterns -- grab the position of the match. For static functions
+const AOBS_DIRECT: &[(&str, &str)] = &[
     ("FuncItemSpawn", "48 8B C4 56 57 41 56 48 81 EC ?? ?? ?? ?? 48 C7 44 24 ?? ?? ?? ?? ?? 48 89 58 ?? 48 89 68 ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 41 0F B6 F9")
 ];
 
@@ -212,6 +217,22 @@ fn find_aobs(bytes: Vec<u8>) -> Vec<(&'static str, usize)> {
 
     aob_offsets.sort_by(|a, b| a.0.cmp(b.0));
 
+    let mut aob_offsets_direct = AOBS_DIRECT
+        .into_par_iter()
+        .filter_map(|(name, aob)| {
+            if let Some(r) = naive_search(&bytes, &into_needle(aob)) {
+                Some((*name, r))
+            } else {
+                eprintln!("{name:24} not found");
+                None
+            }
+        })
+        .collect::<Vec<_>>();
+
+    aob_offsets_direct.sort_by(|a, b| a.0.cmp(b.0));
+
+    aob_offsets.extend(aob_offsets_direct.into_iter());
+
     aob_offsets
 }
 
@@ -260,12 +281,32 @@ fn codegen_struct() -> String {
             .collect::<Vec<_>>()
             .join(""),
     );
+    generated.push_str(
+        &AOBS_DIRECT
+            .iter()
+            .map(|(name, _)| format!("    pub {}: usize,\n", AsSnakeCase(name)))
+            .collect::<Vec<_>>()
+            .join(""),
+    );
     generated.push_str("}\n\n");
     generated.push_str("impl BaseAddresses {\n");
     generated.push_str("    pub fn with_module_base_addr(self, base: usize) -> BaseAddresses {\n");
     generated.push_str("        BaseAddresses {\n");
     generated.push_str(
         &AOBS
+            .iter()
+            .map(|(name, _)| {
+                format!(
+                    "            {}: self.{} + base,\n",
+                    AsSnakeCase(name),
+                    AsSnakeCase(name)
+                )
+            })
+            .collect::<Vec<_>>()
+            .join(""),
+    );
+    generated.push_str(
+        &AOBS_DIRECT
             .iter()
             .map(|(name, _)| {
                 format!(

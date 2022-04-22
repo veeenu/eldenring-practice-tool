@@ -45,8 +45,6 @@ enum CfgCommand {
     ItemSpawner {
         #[serde(rename = "item_spawner")]
         hotkey_load: KeyState,
-        hotkey_back: KeyState,
-        hotkey_close: KeyState,
     },
     Flag {
         flag: FlagSpec,
@@ -169,15 +167,11 @@ impl Config {
                     ),
                     CfgCommand::ItemSpawner {
                         hotkey_load,
-                        hotkey_back,
-                        hotkey_close,
                     } => Box::new(ItemSpawner::new(
-                        chains.item_spawn_func_ptr,
+                        chains.func_item_spawn,
                         chains.base_addresses.map_item_man,
-                        // chains.gravity.clone(),
+                        chains.gravity.clone(),
                         hotkey_load.clone(),
-                        // hotkey_back.clone(),
-                        // hotkey_close.clone(),
                     )),
                     CfgCommand::Position { hotkey, modifier } => Box::new(SavePosition::new(
                         chains.global_position.clone(),

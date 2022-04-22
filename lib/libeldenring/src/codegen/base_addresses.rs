@@ -71,7 +71,6 @@ pub const BASE_ADDRESSES_1_02_0: BaseAddresses = BaseAddresses {
     chr_dbg_flags: 0x3c5047f,
     damage_ctrl: 0x3c50658,
     field_area: 0x3c53470,
-    func_item_spawn: 0x5695e37d,
     game_data_man: 0x3c481b8,
     game_man: 0x3c53b88,
     global_pos: 0x3c50268,
@@ -85,6 +84,7 @@ pub const BASE_ADDRESSES_1_02_0: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c50268,
     world_chr_man_dbg: 0x3c50478,
     world_chr_man_imp: 0x3c50268,
+    func_item_spawn: 0x548c20,
 };
 
 pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
@@ -99,7 +99,6 @@ pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
     chr_dbg_flags: 0x3c5049f,
     damage_ctrl: 0x3c50678,
     field_area: 0x3c53490,
-    func_item_spawn: 0x5695e3ed,
     game_data_man: 0x3c481d8,
     game_man: 0x3c53ba8,
     global_pos: 0x3c50288,
@@ -113,6 +112,7 @@ pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c50288,
     world_chr_man_dbg: 0x3c50498,
     world_chr_man_imp: 0x3c50288,
+    func_item_spawn: 0x548c90,
 };
 
 pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
@@ -127,7 +127,6 @@ pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
     chr_dbg_flags: 0x3c504bf,
     damage_ctrl: 0x3c50698,
     field_area: 0x3c534b0,
-    func_item_spawn: 0x5695e3ed,
     game_data_man: 0x3c481f8,
     game_man: 0x3c53bc8,
     global_pos: 0x3c502a8,
@@ -141,6 +140,7 @@ pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c502a8,
     world_chr_man_dbg: 0x3c504b8,
     world_chr_man_imp: 0x3c502a8,
+    func_item_spawn: 0x548c90,
 };
 
 pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
@@ -155,7 +155,6 @@ pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
     chr_dbg_flags: 0x3c534dd,
     damage_ctrl: 0x3c536b8,
     field_area: 0x3c564d0,
-    func_item_spawn: 0x5695e50d,
     game_data_man: 0x3c4b218,
     game_man: 0x3c56be8,
     global_pos: 0x3c532c8,
@@ -169,6 +168,7 @@ pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c532c8,
     world_chr_man_dbg: 0x3c53520,
     world_chr_man_imp: 0x3c532c8,
+    func_item_spawn: 0x548db0,
 };
 
 pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
@@ -183,7 +183,6 @@ pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
     chr_dbg_flags: 0x3c6504f,
     damage_ctrl: 0x3c65228,
     field_area: 0x3c68040,
-    func_item_spawn: 0x5695f3cd,
     game_data_man: 0x3c5cd78,
     game_man: 0x3c68758,
     global_pos: 0x3c64e38,
@@ -197,6 +196,7 @@ pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c64e38,
     world_chr_man_dbg: 0x3c65048,
     world_chr_man_imp: 0x3c64e38,
+    func_item_spawn: 0x549c70,
 };
 
 pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
@@ -211,7 +211,6 @@ pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
     chr_dbg_flags: 0x3c6504f,
     damage_ctrl: 0x3c65228,
     field_area: 0x3c68040,
-    func_item_spawn: 0x5695f3cd,
     game_data_man: 0x3c5cd78,
     game_man: 0x3c68758,
     global_pos: 0x3c64e38,
@@ -225,6 +224,7 @@ pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c64e38,
     world_chr_man_dbg: 0x3c65048,
     world_chr_man_imp: 0x3c64e38,
+    func_item_spawn: 0x549c70,
 };
 
 pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
@@ -239,7 +239,6 @@ pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
     chr_dbg_flags: 0x3c6504f,
     damage_ctrl: 0x3c65228,
     field_area: 0x3c68040,
-    func_item_spawn: 0x5695f3cd,
     game_data_man: 0x3c5cd78,
     game_man: 0x3c68758,
     global_pos: 0x3c64e38,
@@ -253,6 +252,7 @@ pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c64e38,
     world_chr_man_dbg: 0x3c65048,
     world_chr_man_imp: 0x3c64e38,
+    func_item_spawn: 0x549c70,
 };
 
 pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
@@ -267,7 +267,6 @@ pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
     chr_dbg_flags: 0x3c082df,
     damage_ctrl: 0x3c084b8,
     field_area: 0x3c0b2c0,
-    func_item_spawn: 0x569620ad,
     game_data_man: 0x3c00028,
     game_man: 0x3c0ba08,
     global_pos: 0x3c080e8,
@@ -281,5 +280,6 @@ pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c080e8,
     world_chr_man_dbg: 0x3c082d8,
     world_chr_man_imp: 0x3c080e8,
+    func_item_spawn: 0x54c950,
 };
 

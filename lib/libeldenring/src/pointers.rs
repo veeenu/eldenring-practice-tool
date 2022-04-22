@@ -68,7 +68,7 @@ pub struct Pointers {
     pub show_chr: Bitflag<u8>,
 
     // Functions
-    pub item_spawn_func_ptr: usize,
+    pub func_item_spawn: usize,
 
     pub base_addresses: BaseAddresses,
 }
@@ -105,6 +105,7 @@ impl Pointers {
             group_mask,
             hit_ins_hitbox_offset,
             world_chr_man,
+            func_item_spawn,
             ..
         } = base_addresses;
 
@@ -227,7 +228,7 @@ impl Pointers {
             ],
             show_chr: bitflag!(0b1; group_mask + 0xE),
 
-            item_spawn_func_ptr: base_module_address + 0x54c950,
+            func_item_spawn,
             base_addresses,
         }
     }

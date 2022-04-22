@@ -1,3 +1,5 @@
+use libeldenring::prelude::*;
+
 use super::Widget;
 use crate::util::KeyState;
 
@@ -56,31 +58,54 @@ pub(crate) struct ItemSpawner {
     func_ptr: usize,
     map_item_man: usize,
     hotkey: KeyState,
+    sentinel: Bitflag<u8>,
     qty: u32,
     item_id: u32,
+    log: Option<Vec<String>>,
 }
 
 impl ItemSpawner {
-    pub(crate) fn new(func_ptr: usize, map_item_man: usize, hotkey: KeyState) -> Self {
+    pub(crate) fn new(func_ptr: usize, map_item_man: usize, sentinel: Bitflag<u8>, hotkey: KeyState) -> Self {
         ItemSpawner {
             func_ptr,
             map_item_man,
             hotkey,
+            sentinel,
             qty: 1,
             item_id: 0x40000000 + 2919,
+            log: None,
         }
     }
 
-    fn spawn(&self) {
+    fn spawn(&mut self) {
+        if self.sentinel.get().is_none() {
+            self.write_log("Not spawning item when not in game".into());
+            return;
+        }
+
         let i = ItemSpawnInstance {
             spawn_item_func_ptr: self.func_ptr as _,
             map_item_man: self.map_item_man as _,
             qty: self.qty,
             item_id: self.item_id,
         };
+
+        self.write_log(format!("Spawning {} #{:x}", i.qty, self.item_id));
+
         unsafe {
             i.spawn();
         }
+    }
+
+    fn write_log(&mut self, log: String) {
+        let logs = self.log.take();
+        self.log = match logs {
+            Some(mut v) => {
+                v.push(log);
+                Some(v)
+            }
+            None => Some(vec![log]),
+        };
     }
 }
 
@@ -134,7 +159,15 @@ impl Widget for ItemSpawner {
         style_tokens.into_iter().rev().for_each(|t| t.pop());
     }
 
-    // fn interact(&mut self) {}
+    fn log(&mut self) -> Option<Vec<String>> {
+        self.log.take()
+    }
+
+    fn interact(&mut self) {
+        if self.hotkey.keyup() {
+            self.spawn();
+        }
+    }
 }
 
 #[derive(Debug)]
