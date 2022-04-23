@@ -193,12 +193,18 @@ static ITEM_ID_TREE: SyncLazy<Vec<ItemIDNode>> =
 pub(crate) struct ItemSpawner<'a> {
     func_ptr: usize,
     map_item_man: usize,
-    hotkey: KeyState,
+    hotkey_load: KeyState,
+    hotkey_close: KeyState,
     sentinel: Bitflag<u8>,
+
+    label_load: String,
+    label_close: String,
+
     qty: u32,
     item_id: u32,
     upgrade: usize,
     affinity: usize,
+
     filter_string: String,
     log: Option<Vec<String>>,
     item_id_tree: Vec<ItemIDNodeRef<'a>>,
@@ -209,12 +215,18 @@ impl ItemSpawner<'_> {
         func_ptr: usize,
         map_item_man: usize,
         sentinel: Bitflag<u8>,
-        hotkey: KeyState,
+        hotkey_load: KeyState,
+        hotkey_close: KeyState,
     ) -> Self {
+        let label_load = format!("Spawn item ({})", hotkey_load);
+        let label_close = format!("Close ({})", hotkey_close);
         ItemSpawner {
             func_ptr,
             map_item_man,
-            hotkey,
+            hotkey_load,
+            hotkey_close,
+            label_load,
+            label_close,
             sentinel,
             qty: 1,
             item_id: 0x40000000 + 2919,
@@ -243,8 +255,8 @@ impl ItemSpawner<'_> {
         };
 
         self.write_log(format!(
-            "Spawning {} #{:x} + {} + {}",
-            i.qty, self.item_id, upgrade, affinity,
+            "Spawning {} #{:x} {} {}",
+            i.qty, self.item_id, UPGRADES[self.upgrade].1, AFFINITIES[self.affinity].1,
         ));
 
         unsafe {
@@ -320,11 +332,11 @@ impl Widget for ItemSpawner<'_> {
             // );
 
             Slider::new("Qty", 0, 256).build(ui, &mut self.qty);
-            if ui.button_with_size(format!("Spawn item ({})", self.hotkey), [240., 20.]) {
+            if self.hotkey_load.keyup() || ui.button_with_size(&self.label_load, [240., 20.]) {
                 self.spawn();
             }
 
-            if ui.button_with_size("Close", [240., 20.]) {
+            if self.hotkey_close.keyup() || ui.button_with_size(&self.label_close, [240., 20.]) {
                 ui.close_current_popup();
             }
         }
@@ -337,7 +349,7 @@ impl Widget for ItemSpawner<'_> {
     }
 
     fn interact(&mut self) {
-        if self.hotkey.keyup() {
+        if self.hotkey_load.keyup() {
             self.spawn();
         }
     }

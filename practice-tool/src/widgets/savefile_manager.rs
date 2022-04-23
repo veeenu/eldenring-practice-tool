@@ -3,7 +3,7 @@ use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-use imgui::{ChildWindow, Condition, ListBox, PopupModal, Selectable, WindowFlags};
+use imgui::*;
 use log::error;
 
 use crate::util::{get_key_code, KeyState};
@@ -148,16 +148,16 @@ impl Widget for SavefileManager {
         if ui.button_with_size(&self.label, [super::BUTTON_WIDTH, super::BUTTON_HEIGHT]) {
             ui.open_popup(SFM_TAG);
         }
-        let [cx, cy] = ui.cursor_pos();
-        let [wx, wy] = ui.window_pos();
-        let [x, y] = [cx + wx, cy + wy];
-        unsafe {
-            imgui_sys::igSetNextWindowPos(
-                imgui_sys::ImVec2 { x, y },
-                Condition::Always as _,
-                imgui_sys::ImVec2 { x: 0., y: 0. },
-            )
-        };
+        // let [cx, cy] = ui.cursor_pos();
+        // let [wx, wy] = ui.window_pos();
+        // let [x, y] = [cx + wx, cy + wy];
+        // unsafe {
+        //     imgui_sys::igSetNextWindowPos(
+        //         imgui_sys::ImVec2 { x, y },
+        //         Condition::Always as _,
+        //         imgui_sys::ImVec2 { x: 0., y: 0. },
+        //     )
+        // };
 
         let style_tokens =
             [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, [0., 0., 0., 0.])];

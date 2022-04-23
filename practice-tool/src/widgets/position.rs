@@ -48,8 +48,6 @@ impl SavePosition {
         ) {
             let [sx, sy, sz, sr1, sr2] = self.saved_position;
 
-            use std::f32::consts::PI;
-
             self.chunk_position
                 .write([sx - gx + cx, sy - gy + cy, sz - gz + cz, sr1, sr2]);
 
