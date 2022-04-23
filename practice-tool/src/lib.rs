@@ -107,9 +107,10 @@ impl PracticeTool {
     }
 
     fn render_visible(&mut self, ui: &mut imgui::Ui, flags: &ImguiRenderLoopFlags) {
+        let [dw, dh] = { ui.io().display_size };
         imgui::Window::new("##tool_window")
             .position([16., 16.], Condition::Always)
-            .size_constraints([240., 0.], ui.window_size())
+            .size_constraints([240., 0.], [dw - 70., dh - 70.])
             .bg_alpha(0.8)
             .flags({
                 WindowFlags::NO_TITLE_BAR

@@ -79,7 +79,25 @@ pub struct Position {
     pub x: PointerChain<f32>,
     pub y: PointerChain<f32>,
     pub z: PointerChain<f32>,
-    pub angle: PointerChain<f32>,
+    pub angle1: PointerChain<f32>,
+    pub angle2: PointerChain<f32>,
+}
+
+impl Position {
+    pub fn read(&self) -> Option<[f32; 5]> {
+        match (self.x.read(), self.y.read(), self.z.read(), self.angle1.read(), self.angle2.read()) {
+            (Some(x), Some(y), Some(z), Some(r1), Some(r2)) => Some([x, y, z, r1, r2]),
+            _ => None,
+        }
+    }
+
+    pub fn write(&self, [x, y, z, r1, r2]: [f32; 5]) {
+        self.x.write(x);
+        self.y.write(y);
+        self.z.write(z);
+        self.angle1.write(r1);
+        self.angle2.write(r2);
+    }
 }
 
 impl Pointers {
@@ -156,25 +174,29 @@ impl Pointers {
                 x: pointer_chain!(world_chr_man, 0x18468, global_position_offset),
                 y: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x4),
                 z: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x8),
-                angle: pointer_chain!(world_chr_man, 0x18468, 0x6bc),
+                angle1: pointer_chain!(world_chr_man, 0x18468, 0x6bc),
+                angle2: pointer_chain!(world_chr_man, 0x18468, 0x6cc),
             },
             stable_position: Position {
                 x: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x14),
                 y: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x18),
                 z: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x1C),
-                angle: pointer_chain!(world_chr_man, 0x18468, 0x6d8),
+                angle1: pointer_chain!(world_chr_man, 0x18468, 0x6d8),
+                angle2: pointer_chain!(world_chr_man, 0x18468, 0x6e8),
             },
             chunk_position: Position {
                 x: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x70),
                 y: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x74),
                 z: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x78),
-                angle: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x54),
+                angle1: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x54),
+                angle2: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x64),
             },
             torrent_chunk_position: Position {
                 x: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x70),
                 y: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x74),
                 z: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x78),
-                angle: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x54),
+                angle1: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x54),
+                angle2: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x64),
             },
             animation_speed: pointer_chain!(world_chr_man, 0xB658, 0, 0x190, 0x28, 0x17C8),
             torrent_animation_speed: pointer_chain!(

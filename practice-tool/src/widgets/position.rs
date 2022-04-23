@@ -11,77 +11,67 @@ pub(crate) struct SavePosition {
     torrent_chunk_position: Position,
     hotkey: KeyState,
     modifier: KeyState,
-    saved_position: [f32; 4],
+    saved_position: [f32; 5],
 }
 
 impl SavePosition {
-    pub(crate) fn new(global_position: Position, chunk_position: Position, torrent_chunk_position: Position, hotkey: KeyState, modifier: KeyState) -> Self {
+    pub(crate) fn new(
+        global_position: Position,
+        chunk_position: Position,
+        torrent_chunk_position: Position,
+        hotkey: KeyState,
+        modifier: KeyState,
+    ) -> Self {
         SavePosition {
             global_position,
             chunk_position,
             torrent_chunk_position,
             hotkey,
             modifier,
-            saved_position: [0f32; 4],
+            saved_position: [0f32; 5],
         }
     }
 
     fn save_position(&mut self) {
-        if let (Some(x), Some(y), Some(z), Some(angle)) = (
-            self.global_position.x.read(),
-            self.global_position.y.read(),
-            self.global_position.z.read(),
-            self.global_position.angle.read(),
-        ) {
-            self.saved_position = [x, y, z, angle];
+        if let (Some([x, y, z, _, _]), Some([_, _, _, r1, r2])) =
+            (self.global_position.read(), self.chunk_position.read())
+        {
+            self.saved_position = [x, y, z, r1, r2];
         }
     }
 
     fn load_position(&mut self) {
-        let [sx, sy, sz, sr] = self.saved_position;
-        if let (Some(gx), Some(gy), Some(gz), Some(gr),
-            Some(cx), Some(cy), Some(cz), Some(cr),
-            Some(tcx), Some(tcy), Some(tcz), Some(tcr),
-        ) = (
-            self.global_position.x.read(),
-            self.global_position.y.read(),
-            self.global_position.z.read(),
-            self.global_position.angle.read(),
-            self.chunk_position.x.read(),
-            self.chunk_position.y.read(),
-            self.chunk_position.z.read(),
-            self.chunk_position.angle.read(),
-            self.torrent_chunk_position.x.read(),
-            self.torrent_chunk_position.y.read(),
-            self.torrent_chunk_position.z.read(),
-            self.torrent_chunk_position.angle.read(),
+        if let (Some([gx, gy, gz, _, _]), Some([cx, cy, cz, _, _]), Some([tcx, tcy, tcz, _, _])) = (
+            self.global_position.read(),
+            self.chunk_position.read(),
+            self.torrent_chunk_position.read(),
         ) {
+            let [sx, sy, sz, sr1, sr2] = self.saved_position;
+
             use std::f32::consts::PI;
 
-            self.chunk_position.x.write(sx - gx + cx);
-            self.chunk_position.y.write(sy - gy + cy);
-            self.chunk_position.z.write(sz - gz + cz);
-            self.chunk_position.angle.write((sr - gr) / PI + cr);
+            self.chunk_position
+                .write([sx - gx + cx, sy - gy + cy, sz - gz + cz, sr1, sr2]);
 
-            self.torrent_chunk_position.x.write(sx - gx + tcx);
-            self.torrent_chunk_position.y.write(sy - gy + tcy);
-            self.torrent_chunk_position.z.write(sz - gz + tcz);
-            self.torrent_chunk_position.angle.write((sr - gr) / PI + tcr);
+            self.torrent_chunk_position.write([
+                sx - gx + tcx,
+                sy - gy + tcy,
+                sz - gz + tcz,
+                sr1,
+                sr2,
+            ]);
         }
     }
 }
 
 impl Widget for SavePosition {
     fn render(&mut self, ui: &imgui::Ui) {
-        let (x, y, z, angle) = (
-            self.global_position.x.read(),
-            self.global_position.y.read(),
-            self.global_position.z.read(),
-            self.global_position.angle.read(),
-        );
         let saved_pos = self.saved_position;
 
-        let (read_pos, valid) = if let (Some(x), Some(y), Some(z), Some(angle)) = (x, y, z, angle) {
+        let (read_pos, valid) = if let (Some([x, y, z, _, _]), Some(angle)) = (
+            self.global_position.read(),
+            self.chunk_position.angle1.read(),
+        ) {
             ([x, y, z, angle], true)
         } else {
             ([0f32; 4], false)

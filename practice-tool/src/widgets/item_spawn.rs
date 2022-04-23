@@ -3,12 +3,58 @@ use libeldenring::prelude::*;
 use super::Widget;
 use crate::util::KeyState;
 
+use std::borrow::Cow;
 use std::ffi::c_void;
 use std::fmt::Display;
 use std::lazy::SyncLazy;
 
 use imgui::*;
 use serde::Deserialize;
+
+static AFFINITIES: [(u32, &str); 13] = [
+    (0, "No affinity"),
+    (100, "Heavy"),
+    (200, "Keen"),
+    (300, "Quality"),
+    (400, "Fire"),
+    (500, "Flame Art"),
+    (600, "Lightning"),
+    (700, "Sacred"),
+    (800, "Magic"),
+    (900, "Cold"),
+    (1000, "Poison"),
+    (1100, "Blood"),
+    (1200, "Occult"),
+];
+
+static UPGRADES: [(u32, &str); 26] = [
+    (0, "+0"),
+    (1, "+1"),
+    (2, "+2"),
+    (3, "+3"),
+    (4, "+4"),
+    (5, "+5"),
+    (6, "+6"),
+    (7, "+7"),
+    (8, "+8"),
+    (9, "+9"),
+    (10, "+10"),
+    (11, "+11"),
+    (12, "+12"),
+    (13, "+13"),
+    (14, "+14"),
+    (15, "+15"),
+    (16, "+16"),
+    (17, "+17"),
+    (18, "+18"),
+    (19, "+19"),
+    (20, "+20"),
+    (21, "+21"),
+    (22, "+22"),
+    (23, "+23"),
+    (24, "+24"),
+    (25, "+25"),
+];
 
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
@@ -118,7 +164,7 @@ impl ItemIDNode {
                             children,
                         })
                     }
-                },
+                }
             }
         }
     }
@@ -151,6 +197,8 @@ pub(crate) struct ItemSpawner<'a> {
     sentinel: Bitflag<u8>,
     qty: u32,
     item_id: u32,
+    upgrade: usize,
+    affinity: usize,
     filter_string: String,
     log: Option<Vec<String>>,
     item_id_tree: Vec<ItemIDNodeRef<'a>>,
@@ -170,6 +218,8 @@ impl ItemSpawner<'_> {
             sentinel,
             qty: 1,
             item_id: 0x40000000 + 2919,
+            upgrade: 0,
+            affinity: 0,
             filter_string: String::new(),
             log: None,
             item_id_tree: ITEM_ID_TREE.iter().map(ItemIDNodeRef::from).collect(),
@@ -182,14 +232,20 @@ impl ItemSpawner<'_> {
             return;
         }
 
+        let upgrade = UPGRADES[self.upgrade].0;
+        let affinity = AFFINITIES[self.affinity].0;
+
         let i = ItemSpawnInstance {
             spawn_item_func_ptr: self.func_ptr as _,
             map_item_man: self.map_item_man as _,
             qty: self.qty,
-            item_id: self.item_id,
+            item_id: self.item_id + upgrade + affinity,
         };
 
-        self.write_log(format!("Spawning {} #{:x}", i.qty, self.item_id));
+        self.write_log(format!(
+            "Spawning {} #{:x} + {} + {}",
+            i.qty, self.item_id, upgrade, affinity,
+        ));
 
         unsafe {
             i.spawn();
@@ -213,16 +269,6 @@ impl Widget for ItemSpawner<'_> {
         if ui.button_with_size("Spawn item", [super::BUTTON_WIDTH, super::BUTTON_HEIGHT]) {
             ui.open_popup(ISP_TAG);
         }
-        // let [cx, cy] = ui.cursor_pos();
-        // let [wx, wy] = ui.window_pos();
-        // let [x, y] = [cx + wx, cy + wy - super::BUTTON_HEIGHT - ui.scroll_y()];
-        // unsafe {
-        //     imgui_sys::igSetNextWindowPos(
-        //         imgui_sys::ImVec2 { x, y },
-        //         Condition::Always as _,
-        //         imgui_sys::ImVec2 { x: 0., y: 0. },
-        //     )
-        // };
 
         let style_tokens =
             [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, [0., 0., 0., 0.])];
@@ -232,13 +278,13 @@ impl Widget for ItemSpawner<'_> {
                 WindowFlags::NO_TITLE_BAR
                     | WindowFlags::NO_RESIZE
                     | WindowFlags::NO_MOVE
-                    | WindowFlags::NO_SCROLLBAR
-                    | WindowFlags::ALWAYS_AUTO_RESIZE,
+                    | WindowFlags::NO_SCROLLBAR,
             )
             .begin_popup(ui)
         {
-            if ui
-                .input_text("##item-spawn-filter", &mut self.filter_string)
+            let tok = ui.push_item_width(-1.);
+            if InputText::new(ui, "##item-spawn-filter", &mut self.filter_string)
+                .hint("Filter...")
                 .build()
             {
                 self.item_id_tree = ITEM_ID_TREE
@@ -246,6 +292,7 @@ impl Widget for ItemSpawner<'_> {
                     .filter_map(|n| n.filter(&self.filter_string))
                     .collect();
             }
+            drop(tok);
             ChildWindow::new("##item-spawn-list")
                 .size([240., 200.])
                 .build(ui, || {
@@ -253,6 +300,24 @@ impl Widget for ItemSpawner<'_> {
                         node.render(ui, &mut self.item_id, !self.filter_string.is_empty());
                     }
                 });
+
+            ui.set_next_item_width(240.);
+            ui.combo(
+                "##item-spawn-affinity",
+                &mut self.affinity,
+                &AFFINITIES,
+                |(_, label)| Cow::Borrowed(label),
+            );
+
+            // TODO figure out why upgrades don't work.
+            // ui.same_line();
+            // ui.set_next_item_width(120.);
+            // ui.combo(
+            //     "##item-spawn-upgrade",
+            //     &mut self.upgrade,
+            //     &UPGRADES,
+            //     |(_, label)| Cow::Borrowed(label),
+            // );
 
             Slider::new("Qty", 0, 256).build(ui, &mut self.qty);
             if ui.button_with_size(format!("Spawn item ({})", self.hotkey), [240., 20.]) {
