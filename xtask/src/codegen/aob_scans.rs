@@ -56,7 +56,9 @@ const AOBS: &[(&str, &str)] = &[
 const AOBS_DIRECT: &[(&str, &str)] = &[
     ("FuncItemSpawn", "48 8B C4 56 57 41 56 48 81 EC ?? ?? ?? ?? 48 C7 44 24 ?? ?? ?? ?? ?? 48 89 58 ?? 48 89 68 ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 41 0F B6 F9"),
     // ("FuncItemInject", "40 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 70 FF FF FF 48 81 EC 90 01 00 00 48 C7 45 C8 FE FF FF FF 48 89 9C 24 D8"),
-    ("FuncItemInject", "40 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 B0 48 81 EC 50 01 00 00 48 C7 45 C0 FE FF FF FF")
+    ("FuncItemInject", "40 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 B0 48 81 EC 50 01 00 00 48 C7 45 C0 FE FF FF FF"), // 1.02
+    ("FuncItemInject", "48 8B C4 55 41 54 41 55 41 56 41 57 48 8D ?? ?? 48 81 EC ?? ?? ?? ?? 48 C7 45 ?? FE FF FF FF 48 89 58 ?? 48 89 70 ?? 48 89 78 ?? 45 0F B6 E9"), // 1.03
+    ("FuncItemInject", "40 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 70 FF FF FF 48 81 EC 90 01 00 00 48 C7 45 C8 FE FF FF FF 48 89 9C 24 D8"), // 1.04
 ];
 
 #[derive(PartialEq, Eq, Hash)]
@@ -219,17 +221,24 @@ fn find_aobs(bytes: Vec<u8>) -> Vec<(&'static str, usize)> {
 
     aob_offsets.sort_by(|a, b| a.0.cmp(b.0));
 
-    let mut aob_offsets_direct = AOBS_DIRECT
-        .into_par_iter()
-        .filter_map(|(name, aob)| {
-            if let Some(r) = naive_search(&bytes, &into_needle(aob)) {
-                Some((*name, r))
-            } else {
-                eprintln!("{name:24} not found");
-                None
-            }
-        })
-        .collect::<Vec<_>>();
+    let mut aob_offsets_direct = {
+        let mut found: HashSet<&str> = HashSet::new();
+        AOBS_DIRECT
+            .into_iter()
+            .filter_map(|(name, aob)| {
+                if found.contains(name) {
+                    return None;
+                }
+                if let Some(r) = naive_search(&bytes, &into_needle(aob)) {
+                    found.insert(name);
+                    Some((*name, r))
+                } else {
+                    eprintln!("{name:24} not found");
+                    None
+                }
+            })
+            .collect::<Vec<_>>()
+    };
 
     aob_offsets_direct.sort_by(|a, b| a.0.cmp(b.0));
 
@@ -283,13 +292,21 @@ fn codegen_struct() -> String {
             .collect::<Vec<_>>()
             .join(""),
     );
-    generated.push_str(
+    generated.push_str({
+        let mut done: HashSet<&str> = HashSet::new();
         &AOBS_DIRECT
             .iter()
-            .map(|(name, _)| format!("    pub {}: usize,\n", AsSnakeCase(name)))
+            .filter_map(|(name, _)| {
+                if done.contains(name) {
+                    None
+                } else {
+                    done.insert(name);
+                    Some(format!("    pub {}: usize,\n", AsSnakeCase(name)))
+                }
+            })
             .collect::<Vec<_>>()
-            .join(""),
-    );
+            .join("")
+    });
     generated.push_str("}\n\n");
     generated.push_str("impl BaseAddresses {\n");
     generated.push_str("    pub fn with_module_base_addr(self, base: usize) -> BaseAddresses {\n");
@@ -307,19 +324,25 @@ fn codegen_struct() -> String {
             .collect::<Vec<_>>()
             .join(""),
     );
-    generated.push_str(
+    generated.push_str({
+        let mut done: HashSet<&str> = HashSet::new();
         &AOBS_DIRECT
             .iter()
-            .map(|(name, _)| {
-                format!(
-                    "            {}: self.{} + base,\n",
-                    AsSnakeCase(name),
-                    AsSnakeCase(name)
-                )
+            .filter_map(|(name, _)| {
+                if done.contains(name) {
+                    None
+                } else {
+                    done.insert(name);
+                    Some(format!(
+                        "            {}: self.{} + base,\n",
+                        AsSnakeCase(name),
+                        AsSnakeCase(name)
+                    ))
+                }
             })
             .collect::<Vec<_>>()
-            .join(""),
-    );
+            .join("")
+    });
     generated.push_str("        }\n    }\n}\n\n");
     generated
 }
@@ -372,7 +395,7 @@ pub(crate) fn get_base_addresses() {
     let codegen = patches_paths()
         .filter(|p| p.exists())
         .filter_map(|exe| {
-            let version = get_file_version(&exe); 
+            let version = get_file_version(&exe);
             if processed_versions.contains(&version) {
                 None
             } else {
