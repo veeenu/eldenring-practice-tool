@@ -170,7 +170,7 @@ impl Config {
                         hotkey_load,
                         hotkey_close,
                     } => Box::new(ItemSpawner::new(
-                        chains.func_item_spawn,
+                        chains.func_item_inject,
                         chains.base_addresses.map_item_man,
                         chains.gravity.clone(),
                         hotkey_load.clone(),
