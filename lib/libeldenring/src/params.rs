@@ -94,7 +94,7 @@ impl Params {
     ///
     /// Accesses raw pointers. Should never crash as the param pointers are static.
     pub unsafe fn refresh(&mut self) -> Result<(), String> {
-        let module_base_addr = unsafe { GetModuleHandleA(PCSTR(null_mut())) }.0 as usize;
+        let module_base_addr = GetModuleHandleA(PCSTR(null_mut())).0 as usize;
         let base_ptr = param_ptr(&*VERSION) + module_base_addr;
         info!("Loading param at {:x}", base_ptr);
         let base: &ParamMaster = std::ptr::read(base_ptr as *const *const ParamMaster)

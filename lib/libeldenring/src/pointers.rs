@@ -70,6 +70,7 @@ pub struct Pointers {
 
     // Functions
     pub func_item_spawn: usize,
+    pub func_item_inject: usize,
 
     pub base_addresses: BaseAddresses,
 }
@@ -125,6 +126,7 @@ impl Pointers {
             hit_ins_hitbox_offset,
             world_chr_man,
             func_item_spawn,
+            func_item_inject,
             ..
         } = base_addresses;
 
@@ -247,6 +249,7 @@ impl Pointers {
             show_chr: bitflag!(0b1; group_mask + 0xE),
 
             func_item_spawn,
+            func_item_inject,
             base_addresses,
         }
     }

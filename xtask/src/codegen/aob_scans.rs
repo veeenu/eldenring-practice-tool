@@ -54,7 +54,9 @@ const AOBS: &[(&str, &str)] = &[
 
 // Direct AoB patterns -- grab the position of the match. For static functions
 const AOBS_DIRECT: &[(&str, &str)] = &[
-    ("FuncItemSpawn", "48 8B C4 56 57 41 56 48 81 EC ?? ?? ?? ?? 48 C7 44 24 ?? ?? ?? ?? ?? 48 89 58 ?? 48 89 68 ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 41 0F B6 F9")
+    ("FuncItemSpawn", "48 8B C4 56 57 41 56 48 81 EC ?? ?? ?? ?? 48 C7 44 24 ?? ?? ?? ?? ?? 48 89 58 ?? 48 89 68 ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 41 0F B6 F9"),
+    // ("FuncItemInject", "40 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 70 FF FF FF 48 81 EC 90 01 00 00 48 C7 45 C8 FE FF FF FF 48 89 9C 24 D8"),
+    ("FuncItemInject", "40 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 B0 48 81 EC 50 01 00 00 48 C7 45 C0 FE FF FF FF")
 ];
 
 #[derive(PartialEq, Eq, Hash)]

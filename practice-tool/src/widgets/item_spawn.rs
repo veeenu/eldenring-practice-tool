@@ -255,7 +255,7 @@ impl ItemSpawner<'_> {
         };
 
         self.write_log(format!(
-            "Spawning {} #{:x} {} {}",
+            "Spawning {} #{} {} {}",
             i.qty, self.item_id, UPGRADES[self.upgrade].1, AFFINITIES[self.affinity].1,
         ));
 
@@ -313,7 +313,7 @@ impl Widget for ItemSpawner<'_> {
                     }
                 });
 
-            ui.set_next_item_width(240.);
+            ui.set_next_item_width(110.);
             ui.combo(
                 "##item-spawn-affinity",
                 &mut self.affinity,
@@ -322,14 +322,14 @@ impl Widget for ItemSpawner<'_> {
             );
 
             // TODO figure out why upgrades don't work.
-            // ui.same_line();
-            // ui.set_next_item_width(120.);
-            // ui.combo(
-            //     "##item-spawn-upgrade",
-            //     &mut self.upgrade,
-            //     &UPGRADES,
-            //     |(_, label)| Cow::Borrowed(label),
-            // );
+            ui.same_line();
+            ui.set_next_item_width(110.);
+            ui.combo(
+                "##item-spawn-upgrade",
+                &mut self.upgrade,
+                &UPGRADES,
+                |(_, label)| Cow::Borrowed(label),
+            );
 
             Slider::new("Qty", 0, 256).build(ui, &mut self.qty);
             if self.hotkey_load.keyup() || ui.button_with_size(&self.label_load, [240., 20.]) {
@@ -371,33 +371,58 @@ impl Display for ItemSpawnInstance {
 
 impl ItemSpawnInstance {
     unsafe fn spawn(&self) {
+        // 550300 in 102
         #[repr(C)]
         struct SpawnRequest {
+            one: u32,
             item_id: u32,
             qty: u32,
-            unk1: u32,
-            unk2: u32,
         }
 
-        type SpawnItemFn = extern "system" fn(*const c_void, *mut SpawnRequest, *mut [u32; 6]);
+        // let module_base_addr = windows::Win32::System::LibraryLoader::GetModuleHandleA(windows::core::PCSTR(std::ptr::null_mut())).0 as usize;
+
+        type SpawnItemFn = extern "system" fn(*const c_void, *mut SpawnRequest, *mut u32, u32);
+        // let spawn_fn_ptr = std::mem::transmute::<_, SpawnItemFn>(module_base_addr + 0x54E570);
         let spawn_fn_ptr = std::mem::transmute::<_, SpawnItemFn>(self.spawn_item_func_ptr);
         let pp_map_item_man = self.map_item_man as *const *const c_void;
 
         let item_id = self.item_id;
         let qty = self.qty;
-
         let mut spawn_request = SpawnRequest {
+            one: 1,
             item_id,
             qty,
-            unk1: item_id & (0x10000000 | 0x20000000 | 0x40000000 | 0x80000000),
-            unk2: 0xffffffff,
         };
+        let mut dur: u32 = 0xffffffff;
 
-        spawn_fn_ptr(
-            *pp_map_item_man,
-            &mut spawn_request as *mut _,
-            &mut [0u32; 6] as *mut _,
-        );
+        spawn_fn_ptr(*pp_map_item_man, &mut spawn_request as *mut _, &mut dur as *mut _, 0u32);
+
+        // #[repr(C)]
+        // struct SpawnRequest {
+        //     item_id: u32,
+        //     qty: u32,
+        //     unk1: u32,
+        //     unk2: u32,
+        // }
+
+        // type SpawnItemFn = extern "system" fn(*const c_void, *mut SpawnRequest);
+        // let spawn_fn_ptr = std::mem::transmute::<_, SpawnItemFn>(self.spawn_item_func_ptr);
+        // let pp_map_item_man = self.map_item_man as *const *const c_void;
+
+        // let item_id = self.item_id;
+        // let qty = self.qty;
+
+        // let mut spawn_request = SpawnRequest {
+        //     item_id,
+        //     qty,
+        //     unk1: item_id & 0xf0000000,
+        //     unk2: 0xffffffff,
+        // };
+
+        // spawn_fn_ptr(
+        //     *pp_map_item_man,
+        //     &mut spawn_request as *mut _,
+        // );
     }
 }
 
