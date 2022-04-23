@@ -1,0 +1,18 @@
+[package]
+name = "param-tinkerer"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib", "rlib"]
+name = "jdsd_eldenring_param_tinkerer"
+
+[dependencies]
+imgui = "0.8.0"
+imgui-sys = "0.8.0"
+libeldenring = { path = "../libeldenring" }
+hudhook = { path = "../hudhook/hudhook" }
+imgui-dx12 = { path = "../hudhook/imgui-dx12" }
+winapi = { version = "0.3.9", features = ["winuser", "minwindef", "windef", "xinput"] }
+windows = { version = "0.34.0", features = ["Win32_System_LibraryLoader", "Win32_Foundation"] }

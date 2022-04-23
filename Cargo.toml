@@ -2,6 +2,7 @@
 members = [
   "practice-tool",
   "lib/libeldenring",
+  "lib/param-tinkerer",
   "xtask",
 ]
 exclude = [

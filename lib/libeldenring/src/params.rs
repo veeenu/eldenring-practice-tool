@@ -3,11 +3,15 @@ pub use crate::codegen::param_data::*;
 use std::collections::{BTreeMap, HashMap};
 use std::ffi::c_void;
 use std::lazy::SyncLazy;
+use std::ptr::null_mut;
 
 use log::{error, info};
 use parking_lot::RwLock;
 use widestring::U16CStr;
+use windows::core::PCSTR;
+use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 
+use crate::codegen::base_addresses;
 use crate::version::{Version, VERSION};
 use crate::{wait_option, ParamVisitor};
 
@@ -25,6 +29,7 @@ pub static PARAM_NAMES: SyncLazy<HashMap<String, HashMap<usize, String>>> = Sync
     serde_json::from_str(&include_str!("codegen/param_names.json")).unwrap()
 });
 
+#[derive(Debug)]
 #[repr(C)]
 struct ParamMaster {
     unk1: [u64; 2],
@@ -62,14 +67,14 @@ pub struct Param<T: 'static> {
 
 const fn param_ptr(v: &Version) -> usize {
     match v {
-        Version::V1_02_0 => todo!(),
-        Version::V1_02_1 => todo!(),
-        Version::V1_02_2 => todo!(),
-        Version::V1_02_3 => todo!(),
-        Version::V1_03_0 => todo!(),
-        Version::V1_03_1 => todo!(),
-        Version::V1_03_2 => todo!(),
-        Version::V1_04_0 => todo!(),
+        Version::V1_02_0 => base_addresses::BASE_ADDRESSES_1_02_0.solo_param_repository,
+        Version::V1_02_1 => base_addresses::BASE_ADDRESSES_1_02_1.solo_param_repository,
+        Version::V1_02_2 => base_addresses::BASE_ADDRESSES_1_02_2.solo_param_repository,
+        Version::V1_02_3 => base_addresses::BASE_ADDRESSES_1_02_3.solo_param_repository,
+        Version::V1_03_0 => base_addresses::BASE_ADDRESSES_1_03_0.solo_param_repository,
+        Version::V1_03_1 => base_addresses::BASE_ADDRESSES_1_03_1.solo_param_repository,
+        Version::V1_03_2 => base_addresses::BASE_ADDRESSES_1_03_2.solo_param_repository,
+        Version::V1_04_0 => base_addresses::BASE_ADDRESSES_1_04_0.solo_param_repository,
     }
 }
 
@@ -89,9 +94,13 @@ impl Params {
     ///
     /// Accesses raw pointers. Should never crash as the param pointers are static.
     pub unsafe fn refresh(&mut self) -> Result<(), String> {
-        let base: &ParamMaster = std::ptr::read(param_ptr(&*VERSION) as *const *const ParamMaster)
+        let module_base_addr = unsafe { GetModuleHandleA(PCSTR(null_mut())) }.0 as usize;
+        let base_ptr = param_ptr(&*VERSION) + module_base_addr;
+        info!("Loading param at {:x}", base_ptr);
+        let base: &ParamMaster = std::ptr::read(base_ptr as *const *const ParamMaster)
             .as_ref()
             .ok_or_else(|| "Invalid param base address".to_string())?;
+        info!("Param base found {:?}", base);
 
         let m = Params::param_entries_from_master(base)?;
         self.0 = m;
@@ -102,6 +111,8 @@ impl Params {
         base: &ParamMaster,
     ) -> Result<BTreeMap<String, (*const c_void, isize)>, String> {
         let count = base.end.offset_from(base.start);
+
+        info!("Param count: {}", count);
 
         let param_entries: &[*const ParamEntry] =
             std::slice::from_raw_parts(base.start, count as usize);
@@ -126,8 +137,8 @@ impl Params {
                     .map_err(|e| format!("{}", e))?;
 
                 let ptr = param_ptr as *const c_void;
-                let ptr = *(ptr.offset(0x68) as *const *const c_void);
-                let ptr = *(ptr.offset(0x68) as *const *const c_void);
+                let ptr = *(ptr.offset(0x80) as *const *const c_void);
+                let ptr = *(ptr.offset(0x80) as *const *const c_void);
                 let count = *(ptr.offset(0x0a) as *const u16);
 
                 Ok((name, (ptr as _, count as isize)))
