@@ -8,3 +8,7 @@ members = [
 exclude = [
   "lib/hudhook"
 ]
+
+[profile.release]
+strip = "symbols"
+lto = true
