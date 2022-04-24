@@ -2,6 +2,6 @@
 rustflags = ["-C", "target-cpu=native", "-C", "link-args=-Wl,--subsystem,windows"]
 
 [alias]
-xtask = "run --package xtask --"
+xtask = "run --package xtask --release --"
 r = "xtask run"
 d = "xtask dist"

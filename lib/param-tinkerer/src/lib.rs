@@ -181,6 +181,7 @@ impl ParamTinkerer {
                                     .selected(idx == self.selected_param_id)
                                     .build(ui)
                                 {
+                                    info!("Selected {idx}: {id}");
                                     self.selected_param_id = idx;
                                 }
                             }

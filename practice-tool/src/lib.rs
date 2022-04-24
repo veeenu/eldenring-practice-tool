@@ -93,6 +93,26 @@ impl PracticeTool {
             debug!("{}", err);
         }
 
+        {
+            wait_option_thread(
+                || unsafe {
+                    let mut params = PARAMS.write();
+                    if let Err(e) = params.refresh() {
+                        error!("{}", e);
+                    }
+                    params.get_equip_param_goods()
+                },
+                |mut epg| {
+                    epg.find(|i| i.id == 130).and_then(|p| p.param).map(
+                        |mut spectral_steed_whistle| {
+                            debug!("{:?}", spectral_steed_whistle);
+                            spectral_steed_whistle.icon_id = 12;
+                        },
+                    );
+                },
+            )
+        }
+
         let pointers = Pointers::new();
         debug!("{:#?}", pointers);
         let widgets = config.make_commands(&pointers);

@@ -20,198 +20,194 @@ type BoxedVisitorLambda = Box<dyn Fn(*const c_void, &mut dyn ParamVisitor) + Sen
 
 pub static PARAM_VTABLE: SyncLazy<HashMap<String, BoxedVisitorLambda>> = SyncLazy::new(|| {
     [
-        ("actionbuttonparam".to_string(), unsafe { get_lambda::<actionbuttonparam>() }),
-        ("aianimtblparam".to_string(), unsafe { get_lambda::<aianimtblparam>() }),
-        ("aiattackparam".to_string(), unsafe { get_lambda::<aiattackparam>() }),
-        ("aioddsparam".to_string(), unsafe { get_lambda::<aioddsparam>() }),
-        ("aisoundparam".to_string(), unsafe { get_lambda::<aisoundparam>() }),
-        ("aistandardinfo".to_string(), unsafe { get_lambda::<aistandardinfo>() }),
-        ("assetgeometryparam".to_string(), unsafe { get_lambda::<assetgeometryparam>() }),
-        ("assetmaterialsfxparam".to_string(), unsafe { get_lambda::<assetmaterialsfxparam>() }),
-        ("assetmodelsfxparam".to_string(), unsafe { get_lambda::<assetmodelsfxparam>() }),
-        ("attackelementcorrectparam".to_string(), unsafe { get_lambda::<attackelementcorrectparam>() }),
-        ("autocreateenvsoundparam".to_string(), unsafe { get_lambda::<autocreateenvsoundparam>() }),
-        ("basechrselectmenuparam".to_string(), unsafe { get_lambda::<basechrselectmenuparam>() }),
-        ("behaviorparam".to_string(), unsafe { get_lambda::<behaviorparam>() }),
-        ("bonfirewarpparam".to_string(), unsafe { get_lambda::<bonfirewarpparam>() }),
-        ("bonfirewarpsubcategoryparam".to_string(), unsafe { get_lambda::<bonfirewarpsubcategoryparam>() }),
-        ("bonfirewarptabparam".to_string(), unsafe { get_lambda::<bonfirewarptabparam>() }),
-        ("buddyparam".to_string(), unsafe { get_lambda::<buddyparam>() }),
-        ("buddystoneparam".to_string(), unsafe { get_lambda::<buddystoneparam>() }),
-        ("budgetparam".to_string(), unsafe { get_lambda::<budgetparam>() }),
-        ("bulletcreatelimitparam".to_string(), unsafe { get_lambda::<bulletcreatelimitparam>() }),
-        ("calccorrectgraph".to_string(), unsafe { get_lambda::<calccorrectgraph>() }),
-        ("camerafadeparam".to_string(), unsafe { get_lambda::<camerafadeparam>() }),
-        ("charainitparam".to_string(), unsafe { get_lambda::<charainitparam>() }),
-        ("charmakemenulistitemparam".to_string(), unsafe { get_lambda::<charmakemenulistitemparam>() }),
-        ("charmakemenutopparam".to_string(), unsafe { get_lambda::<charmakemenutopparam>() }),
-        ("chractivateconditionparam".to_string(), unsafe { get_lambda::<chractivateconditionparam>() }),
-        ("chrmodelparam".to_string(), unsafe { get_lambda::<chrmodelparam>() }),
-        ("clearcountcorrectparam".to_string(), unsafe { get_lambda::<clearcountcorrectparam>() }),
-        ("commonsystemparam".to_string(), unsafe { get_lambda::<commonsystemparam>() }),
-        ("cooltimeparam".to_string(), unsafe { get_lambda::<cooltimeparam>() }),
-        ("cutscenegparamtimeparam".to_string(), unsafe { get_lambda::<cutscenegparamtimeparam>() }),
-        ("cutscenegparamweatherparam".to_string(), unsafe { get_lambda::<cutscenegparamweatherparam>() }),
-        ("cutscenemapidparam".to_string(), unsafe { get_lambda::<cutscenemapidparam>() }),
-        ("cutscenetextureloadparam".to_string(), unsafe { get_lambda::<cutscenetextureloadparam>() }),
-        ("cutscenetimezoneconvertparam".to_string(), unsafe { get_lambda::<cutscenetimezoneconvertparam>() }),
-        ("cutsceneweatheroverridegparamidconvertparam".to_string(), unsafe { get_lambda::<cutsceneweatheroverridegparamidconvertparam>() }),
-        ("decalparam".to_string(), unsafe { get_lambda::<decalparam>() }),
-        ("directioncameraparam".to_string(), unsafe { get_lambda::<directioncameraparam>() }),
-        ("enemycommonparam".to_string(), unsafe { get_lambda::<enemycommonparam>() }),
-        ("enemystandardinfo".to_string(), unsafe { get_lambda::<enemystandardinfo>() }),
-        ("envobjlotparam".to_string(), unsafe { get_lambda::<envobjlotparam>() }),
-        ("equipmtrlsetparam".to_string(), unsafe { get_lambda::<equipmtrlsetparam>() }),
-        ("equipparamaccessory".to_string(), unsafe { get_lambda::<equipparamaccessory>() }),
-        ("equipparamcustomweapon".to_string(), unsafe { get_lambda::<equipparamcustomweapon>() }),
-        ("equipparamgem".to_string(), unsafe { get_lambda::<equipparamgem>() }),
-        ("equipparamgoods".to_string(), unsafe { get_lambda::<equipparamgoods>() }),
-        ("equipparamprotector".to_string(), unsafe { get_lambda::<equipparamprotector>() }),
-        ("equipparamweapon".to_string(), unsafe { get_lambda::<equipparamweapon>() }),
-        ("eventflagusageparam".to_string(), unsafe { get_lambda::<eventflagusageparam>() }),
-        ("faceparam".to_string(), unsafe { get_lambda::<faceparam>() }),
-        ("facerangeparam".to_string(), unsafe { get_lambda::<facerangeparam>() }),
-        ("fetexteffectparam".to_string(), unsafe { get_lambda::<fetexteffectparam>() }),
-        ("footsfxparam".to_string(), unsafe { get_lambda::<footsfxparam>() }),
-        ("gameareaparam".to_string(), unsafe { get_lambda::<gameareaparam>() }),
-        ("gameinfoparam".to_string(), unsafe { get_lambda::<gameinfoparam>() }),
-        ("gamesystemcommonparam".to_string(), unsafe { get_lambda::<gamesystemcommonparam>() }),
-        ("gconfigaaquality".to_string(), unsafe { get_lambda::<gconfigaaquality>() }),
-        ("gconfigdecalquality".to_string(), unsafe { get_lambda::<gconfigdecalquality>() }),
-        ("gconfigdofquality".to_string(), unsafe { get_lambda::<gconfigdofquality>() }),
-        ("gconfigeffectquality".to_string(), unsafe { get_lambda::<gconfigeffectquality>() }),
-        ("gconfiglightingquality".to_string(), unsafe { get_lambda::<gconfiglightingquality>() }),
-        ("gconfigmotionblurquality".to_string(), unsafe { get_lambda::<gconfigmotionblurquality>() }),
-        ("gconfigreflectionquality".to_string(), unsafe { get_lambda::<gconfigreflectionquality>() }),
-        ("gconfigshaderquality".to_string(), unsafe { get_lambda::<gconfigshaderquality>() }),
-        ("gconfigshadowquality".to_string(), unsafe { get_lambda::<gconfigshadowquality>() }),
-        ("gconfigssaoquality".to_string(), unsafe { get_lambda::<gconfigssaoquality>() }),
-        ("gconfigtexturefilterquality".to_string(), unsafe { get_lambda::<gconfigtexturefilterquality>() }),
-        ("gconfigvolumetriceffectquality".to_string(), unsafe { get_lambda::<gconfigvolumetriceffectquality>() }),
-        ("gconfigwaterquality".to_string(), unsafe { get_lambda::<gconfigwaterquality>() }),
-        ("gestureparam".to_string(), unsafe { get_lambda::<gestureparam>() }),
-        ("gparamgridregioninfo".to_string(), unsafe { get_lambda::<gparamgridregioninfo>() }),
-        ("gparamrefsettingsparam".to_string(), unsafe { get_lambda::<gparamrefsettingsparam>() }),
-        ("graphicscommonparam".to_string(), unsafe { get_lambda::<graphicscommonparam>() }),
-        ("graphicsconfig".to_string(), unsafe { get_lambda::<graphicsconfig>() }),
-        ("grasslodrangeparam".to_string(), unsafe { get_lambda::<grasslodrangeparam>() }),
-        ("grassmapsettings".to_string(), unsafe { get_lambda::<grassmapsettings>() }),
-        ("grasstypeparam".to_string(), unsafe { get_lambda::<grasstypeparam>() }),
-        ("hiteffectseparam".to_string(), unsafe { get_lambda::<hiteffectseparam>() }),
-        ("hiteffectsfxconceptparam".to_string(), unsafe { get_lambda::<hiteffectsfxconceptparam>() }),
-        ("hiteffectsfxparam".to_string(), unsafe { get_lambda::<hiteffectsfxparam>() }),
-        ("hitmtrlparam".to_string(), unsafe { get_lambda::<hitmtrlparam>() }),
-        ("itemlotparam".to_string(), unsafe { get_lambda::<itemlotparam>() }),
-        ("keyassignmenuitemparam".to_string(), unsafe { get_lambda::<keyassignmenuitemparam>() }),
-        ("keyassignparam".to_string(), unsafe { get_lambda::<keyassignparam>() }),
-        ("knockbackparam".to_string(), unsafe { get_lambda::<knockbackparam>() }),
-        ("knowledgeloadscreenitemparam".to_string(), unsafe { get_lambda::<knowledgeloadscreenitemparam>() }),
-        ("legacydistantviewpartsreplaceparam".to_string(), unsafe { get_lambda::<legacydistantviewpartsreplaceparam>() }),
-        ("loadbalancerdrawdistscaleparam".to_string(), unsafe { get_lambda::<loadbalancerdrawdistscaleparam>() }),
-        ("loadbalancernewdrawdistscaleparam".to_string(), unsafe { get_lambda::<loadbalancernewdrawdistscaleparam>() }),
-        ("loadbalancerparam".to_string(), unsafe { get_lambda::<loadbalancerparam>() }),
-        ("lockcamparam".to_string(), unsafe { get_lambda::<lockcamparam>() }),
-        ("mapdefaultinfoparam".to_string(), unsafe { get_lambda::<mapdefaultinfoparam>() }),
-        ("mapgdregiondrawparam".to_string(), unsafe { get_lambda::<mapgdregiondrawparam>() }),
-        ("mapgdregioninfo".to_string(), unsafe { get_lambda::<mapgdregioninfo>() }),
-        ("mapgridcreateheightlimitinfo".to_string(), unsafe { get_lambda::<mapgridcreateheightlimitinfo>() }),
-        ("mapmimicryestablishmentparam".to_string(), unsafe { get_lambda::<mapmimicryestablishmentparam>() }),
-        ("mapnametexparam".to_string(), unsafe { get_lambda::<mapnametexparam>() }),
-        ("mappiecetexparam".to_string(), unsafe { get_lambda::<mappiecetexparam>() }),
-        ("materialex".to_string(), unsafe { get_lambda::<materialex>() }),
-        ("menucommonparam".to_string(), unsafe { get_lambda::<menucommonparam>() }),
-        ("menuoffscrrendparam".to_string(), unsafe { get_lambda::<menuoffscrrendparam>() }),
-        ("menupropertylayoutparam".to_string(), unsafe { get_lambda::<menupropertylayoutparam>() }),
-        ("menupropertyspecparam".to_string(), unsafe { get_lambda::<menupropertyspecparam>() }),
-        ("menuvaluetablespecparam".to_string(), unsafe { get_lambda::<menuvaluetablespecparam>() }),
-        ("mimicryestablishmenttexparam".to_string(), unsafe { get_lambda::<mimicryestablishmenttexparam>() }),
-        ("missileparam".to_string(), unsafe { get_lambda::<missileparam>() }),
-        ("modelsfxparam".to_string(), unsafe { get_lambda::<modelsfxparam>() }),
-        ("moveparam".to_string(), unsafe { get_lambda::<moveparam>() }),
-        ("multiplaycorrectionparam".to_string(), unsafe { get_lambda::<multiplaycorrectionparam>() }),
-        ("multisoulbonusrateparam".to_string(), unsafe { get_lambda::<multisoulbonusrateparam>() }),
-        ("networkareaparam".to_string(), unsafe { get_lambda::<networkareaparam>() }),
-        ("networkmsgparam".to_string(), unsafe { get_lambda::<networkmsgparam>() }),
-        ("networkparam".to_string(), unsafe { get_lambda::<networkparam>() }),
-        ("npcaiactionparam".to_string(), unsafe { get_lambda::<npcaiactionparam>() }),
-        ("npcaibehaviorprobabilityparam".to_string(), unsafe { get_lambda::<npcaibehaviorprobabilityparam>() }),
-        ("npcparam".to_string(), unsafe { get_lambda::<npcparam>() }),
-        ("npcthinkparam".to_string(), unsafe { get_lambda::<npcthinkparam>() }),
-        ("objactparam".to_string(), unsafe { get_lambda::<objactparam>() }),
-        ("objectmaterialsfxparam".to_string(), unsafe { get_lambda::<objectmaterialsfxparam>() }),
-        ("objectparam".to_string(), unsafe { get_lambda::<objectparam>() }),
-        ("partsdrawparam".to_string(), unsafe { get_lambda::<partsdrawparam>() }),
-        ("performancecheckparam".to_string(), unsafe { get_lambda::<performancecheckparam>() }),
-        ("phantomparam".to_string(), unsafe { get_lambda::<phantomparam>() }),
-        ("playercommonparam".to_string(), unsafe { get_lambda::<playercommonparam>() }),
-        ("playregionparam".to_string(), unsafe { get_lambda::<playregionparam>() }),
-        ("posturecontrolparamgender".to_string(), unsafe { get_lambda::<posturecontrolparamgender>() }),
-        ("posturecontrolparampro".to_string(), unsafe { get_lambda::<posturecontrolparampro>() }),
-        ("posturecontrolparamwepleft".to_string(), unsafe { get_lambda::<posturecontrolparamwepleft>() }),
-        ("posturecontrolparamwepright".to_string(), unsafe { get_lambda::<posturecontrolparamwepright>() }),
-        ("randomappeareditparam".to_string(), unsafe { get_lambda::<randomappeareditparam>() }),
-        ("randomappearparam".to_string(), unsafe { get_lambda::<randomappearparam>() }),
-        ("reinforceparamprotector".to_string(), unsafe { get_lambda::<reinforceparamprotector>() }),
-        ("reinforceparamweapon".to_string(), unsafe { get_lambda::<reinforceparamweapon>() }),
-        ("resistcorrectparam".to_string(), unsafe { get_lambda::<resistcorrectparam>() }),
-        ("reverbauxsendbusparam".to_string(), unsafe { get_lambda::<reverbauxsendbusparam>() }),
-        ("rideparam".to_string(), unsafe { get_lambda::<rideparam>() }),
-        ("roleparam".to_string(), unsafe { get_lambda::<roleparam>() }),
-        ("rollingobjlotparam".to_string(), unsafe { get_lambda::<rollingobjlotparam>() }),
-        ("runtimebonecontrolparam".to_string(), unsafe { get_lambda::<runtimebonecontrolparam>() }),
-        ("seactivationrangeparam".to_string(), unsafe { get_lambda::<seactivationrangeparam>() }),
-        ("sematerialconvertparam".to_string(), unsafe { get_lambda::<sematerialconvertparam>() }),
-        ("sfxblockresshareparam".to_string(), unsafe { get_lambda::<sfxblockresshareparam>() }),
-        ("shoplineupparam".to_string(), unsafe { get_lambda::<shoplineupparam>() }),
-        ("signpuddleparam".to_string(), unsafe { get_lambda::<signpuddleparam>() }),
-        ("soundassetsoundobjenabledistparam".to_string(), unsafe { get_lambda::<soundassetsoundobjenabledistparam>() }),
-        ("soundautoenvsoundgroupparam".to_string(), unsafe { get_lambda::<soundautoenvsoundgroupparam>() }),
-        ("soundautoreverbevaluationdistparam".to_string(), unsafe { get_lambda::<soundautoreverbevaluationdistparam>() }),
-        ("soundautoreverbselectparam".to_string(), unsafe { get_lambda::<soundautoreverbselectparam>() }),
-        ("soundchrphysicsseparam".to_string(), unsafe { get_lambda::<soundchrphysicsseparam>() }),
-        ("soundcommoningameparam".to_string(), unsafe { get_lambda::<soundcommoningameparam>() }),
-        ("soundcommonsystemparam".to_string(), unsafe { get_lambda::<soundcommonsystemparam>() }),
-        ("soundcutsceneparam".to_string(), unsafe { get_lambda::<soundcutsceneparam>() }),
-        ("speedtreemodel".to_string(), unsafe { get_lambda::<speedtreemodel>() }),
-        ("speffect".to_string(), unsafe { get_lambda::<speffect>() }),
-        ("speffectsetparam".to_string(), unsafe { get_lambda::<speffectsetparam>() }),
-        ("speffectvfx".to_string(), unsafe { get_lambda::<speffectvfx>() }),
-        ("swordartsparam".to_string(), unsafe { get_lambda::<swordartsparam>() }),
-        ("talkparam".to_string(), unsafe { get_lambda::<talkparam>() }),
-        ("throwdirectionsfxparam".to_string(), unsafe { get_lambda::<throwdirectionsfxparam>() }),
-        ("throwparam".to_string(), unsafe { get_lambda::<throwparam>() }),
-        ("toughnessparam".to_string(), unsafe { get_lambda::<toughnessparam>() }),
-        ("tutorialparam".to_string(), unsafe { get_lambda::<tutorialparam>() }),
-        ("waypointparam".to_string(), unsafe { get_lambda::<waypointparam>() }),
-        ("weatherassetcreateparam".to_string(), unsafe { get_lambda::<weatherassetcreateparam>() }),
-        ("weatherassetreplaceparam".to_string(), unsafe { get_lambda::<weatherassetreplaceparam>() }),
-        ("weatherlotparam".to_string(), unsafe { get_lambda::<weatherlotparam>() }),
-        ("weatherlottexparam".to_string(), unsafe { get_lambda::<weatherlottexparam>() }),
-        ("weatherparam".to_string(), unsafe { get_lambda::<weatherparam>() }),
-        ("wepabsorpposparam".to_string(), unsafe { get_lambda::<wepabsorpposparam>() }),
-        ("wetaspectparam".to_string(), unsafe { get_lambda::<wetaspectparam>() }),
-        ("whitesigncooltimeparam".to_string(), unsafe { get_lambda::<whitesigncooltimeparam>() }),
-        ("worldmaplegacyconvparam".to_string(), unsafe { get_lambda::<worldmaplegacyconvparam>() }),
-        ("worldmappieceparam".to_string(), unsafe { get_lambda::<worldmappieceparam>() }),
-        ("worldmapplacenameparam".to_string(), unsafe { get_lambda::<worldmapplacenameparam>() }),
-        ("worldmappointparam".to_string(), unsafe { get_lambda::<worldmappointparam>() }),
-        ("wwisevaluetostrconvertparamformat".to_string(), unsafe { get_lambda::<wwisevaluetostrconvertparamformat>() }),
-        ("atkparampc".to_string(), unsafe { get_lambda::<atkparampc>() }),
-        ("atkparamnpc".to_string(), unsafe { get_lambda::<atkparamnpc>() }),
-        ("behaviorparampc".to_string(), unsafe { get_lambda::<behaviorparampc>() }),
-        ("bullet".to_string(), unsafe { get_lambda::<bullet>() }),
-        ("ceremony".to_string(), unsafe { get_lambda::<ceremony>() }),
-        ("hpestusflaskrecoveryparam".to_string(), unsafe { get_lambda::<hpestusflaskrecoveryparam>() }),
-        ("mpestusflaskrecoveryparam".to_string(), unsafe { get_lambda::<mpestusflaskrecoveryparam>() }),
-        ("magic".to_string(), unsafe { get_lambda::<magic>() }),
-        ("multihpestusflaskbonusparam".to_string(), unsafe { get_lambda::<multihpestusflaskbonusparam>() }),
-        ("multimpestusflaskbonusparam".to_string(), unsafe { get_lambda::<multimpestusflaskbonusparam>() }),
-        ("newmenucolortableparam".to_string(), unsafe { get_lambda::<newmenucolortableparam>() }),
+        ("ActionButtonParam".to_string(), unsafe { get_lambda::<ActionButtonParam>() }),
+        ("AiAnimTblParam".to_string(), unsafe { get_lambda::<AiAnimTblParam>() }),
+        ("AIAttackParam".to_string(), unsafe { get_lambda::<AIAttackParam>() }),
+        ("AiOddsParam".to_string(), unsafe { get_lambda::<AiOddsParam>() }),
+        ("AiSoundParam".to_string(), unsafe { get_lambda::<AiSoundParam>() }),
+        ("AiStandardInfo".to_string(), unsafe { get_lambda::<AiStandardInfo>() }),
+        ("AssetGeometryParam".to_string(), unsafe { get_lambda::<AssetGeometryParam>() }),
+        ("AssetMaterialSfxParam".to_string(), unsafe { get_lambda::<AssetMaterialSfxParam>() }),
+        ("AssetModelSfxParam".to_string(), unsafe { get_lambda::<AssetModelSfxParam>() }),
+        ("AtkParam".to_string(), unsafe { get_lambda::<AtkParam>() }),
+        ("AttackElementCorrectParam".to_string(), unsafe { get_lambda::<AttackElementCorrectParam>() }),
+        ("AutoCreateEnvSoundParam".to_string(), unsafe { get_lambda::<AutoCreateEnvSoundParam>() }),
+        ("BaseChrSelectMenuParam".to_string(), unsafe { get_lambda::<BaseChrSelectMenuParam>() }),
+        ("BehaviorParam".to_string(), unsafe { get_lambda::<BehaviorParam>() }),
+        ("BonfireWarpParam".to_string(), unsafe { get_lambda::<BonfireWarpParam>() }),
+        ("BonfireWarpSubCategoryParam".to_string(), unsafe { get_lambda::<BonfireWarpSubCategoryParam>() }),
+        ("BonfireWarpTabParam".to_string(), unsafe { get_lambda::<BonfireWarpTabParam>() }),
+        ("BuddyParam".to_string(), unsafe { get_lambda::<BuddyParam>() }),
+        ("BuddyStoneParam".to_string(), unsafe { get_lambda::<BuddyStoneParam>() }),
+        ("BudgetParam".to_string(), unsafe { get_lambda::<BudgetParam>() }),
+        ("BulletCreateLimitParam".to_string(), unsafe { get_lambda::<BulletCreateLimitParam>() }),
+        ("BulletParam".to_string(), unsafe { get_lambda::<BulletParam>() }),
+        ("CalcCorrectGraph".to_string(), unsafe { get_lambda::<CalcCorrectGraph>() }),
+        ("CameraFadeParam".to_string(), unsafe { get_lambda::<CameraFadeParam>() }),
+        ("CeremonyParam".to_string(), unsafe { get_lambda::<CeremonyParam>() }),
+        ("CharaInitParam".to_string(), unsafe { get_lambda::<CharaInitParam>() }),
+        ("CharMakeMenuListItemParam".to_string(), unsafe { get_lambda::<CharMakeMenuListItemParam>() }),
+        ("CharMakeMenuTopParam".to_string(), unsafe { get_lambda::<CharMakeMenuTopParam>() }),
+        ("ChrActivateConditionParam".to_string(), unsafe { get_lambda::<ChrActivateConditionParam>() }),
+        ("ChrModelParam".to_string(), unsafe { get_lambda::<ChrModelParam>() }),
+        ("ClearCountCorrectParam".to_string(), unsafe { get_lambda::<ClearCountCorrectParam>() }),
+        ("CommonSystemParam".to_string(), unsafe { get_lambda::<CommonSystemParam>() }),
+        ("CoolTimeParam".to_string(), unsafe { get_lambda::<CoolTimeParam>() }),
+        ("CutsceneGparamTimeParam".to_string(), unsafe { get_lambda::<CutsceneGparamTimeParam>() }),
+        ("CutsceneGparamWeatherParam".to_string(), unsafe { get_lambda::<CutsceneGparamWeatherParam>() }),
+        ("CutsceneMapIdParam".to_string(), unsafe { get_lambda::<CutsceneMapIdParam>() }),
+        ("CutSceneTextureLoadParam".to_string(), unsafe { get_lambda::<CutSceneTextureLoadParam>() }),
+        ("CutsceneTimezoneConvertParam".to_string(), unsafe { get_lambda::<CutsceneTimezoneConvertParam>() }),
+        ("CutsceneWeatherOverrideGparamIdConvertParam".to_string(), unsafe { get_lambda::<CutsceneWeatherOverrideGparamIdConvertParam>() }),
+        ("DecalParam".to_string(), unsafe { get_lambda::<DecalParam>() }),
+        ("DirectionCameraParam".to_string(), unsafe { get_lambda::<DirectionCameraParam>() }),
+        ("EnemyCommonParam".to_string(), unsafe { get_lambda::<EnemyCommonParam>() }),
+        ("EnemyStandardInfo".to_string(), unsafe { get_lambda::<EnemyStandardInfo>() }),
+        ("EnvObjLotParam".to_string(), unsafe { get_lambda::<EnvObjLotParam>() }),
+        ("EquipMtrlSetParam".to_string(), unsafe { get_lambda::<EquipMtrlSetParam>() }),
+        ("EquipParamAccessory".to_string(), unsafe { get_lambda::<EquipParamAccessory>() }),
+        ("EquipParamCustomWeapon".to_string(), unsafe { get_lambda::<EquipParamCustomWeapon>() }),
+        ("EquipParamGem".to_string(), unsafe { get_lambda::<EquipParamGem>() }),
+        ("EquipParamGoods".to_string(), unsafe { get_lambda::<EquipParamGoods>() }),
+        ("EquipParamProtector".to_string(), unsafe { get_lambda::<EquipParamProtector>() }),
+        ("EquipParamWeapon".to_string(), unsafe { get_lambda::<EquipParamWeapon>() }),
+        ("EstusFlaskRecoveryParam".to_string(), unsafe { get_lambda::<EstusFlaskRecoveryParam>() }),
+        ("EventFlagUsageParam".to_string(), unsafe { get_lambda::<EventFlagUsageParam>() }),
+        ("FaceParam".to_string(), unsafe { get_lambda::<FaceParam>() }),
+        ("FaceRangeParam".to_string(), unsafe { get_lambda::<FaceRangeParam>() }),
+        ("FeTextEffectParam".to_string(), unsafe { get_lambda::<FeTextEffectParam>() }),
+        ("FootSfxParam".to_string(), unsafe { get_lambda::<FootSfxParam>() }),
+        ("GameAreaParam".to_string(), unsafe { get_lambda::<GameAreaParam>() }),
+        ("GameInfoParam".to_string(), unsafe { get_lambda::<GameInfoParam>() }),
+        ("GameSystemCommonParam".to_string(), unsafe { get_lambda::<GameSystemCommonParam>() }),
+        ("Gconfig_AAQuality".to_string(), unsafe { get_lambda::<Gconfig_AAQuality>() }),
+        ("Gconfig_DecalQuality".to_string(), unsafe { get_lambda::<Gconfig_DecalQuality>() }),
+        ("Gconfig_DOFQuality".to_string(), unsafe { get_lambda::<Gconfig_DOFQuality>() }),
+        ("Gconfig_EffectQuality".to_string(), unsafe { get_lambda::<Gconfig_EffectQuality>() }),
+        ("Gconfig_LightingQuality".to_string(), unsafe { get_lambda::<Gconfig_LightingQuality>() }),
+        ("Gconfig_MotionBlurQuality".to_string(), unsafe { get_lambda::<Gconfig_MotionBlurQuality>() }),
+        ("Gconfig_ReflectionQuality".to_string(), unsafe { get_lambda::<Gconfig_ReflectionQuality>() }),
+        ("Gconfig_ShaderQuality".to_string(), unsafe { get_lambda::<Gconfig_ShaderQuality>() }),
+        ("Gconfig_ShadowQuality".to_string(), unsafe { get_lambda::<Gconfig_ShadowQuality>() }),
+        ("Gconfig_SSAOQuality".to_string(), unsafe { get_lambda::<Gconfig_SSAOQuality>() }),
+        ("Gconfig_TextureFilterQuality".to_string(), unsafe { get_lambda::<Gconfig_TextureFilterQuality>() }),
+        ("Gconfig_VolumetricEffectQuality".to_string(), unsafe { get_lambda::<Gconfig_VolumetricEffectQuality>() }),
+        ("Gconfig_WaterQuality".to_string(), unsafe { get_lambda::<Gconfig_WaterQuality>() }),
+        ("GestureParam".to_string(), unsafe { get_lambda::<GestureParam>() }),
+        ("GparamGridRegionInfo".to_string(), unsafe { get_lambda::<GparamGridRegionInfo>() }),
+        ("GparamRefSettingsParam".to_string(), unsafe { get_lambda::<GparamRefSettingsParam>() }),
+        ("GraphicsCommonParam".to_string(), unsafe { get_lambda::<GraphicsCommonParam>() }),
+        ("GraphicsConfig".to_string(), unsafe { get_lambda::<GraphicsConfig>() }),
+        ("GrassLodRangeParam".to_string(), unsafe { get_lambda::<GrassLodRangeParam>() }),
+        ("GrassMapSettings".to_string(), unsafe { get_lambda::<GrassMapSettings>() }),
+        ("GrassTypeParam".to_string(), unsafe { get_lambda::<GrassTypeParam>() }),
+        ("HitEffectSeParam".to_string(), unsafe { get_lambda::<HitEffectSeParam>() }),
+        ("HitEffectSfxConceptParam".to_string(), unsafe { get_lambda::<HitEffectSfxConceptParam>() }),
+        ("HitEffectSfxParam".to_string(), unsafe { get_lambda::<HitEffectSfxParam>() }),
+        ("HitMtrlParam".to_string(), unsafe { get_lambda::<HitMtrlParam>() }),
+        ("ItemLotParam".to_string(), unsafe { get_lambda::<ItemLotParam>() }),
+        ("KeyAssignMenuItemParam".to_string(), unsafe { get_lambda::<KeyAssignMenuItemParam>() }),
+        ("KeyAssignParam".to_string(), unsafe { get_lambda::<KeyAssignParam>() }),
+        ("KnockBackParam".to_string(), unsafe { get_lambda::<KnockBackParam>() }),
+        ("KnowledgeLoadScreenItemParam".to_string(), unsafe { get_lambda::<KnowledgeLoadScreenItemParam>() }),
+        ("LegacyDistantViewPartsReplaceParam".to_string(), unsafe { get_lambda::<LegacyDistantViewPartsReplaceParam>() }),
+        ("LoadBalancerDrawDistScaleParam".to_string(), unsafe { get_lambda::<LoadBalancerDrawDistScaleParam>() }),
+        ("LoadBalancerNewDrawDistScaleParam".to_string(), unsafe { get_lambda::<LoadBalancerNewDrawDistScaleParam>() }),
+        ("LoadBalancerParam".to_string(), unsafe { get_lambda::<LoadBalancerParam>() }),
+        ("LockCamParam".to_string(), unsafe { get_lambda::<LockCamParam>() }),
+        ("MagicParam".to_string(), unsafe { get_lambda::<MagicParam>() }),
+        ("MapDefaultInfoParam".to_string(), unsafe { get_lambda::<MapDefaultInfoParam>() }),
+        ("MapGdRegionDrawParam".to_string(), unsafe { get_lambda::<MapGdRegionDrawParam>() }),
+        ("MapGdRegionInfo".to_string(), unsafe { get_lambda::<MapGdRegionInfo>() }),
+        ("MapGridCreateHeightLimitInfo".to_string(), unsafe { get_lambda::<MapGridCreateHeightLimitInfo>() }),
+        ("MapMimicryEstablishmentParam".to_string(), unsafe { get_lambda::<MapMimicryEstablishmentParam>() }),
+        ("MapNameTexParam".to_string(), unsafe { get_lambda::<MapNameTexParam>() }),
+        ("MapPieceTexParam".to_string(), unsafe { get_lambda::<MapPieceTexParam>() }),
+        ("MaterialEx".to_string(), unsafe { get_lambda::<MaterialEx>() }),
+        ("MenuCommonParam".to_string(), unsafe { get_lambda::<MenuCommonParam>() }),
+        ("MenuOffscrRendParam".to_string(), unsafe { get_lambda::<MenuOffscrRendParam>() }),
+        ("MenuParamColorTable".to_string(), unsafe { get_lambda::<MenuParamColorTable>() }),
+        ("MenuPropertyLayoutParam".to_string(), unsafe { get_lambda::<MenuPropertyLayoutParam>() }),
+        ("MenuPropertySpecParam".to_string(), unsafe { get_lambda::<MenuPropertySpecParam>() }),
+        ("MenuValueTableSpecParam".to_string(), unsafe { get_lambda::<MenuValueTableSpecParam>() }),
+        ("MimicryEstablishmentTexParam".to_string(), unsafe { get_lambda::<MimicryEstablishmentTexParam>() }),
+        ("MissileParam".to_string(), unsafe { get_lambda::<MissileParam>() }),
+        ("ModelSfxParam".to_string(), unsafe { get_lambda::<ModelSfxParam>() }),
+        ("MoveParam".to_string(), unsafe { get_lambda::<MoveParam>() }),
+        ("MultiEstusFlaskBonusParam".to_string(), unsafe { get_lambda::<MultiEstusFlaskBonusParam>() }),
+        ("MultiPlayCorrectionParam".to_string(), unsafe { get_lambda::<MultiPlayCorrectionParam>() }),
+        ("MultiSoulBonusRateParam".to_string(), unsafe { get_lambda::<MultiSoulBonusRateParam>() }),
+        ("NetworkAreaParam".to_string(), unsafe { get_lambda::<NetworkAreaParam>() }),
+        ("NetworkMsgParam".to_string(), unsafe { get_lambda::<NetworkMsgParam>() }),
+        ("NetworkParam".to_string(), unsafe { get_lambda::<NetworkParam>() }),
+        ("NpcAiActionParam".to_string(), unsafe { get_lambda::<NpcAiActionParam>() }),
+        ("NpcAiBehaviorProbabilityParam".to_string(), unsafe { get_lambda::<NpcAiBehaviorProbabilityParam>() }),
+        ("NpcParam".to_string(), unsafe { get_lambda::<NpcParam>() }),
+        ("NpcThinkParam".to_string(), unsafe { get_lambda::<NpcThinkParam>() }),
+        ("ObjActParam".to_string(), unsafe { get_lambda::<ObjActParam>() }),
+        ("ObjectMaterialSfxParam".to_string(), unsafe { get_lambda::<ObjectMaterialSfxParam>() }),
+        ("ObjectParam".to_string(), unsafe { get_lambda::<ObjectParam>() }),
+        ("PartsDrawParam".to_string(), unsafe { get_lambda::<PartsDrawParam>() }),
+        ("PerformanceCheckParam".to_string(), unsafe { get_lambda::<PerformanceCheckParam>() }),
+        ("PhantomParam".to_string(), unsafe { get_lambda::<PhantomParam>() }),
+        ("PlayerCommonParam".to_string(), unsafe { get_lambda::<PlayerCommonParam>() }),
+        ("PlayRegionParam".to_string(), unsafe { get_lambda::<PlayRegionParam>() }),
+        ("PostureControlParam_Gender".to_string(), unsafe { get_lambda::<PostureControlParam_Gender>() }),
+        ("PostureControlParam_Pro".to_string(), unsafe { get_lambda::<PostureControlParam_Pro>() }),
+        ("PostureControlParam_WepLeft".to_string(), unsafe { get_lambda::<PostureControlParam_WepLeft>() }),
+        ("PostureControlParam_WepRight".to_string(), unsafe { get_lambda::<PostureControlParam_WepRight>() }),
+        ("RandomAppearEditParam".to_string(), unsafe { get_lambda::<RandomAppearEditParam>() }),
+        ("RandomAppearParam".to_string(), unsafe { get_lambda::<RandomAppearParam>() }),
+        ("ReinforceParamProtector".to_string(), unsafe { get_lambda::<ReinforceParamProtector>() }),
+        ("ReinforceParamWeapon".to_string(), unsafe { get_lambda::<ReinforceParamWeapon>() }),
+        ("ResistCorrectParam".to_string(), unsafe { get_lambda::<ResistCorrectParam>() }),
+        ("ReverbAuxSendBusParam".to_string(), unsafe { get_lambda::<ReverbAuxSendBusParam>() }),
+        ("RideParam".to_string(), unsafe { get_lambda::<RideParam>() }),
+        ("RoleParam".to_string(), unsafe { get_lambda::<RoleParam>() }),
+        ("RollingObjLotParam".to_string(), unsafe { get_lambda::<RollingObjLotParam>() }),
+        ("RuntimeBoneControlParam".to_string(), unsafe { get_lambda::<RuntimeBoneControlParam>() }),
+        ("SeActivationRangeParam".to_string(), unsafe { get_lambda::<SeActivationRangeParam>() }),
+        ("SeMaterialConvertParam".to_string(), unsafe { get_lambda::<SeMaterialConvertParam>() }),
+        ("SfxBlockResShareParam".to_string(), unsafe { get_lambda::<SfxBlockResShareParam>() }),
+        ("ShopLineupParam".to_string(), unsafe { get_lambda::<ShopLineupParam>() }),
+        ("SignPuddleParam".to_string(), unsafe { get_lambda::<SignPuddleParam>() }),
+        ("SoundAssetSoundObjEnableDistParam".to_string(), unsafe { get_lambda::<SoundAssetSoundObjEnableDistParam>() }),
+        ("SoundAutoEnvSoundGroupParam".to_string(), unsafe { get_lambda::<SoundAutoEnvSoundGroupParam>() }),
+        ("SoundAutoReverbEvaluationDistParam".to_string(), unsafe { get_lambda::<SoundAutoReverbEvaluationDistParam>() }),
+        ("SoundAutoReverbSelectParam".to_string(), unsafe { get_lambda::<SoundAutoReverbSelectParam>() }),
+        ("SoundChrPhysicsSeParam".to_string(), unsafe { get_lambda::<SoundChrPhysicsSeParam>() }),
+        ("SoundCommonIngameParam".to_string(), unsafe { get_lambda::<SoundCommonIngameParam>() }),
+        ("SoundCommonSystemParam".to_string(), unsafe { get_lambda::<SoundCommonSystemParam>() }),
+        ("SoundCutsceneParam".to_string(), unsafe { get_lambda::<SoundCutsceneParam>() }),
+        ("SpeedtreeModel".to_string(), unsafe { get_lambda::<SpeedtreeModel>() }),
+        ("SpEffect".to_string(), unsafe { get_lambda::<SpEffect>() }),
+        ("SpEffectSetParam".to_string(), unsafe { get_lambda::<SpEffectSetParam>() }),
+        ("SpEffectVfx".to_string(), unsafe { get_lambda::<SpEffectVfx>() }),
+        ("SwordArtsParam".to_string(), unsafe { get_lambda::<SwordArtsParam>() }),
+        ("TalkParam".to_string(), unsafe { get_lambda::<TalkParam>() }),
+        ("ThrowDirectionSfxParam".to_string(), unsafe { get_lambda::<ThrowDirectionSfxParam>() }),
+        ("ThrowParam".to_string(), unsafe { get_lambda::<ThrowParam>() }),
+        ("ToughnessParam".to_string(), unsafe { get_lambda::<ToughnessParam>() }),
+        ("TutorialParam".to_string(), unsafe { get_lambda::<TutorialParam>() }),
+        ("WaypointParam".to_string(), unsafe { get_lambda::<WaypointParam>() }),
+        ("WeatherAssetCreateParam".to_string(), unsafe { get_lambda::<WeatherAssetCreateParam>() }),
+        ("WeatherAssetReplaceParam".to_string(), unsafe { get_lambda::<WeatherAssetReplaceParam>() }),
+        ("WeatherLotParam".to_string(), unsafe { get_lambda::<WeatherLotParam>() }),
+        ("WeatherLotTexParam".to_string(), unsafe { get_lambda::<WeatherLotTexParam>() }),
+        ("WeatherParam".to_string(), unsafe { get_lambda::<WeatherParam>() }),
+        ("WepAbsorpPosParam".to_string(), unsafe { get_lambda::<WepAbsorpPosParam>() }),
+        ("WetAspectParam".to_string(), unsafe { get_lambda::<WetAspectParam>() }),
+        ("WhiteSignCoolTimeParam".to_string(), unsafe { get_lambda::<WhiteSignCoolTimeParam>() }),
+        ("WorldMapLegacyConvParam".to_string(), unsafe { get_lambda::<WorldMapLegacyConvParam>() }),
+        ("WorldMapPieceParam".to_string(), unsafe { get_lambda::<WorldMapPieceParam>() }),
+        ("WorldMapPlaceNameParam".to_string(), unsafe { get_lambda::<WorldMapPlaceNameParam>() }),
+        ("WorldMapPointParam".to_string(), unsafe { get_lambda::<WorldMapPointParam>() }),
+        ("WwiseValueToStrConvertParamFormat".to_string(), unsafe { get_lambda::<WwiseValueToStrConvertParamFormat>() }),
     ].into_iter().collect()
 });
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct actionbuttonparam {
+pub struct ActionButtonParam {
     pub region_type: u8,
     pub category: u8,
     pub padding1: [u8; 2],
@@ -239,7 +235,7 @@ pub struct actionbuttonparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct aianimtblparam {
+pub struct AiAnimTblParam {
     pub atk0_ez_state_id: u16,
     pub atk1_ez_state_id: u16,
     pub atk2_ez_state_id: u16,
@@ -362,7 +358,7 @@ pub struct aianimtblparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct aiattackparam {
+pub struct AIAttackParam {
     pub attack_table_id: i32,
     pub attack_id: i32,
     pub success_distance: f32,
@@ -414,7 +410,7 @@ pub struct aiattackparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct aioddsparam {
+pub struct AiOddsParam {
     pub act0: u8,
     pub act1: u8,
     pub act2: u8,
@@ -520,7 +516,7 @@ pub struct aioddsparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct aisoundparam {
+pub struct AiSoundParam {
     pub radius: f32,
     pub life_frame: f32,
     pub b_sp_effect_enable: u8,
@@ -536,7 +532,7 @@ pub struct aisoundparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct aistandardinfo {
+pub struct AiStandardInfo {
     pub radar_range: u16,
     pub radar_angle_x: u8,
     pub radar_angle_y: u8,
@@ -581,7 +577,7 @@ pub struct aistandardinfo {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct assetgeometryparam {
+pub struct AssetGeometryParam {
     pub sound_bank_id: i32,
     pub sound_break_seid: i32,
     pub ref_draw_param_id: i32,
@@ -704,7 +700,7 @@ pub struct assetgeometryparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct assetmaterialsfxparam {
+pub struct AssetMaterialSfxParam {
     pub sfx_id_00: u32,
     pub sfx_id_01: u32,
     pub sfx_id_02: u32,
@@ -741,7 +737,7 @@ pub struct assetmaterialsfxparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct assetmodelsfxparam {
+pub struct AssetModelSfxParam {
     pub sfx_id_0: i32,
     pub dmypoly_id_0: i32,
     pub reserve_0: [u8; 8],
@@ -771,7 +767,216 @@ pub struct assetmodelsfxparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct attackelementcorrectparam {
+pub struct AtkParam {
+    pub hit0_radius: f32,
+    pub hit1_radius: f32,
+    pub hit2_radius: f32,
+    pub hit3_radius: f32,
+    pub knockback_dist: f32,
+    pub hit_stop_time: f32,
+    pub sp_effect_id0: i32,
+    pub sp_effect_id1: i32,
+    pub sp_effect_id2: i32,
+    pub sp_effect_id3: i32,
+    pub sp_effect_id4: i32,
+    pub hit0_dmy_poly1: i16,
+    pub hit1_dmy_poly1: i16,
+    pub hit2_dmy_poly1: i16,
+    pub hit3_dmy_poly1: i16,
+    pub hit0_dmy_poly2: i16,
+    pub hit1_dmy_poly2: i16,
+    pub hit2_dmy_poly2: i16,
+    pub hit3_dmy_poly2: i16,
+    pub blowing_correction: u16,
+    pub atk_phys_correction: u16,
+    pub atk_mag_correction: u16,
+    pub atk_fire_correction: u16,
+    pub atk_thun_correction: u16,
+    pub atk_stam_correction: u16,
+    pub guard_atk_rate_correction: u16,
+    pub guard_break_correction: u16,
+    pub atk_throw_escape_correction: u16,
+    pub sub_category1: u8,
+    pub sub_category2: u8,
+    pub atk_phys: u16,
+    pub atk_mag: u16,
+    pub atk_fire: u16,
+    pub atk_thun: u16,
+    pub atk_stam: u16,
+    pub guard_atk_rate: u16,
+    pub guard_break_rate: u16,
+    pub pad6: [u8; 1],
+    pub is_enable_calc_damage_for_bushes_obj: u8,
+    pub atk_throw_escape: u16,
+    pub atk_obj: u16,
+    pub guard_stamina_cut_rate: i16,
+    pub guard_rate: i16,
+    pub throw_type_id: u16,
+    pub hit0_hit_type: u8,
+    pub hit1_hit_type: u8,
+    pub hit2_hit_type: u8,
+    pub hit3_hit_type: u8,
+    pub hti0_priority: u8,
+    pub hti1_priority: u8,
+    pub hti2_priority: u8,
+    pub hti3_priority: u8,
+    pub dmg_level: u8,
+    pub map_hit_type: u8,
+    pub guard_cut_cancel_rate: i8,
+    pub atk_attribute: u8,
+    pub sp_attribute: u8,
+    pub atk_type: u8,
+    pub atk_material: u8,
+    pub guard_range_type: u8,
+    pub def_se_material1: u16,
+    pub hit_source_type: u8,
+    pub throw_flag: u8,
+    #[bitflag(disableGuard, 0)]
+    #[bitflag(disableStaminaAttack, 1)]
+    #[bitflag(disableHitSpEffect, 2)]
+    #[bitflag(IgnoreNotifyMissSwingForAI, 3)]
+    #[bitflag(repeatHitSfx, 4)]
+    #[bitflag(isArrowAtk, 5)]
+    #[bitflag(isGhostAtk, 6)]
+    #[bitflag(isDisableNoDamage, 7)]
+    pub bitfield0: u8,
+    pub atk_pow_for_sfx: i8,
+    pub atk_dir_for_sfx: i8,
+    #[bitflag(opposeTarget, 0)]
+    #[bitflag(friendlyTarget, 1)]
+    #[bitflag(selfTarget, 2)]
+    #[bitflag(isCheckDoorPenetration, 3)]
+    #[bitflag(isVsRideAtk, 4)]
+    #[bitflag(isAddBaseAtk, 5)]
+    #[bitflag(excludeThreatLvNotify, 6)]
+    #[bitflag(pad1, 7)]
+    pub bitfield1: u8,
+    pub atk_behavior_id: u8,
+    pub atk_pow_for_se: i8,
+    pub atk_super_armor: f32,
+    pub decal_id1: i32,
+    pub decal_id2: i32,
+    pub appear_ai_sound_id: i32,
+    pub hit_ai_sound_id: i32,
+    pub hit_rumble_id: i32,
+    pub hit_rumble_id_by_normal: i32,
+    pub hit_rumble_id_by_middle: i32,
+    pub hit_rumble_id_by_root: i32,
+    pub trace_sfx_id0: i32,
+    pub trace_dmy_id_head0: i32,
+    pub trace_dmy_id_tail0: i32,
+    pub trace_sfx_id1: i32,
+    pub trace_dmy_id_head1: i32,
+    pub trace_dmy_id_tail1: i32,
+    pub trace_sfx_id2: i32,
+    pub trace_dmy_id_head2: i32,
+    pub trace_dmy_id_tail2: i32,
+    pub trace_sfx_id3: i32,
+    pub trace_dmy_id_head3: i32,
+    pub trace_dmy_id_tail3: i32,
+    pub trace_sfx_id4: i32,
+    pub trace_dmy_id_head4: i32,
+    pub trace_dmy_id_tail4: i32,
+    pub trace_sfx_id5: i32,
+    pub trace_dmy_id_head5: i32,
+    pub trace_dmy_id_tail5: i32,
+    pub trace_sfx_id6: i32,
+    pub trace_dmy_id_head6: i32,
+    pub trace_dmy_id_tail6: i32,
+    pub trace_sfx_id7: i32,
+    pub trace_dmy_id_head7: i32,
+    pub trace_dmy_id_tail7: i32,
+    pub hit4_radius: f32,
+    pub hit5_radius: f32,
+    pub hit6_radius: f32,
+    pub hit7_radius: f32,
+    pub hit8_radius: f32,
+    pub hit9_radius: f32,
+    pub hit10_radius: f32,
+    pub hit11_radius: f32,
+    pub hit12_radius: f32,
+    pub hit13_radius: f32,
+    pub hit14_radius: f32,
+    pub hit15_radius: f32,
+    pub hit4_dmy_poly1: i16,
+    pub hit5_dmy_poly1: i16,
+    pub hit6_dmy_poly1: i16,
+    pub hit7_dmy_poly1: i16,
+    pub hit8_dmy_poly1: i16,
+    pub hit9_dmy_poly1: i16,
+    pub hit10_dmy_poly1: i16,
+    pub hit11_dmy_poly1: i16,
+    pub hit12_dmy_poly1: i16,
+    pub hit13_dmy_poly1: i16,
+    pub hit14_dmy_poly1: i16,
+    pub hit15_dmy_poly1: i16,
+    pub hit4_dmy_poly2: i16,
+    pub hit5_dmy_poly2: i16,
+    pub hit6_dmy_poly2: i16,
+    pub hit7_dmy_poly2: i16,
+    pub hit8_dmy_poly2: i16,
+    pub hit9_dmy_poly2: i16,
+    pub hit10_dmy_poly2: i16,
+    pub hit11_dmy_poly2: i16,
+    pub hit12_dmy_poly2: i16,
+    pub hit13_dmy_poly2: i16,
+    pub hit14_dmy_poly2: i16,
+    pub hit15_dmy_poly2: i16,
+    pub hit4_hit_type: u8,
+    pub hit5_hit_type: u8,
+    pub hit6_hit_type: u8,
+    pub hit7_hit_type: u8,
+    pub hit8_hit_type: u8,
+    pub hit9_hit_type: u8,
+    pub hit10_hit_type: u8,
+    pub hit11_hit_type: u8,
+    pub hit12_hit_type: u8,
+    pub hit13_hit_type: u8,
+    pub hit14_hit_type: u8,
+    pub hit15_hit_type: u8,
+    pub hti4_priority: u8,
+    pub hti5_priority: u8,
+    pub hti6_priority: u8,
+    pub hti7_priority: u8,
+    pub hti8_priority: u8,
+    pub hti9_priority: u8,
+    pub hti10_priority: u8,
+    pub hti11_priority: u8,
+    pub hti12_priority: u8,
+    pub hti13_priority: u8,
+    pub hti14_priority: u8,
+    pub hti15_priority: u8,
+    pub def_sfx_material1: u16,
+    pub def_se_material2: u16,
+    pub def_sfx_material2: u16,
+    pub atk_dark_correction: u16,
+    pub atk_dark: u16,
+    pub dmg_level_vs_player: i8,
+    pub status_ailment_atk_power_correct_rate: u16,
+    pub sp_effect_atk_power_correct_rate_by_point: u16,
+    pub sp_effect_atk_power_correct_rate_by_rate: u16,
+    pub sp_effect_atk_power_correct_rate_by_dmg: u16,
+    pub atk_behavior_id_2: u8,
+    pub throw_damage_attribute: u8,
+    pub status_ailment_atk_power_correct_rate_by_point: u16,
+    pub overwrite_attack_element_correct_id: i32,
+    pub decal_base_id1: i16,
+    pub decal_base_id2: i16,
+    pub wep_regain_hp_scale: u16,
+    pub atk_regain_hp: u16,
+    pub regainable_time_scale: f32,
+    pub regainable_hp_rate_scale: f32,
+    pub regainable_slot_id: i8,
+    pub sp_attribute_variation_value: u8,
+    pub parry_forward_offset: i16,
+    pub atk_super_armor_correction: f32,
+    pub def_sfx_material_variation_value: u8,
+    pub pad4: [u8; 19],
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
+pub struct AttackElementCorrectParam {
     #[bitflag(isStrengthCorrect_byPhysics, 0)]
     #[bitflag(isDexterityCorrect_byPhysics, 1)]
     #[bitflag(isMagicCorrect_byPhysics, 2)]
@@ -854,7 +1059,7 @@ pub struct attackelementcorrectparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct autocreateenvsoundparam {
+pub struct AutoCreateEnvSoundParam {
     pub range_min: f32,
     pub range_max: f32,
     pub life_time_min: f32,
@@ -867,7 +1072,7 @@ pub struct autocreateenvsoundparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct basechrselectmenuparam {
+pub struct BaseChrSelectMenuParam {
     pub disable_param_reserve2: [u8; 3],
     pub chr_init_param: u32,
     pub origin_chr_init_param: u32,
@@ -878,7 +1083,7 @@ pub struct basechrselectmenuparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct behaviorparam {
+pub struct BehaviorParam {
     pub variation_id: i32,
     pub behavior_judge_id: i32,
     pub ez_state_behavior_type_old: u8,
@@ -895,7 +1100,7 @@ pub struct behaviorparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct bonfirewarpparam {
+pub struct BonfireWarpParam {
     pub disable_param_reserve2: [u8; 3],
     pub eventflag_id: u32,
     pub bonfire_entity_id: u32,
@@ -972,7 +1177,7 @@ pub struct bonfirewarpparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct bonfirewarpsubcategoryparam {
+pub struct BonfireWarpSubCategoryParam {
     pub disable_param_reserve2: [u8; 3],
     pub text_id: i32,
     pub tab_id: u16,
@@ -982,7 +1187,7 @@ pub struct bonfirewarpsubcategoryparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct bonfirewarptabparam {
+pub struct BonfireWarpTabParam {
     pub disable_param_reserve2: [u8; 3],
     pub text_id: i32,
     pub sort_id: i32,
@@ -992,7 +1197,7 @@ pub struct bonfirewarptabparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct buddyparam {
+pub struct BuddyParam {
     pub disable_param_reserve2: [u8; 3],
     pub trigger_sp_effect_id: i32,
     pub npc_param_id: i32,
@@ -1024,7 +1229,7 @@ pub struct buddyparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct buddystoneparam {
+pub struct BuddyStoneParam {
     pub disable_param_reserve2: [u8; 3],
     pub talk_chr_entity_id: u32,
     pub eliminate_target_entity_id: u32,
@@ -1041,7 +1246,7 @@ pub struct buddystoneparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct budgetparam {
+pub struct BudgetParam {
     pub vram_all: f32,
     pub vram_mapobj_tex: f32,
     pub vram_mapobj_mdl: f32,
@@ -1074,14 +1279,135 @@ pub struct budgetparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct bulletcreatelimitparam {
+pub struct BulletCreateLimitParam {
     pub limit_num_by_group: u8,
     pub pad: [u8; 30],
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct calccorrectgraph {
+pub struct BulletParam {
+    pub atk_id_bullet: i32,
+    pub sfx_id_bullet: i32,
+    pub sfx_id_hit: i32,
+    pub sfx_id_flick: i32,
+    pub life: f32,
+    pub dist: f32,
+    pub shoot_interval: f32,
+    pub gravity_in_range: f32,
+    pub gravity_out_range: f32,
+    pub horming_stop_range: f32,
+    pub init_vellocity: f32,
+    pub accel_in_range: f32,
+    pub accel_out_range: f32,
+    pub max_vellocity: f32,
+    pub min_vellocity: f32,
+    pub accel_time: f32,
+    pub homing_begin_dist: f32,
+    pub hit_radius: f32,
+    pub hit_radius_max: f32,
+    pub spread_time: f32,
+    pub exp_delay: f32,
+    pub horming_offset_range: f32,
+    pub dmg_hit_record_life_time: f32,
+    pub external_force: f32,
+    pub sp_effect_idfor_shooter: i32,
+    pub auto_search_npcthink_id: i32,
+    pub hit_bullet_id: i32,
+    pub sp_effect_id0: i32,
+    pub sp_effect_id1: i32,
+    pub sp_effect_id2: i32,
+    pub sp_effect_id3: i32,
+    pub sp_effect_id4: i32,
+    pub num_shoot: u16,
+    pub homing_angle: i16,
+    pub shoot_angle: i16,
+    pub shoot_angle_interval: i16,
+    pub shoot_angle_xinterval: i16,
+    pub damage_damp: i8,
+    pub spel_damage_damp: i8,
+    pub fire_damage_damp: i8,
+    pub thunder_damage_damp: i8,
+    pub stamina_damp: i8,
+    pub knockback_damp: i8,
+    pub shoot_angle_xz: i8,
+    pub lock_shoot_limit_ang: u8,
+    pub pad2: [u8; 1],
+    pub prev_velocity_dir_rate: u8,
+    pub atk_attribute: u8,
+    pub sp_attribute: u8,
+    pub material_attack_type: u8,
+    pub material_attack_material: u8,
+    pub launch_condition_type: u8,
+    #[bitflag(isPenetrateChr, 0)]
+    #[bitflag(isPenetrateObj, 1)]
+    #[bitflag(pad, 2)]
+    #[bitflag(FollowType, 3)]
+    #[bitflag(EmittePosType, 4)]
+    #[bitflag(isAttackSFX, 5)]
+    #[bitflag(isEndlessHit, 6)]
+    #[bitflag(isPenetrateMap, 7)]
+    pub bitfield0: u8,
+    #[bitflag(isHitBothTeam, 0)]
+    #[bitflag(isUseSharedHitList, 1)]
+    #[bitflag(isUseMultiDmyPolyIfPlace, 2)]
+    #[bitflag(isHitOtherBulletForceEraseA, 3)]
+    #[bitflag(isHitOtherBulletForceEraseB, 4)]
+    #[bitflag(isHitForceMagic, 5)]
+    #[bitflag(isIgnoreSfxIfHitWater, 6)]
+    #[bitflag(isIgnoreMoveStateIfHitWater, 7)]
+    pub bitfield1: u8,
+    pub dark_damage_damp: i8,
+    pub bullet_sfx_delete_type_by_hit: i8,
+    pub bullet_sfx_delete_type_by_life_dead: i8,
+    pub target_yoffset_range: f32,
+    pub shoot_angle_ymax_random: f32,
+    pub shoot_angle_xmax_random: f32,
+    pub interval_create_bullet_id: i32,
+    pub interval_create_time_min: f32,
+    pub interval_create_time_max: f32,
+    pub prediction_shoot_observe_time: f32,
+    pub interval_create_wait_time: f32,
+    pub sfx_posture_type: u8,
+    pub create_limit_group_id: u8,
+    pub pad5: [u8; 1],
+    #[bitflag(isHitDarkForceMagic, 0)]
+    #[bitflag(dmgCalcSide, 1)]
+    #[bitflag(isEnableAutoHoming, 2)]
+    #[bitflag(isSyncBulletCulcDumypolyPos, 3)]
+    #[bitflag(isOwnerOverrideInitAngle, 4)]
+    #[bitflag(isInheritSfxToChild, 5)]
+    #[bitflag(isInheritSpeedToChild, 6)]
+    #[bitflag(isDisableHitSfx_byChrAndObj, 7)]
+    pub bitfield2: u8,
+    pub random_create_radius: f32,
+    pub follow_offset_base_height: f32,
+    pub asset_no_hit: i32,
+    pub life_random_range: f32,
+    pub homing_angle_x: i16,
+    pub ballistic_calc_type: u8,
+    pub attach_effect_type: u8,
+    pub se_id_bullet1: i32,
+    pub se_id_bullet2: i32,
+    pub se_id_hit: i32,
+    pub se_id_flick: i32,
+    pub howitzer_shoot_angle_xmin: i16,
+    pub howitzer_shoot_angle_xmax: i16,
+    pub howitzer_init_min_velocity: f32,
+    pub howitzer_init_max_velocity: f32,
+    pub sfx_id_force_erase: i32,
+    pub bullet_sfx_delete_type_by_force_erase: i8,
+    pub pad3: [u8; 1],
+    pub follow_dmypoly_for_sfx_pose: i16,
+    pub follow_offset_radius: f32,
+    pub sp_bullet_dist_up_rate: f32,
+    pub nolock_target_dist: f32,
+    pub pad4: [u8; 8],
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
+pub struct CalcCorrectGraph {
     pub stage_max_val0: f32,
     pub stage_max_val1: f32,
     pub stage_max_val2: f32,
@@ -1106,7 +1432,7 @@ pub struct calccorrectgraph {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct camerafadeparam {
+pub struct CameraFadeParam {
     pub near_min_dist: f32,
     pub near_max_dist: f32,
     pub far_min_dist: f32,
@@ -1117,7 +1443,18 @@ pub struct camerafadeparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct charainitparam {
+pub struct CeremonyParam {
+    pub event_layer_id: i32,
+    pub map_studio_layer_id: i32,
+    pub multi_play_area_offset: i32,
+    pub override_map_place_name_id: i32,
+    pub override_save_map_name_id: i32,
+    pub pad2: [u8; 16],
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
+pub struct CharaInitParam {
     pub base_rec_mp: f32,
     pub base_rec_sp: f32,
     pub red_falldam: f32,
@@ -1233,7 +1570,7 @@ pub struct charainitparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct charmakemenulistitemparam {
+pub struct CharMakeMenuListItemParam {
     pub value: i32,
     pub caption_id: i32,
     pub icon_id: u8,
@@ -1242,7 +1579,7 @@ pub struct charmakemenulistitemparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct charmakemenutopparam {
+pub struct CharMakeMenuTopParam {
     pub command_type: i32,
     pub caption_id: i32,
     pub face_param_id: i32,
@@ -1260,7 +1597,7 @@ pub struct charmakemenutopparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct chractivateconditionparam {
+pub struct ChrActivateConditionParam {
     #[bitflag(weatherSunny, 0)]
     #[bitflag(weatherClearSky, 1)]
     #[bitflag(weatherWeakCloudy, 2)]
@@ -1279,7 +1616,7 @@ pub struct chractivateconditionparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct chrmodelparam {
+pub struct ChrModelParam {
     pub disable_param_reserve2: [u8; 3],
     pub model_memory_type: u8,
     pub tex_memory_type: u8,
@@ -1289,7 +1626,7 @@ pub struct chrmodelparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct clearcountcorrectparam {
+pub struct ClearCountCorrectParam {
     pub max_hp_rate: f32,
     pub max_mp_rate: f32,
     pub max_stamina_rate: f32,
@@ -1326,14 +1663,14 @@ pub struct clearcountcorrectparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct commonsystemparam {
+pub struct CommonSystemParam {
     pub map_save_map_name_id_on_game_start: u32,
     pub reserve0: [u8; 60],
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct cooltimeparam {
+pub struct CoolTimeParam {
     pub limitation_time: f32,
     pub observe_time: f32,
     pub limitation_time_0: f32,
@@ -1346,7 +1683,7 @@ pub struct cooltimeparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct cutscenegparamtimeparam {
+pub struct CutsceneGparamTimeParam {
     pub disable_param_reserve2: [u8; 3],
     pub dst_timezone_morning: u8,
     pub dst_timezone_noon: u8,
@@ -1361,7 +1698,7 @@ pub struct cutscenegparamtimeparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct cutscenegparamweatherparam {
+pub struct CutsceneGparamWeatherParam {
     pub disable_param_reserve2: [u8; 3],
     pub dst_weather_sunny: i16,
     pub dst_weather_clear_sky: i16,
@@ -1418,7 +1755,7 @@ pub struct cutscenegparamweatherparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct cutscenemapidparam {
+pub struct CutsceneMapIdParam {
     pub disable_param_reserve2: [u8; 3],
     pub play_map_id: u32,
     pub require_map_id0: u32,
@@ -1434,7 +1771,7 @@ pub struct cutscenemapidparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct cutscenetextureloadparam {
+pub struct CutSceneTextureLoadParam {
     pub disable_param_reserve2: [u8; 3],
     pub tex_name_00: [u8; 16],
     pub tex_name_01: [u8; 16],
@@ -1456,20 +1793,20 @@ pub struct cutscenetextureloadparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct cutscenetimezoneconvertparam {
+pub struct CutsceneTimezoneConvertParam {
     pub src_timezone_start: f32,
     pub dst_cutscen_time: f32,
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct cutsceneweatheroverridegparamidconvertparam {
+pub struct CutsceneWeatherOverrideGparamIdConvertParam {
     pub weather_override_gparam_id: u32,
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct decalparam {
+pub struct DecalParam {
     pub texture_id: i32,
     pub dmypoly_id: i32,
     pub pitch_angle: f32,
@@ -1543,13 +1880,13 @@ pub struct decalparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct directioncameraparam {
+pub struct DirectionCameraParam {
     pub pad1: [u8; 15],
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct enemycommonparam {
+pub struct EnemyCommonParam {
     pub reserved0: [u8; 8],
     pub sound_target_try_approach_time: i32,
     pub search_target_try_approach_time: i32,
@@ -1563,7 +1900,7 @@ pub struct enemycommonparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct enemystandardinfo {
+pub struct EnemyStandardInfo {
     pub enemy_behavior_id: i32,
     pub h_p: u16,
     pub attack_power: u16,
@@ -1590,7 +1927,7 @@ pub struct enemystandardinfo {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct envobjlotparam {
+pub struct EnvObjLotParam {
     pub asset_id_0: i32,
     pub asset_id_1: i32,
     pub asset_id_2: i32,
@@ -1612,7 +1949,7 @@ pub struct envobjlotparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct equipmtrlsetparam {
+pub struct EquipMtrlSetParam {
     pub material_id01: i32,
     pub material_id02: i32,
     pub material_id03: i32,
@@ -1639,7 +1976,7 @@ pub struct equipmtrlsetparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct equipparamaccessory {
+pub struct EquipParamAccessory {
     pub disable_param_reserve2: [u8; 3],
     pub ref_id: i32,
     pub sfx_variation_id: i32,
@@ -1687,7 +2024,7 @@ pub struct equipparamaccessory {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct equipparamcustomweapon {
+pub struct EquipParamCustomWeapon {
     pub base_wep_id: i32,
     pub gem_id: i32,
     pub reinforce_lv: u8,
@@ -1696,7 +2033,7 @@ pub struct equipparamcustomweapon {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct equipparamgem {
+pub struct EquipParamGem {
     pub disable_param_reserve2: [u8; 3],
     pub icon_id: u16,
     pub rank: i8,
@@ -1799,7 +2136,7 @@ pub struct equipparamgem {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct equipparamgoods {
+pub struct EquipParamGoods {
     pub disable_param_reserve2: [u8; 3],
     pub ref_id_default: i32,
     pub sfx_variation_id: i32,
@@ -1923,7 +2260,7 @@ pub struct equipparamgoods {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct equipparamprotector {
+pub struct EquipParamProtector {
     pub disable_param_reserve2: [u8; 3],
     pub sort_id: i32,
     pub wandering_equip_id: u32,
@@ -2181,7 +2518,7 @@ pub struct equipparamprotector {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct equipparamweapon {
+pub struct EquipParamWeapon {
     pub disable_param_reserve2: [u8; 3],
     pub behavior_variation_id: i32,
     pub sort_id: i32,
@@ -2460,7 +2797,33 @@ pub struct equipparamweapon {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct eventflagusageparam {
+pub struct EstusFlaskRecoveryParam {
+    pub host: u8,
+    pub invade_orb_none: u8,
+    pub invade_orb_umbasa: u8,
+    pub invade_orb_berserker: u8,
+    pub invade_orb_sinners: u8,
+    pub invade_sign_none: u8,
+    pub invade_sign_umbasa: u8,
+    pub invade_sign_berserker: u8,
+    pub invade_sign_sinners: u8,
+    pub invade_ring_sinners: u8,
+    pub invade_ring_rosalia: u8,
+    pub invade_ring_forest: u8,
+    pub coop_sign_none: u8,
+    pub coop_sign_umbasa: u8,
+    pub coop_sign_berserker: u8,
+    pub coop_sign_sinners: u8,
+    pub coop_ring_red_hunter: u8,
+    pub invade_ring_anor: u8,
+    pub param_replace_rate: u16,
+    pub param_replace_id: i32,
+    pub pad: [u8; 8],
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
+pub struct EventFlagUsageParam {
     pub usage_type: u8,
     pub playlog_category: u8,
     pub padding1: [u8; 2],
@@ -2470,7 +2833,7 @@ pub struct eventflagusageparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct faceparam {
+pub struct FaceParam {
     pub face_parts_id: u8,
     pub skin_color_r: u8,
     pub skin_color_g: u8,
@@ -2710,7 +3073,7 @@ pub struct faceparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct facerangeparam {
+pub struct FaceRangeParam {
     pub face_parts_id: f32,
     pub skin_color_r: f32,
     pub skin_color_g: f32,
@@ -2921,7 +3284,7 @@ pub struct facerangeparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct fetexteffectparam {
+pub struct FeTextEffectParam {
     pub res_id: i16,
     pub pad1: [u8; 2],
     pub text_id: i32,
@@ -2931,7 +3294,7 @@ pub struct fetexteffectparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct footsfxparam {
+pub struct FootSfxParam {
     pub sfx_id_00: u32,
     pub sfx_id_01: u32,
     pub sfx_id_02: u32,
@@ -3136,7 +3499,7 @@ pub struct footsfxparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gameareaparam {
+pub struct GameAreaParam {
     pub disable_param_reserve2: [u8; 3],
     pub bonus_soul_single: u32,
     pub bonus_soul_multi: u32,
@@ -3171,7 +3534,7 @@ pub struct gameareaparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gameinfoparam {
+pub struct GameInfoParam {
     pub title_msg_id: i32,
     pub content_msg_id: i32,
     pub value: i32,
@@ -3182,7 +3545,7 @@ pub struct gameinfoparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gamesystemcommonparam {
+pub struct GameSystemCommonParam {
     pub base_toughness_recover_time: f32,
     pub chr_event_trun_by_left90: i32,
     pub chr_event_trun_by_right90: i32,
@@ -3471,7 +3834,7 @@ pub struct gamesystemcommonparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gconfigaaquality {
+pub struct Gconfig_AAQuality {
     pub enabled: u8,
     pub force_fxaa2: u8,
     pub dmy: [u8; 2],
@@ -3479,14 +3842,14 @@ pub struct gconfigaaquality {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gconfigdecalquality {
+pub struct Gconfig_DecalQuality {
     pub enabled: u8,
     pub dmy: [u8; 3],
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gconfigdofquality {
+pub struct Gconfig_DOFQuality {
     pub enabled: u8,
     pub dmy: [u8; 3],
     pub force_hi_reso_blur: i32,
@@ -3495,7 +3858,7 @@ pub struct gconfigdofquality {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gconfigeffectquality {
+pub struct Gconfig_EffectQuality {
     pub soft_particle_enabled: u8,
     pub glow_enabled: u8,
     pub distortion_enable: u8,
@@ -3512,7 +3875,7 @@ pub struct gconfigeffectquality {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gconfiglightingquality {
+pub struct Gconfig_LightingQuality {
     pub local_light_dist_factor: f32,
     pub local_light_shadow_enabled: u8,
     pub forward_pass_lighting_enabled: u8,
@@ -3522,7 +3885,7 @@ pub struct gconfiglightingquality {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gconfigmotionblurquality {
+pub struct Gconfig_MotionBlurQuality {
     pub enabled: u8,
     pub omb_enabled: u8,
     pub force_scale_velocity_buffer: u8,
@@ -3534,7 +3897,7 @@ pub struct gconfigmotionblurquality {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gconfigreflectionquality {
+pub struct Gconfig_ReflectionQuality {
     pub enabled: u8,
     pub local_light_enabled: u8,
     pub local_light_force_enabled: u8,
@@ -3551,7 +3914,7 @@ pub struct gconfigreflectionquality {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gconfigshaderquality {
+pub struct Gconfig_ShaderQuality {
     pub sss_enabled: u8,
     pub tessellation_enabled: u8,
     pub high_precision_normal_enabled: u8,
@@ -3560,7 +3923,7 @@ pub struct gconfigshaderquality {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gconfigshadowquality {
+pub struct Gconfig_ShadowQuality {
     pub enabled: u8,
     pub max_filter_level: u8,
     pub dmy: [u8; 2],
@@ -3573,7 +3936,7 @@ pub struct gconfigshadowquality {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gconfigssaoquality {
+pub struct Gconfig_SSAOQuality {
     pub enabled: u8,
     pub cs_reproj_enabled_type: u8,
     pub cs_up_scale_enabled_type: u8,
@@ -3583,7 +3946,7 @@ pub struct gconfigssaoquality {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gconfigtexturefilterquality {
+pub struct Gconfig_TextureFilterQuality {
     pub filter: u8,
     pub dmy: [u8; 3],
     pub max_aniso_level: u32,
@@ -3591,7 +3954,7 @@ pub struct gconfigtexturefilterquality {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gconfigvolumetriceffectquality {
+pub struct Gconfig_VolumetricEffectQuality {
     pub fog_enabled: u8,
     pub fog_shadow_enabled: u8,
     pub dmy: [u8; 2],
@@ -3613,14 +3976,14 @@ pub struct gconfigvolumetriceffectquality {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gconfigwaterquality {
+pub struct Gconfig_WaterQuality {
     pub interaction_enabled: u8,
     pub dmy: [u8; 3],
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gestureparam {
+pub struct GestureParam {
     pub disable_param_reserve2: [u8; 3],
     pub item_id: i32,
     pub msg_anim_id: i32,
@@ -3629,14 +3992,14 @@ pub struct gestureparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gparamgridregioninfo {
+pub struct GparamGridRegionInfo {
     pub gparam_grid_region_id: u32,
     pub reserve: [u8; 28],
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct gparamrefsettingsparam {
+pub struct GparamRefSettingsParam {
     pub disable_param_reserve2: [u8; 3],
     pub ref_target_map_id: i32,
     pub reserve: [u8; 24],
@@ -3644,7 +4007,7 @@ pub struct gparamrefsettingsparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct graphicscommonparam {
+pub struct GraphicsCommonParam {
     pub hit_bullet_decal_offset_hit_ins: f32,
     pub reserved02: [u8; 8],
     pub chara_wet_decal_fade_range: f32,
@@ -3653,7 +4016,7 @@ pub struct graphicscommonparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct graphicsconfig {
+pub struct GraphicsConfig {
     pub m_texture_filter_quality: u8,
     pub m_aa_quality: u8,
     pub m_ssao_quality: u8,
@@ -3672,7 +4035,7 @@ pub struct graphicsconfig {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct grasslodrangeparam {
+pub struct GrassLodRangeParam {
     pub l_od0_range: f32,
     pub l_od0_play: f32,
     pub l_od1_range: f32,
@@ -3683,7 +4046,7 @@ pub struct grasslodrangeparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct grassmapsettings {
+pub struct GrassMapSettings {
     pub grass_type0: u32,
     pub grass_type1: u32,
     pub grass_type2: u32,
@@ -3691,7 +4054,7 @@ pub struct grassmapsettings {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct grasstypeparam {
+pub struct GrassTypeParam {
     pub lod_range: u16,
     pub lod0_cluster_type: u8,
     pub lod1_cluster_type: u8,
@@ -3734,7 +4097,7 @@ pub struct grasstypeparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct hiteffectseparam {
+pub struct HitEffectSeParam {
     pub iron_slash_s: i32,
     pub iron_slash_l: i32,
     pub iron_slash_ll: i32,
@@ -3875,7 +4238,7 @@ pub struct hiteffectseparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct hiteffectsfxconceptparam {
+pub struct HitEffectSfxConceptParam {
     pub atk_iron_1: i16,
     pub atk_iron_2: i16,
     pub atk_leather_1: i16,
@@ -3894,7 +4257,7 @@ pub struct hiteffectsfxconceptparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct hiteffectsfxparam {
+pub struct HitEffectSfxParam {
     pub slash_normal: i32,
     pub slash_s: i32,
     pub slash_l: i32,
@@ -3919,7 +4282,7 @@ pub struct hiteffectsfxparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct hitmtrlparam {
+pub struct HitMtrlParam {
     pub ai_volume_rate: f32,
     pub sp_effect_id_on_hit0: i32,
     pub sp_effect_id_on_hit1: i32,
@@ -3950,7 +4313,7 @@ pub struct hitmtrlparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct itemlotparam {
+pub struct ItemLotParam {
     pub lot_item_id01: i32,
     pub lot_item_id02: i32,
     pub lot_item_id03: i32,
@@ -4026,7 +4389,7 @@ pub struct itemlotparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct keyassignmenuitemparam {
+pub struct KeyAssignMenuItemParam {
     pub text_id: i32,
     pub key: i32,
     pub enable_unassign: u8,
@@ -4041,7 +4404,7 @@ pub struct keyassignmenuitemparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct keyassignparam {
+pub struct KeyAssignParam {
     pub pad_key_id: i32,
     pub keyboard_modify_key: i32,
     pub keyboard_key_id: i32,
@@ -4052,7 +4415,7 @@ pub struct keyassignparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct knockbackparam {
+pub struct KnockBackParam {
     pub damage_min_cont_time: f32,
     pub damage_s_cont_time: f32,
     pub damage_m_cont_time: f32,
@@ -4088,7 +4451,7 @@ pub struct knockbackparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct knowledgeloadscreenitemparam {
+pub struct KnowledgeLoadScreenItemParam {
     pub disable_param_reserve2: [u8; 3],
     pub unlock_flag_id: u32,
     pub invalid_flag_id: u32,
@@ -4097,7 +4460,7 @@ pub struct knowledgeloadscreenitemparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct legacydistantviewpartsreplaceparam {
+pub struct LegacyDistantViewPartsReplaceParam {
     pub target_map_id: i32,
     pub target_event_id: u32,
     pub src_asset_id: i32,
@@ -4121,7 +4484,7 @@ pub struct legacydistantviewpartsreplaceparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct loadbalancerdrawdistscaleparam {
+pub struct LoadBalancerDrawDistScaleParam {
     pub lv00: f32,
     pub lv01: f32,
     pub lv02: f32,
@@ -4148,7 +4511,7 @@ pub struct loadbalancerdrawdistscaleparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct loadbalancernewdrawdistscaleparam {
+pub struct LoadBalancerNewDrawDistScaleParam {
     pub draw_dist_lv_begin: u8,
     pub draw_dist_lv_end: u8,
     pub reserve0: [u8; 2],
@@ -4164,7 +4527,7 @@ pub struct loadbalancernewdrawdistscaleparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct loadbalancerparam {
+pub struct LoadBalancerParam {
     pub lower_fps_threshold: f32,
     pub upper_fps_threshold: f32,
     pub lower_fps_continous_count: u32,
@@ -4202,7 +4565,7 @@ pub struct loadbalancerparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct lockcamparam {
+pub struct LockCamParam {
     pub cam_dist_target: f32,
     pub rot_range_min_x: f32,
     pub lock_rot_xshift_ratio: f32,
@@ -4228,7 +4591,126 @@ pub struct lockcamparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct mapdefaultinfoparam {
+pub struct MagicParam {
+    pub disable_param_reserve2: [u8; 3],
+    pub yes_no_dialog_message_id: i32,
+    pub limit_cancel_sp_effect_id: i32,
+    pub sort_id: i16,
+    pub requirement_luck: u8,
+    pub ai_notify_type: u8,
+    pub mp: i16,
+    pub stamina: i16,
+    pub icon_id: i16,
+    pub behavior_id: i16,
+    pub mtrl_item_id: i16,
+    pub replace_magic_id: i16,
+    pub max_quantity: i16,
+    pub ref_category1: u8,
+    pub over_dexterity: u8,
+    pub ref_category2: u8,
+    pub slot_length: u8,
+    pub requirement_intellect: u8,
+    pub requirement_faith: u8,
+    pub analog_dexterity_min: u8,
+    pub analog_dexterity_max: u8,
+    pub ez_state_behavior_type: u8,
+    pub ref_category3: u8,
+    pub sp_effect_category: u8,
+    pub ref_type: u8,
+    pub opme_menu_type: u8,
+    pub ref_category4: u8,
+    pub has_sp_effect_type: u16,
+    pub replace_category: u8,
+    pub use_limit_category: u8,
+    #[bitflag(disableParam_NT, 0)]
+    #[bitflag(disableParamReserve1, 1)]
+    #[bitflag(vowType0, 2)]
+    #[bitflag(vowType1, 3)]
+    #[bitflag(vowType2, 4)]
+    #[bitflag(vowType3, 5)]
+    #[bitflag(vowType4, 6)]
+    #[bitflag(vowType5, 7)]
+    pub bitfield0: u8,
+    #[bitflag(vowType6, 0)]
+    #[bitflag(vowType7, 1)]
+    #[bitflag(enable_multi, 2)]
+    #[bitflag(enable_multi_only, 3)]
+    #[bitflag(isEnchant, 4)]
+    #[bitflag(isShieldEnchant, 5)]
+    #[bitflag(enable_live, 6)]
+    #[bitflag(enable_gray, 7)]
+    pub bitfield1: u8,
+    #[bitflag(enable_white, 0)]
+    #[bitflag(enable_black, 1)]
+    #[bitflag(disableOffline, 2)]
+    #[bitflag(castResonanceMagic, 3)]
+    #[bitflag(isValidTough_ProtSADmg, 4)]
+    #[bitflag(isWarpMagic, 5)]
+    #[bitflag(enableRiding, 6)]
+    #[bitflag(disableRiding, 7)]
+    pub bitfield2: u8,
+    #[bitflag(isUseNoAttackRegion, 0)]
+    #[bitflag(pad_1, 1)]
+    #[bitflag(vowType8, 2)]
+    #[bitflag(vowType9, 3)]
+    #[bitflag(vowType10, 4)]
+    #[bitflag(vowType11, 5)]
+    #[bitflag(vowType12, 6)]
+    #[bitflag(vowType13, 7)]
+    pub bitfield3: u8,
+    pub cast_sfx_id: i32,
+    pub fire_sfx_id: i32,
+    pub effect_sfx_id: i32,
+    pub toughness_correct_rate: f32,
+    pub replacement_status_type: u8,
+    pub replacement_status1: i8,
+    pub replacement_status2: i8,
+    pub replacement_status3: i8,
+    pub replacement_status4: i8,
+    pub ref_category5: u8,
+    pub consume_sa: i16,
+    pub replacement_magic1: i32,
+    pub replacement_magic2: i32,
+    pub replacement_magic3: i32,
+    pub replacement_magic4: i32,
+    pub mp_charge: i16,
+    pub stamina_charge: i16,
+    pub create_limit_group_id: u8,
+    pub ref_category6: u8,
+    pub sub_category1: u8,
+    pub sub_category2: u8,
+    pub ref_category7: u8,
+    pub ref_category8: u8,
+    pub ref_category9: u8,
+    pub ref_category10: u8,
+    pub ref_id1: i32,
+    pub ref_id2: i32,
+    pub ref_id3: i32,
+    pub ai_use_judge_id: i32,
+    pub ref_id4: i32,
+    pub ref_id5: i32,
+    pub ref_id6: i32,
+    pub ref_id7: i32,
+    pub ref_id8: i32,
+    pub ref_id9: i32,
+    pub ref_id10: i32,
+    pub consume_type1: u8,
+    pub consume_type2: u8,
+    pub consume_type3: u8,
+    pub consume_type4: u8,
+    pub consume_type5: u8,
+    pub consume_type6: u8,
+    pub consume_type7: u8,
+    pub consume_type8: u8,
+    pub consume_type9: u8,
+    pub consume_type10: u8,
+    pub consume_loop_mp_for_menu: i16,
+    pub pad: [u8; 8],
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
+pub struct MapDefaultInfoParam {
     pub disable_param_reserve2: [u8; 3],
     pub enable_fast_travel_event_flag_id: u32,
     pub weather_lot_time_offset_ingame_seconds: i32,
@@ -4257,14 +4739,14 @@ pub struct mapdefaultinfoparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct mapgdregiondrawparam {
+pub struct MapGdRegionDrawParam {
     pub disable_param_reserve2: [u8; 3],
     pub override_ivlocal_light_scale: f32,
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct mapgdregioninfo {
+pub struct MapGdRegionInfo {
     pub disable_param_reserve2: [u8; 3],
     pub map_region_id: u32,
     pub reserve: [u8; 24],
@@ -4272,7 +4754,7 @@ pub struct mapgdregioninfo {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct mapgridcreateheightlimitinfo {
+pub struct MapGridCreateHeightLimitInfo {
     pub grid_enable_create_height_min: f32,
     pub grid_enable_create_height_max: f32,
     pub reserve: [u8; 24],
@@ -4280,7 +4762,7 @@ pub struct mapgridcreateheightlimitinfo {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct mapmimicryestablishmentparam {
+pub struct MapMimicryEstablishmentParam {
     pub mimicry_establishment0: f32,
     pub mimicry_establishment1: f32,
     pub mimicry_establishment2: f32,
@@ -4298,7 +4780,7 @@ pub struct mapmimicryestablishmentparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct mapnametexparam {
+pub struct MapNameTexParam {
     pub disable_param_reserve2: [u8; 3],
     pub src_r: u8,
     pub src_g: u8,
@@ -4310,7 +4792,7 @@ pub struct mapnametexparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct mappiecetexparam {
+pub struct MapPieceTexParam {
     pub disable_param_reserve2: [u8; 3],
     pub src_r: u8,
     pub src_g: u8,
@@ -4322,7 +4804,7 @@ pub struct mappiecetexparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct materialex {
+pub struct MaterialEx {
     pub param_name: [u16; 32],
     pub material_id: i32,
     pub material_param_value0: f32,
@@ -4335,7 +4817,7 @@ pub struct materialex {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct menucommonparam {
+pub struct MenuCommonParam {
     pub solo_play_death_to_fade_out_time: f32,
     pub party_ghost_death_to_fade_out_time: f32,
     pub player_max_hp_limit: i32,
@@ -4400,7 +4882,7 @@ pub struct menucommonparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct menuoffscrrendparam {
+pub struct MenuOffscrRendParam {
     pub cam_at_pos_x: f32,
     pub cam_at_pos_y: f32,
     pub cam_at_pos_z: f32,
@@ -4421,7 +4903,22 @@ pub struct menuoffscrrendparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct menupropertylayoutparam {
+pub struct MenuParamColorTable {
+    pub lerp_mode: u8,
+    pub pad1: [u8; 3],
+    pub h: u16,
+    pub pad2: [u8; 2],
+    pub s1: f32,
+    pub v1: f32,
+    pub s2: f32,
+    pub v2: f32,
+    pub s3: f32,
+    pub v3: f32,
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
+pub struct MenuPropertyLayoutParam {
     pub layout_path: [u8; 16],
     pub property_id: i32,
     pub caption_text_id: i32,
@@ -4431,7 +4928,7 @@ pub struct menupropertylayoutparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct menupropertyspecparam {
+pub struct MenuPropertySpecParam {
     pub caption_text_id: i32,
     pub icon_id: i32,
     pub required_property_id: u32,
@@ -4443,7 +4940,7 @@ pub struct menupropertyspecparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct menuvaluetablespecparam {
+pub struct MenuValueTableSpecParam {
     pub value: i32,
     pub text_id: i32,
     pub compare_type: i8,
@@ -4452,7 +4949,7 @@ pub struct menuvaluetablespecparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct mimicryestablishmenttexparam {
+pub struct MimicryEstablishmentTexParam {
     pub disable_param_reserve2: [u8; 3],
     pub src_r: u8,
     pub src_g: u8,
@@ -4464,7 +4961,7 @@ pub struct mimicryestablishmenttexparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct missileparam {
+pub struct MissileParam {
     pub f_fxid: i32,
     pub life_time: u16,
     pub hit_sphere_radius: u16,
@@ -4487,7 +4984,7 @@ pub struct missileparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct modelsfxparam {
+pub struct ModelSfxParam {
     pub sfx_id_0: i32,
     pub dmypoly_id_0: i32,
     pub reserve_0: [u8; 8],
@@ -4516,7 +5013,7 @@ pub struct modelsfxparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct moveparam {
+pub struct MoveParam {
     pub stay_id: i32,
     pub walk_f: i32,
     pub walk_b: i32,
@@ -4560,7 +5057,29 @@ pub struct moveparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct multiplaycorrectionparam {
+pub struct MultiEstusFlaskBonusParam {
+    pub host: u8,
+    pub white_ghost_none: u8,
+    pub white_ghost_umbasa: u8,
+    pub white_ghost_berserker: u8,
+    pub black_ghost_none_sign: u8,
+    pub black_ghost_umbasa_sign: u8,
+    pub black_ghost_berserker_sign: u8,
+    pub black_ghost_none_invade: u8,
+    pub black_ghost_umbasa_invade: u8,
+    pub black_ghost_berserker_invade: u8,
+    pub red_hunter1: u8,
+    pub red_hunter2: u8,
+    pub guardian_of_forest: u8,
+    pub guardian_of_anor: u8,
+    pub battle_royal: u8,
+    pub yellow_monk: u8,
+    pub pad1: [u8; 48],
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
+pub struct MultiPlayCorrectionParam {
     pub disable_param_reserve2: [u8; 3],
     pub client1_sp_effect_id: i32,
     pub client2_sp_effect_id: i32,
@@ -4571,7 +5090,7 @@ pub struct multiplaycorrectionparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct multisoulbonusrateparam {
+pub struct MultiSoulBonusRateParam {
     pub host: f32,
     pub white_ghost_none: f32,
     pub white_ghost_umbasa: f32,
@@ -4593,7 +5112,7 @@ pub struct multisoulbonusrateparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct networkareaparam {
+pub struct NetworkAreaParam {
     pub cell_size_x: f32,
     pub cell_size_y: f32,
     pub cell_size_z: f32,
@@ -4605,7 +5124,7 @@ pub struct networkareaparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct networkmsgparam {
+pub struct NetworkMsgParam {
     pub priority: u16,
     pub force_play: u8,
     pub pad1: [u8; 1],
@@ -4654,7 +5173,7 @@ pub struct networkmsgparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct networkparam {
+pub struct NetworkParam {
     pub sign_vertical_offset: f32,
     pub max_sign_pos_correction_range: f32,
     pub summon_timeout_time: f32,
@@ -4814,7 +5333,7 @@ pub struct networkparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct npcaiactionparam {
+pub struct NpcAiActionParam {
     pub move_dir: u8,
     pub key1: u8,
     pub key2: u8,
@@ -4830,7 +5349,7 @@ pub struct npcaiactionparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct npcaibehaviorprobabilityparam {
+pub struct NpcAiBehaviorProbabilityParam {
     pub param000: i16,
     pub param001: i16,
     pub param002: i16,
@@ -5035,7 +5554,7 @@ pub struct npcaibehaviorprobabilityparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct npcparam {
+pub struct NpcParam {
     pub disable_param_reserve2: [u8; 3],
     pub behavior_variation_id: i32,
     pub resist_correct_id_poison: i32,
@@ -5365,7 +5884,7 @@ pub struct npcparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct npcthinkparam {
+pub struct NpcThinkParam {
     pub disable_param_reserve2: [u8; 3],
     pub logic_id: i32,
     pub battle_goal_id: i32,
@@ -5469,7 +5988,7 @@ pub struct npcthinkparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct objactparam {
+pub struct ObjActParam {
     pub action_enable_msg_id: i32,
     pub action_failed_msg_id: i32,
     pub sp_qualified_pass_event_flag: u32,
@@ -5497,7 +6016,7 @@ pub struct objactparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct objectmaterialsfxparam {
+pub struct ObjectMaterialSfxParam {
     pub sfx_id_00: u32,
     pub sfx_id_01: u32,
     pub sfx_id_02: u32,
@@ -5534,7 +6053,7 @@ pub struct objectmaterialsfxparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct objectparam {
+pub struct ObjectParam {
     pub hp: i16,
     pub defense: u16,
     pub ext_ref_tex_id: i16,
@@ -5618,7 +6137,7 @@ pub struct objectparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct partsdrawparam {
+pub struct PartsDrawParam {
     pub lv01_border_dist: f32,
     pub lv01_play_dist: f32,
     pub lv12_border_dist: f32,
@@ -5661,7 +6180,7 @@ pub struct partsdrawparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct performancecheckparam {
+pub struct PerformanceCheckParam {
     pub work_tag: u8,
     pub category_tag: u8,
     pub compare_type: u8,
@@ -5673,7 +6192,7 @@ pub struct performancecheckparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct phantomparam {
+pub struct PhantomParam {
     pub edge_color_a: f32,
     pub front_color_a: f32,
     pub diff_mul_color_a: f32,
@@ -5707,7 +6226,7 @@ pub struct phantomparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct playercommonparam {
+pub struct PlayerCommonParam {
     pub player_foot_effect_by_sfx: i32,
     pub snipe_mode_draw_alpha_fade_time: f32,
     pub toughness_recover_correction: f32,
@@ -5777,7 +6296,7 @@ pub struct playercommonparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct playregionparam {
+pub struct PlayRegionParam {
     pub disable_param_reserve2: [u8; 3],
     pub match_area_id: i32,
     pub multi_play_start_limit_event_flag_id: u32,
@@ -5865,7 +6384,7 @@ pub struct playregionparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct posturecontrolparamgender {
+pub struct PostureControlParam_Gender {
     pub a000_right_elbow_io: i16,
     pub a000_left_elbow_io: i16,
     pub a000_both_legs_io: i16,
@@ -5898,7 +6417,7 @@ pub struct posturecontrolparamgender {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct posturecontrolparampro {
+pub struct PostureControlParam_Pro {
     pub a000_right_arm_io: i16,
     pub a000_right_arm_fb: i16,
     pub a000_left_arm_io: i16,
@@ -5940,7 +6459,7 @@ pub struct posturecontrolparampro {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct posturecontrolparamwepleft {
+pub struct PostureControlParam_WepLeft {
     pub a000_left_arm_fb: i16,
     pub a000_left_wrist_fb: i16,
     pub a000_left_wrist_io: i16,
@@ -5955,7 +6474,7 @@ pub struct posturecontrolparamwepleft {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct posturecontrolparamwepright {
+pub struct PostureControlParam_WepRight {
     pub a000_right_arm_fb: i16,
     pub a000_right_wrist_fb: i16,
     pub a000_right_wrist_io: i16,
@@ -6015,7 +6534,7 @@ pub struct posturecontrolparamwepright {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct randomappeareditparam {
+pub struct RandomAppearEditParam {
     pub appear_num: u32,
     pub param_id1: i32,
     pub rate1: u32,
@@ -6069,7 +6588,7 @@ pub struct randomappeareditparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct randomappearparam {
+pub struct RandomAppearParam {
     #[bitflag(slot0, 0)]
     #[bitflag(slot1, 1)]
     #[bitflag(slot2, 2)]
@@ -6182,7 +6701,7 @@ pub struct randomappearparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct reinforceparamprotector {
+pub struct ReinforceParamProtector {
     pub physics_def_rate: f32,
     pub magic_def_rate: f32,
     pub fire_def_rate: f32,
@@ -6206,7 +6725,7 @@ pub struct reinforceparamprotector {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct reinforceparamweapon {
+pub struct ReinforceParamWeapon {
     pub physics_atk_rate: f32,
     pub magic_atk_rate: f32,
     pub fire_atk_rate: f32,
@@ -6250,7 +6769,7 @@ pub struct reinforceparamweapon {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct resistcorrectparam {
+pub struct ResistCorrectParam {
     pub add_point1: f32,
     pub add_point2: f32,
     pub add_point3: f32,
@@ -6265,13 +6784,13 @@ pub struct resistcorrectparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct reverbauxsendbusparam {
+pub struct ReverbAuxSendBusParam {
     pub reverb_aux_send_bus_name: [u8; 32],
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct rideparam {
+pub struct RideParam {
     pub atk_chr_id: u32,
     pub def_chr_id: u32,
     pub ride_cam_param_id: i32,
@@ -6290,7 +6809,7 @@ pub struct rideparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct roleparam {
+pub struct RoleParam {
     pub team_type: u8,
     pub pad10: [u8; 3],
     pub phantom_param_id: i32,
@@ -6327,7 +6846,7 @@ pub struct roleparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct rollingobjlotparam {
+pub struct RollingObjLotParam {
     pub disable_param_reserve2: [u8; 3],
     pub asset_id_0: i32,
     pub asset_id_1: i32,
@@ -6350,7 +6869,7 @@ pub struct rollingobjlotparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct runtimebonecontrolparam {
+pub struct RuntimeBoneControlParam {
     pub chr_id: u32,
     pub ctrl_type: u8,
     pub pad: [u8; 11],
@@ -6361,26 +6880,26 @@ pub struct runtimebonecontrolparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct seactivationrangeparam {
+pub struct SeActivationRangeParam {
     pub activate_range: f32,
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct sematerialconvertparam {
+pub struct SeMaterialConvertParam {
     pub se_material_id: u8,
     pub pad: [u8; 3],
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct sfxblockresshareparam {
+pub struct SfxBlockResShareParam {
     pub share_block_rs_map_uid_val: u32,
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct shoplineupparam {
+pub struct ShopLineupParam {
     pub equip_id: i32,
     pub value: i32,
     pub mtrl_id: i32,
@@ -6403,7 +6922,7 @@ pub struct shoplineupparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct signpuddleparam {
+pub struct SignPuddleParam {
     pub disable_param_reserve2: [u8; 3],
     pub match_area_id: i32,
     pub pad1: [u8; 24],
@@ -6411,13 +6930,13 @@ pub struct signpuddleparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct soundassetsoundobjenabledistparam {
+pub struct SoundAssetSoundObjEnableDistParam {
     pub sound_obj_enable_dist: f32,
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct soundautoenvsoundgroupparam {
+pub struct SoundAutoEnvSoundGroupParam {
     pub sound_no: i32,
     pub expand_range: f32,
     pub follow_speed: f32,
@@ -6426,7 +6945,7 @@ pub struct soundautoenvsoundgroupparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct soundautoreverbevaluationdistparam {
+pub struct SoundAutoReverbEvaluationDistParam {
     pub no_hit_dist: f32,
     pub is_collect_no_hit_point: u8,
     pub is_collect_outdoor_point: u8,
@@ -6439,7 +6958,7 @@ pub struct soundautoreverbevaluationdistparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct soundautoreverbselectparam {
+pub struct SoundAutoReverbSelectParam {
     pub reverb_type: u32,
     pub area_no: i32,
     pub indoor_outdoor: i8,
@@ -6455,7 +6974,7 @@ pub struct soundautoreverbselectparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct soundchrphysicsseparam {
+pub struct SoundChrPhysicsSeParam {
     pub disable_param_reserve2: [u8; 3],
     pub contact_land_se_id: i32,
     pub contact_land_add_se_id: i32,
@@ -6487,21 +7006,21 @@ pub struct soundchrphysicsseparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct soundcommoningameparam {
+pub struct SoundCommonIngameParam {
     pub param_key_str: [u8; 32],
     pub param_value_str: [u8; 32],
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct soundcommonsystemparam {
+pub struct SoundCommonSystemParam {
     pub param_key_str: [u8; 32],
     pub param_value_str: [u8; 32],
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct soundcutsceneparam {
+pub struct SoundCutsceneParam {
     pub disable_param_reserve2: [u8; 3],
     pub reverb_type: u8,
     pub pad0: [u8; 3],
@@ -6515,7 +7034,7 @@ pub struct soundcutsceneparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct speedtreemodel {
+pub struct SpeedtreeModel {
     pub min_fade_leaf: f32,
     pub min_fade_frond: f32,
     pub min_fade_branch: f32,
@@ -6530,7 +7049,7 @@ pub struct speedtreemodel {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct speffect {
+pub struct SpEffect {
     pub icon_id: i32,
     pub condition_hp: f32,
     pub effect_endurance: f32,
@@ -6901,7 +7420,7 @@ pub struct speffect {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct speffectsetparam {
+pub struct SpEffectSetParam {
     pub sp_effect_id1: i32,
     pub sp_effect_id2: i32,
     pub sp_effect_id3: i32,
@@ -6910,7 +7429,7 @@ pub struct speffectsetparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct speffectvfx {
+pub struct SpEffectVfx {
     pub midst_sfx_id: i32,
     pub midst_se_id: i32,
     pub init_sfx_id: i32,
@@ -6982,7 +7501,7 @@ pub struct speffectvfx {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct swordartsparam {
+pub struct SwordArtsParam {
     pub disable_param_reserve2: [u8; 3],
     pub sword_arts_type: u8,
     pub arts_speed_type: u8,
@@ -7004,7 +7523,7 @@ pub struct swordartsparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct talkparam {
+pub struct TalkParam {
     pub disable_param_reserve2: [u8; 3],
     pub msg_id: i32,
     pub voice_id: i32,
@@ -7027,7 +7546,7 @@ pub struct talkparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct throwdirectionsfxparam {
+pub struct ThrowDirectionSfxParam {
     pub sfx_id_00: i32,
     pub sfx_id_01: i32,
     pub sfx_id_02: i32,
@@ -7064,7 +7583,7 @@ pub struct throwdirectionsfxparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct throwparam {
+pub struct ThrowParam {
     pub atk_chr_id: i32,
     pub def_chr_id: i32,
     pub dist: f32,
@@ -7104,7 +7623,7 @@ pub struct throwparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct toughnessparam {
+pub struct ToughnessParam {
     pub correction_rate: f32,
     pub min_toughness: u16,
     pub is_non_effective_correction_for_min: u8,
@@ -7116,7 +7635,7 @@ pub struct toughnessparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct tutorialparam {
+pub struct TutorialParam {
     pub disable_param_reserve2: [u8; 3],
     pub menu_type: u8,
     pub trigger_type: u8,
@@ -7133,7 +7652,7 @@ pub struct tutorialparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct waypointparam {
+pub struct WaypointParam {
     pub attribute1: i16,
     pub attribute2: i16,
     pub attribute3: i16,
@@ -7143,7 +7662,7 @@ pub struct waypointparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct weatherassetcreateparam {
+pub struct WeatherAssetCreateParam {
     pub asset_id: u32,
     pub slot_no: u32,
     pub create_condition_type: u8,
@@ -7172,7 +7691,7 @@ pub struct weatherassetcreateparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct weatherassetreplaceparam {
+pub struct WeatherAssetReplaceParam {
     pub map_id: u32,
     pub transition_src_weather: i16,
     pub padding0: [u8; 2],
@@ -7197,7 +7716,7 @@ pub struct weatherassetreplaceparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct weatherlotparam {
+pub struct WeatherLotParam {
     pub disable_param_reserve2: [u8; 3],
     pub weather_type0: i16,
     pub weather_type1: i16,
@@ -7241,7 +7760,7 @@ pub struct weatherlotparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct weatherlottexparam {
+pub struct WeatherLotTexParam {
     pub disable_param_reserve2: [u8; 3],
     pub src_r: u8,
     pub src_g: u8,
@@ -7253,7 +7772,7 @@ pub struct weatherlottexparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct weatherparam {
+pub struct WeatherParam {
     pub sfx_id: i32,
     pub wind_sfx_id: i32,
     pub ground_hit_sfx_id: i32,
@@ -7275,7 +7794,7 @@ pub struct weatherparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct wepabsorpposparam {
+pub struct WepAbsorpPosParam {
     pub disable_param_reserve2: [u8; 3],
     pub hang_pos_type: u8,
     pub is_skeleton_bind: u8,
@@ -7337,7 +7856,7 @@ pub struct wepabsorpposparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct wetaspectparam {
+pub struct WetAspectParam {
     pub base_color_r: u8,
     pub base_color_g: u8,
     pub base_color_b: u8,
@@ -7355,7 +7874,7 @@ pub struct wetaspectparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct whitesigncooltimeparam {
+pub struct WhiteSignCoolTimeParam {
     pub limitation_time_normal: f32,
     pub limitation_time_normal_dried_finger: f32,
     pub limitation_time_guardian: f32,
@@ -7364,7 +7883,7 @@ pub struct whitesigncooltimeparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct worldmaplegacyconvparam {
+pub struct WorldMapLegacyConvParam {
     pub disable_param_reserve2: [u8; 3],
     pub src_area_no: u8,
     pub src_grid_xno: u8,
@@ -7385,7 +7904,7 @@ pub struct worldmaplegacyconvparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct worldmappieceparam {
+pub struct WorldMapPieceParam {
     pub disable_param_reserve2: [u8; 3],
     pub open_event_flag_id: u32,
     pub open_travel_area_left: f32,
@@ -7404,7 +7923,7 @@ pub struct worldmappieceparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct worldmapplacenameparam {
+pub struct WorldMapPlaceNameParam {
     pub disable_param_reserve2: [u8; 3],
     pub world_map_piece_id: i32,
     pub text_id: i32,
@@ -7420,7 +7939,7 @@ pub struct worldmapplacenameparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct worldmappointparam {
+pub struct WorldMapPointParam {
     pub disable_param_reserve2: [u8; 3],
     pub event_flag_id: u32,
     pub dist_view_event_flag_id: u32,
@@ -7512,804 +8031,7 @@ pub struct worldmappointparam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
-pub struct wwisevaluetostrconvertparamformat {
+pub struct WwiseValueToStrConvertParamFormat {
     pub disable_param_reserve2: [u8; 3],
     pub param_str: [u8; 32],
-}
-
-#[derive(ParamStruct, Debug)]
-#[repr(C)]
-pub struct atkparampc {
-    pub hit0_radius: f32,
-    pub hit1_radius: f32,
-    pub hit2_radius: f32,
-    pub hit3_radius: f32,
-    pub knockback_dist: f32,
-    pub hit_stop_time: f32,
-    pub sp_effect_id0: i32,
-    pub sp_effect_id1: i32,
-    pub sp_effect_id2: i32,
-    pub sp_effect_id3: i32,
-    pub sp_effect_id4: i32,
-    pub hit0_dmy_poly1: i16,
-    pub hit1_dmy_poly1: i16,
-    pub hit2_dmy_poly1: i16,
-    pub hit3_dmy_poly1: i16,
-    pub hit0_dmy_poly2: i16,
-    pub hit1_dmy_poly2: i16,
-    pub hit2_dmy_poly2: i16,
-    pub hit3_dmy_poly2: i16,
-    pub blowing_correction: u16,
-    pub atk_phys_correction: u16,
-    pub atk_mag_correction: u16,
-    pub atk_fire_correction: u16,
-    pub atk_thun_correction: u16,
-    pub atk_stam_correction: u16,
-    pub guard_atk_rate_correction: u16,
-    pub guard_break_correction: u16,
-    pub atk_throw_escape_correction: u16,
-    pub sub_category1: u8,
-    pub sub_category2: u8,
-    pub atk_phys: u16,
-    pub atk_mag: u16,
-    pub atk_fire: u16,
-    pub atk_thun: u16,
-    pub atk_stam: u16,
-    pub guard_atk_rate: u16,
-    pub guard_break_rate: u16,
-    pub pad6: [u8; 1],
-    pub is_enable_calc_damage_for_bushes_obj: u8,
-    pub atk_throw_escape: u16,
-    pub atk_obj: u16,
-    pub guard_stamina_cut_rate: i16,
-    pub guard_rate: i16,
-    pub throw_type_id: u16,
-    pub hit0_hit_type: u8,
-    pub hit1_hit_type: u8,
-    pub hit2_hit_type: u8,
-    pub hit3_hit_type: u8,
-    pub hti0_priority: u8,
-    pub hti1_priority: u8,
-    pub hti2_priority: u8,
-    pub hti3_priority: u8,
-    pub dmg_level: u8,
-    pub map_hit_type: u8,
-    pub guard_cut_cancel_rate: i8,
-    pub atk_attribute: u8,
-    pub sp_attribute: u8,
-    pub atk_type: u8,
-    pub atk_material: u8,
-    pub guard_range_type: u8,
-    pub def_se_material1: u16,
-    pub hit_source_type: u8,
-    pub throw_flag: u8,
-    #[bitflag(disableGuard, 0)]
-    #[bitflag(disableStaminaAttack, 1)]
-    #[bitflag(disableHitSpEffect, 2)]
-    #[bitflag(IgnoreNotifyMissSwingForAI, 3)]
-    #[bitflag(repeatHitSfx, 4)]
-    #[bitflag(isArrowAtk, 5)]
-    #[bitflag(isGhostAtk, 6)]
-    #[bitflag(isDisableNoDamage, 7)]
-    pub bitfield0: u8,
-    pub atk_pow_for_sfx: i8,
-    pub atk_dir_for_sfx: i8,
-    #[bitflag(opposeTarget, 0)]
-    #[bitflag(friendlyTarget, 1)]
-    #[bitflag(selfTarget, 2)]
-    #[bitflag(isCheckDoorPenetration, 3)]
-    #[bitflag(isVsRideAtk, 4)]
-    #[bitflag(isAddBaseAtk, 5)]
-    #[bitflag(excludeThreatLvNotify, 6)]
-    #[bitflag(pad1, 7)]
-    pub bitfield1: u8,
-    pub atk_behavior_id: u8,
-    pub atk_pow_for_se: i8,
-    pub atk_super_armor: f32,
-    pub decal_id1: i32,
-    pub decal_id2: i32,
-    pub appear_ai_sound_id: i32,
-    pub hit_ai_sound_id: i32,
-    pub hit_rumble_id: i32,
-    pub hit_rumble_id_by_normal: i32,
-    pub hit_rumble_id_by_middle: i32,
-    pub hit_rumble_id_by_root: i32,
-    pub trace_sfx_id0: i32,
-    pub trace_dmy_id_head0: i32,
-    pub trace_dmy_id_tail0: i32,
-    pub trace_sfx_id1: i32,
-    pub trace_dmy_id_head1: i32,
-    pub trace_dmy_id_tail1: i32,
-    pub trace_sfx_id2: i32,
-    pub trace_dmy_id_head2: i32,
-    pub trace_dmy_id_tail2: i32,
-    pub trace_sfx_id3: i32,
-    pub trace_dmy_id_head3: i32,
-    pub trace_dmy_id_tail3: i32,
-    pub trace_sfx_id4: i32,
-    pub trace_dmy_id_head4: i32,
-    pub trace_dmy_id_tail4: i32,
-    pub trace_sfx_id5: i32,
-    pub trace_dmy_id_head5: i32,
-    pub trace_dmy_id_tail5: i32,
-    pub trace_sfx_id6: i32,
-    pub trace_dmy_id_head6: i32,
-    pub trace_dmy_id_tail6: i32,
-    pub trace_sfx_id7: i32,
-    pub trace_dmy_id_head7: i32,
-    pub trace_dmy_id_tail7: i32,
-    pub hit4_radius: f32,
-    pub hit5_radius: f32,
-    pub hit6_radius: f32,
-    pub hit7_radius: f32,
-    pub hit8_radius: f32,
-    pub hit9_radius: f32,
-    pub hit10_radius: f32,
-    pub hit11_radius: f32,
-    pub hit12_radius: f32,
-    pub hit13_radius: f32,
-    pub hit14_radius: f32,
-    pub hit15_radius: f32,
-    pub hit4_dmy_poly1: i16,
-    pub hit5_dmy_poly1: i16,
-    pub hit6_dmy_poly1: i16,
-    pub hit7_dmy_poly1: i16,
-    pub hit8_dmy_poly1: i16,
-    pub hit9_dmy_poly1: i16,
-    pub hit10_dmy_poly1: i16,
-    pub hit11_dmy_poly1: i16,
-    pub hit12_dmy_poly1: i16,
-    pub hit13_dmy_poly1: i16,
-    pub hit14_dmy_poly1: i16,
-    pub hit15_dmy_poly1: i16,
-    pub hit4_dmy_poly2: i16,
-    pub hit5_dmy_poly2: i16,
-    pub hit6_dmy_poly2: i16,
-    pub hit7_dmy_poly2: i16,
-    pub hit8_dmy_poly2: i16,
-    pub hit9_dmy_poly2: i16,
-    pub hit10_dmy_poly2: i16,
-    pub hit11_dmy_poly2: i16,
-    pub hit12_dmy_poly2: i16,
-    pub hit13_dmy_poly2: i16,
-    pub hit14_dmy_poly2: i16,
-    pub hit15_dmy_poly2: i16,
-    pub hit4_hit_type: u8,
-    pub hit5_hit_type: u8,
-    pub hit6_hit_type: u8,
-    pub hit7_hit_type: u8,
-    pub hit8_hit_type: u8,
-    pub hit9_hit_type: u8,
-    pub hit10_hit_type: u8,
-    pub hit11_hit_type: u8,
-    pub hit12_hit_type: u8,
-    pub hit13_hit_type: u8,
-    pub hit14_hit_type: u8,
-    pub hit15_hit_type: u8,
-    pub hti4_priority: u8,
-    pub hti5_priority: u8,
-    pub hti6_priority: u8,
-    pub hti7_priority: u8,
-    pub hti8_priority: u8,
-    pub hti9_priority: u8,
-    pub hti10_priority: u8,
-    pub hti11_priority: u8,
-    pub hti12_priority: u8,
-    pub hti13_priority: u8,
-    pub hti14_priority: u8,
-    pub hti15_priority: u8,
-    pub def_sfx_material1: u16,
-    pub def_se_material2: u16,
-    pub def_sfx_material2: u16,
-    pub atk_dark_correction: u16,
-    pub atk_dark: u16,
-    pub dmg_level_vs_player: i8,
-    pub status_ailment_atk_power_correct_rate: u16,
-    pub sp_effect_atk_power_correct_rate_by_point: u16,
-    pub sp_effect_atk_power_correct_rate_by_rate: u16,
-    pub sp_effect_atk_power_correct_rate_by_dmg: u16,
-    pub atk_behavior_id_2: u8,
-    pub throw_damage_attribute: u8,
-    pub status_ailment_atk_power_correct_rate_by_point: u16,
-    pub overwrite_attack_element_correct_id: i32,
-    pub decal_base_id1: i16,
-    pub decal_base_id2: i16,
-    pub wep_regain_hp_scale: u16,
-    pub atk_regain_hp: u16,
-    pub regainable_time_scale: f32,
-    pub regainable_hp_rate_scale: f32,
-    pub regainable_slot_id: i8,
-    pub sp_attribute_variation_value: u8,
-    pub parry_forward_offset: i16,
-    pub atk_super_armor_correction: f32,
-    pub def_sfx_material_variation_value: u8,
-    pub pad4: [u8; 19],
-}
-
-#[derive(ParamStruct, Debug)]
-#[repr(C)]
-pub struct atkparamnpc {
-    pub hit0_radius: f32,
-    pub hit1_radius: f32,
-    pub hit2_radius: f32,
-    pub hit3_radius: f32,
-    pub knockback_dist: f32,
-    pub hit_stop_time: f32,
-    pub sp_effect_id0: i32,
-    pub sp_effect_id1: i32,
-    pub sp_effect_id2: i32,
-    pub sp_effect_id3: i32,
-    pub sp_effect_id4: i32,
-    pub hit0_dmy_poly1: i16,
-    pub hit1_dmy_poly1: i16,
-    pub hit2_dmy_poly1: i16,
-    pub hit3_dmy_poly1: i16,
-    pub hit0_dmy_poly2: i16,
-    pub hit1_dmy_poly2: i16,
-    pub hit2_dmy_poly2: i16,
-    pub hit3_dmy_poly2: i16,
-    pub blowing_correction: u16,
-    pub atk_phys_correction: u16,
-    pub atk_mag_correction: u16,
-    pub atk_fire_correction: u16,
-    pub atk_thun_correction: u16,
-    pub atk_stam_correction: u16,
-    pub guard_atk_rate_correction: u16,
-    pub guard_break_correction: u16,
-    pub atk_throw_escape_correction: u16,
-    pub sub_category1: u8,
-    pub sub_category2: u8,
-    pub atk_phys: u16,
-    pub atk_mag: u16,
-    pub atk_fire: u16,
-    pub atk_thun: u16,
-    pub atk_stam: u16,
-    pub guard_atk_rate: u16,
-    pub guard_break_rate: u16,
-    pub pad6: [u8; 1],
-    pub is_enable_calc_damage_for_bushes_obj: u8,
-    pub atk_throw_escape: u16,
-    pub atk_obj: u16,
-    pub guard_stamina_cut_rate: i16,
-    pub guard_rate: i16,
-    pub throw_type_id: u16,
-    pub hit0_hit_type: u8,
-    pub hit1_hit_type: u8,
-    pub hit2_hit_type: u8,
-    pub hit3_hit_type: u8,
-    pub hti0_priority: u8,
-    pub hti1_priority: u8,
-    pub hti2_priority: u8,
-    pub hti3_priority: u8,
-    pub dmg_level: u8,
-    pub map_hit_type: u8,
-    pub guard_cut_cancel_rate: i8,
-    pub atk_attribute: u8,
-    pub sp_attribute: u8,
-    pub atk_type: u8,
-    pub atk_material: u8,
-    pub guard_range_type: u8,
-    pub def_se_material1: u16,
-    pub hit_source_type: u8,
-    pub throw_flag: u8,
-    #[bitflag(disableGuard, 0)]
-    #[bitflag(disableStaminaAttack, 1)]
-    #[bitflag(disableHitSpEffect, 2)]
-    #[bitflag(IgnoreNotifyMissSwingForAI, 3)]
-    #[bitflag(repeatHitSfx, 4)]
-    #[bitflag(isArrowAtk, 5)]
-    #[bitflag(isGhostAtk, 6)]
-    #[bitflag(isDisableNoDamage, 7)]
-    pub bitfield0: u8,
-    pub atk_pow_for_sfx: i8,
-    pub atk_dir_for_sfx: i8,
-    #[bitflag(opposeTarget, 0)]
-    #[bitflag(friendlyTarget, 1)]
-    #[bitflag(selfTarget, 2)]
-    #[bitflag(isCheckDoorPenetration, 3)]
-    #[bitflag(isVsRideAtk, 4)]
-    #[bitflag(isAddBaseAtk, 5)]
-    #[bitflag(excludeThreatLvNotify, 6)]
-    #[bitflag(pad1, 7)]
-    pub bitfield1: u8,
-    pub atk_behavior_id: u8,
-    pub atk_pow_for_se: i8,
-    pub atk_super_armor: f32,
-    pub decal_id1: i32,
-    pub decal_id2: i32,
-    pub appear_ai_sound_id: i32,
-    pub hit_ai_sound_id: i32,
-    pub hit_rumble_id: i32,
-    pub hit_rumble_id_by_normal: i32,
-    pub hit_rumble_id_by_middle: i32,
-    pub hit_rumble_id_by_root: i32,
-    pub trace_sfx_id0: i32,
-    pub trace_dmy_id_head0: i32,
-    pub trace_dmy_id_tail0: i32,
-    pub trace_sfx_id1: i32,
-    pub trace_dmy_id_head1: i32,
-    pub trace_dmy_id_tail1: i32,
-    pub trace_sfx_id2: i32,
-    pub trace_dmy_id_head2: i32,
-    pub trace_dmy_id_tail2: i32,
-    pub trace_sfx_id3: i32,
-    pub trace_dmy_id_head3: i32,
-    pub trace_dmy_id_tail3: i32,
-    pub trace_sfx_id4: i32,
-    pub trace_dmy_id_head4: i32,
-    pub trace_dmy_id_tail4: i32,
-    pub trace_sfx_id5: i32,
-    pub trace_dmy_id_head5: i32,
-    pub trace_dmy_id_tail5: i32,
-    pub trace_sfx_id6: i32,
-    pub trace_dmy_id_head6: i32,
-    pub trace_dmy_id_tail6: i32,
-    pub trace_sfx_id7: i32,
-    pub trace_dmy_id_head7: i32,
-    pub trace_dmy_id_tail7: i32,
-    pub hit4_radius: f32,
-    pub hit5_radius: f32,
-    pub hit6_radius: f32,
-    pub hit7_radius: f32,
-    pub hit8_radius: f32,
-    pub hit9_radius: f32,
-    pub hit10_radius: f32,
-    pub hit11_radius: f32,
-    pub hit12_radius: f32,
-    pub hit13_radius: f32,
-    pub hit14_radius: f32,
-    pub hit15_radius: f32,
-    pub hit4_dmy_poly1: i16,
-    pub hit5_dmy_poly1: i16,
-    pub hit6_dmy_poly1: i16,
-    pub hit7_dmy_poly1: i16,
-    pub hit8_dmy_poly1: i16,
-    pub hit9_dmy_poly1: i16,
-    pub hit10_dmy_poly1: i16,
-    pub hit11_dmy_poly1: i16,
-    pub hit12_dmy_poly1: i16,
-    pub hit13_dmy_poly1: i16,
-    pub hit14_dmy_poly1: i16,
-    pub hit15_dmy_poly1: i16,
-    pub hit4_dmy_poly2: i16,
-    pub hit5_dmy_poly2: i16,
-    pub hit6_dmy_poly2: i16,
-    pub hit7_dmy_poly2: i16,
-    pub hit8_dmy_poly2: i16,
-    pub hit9_dmy_poly2: i16,
-    pub hit10_dmy_poly2: i16,
-    pub hit11_dmy_poly2: i16,
-    pub hit12_dmy_poly2: i16,
-    pub hit13_dmy_poly2: i16,
-    pub hit14_dmy_poly2: i16,
-    pub hit15_dmy_poly2: i16,
-    pub hit4_hit_type: u8,
-    pub hit5_hit_type: u8,
-    pub hit6_hit_type: u8,
-    pub hit7_hit_type: u8,
-    pub hit8_hit_type: u8,
-    pub hit9_hit_type: u8,
-    pub hit10_hit_type: u8,
-    pub hit11_hit_type: u8,
-    pub hit12_hit_type: u8,
-    pub hit13_hit_type: u8,
-    pub hit14_hit_type: u8,
-    pub hit15_hit_type: u8,
-    pub hti4_priority: u8,
-    pub hti5_priority: u8,
-    pub hti6_priority: u8,
-    pub hti7_priority: u8,
-    pub hti8_priority: u8,
-    pub hti9_priority: u8,
-    pub hti10_priority: u8,
-    pub hti11_priority: u8,
-    pub hti12_priority: u8,
-    pub hti13_priority: u8,
-    pub hti14_priority: u8,
-    pub hti15_priority: u8,
-    pub def_sfx_material1: u16,
-    pub def_se_material2: u16,
-    pub def_sfx_material2: u16,
-    pub atk_dark_correction: u16,
-    pub atk_dark: u16,
-    pub dmg_level_vs_player: i8,
-    pub status_ailment_atk_power_correct_rate: u16,
-    pub sp_effect_atk_power_correct_rate_by_point: u16,
-    pub sp_effect_atk_power_correct_rate_by_rate: u16,
-    pub sp_effect_atk_power_correct_rate_by_dmg: u16,
-    pub atk_behavior_id_2: u8,
-    pub throw_damage_attribute: u8,
-    pub status_ailment_atk_power_correct_rate_by_point: u16,
-    pub overwrite_attack_element_correct_id: i32,
-    pub decal_base_id1: i16,
-    pub decal_base_id2: i16,
-    pub wep_regain_hp_scale: u16,
-    pub atk_regain_hp: u16,
-    pub regainable_time_scale: f32,
-    pub regainable_hp_rate_scale: f32,
-    pub regainable_slot_id: i8,
-    pub sp_attribute_variation_value: u8,
-    pub parry_forward_offset: i16,
-    pub atk_super_armor_correction: f32,
-    pub def_sfx_material_variation_value: u8,
-    pub pad4: [u8; 19],
-}
-
-#[derive(ParamStruct, Debug)]
-#[repr(C)]
-pub struct behaviorparampc {
-    pub variation_id: i32,
-    pub behavior_judge_id: i32,
-    pub ez_state_behavior_type_old: u8,
-    pub ref_type: u8,
-    pub pad2: [u8; 2],
-    pub ref_id: i32,
-    pub consume_sa: f32,
-    pub stamina: i32,
-    pub consume_durability: i32,
-    pub category: u8,
-    pub hero_point: u8,
-    pub pad1: [u8; 2],
-}
-
-#[derive(ParamStruct, Debug)]
-#[repr(C)]
-pub struct bullet {
-    pub atk_id_bullet: i32,
-    pub sfx_id_bullet: i32,
-    pub sfx_id_hit: i32,
-    pub sfx_id_flick: i32,
-    pub life: f32,
-    pub dist: f32,
-    pub shoot_interval: f32,
-    pub gravity_in_range: f32,
-    pub gravity_out_range: f32,
-    pub horming_stop_range: f32,
-    pub init_vellocity: f32,
-    pub accel_in_range: f32,
-    pub accel_out_range: f32,
-    pub max_vellocity: f32,
-    pub min_vellocity: f32,
-    pub accel_time: f32,
-    pub homing_begin_dist: f32,
-    pub hit_radius: f32,
-    pub hit_radius_max: f32,
-    pub spread_time: f32,
-    pub exp_delay: f32,
-    pub horming_offset_range: f32,
-    pub dmg_hit_record_life_time: f32,
-    pub external_force: f32,
-    pub sp_effect_idfor_shooter: i32,
-    pub auto_search_npcthink_id: i32,
-    pub hit_bullet_id: i32,
-    pub sp_effect_id0: i32,
-    pub sp_effect_id1: i32,
-    pub sp_effect_id2: i32,
-    pub sp_effect_id3: i32,
-    pub sp_effect_id4: i32,
-    pub num_shoot: u16,
-    pub homing_angle: i16,
-    pub shoot_angle: i16,
-    pub shoot_angle_interval: i16,
-    pub shoot_angle_xinterval: i16,
-    pub damage_damp: i8,
-    pub spel_damage_damp: i8,
-    pub fire_damage_damp: i8,
-    pub thunder_damage_damp: i8,
-    pub stamina_damp: i8,
-    pub knockback_damp: i8,
-    pub shoot_angle_xz: i8,
-    pub lock_shoot_limit_ang: u8,
-    pub pad2: [u8; 1],
-    pub prev_velocity_dir_rate: u8,
-    pub atk_attribute: u8,
-    pub sp_attribute: u8,
-    pub material_attack_type: u8,
-    pub material_attack_material: u8,
-    pub launch_condition_type: u8,
-    #[bitflag(isPenetrateChr, 0)]
-    #[bitflag(isPenetrateObj, 1)]
-    #[bitflag(pad, 2)]
-    #[bitflag(FollowType, 3)]
-    #[bitflag(EmittePosType, 4)]
-    #[bitflag(isAttackSFX, 5)]
-    #[bitflag(isEndlessHit, 6)]
-    #[bitflag(isPenetrateMap, 7)]
-    pub bitfield0: u8,
-    #[bitflag(isHitBothTeam, 0)]
-    #[bitflag(isUseSharedHitList, 1)]
-    #[bitflag(isUseMultiDmyPolyIfPlace, 2)]
-    #[bitflag(isHitOtherBulletForceEraseA, 3)]
-    #[bitflag(isHitOtherBulletForceEraseB, 4)]
-    #[bitflag(isHitForceMagic, 5)]
-    #[bitflag(isIgnoreSfxIfHitWater, 6)]
-    #[bitflag(isIgnoreMoveStateIfHitWater, 7)]
-    pub bitfield1: u8,
-    pub dark_damage_damp: i8,
-    pub bullet_sfx_delete_type_by_hit: i8,
-    pub bullet_sfx_delete_type_by_life_dead: i8,
-    pub target_yoffset_range: f32,
-    pub shoot_angle_ymax_random: f32,
-    pub shoot_angle_xmax_random: f32,
-    pub interval_create_bullet_id: i32,
-    pub interval_create_time_min: f32,
-    pub interval_create_time_max: f32,
-    pub prediction_shoot_observe_time: f32,
-    pub interval_create_wait_time: f32,
-    pub sfx_posture_type: u8,
-    pub create_limit_group_id: u8,
-    pub pad5: [u8; 1],
-    #[bitflag(isHitDarkForceMagic, 0)]
-    #[bitflag(dmgCalcSide, 1)]
-    #[bitflag(isEnableAutoHoming, 2)]
-    #[bitflag(isSyncBulletCulcDumypolyPos, 3)]
-    #[bitflag(isOwnerOverrideInitAngle, 4)]
-    #[bitflag(isInheritSfxToChild, 5)]
-    #[bitflag(isInheritSpeedToChild, 6)]
-    #[bitflag(isDisableHitSfx_byChrAndObj, 7)]
-    pub bitfield2: u8,
-    pub random_create_radius: f32,
-    pub follow_offset_base_height: f32,
-    pub asset_no_hit: i32,
-    pub life_random_range: f32,
-    pub homing_angle_x: i16,
-    pub ballistic_calc_type: u8,
-    pub attach_effect_type: u8,
-    pub se_id_bullet1: i32,
-    pub se_id_bullet2: i32,
-    pub se_id_hit: i32,
-    pub se_id_flick: i32,
-    pub howitzer_shoot_angle_xmin: i16,
-    pub howitzer_shoot_angle_xmax: i16,
-    pub howitzer_init_min_velocity: f32,
-    pub howitzer_init_max_velocity: f32,
-    pub sfx_id_force_erase: i32,
-    pub bullet_sfx_delete_type_by_force_erase: i8,
-    pub pad3: [u8; 1],
-    pub follow_dmypoly_for_sfx_pose: i16,
-    pub follow_offset_radius: f32,
-    pub sp_bullet_dist_up_rate: f32,
-    pub nolock_target_dist: f32,
-    pub pad4: [u8; 8],
-}
-
-#[derive(ParamStruct, Debug)]
-#[repr(C)]
-pub struct ceremony {
-    pub event_layer_id: i32,
-    pub map_studio_layer_id: i32,
-    pub multi_play_area_offset: i32,
-    pub override_map_place_name_id: i32,
-    pub override_save_map_name_id: i32,
-    pub pad2: [u8; 16],
-}
-
-#[derive(ParamStruct, Debug)]
-#[repr(C)]
-pub struct hpestusflaskrecoveryparam {
-    pub host: u8,
-    pub invade_orb_none: u8,
-    pub invade_orb_umbasa: u8,
-    pub invade_orb_berserker: u8,
-    pub invade_orb_sinners: u8,
-    pub invade_sign_none: u8,
-    pub invade_sign_umbasa: u8,
-    pub invade_sign_berserker: u8,
-    pub invade_sign_sinners: u8,
-    pub invade_ring_sinners: u8,
-    pub invade_ring_rosalia: u8,
-    pub invade_ring_forest: u8,
-    pub coop_sign_none: u8,
-    pub coop_sign_umbasa: u8,
-    pub coop_sign_berserker: u8,
-    pub coop_sign_sinners: u8,
-    pub coop_ring_red_hunter: u8,
-    pub invade_ring_anor: u8,
-    pub param_replace_rate: u16,
-    pub param_replace_id: i32,
-    pub pad: [u8; 8],
-}
-
-#[derive(ParamStruct, Debug)]
-#[repr(C)]
-pub struct mpestusflaskrecoveryparam {
-    pub host: u8,
-    pub invade_orb_none: u8,
-    pub invade_orb_umbasa: u8,
-    pub invade_orb_berserker: u8,
-    pub invade_orb_sinners: u8,
-    pub invade_sign_none: u8,
-    pub invade_sign_umbasa: u8,
-    pub invade_sign_berserker: u8,
-    pub invade_sign_sinners: u8,
-    pub invade_ring_sinners: u8,
-    pub invade_ring_rosalia: u8,
-    pub invade_ring_forest: u8,
-    pub coop_sign_none: u8,
-    pub coop_sign_umbasa: u8,
-    pub coop_sign_berserker: u8,
-    pub coop_sign_sinners: u8,
-    pub coop_ring_red_hunter: u8,
-    pub invade_ring_anor: u8,
-    pub param_replace_rate: u16,
-    pub param_replace_id: i32,
-    pub pad: [u8; 8],
-}
-
-#[derive(ParamStruct, Debug)]
-#[repr(C)]
-pub struct magic {
-    pub disable_param_reserve2: [u8; 3],
-    pub yes_no_dialog_message_id: i32,
-    pub limit_cancel_sp_effect_id: i32,
-    pub sort_id: i16,
-    pub requirement_luck: u8,
-    pub ai_notify_type: u8,
-    pub mp: i16,
-    pub stamina: i16,
-    pub icon_id: i16,
-    pub behavior_id: i16,
-    pub mtrl_item_id: i16,
-    pub replace_magic_id: i16,
-    pub max_quantity: i16,
-    pub ref_category1: u8,
-    pub over_dexterity: u8,
-    pub ref_category2: u8,
-    pub slot_length: u8,
-    pub requirement_intellect: u8,
-    pub requirement_faith: u8,
-    pub analog_dexterity_min: u8,
-    pub analog_dexterity_max: u8,
-    pub ez_state_behavior_type: u8,
-    pub ref_category3: u8,
-    pub sp_effect_category: u8,
-    pub ref_type: u8,
-    pub opme_menu_type: u8,
-    pub ref_category4: u8,
-    pub has_sp_effect_type: u16,
-    pub replace_category: u8,
-    pub use_limit_category: u8,
-    #[bitflag(disableParam_NT, 0)]
-    #[bitflag(disableParamReserve1, 1)]
-    #[bitflag(vowType0, 2)]
-    #[bitflag(vowType1, 3)]
-    #[bitflag(vowType2, 4)]
-    #[bitflag(vowType3, 5)]
-    #[bitflag(vowType4, 6)]
-    #[bitflag(vowType5, 7)]
-    pub bitfield0: u8,
-    #[bitflag(vowType6, 0)]
-    #[bitflag(vowType7, 1)]
-    #[bitflag(enable_multi, 2)]
-    #[bitflag(enable_multi_only, 3)]
-    #[bitflag(isEnchant, 4)]
-    #[bitflag(isShieldEnchant, 5)]
-    #[bitflag(enable_live, 6)]
-    #[bitflag(enable_gray, 7)]
-    pub bitfield1: u8,
-    #[bitflag(enable_white, 0)]
-    #[bitflag(enable_black, 1)]
-    #[bitflag(disableOffline, 2)]
-    #[bitflag(castResonanceMagic, 3)]
-    #[bitflag(isValidTough_ProtSADmg, 4)]
-    #[bitflag(isWarpMagic, 5)]
-    #[bitflag(enableRiding, 6)]
-    #[bitflag(disableRiding, 7)]
-    pub bitfield2: u8,
-    #[bitflag(isUseNoAttackRegion, 0)]
-    #[bitflag(pad_1, 1)]
-    #[bitflag(vowType8, 2)]
-    #[bitflag(vowType9, 3)]
-    #[bitflag(vowType10, 4)]
-    #[bitflag(vowType11, 5)]
-    #[bitflag(vowType12, 6)]
-    #[bitflag(vowType13, 7)]
-    pub bitfield3: u8,
-    pub cast_sfx_id: i32,
-    pub fire_sfx_id: i32,
-    pub effect_sfx_id: i32,
-    pub toughness_correct_rate: f32,
-    pub replacement_status_type: u8,
-    pub replacement_status1: i8,
-    pub replacement_status2: i8,
-    pub replacement_status3: i8,
-    pub replacement_status4: i8,
-    pub ref_category5: u8,
-    pub consume_sa: i16,
-    pub replacement_magic1: i32,
-    pub replacement_magic2: i32,
-    pub replacement_magic3: i32,
-    pub replacement_magic4: i32,
-    pub mp_charge: i16,
-    pub stamina_charge: i16,
-    pub create_limit_group_id: u8,
-    pub ref_category6: u8,
-    pub sub_category1: u8,
-    pub sub_category2: u8,
-    pub ref_category7: u8,
-    pub ref_category8: u8,
-    pub ref_category9: u8,
-    pub ref_category10: u8,
-    pub ref_id1: i32,
-    pub ref_id2: i32,
-    pub ref_id3: i32,
-    pub ai_use_judge_id: i32,
-    pub ref_id4: i32,
-    pub ref_id5: i32,
-    pub ref_id6: i32,
-    pub ref_id7: i32,
-    pub ref_id8: i32,
-    pub ref_id9: i32,
-    pub ref_id10: i32,
-    pub consume_type1: u8,
-    pub consume_type2: u8,
-    pub consume_type3: u8,
-    pub consume_type4: u8,
-    pub consume_type5: u8,
-    pub consume_type6: u8,
-    pub consume_type7: u8,
-    pub consume_type8: u8,
-    pub consume_type9: u8,
-    pub consume_type10: u8,
-    pub consume_loop_mp_for_menu: i16,
-    pub pad: [u8; 8],
-}
-
-#[derive(ParamStruct, Debug)]
-#[repr(C)]
-pub struct multihpestusflaskbonusparam {
-    pub host: u8,
-    pub white_ghost_none: u8,
-    pub white_ghost_umbasa: u8,
-    pub white_ghost_berserker: u8,
-    pub black_ghost_none_sign: u8,
-    pub black_ghost_umbasa_sign: u8,
-    pub black_ghost_berserker_sign: u8,
-    pub black_ghost_none_invade: u8,
-    pub black_ghost_umbasa_invade: u8,
-    pub black_ghost_berserker_invade: u8,
-    pub red_hunter1: u8,
-    pub red_hunter2: u8,
-    pub guardian_of_forest: u8,
-    pub guardian_of_anor: u8,
-    pub battle_royal: u8,
-    pub yellow_monk: u8,
-    pub pad1: [u8; 48],
-}
-
-#[derive(ParamStruct, Debug)]
-#[repr(C)]
-pub struct multimpestusflaskbonusparam {
-    pub host: u8,
-    pub white_ghost_none: u8,
-    pub white_ghost_umbasa: u8,
-    pub white_ghost_berserker: u8,
-    pub black_ghost_none_sign: u8,
-    pub black_ghost_umbasa_sign: u8,
-    pub black_ghost_berserker_sign: u8,
-    pub black_ghost_none_invade: u8,
-    pub black_ghost_umbasa_invade: u8,
-    pub black_ghost_berserker_invade: u8,
-    pub red_hunter1: u8,
-    pub red_hunter2: u8,
-    pub guardian_of_forest: u8,
-    pub guardian_of_anor: u8,
-    pub battle_royal: u8,
-    pub yellow_monk: u8,
-    pub pad1: [u8; 48],
-}
-
-#[derive(ParamStruct, Debug)]
-#[repr(C)]
-pub struct newmenucolortableparam {
-    pub lerp_mode: u8,
-    pub pad1: [u8; 3],
-    pub h: u16,
-    pub pad2: [u8; 2],
-    pub s1: f32,
-    pub v1: f32,
-    pub s2: f32,
-    pub v2: f32,
-    pub s3: f32,
-    pub v3: f32,
 }

@@ -13,7 +13,7 @@ pub mod prelude {
     pub use crate::pointers::*;
     pub use crate::version::*;
 
-    pub use crate::{wait_option, ParamStruct, ParamVisitor};
+    pub use crate::{wait_option, wait_option_thread, ParamStruct, ParamVisitor};
 }
 
 pub fn wait_option<T, F: FnMut() -> Option<T>>(mut f: F) -> T {
@@ -23,6 +23,18 @@ pub fn wait_option<T, F: FnMut() -> Option<T>>(mut f: F) -> T {
         }
         std::thread::sleep(std::time::Duration::from_millis(500));
     }
+}
+
+pub fn wait_option_thread<T, F: 'static + Send + FnMut() -> Option<T>, G: 'static + Send + FnMut(T)>(mut f: F, mut g: G) {
+    std::thread::spawn(move || {
+        loop {
+            if let Some(t) = f() {
+                g(t);
+                break;
+            }
+            std::thread::sleep(std::time::Duration::from_millis(500));
+        }
+    });
 }
 
 pub trait ParamVisitor {

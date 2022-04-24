@@ -143,8 +143,6 @@ impl Params {
                 let ptr = *(ptr.offset(0x80) as *const *const c_void);
                 let count = *(ptr.offset(0x0a) as *const u16);
 
-                info!("Name {} ptr {:p} count {}", name, ptr, count);
-
                 Ok((name, (ptr as _, count as isize)))
             })
             .filter_map(|e: Result<_, String>| {
