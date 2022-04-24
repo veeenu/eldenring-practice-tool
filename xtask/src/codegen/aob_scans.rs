@@ -3,6 +3,7 @@ use std::env;
 use std::ffi::c_void;
 use std::fs::File;
 use std::io::Write;
+use std::lazy::SyncLazy;
 use std::path::{Path, PathBuf};
 use std::ptr::{null, null_mut};
 
@@ -53,13 +54,15 @@ const AOBS: &[(&str, &str)] = &[
 ];
 
 // Direct AoB patterns -- grab the position of the match. For static functions
-const AOBS_DIRECT: &[(&str, &str)] = &[
-    ("FuncItemSpawn", "48 8B C4 56 57 41 56 48 81 EC ?? ?? ?? ?? 48 C7 44 24 ?? ?? ?? ?? ?? 48 89 58 ?? 48 89 68 ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 41 0F B6 F9"),
-    ("FuncItemInject", "40 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 B0 48 81 EC 50 01 00 00 48 C7 45 C0 FE FF FF FF"), // 1.02
-    // ("FuncItemInject", "48 8B C4 55 41 54 41 55 41 56 41 57 48 8D ?? ?? 48 81 EC ?? ?? ?? ?? 48 C7 45 ?? FE FF FF FF 48 89 58 ?? 48 89 70 ?? 48 89 78 ?? 45 0F B6 E9"), // 1.03
-    ("FuncItemInject", "40 55 56 57 41 54 41 55 41 56 41 57 48 8d ac 24 ?? ?? ?? ?? 48 81 ec ?? ?? ?? ?? 48 c7 45 ?? ?? ?? ?? ?? 48 89 9c 24 ?? ?? ?? ?? 48 8b 05 ?? ?? ?? ?? 48 33 c4 48 89 85 ?? ?? ?? ?? 44 89 4c 24"), // 1.03
-    ("FuncItemInject", "40 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 70 FF FF FF 48 81 EC 90 01 00 00 48 C7 45 C8 FE FF FF FF 48 89 9C 24 D8"), // 1.04
-];
+static AOBS_DIRECT: SyncLazy<Vec<(&str, Vec<&str>)>> = SyncLazy::new(|| {
+    vec![
+    ("FuncItemSpawn", vec!["48 8B C4 56 57 41 56 48 81 EC ?? ?? ?? ?? 48 C7 44 24 ?? ?? ?? ?? ?? 48 89 58 ?? 48 89 68 ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 41 0F B6 F9"]),
+    ("FuncItemInject", vec![
+    "40 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 B0 48 81 EC 50 01 00 00 48 C7 45 C0 FE FF FF FF", // 1.02
+    "40 55 56 57 41 54 41 55 41 56 41 57 48 8d ac 24 ?? ?? ?? ?? 48 81 ec ?? ?? ?? ?? 48 c7 45 ?? ?? ?? ?? ?? 48 89 9c 24 ?? ?? ?? ?? 48 8b 05 ?? ?? ?? ?? 48 33 c4 48 89 85 ?? ?? ?? ?? 44 89 4c 24", // 1.03
+    "40 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 70 FF FF FF 48 81 EC 90 01 00 00 48 C7 45 C8 FE FF FF FF 48 89 9C 24 D8"]), // 1.04
+]
+});
 
 #[derive(PartialEq, Eq, Hash)]
 pub struct Version(u32, u32, u32);
@@ -221,24 +224,20 @@ fn find_aobs(bytes: Vec<u8>) -> Vec<(&'static str, usize)> {
 
     aob_offsets.sort_by(|a, b| a.0.cmp(b.0));
 
-    let mut aob_offsets_direct = {
-        let mut found: HashSet<&str> = HashSet::new();
-        AOBS_DIRECT
-            .into_iter()
-            .filter_map(|(name, aob)| {
-                if found.contains(name) {
-                    return None;
-                }
-                if let Some(r) = naive_search(&bytes, &into_needle(aob)) {
-                    found.insert(name);
-                    Some((*name, r))
-                } else {
-                    eprintln!("{name:24} not found");
-                    None
-                }
-            })
-            .collect::<Vec<_>>()
-    };
+    let mut aob_offsets_direct = AOBS_DIRECT
+        .iter()
+        .filter_map(|(name, aob)| {
+            if let Some(r) = aob
+                .iter()
+                .find_map(|aob| naive_search(&bytes, &into_needle(aob)))
+            {
+                Some((*name, r))
+            } else {
+                eprintln!("{name:24} not found");
+                None
+            }
+        })
+        .collect::<Vec<_>>();
 
     aob_offsets_direct.sort_by(|a, b| a.0.cmp(b.0));
 
@@ -293,17 +292,9 @@ fn codegen_struct() -> String {
             .join(""),
     );
     generated.push_str({
-        let mut done: HashSet<&str> = HashSet::new();
         &AOBS_DIRECT
             .iter()
-            .filter_map(|(name, _)| {
-                if done.contains(name) {
-                    None
-                } else {
-                    done.insert(name);
-                    Some(format!("    pub {}: usize,\n", AsSnakeCase(name)))
-                }
-            })
+            .map(|(name, _)| format!("    pub {}: usize,\n", AsSnakeCase(name)))
             .collect::<Vec<_>>()
             .join("")
     });
@@ -324,25 +315,19 @@ fn codegen_struct() -> String {
             .collect::<Vec<_>>()
             .join(""),
     );
-    generated.push_str({
-        let mut done: HashSet<&str> = HashSet::new();
+    generated.push_str(
         &AOBS_DIRECT
             .iter()
-            .filter_map(|(name, _)| {
-                if done.contains(name) {
-                    None
-                } else {
-                    done.insert(name);
-                    Some(format!(
-                        "            {}: self.{} + base,\n",
-                        AsSnakeCase(name),
-                        AsSnakeCase(name)
-                    ))
-                }
+            .map(|(name, _)| {
+                format!(
+                    "            {}: self.{} + base,\n",
+                    AsSnakeCase(name),
+                    AsSnakeCase(name)
+                )
             })
             .collect::<Vec<_>>()
-            .join("")
-    });
+            .join(""),
+    );
     generated.push_str("        }\n    }\n}\n\n");
     generated
 }

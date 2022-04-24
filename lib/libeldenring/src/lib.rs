@@ -1,19 +1,19 @@
 #![feature(once_cell)]
 
-pub mod memedit;
 pub mod codegen;
+pub mod memedit;
 pub mod params;
 pub mod pointers;
 pub mod version;
 
 pub mod prelude {
+    pub use crate::codegen::*;
     pub use crate::memedit::*;
+    pub use crate::params::*;
     pub use crate::pointers::*;
     pub use crate::version::*;
-    pub use crate::codegen::*;
-    pub use crate::params::*;
 
-    pub use crate::{wait_option, ParamVisitor, ParamStruct};
+    pub use crate::{wait_option, ParamStruct, ParamVisitor};
 }
 
 pub fn wait_option<T, F: FnMut() -> Option<T>>(mut f: F) -> T {

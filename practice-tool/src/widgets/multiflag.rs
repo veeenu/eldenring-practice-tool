@@ -1,5 +1,3 @@
-
-
 use crate::util::KeyState;
 use libeldenring::memedit::Bitflag;
 

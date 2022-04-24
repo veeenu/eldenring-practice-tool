@@ -25,9 +25,8 @@ pub static PARAMS: SyncLazy<RwLock<Params>> = SyncLazy::new(|| unsafe {
     })
 });
 
-pub static PARAM_NAMES: SyncLazy<HashMap<String, HashMap<usize, String>>> = SyncLazy::new(|| {
-    serde_json::from_str(&include_str!("codegen/param_names.json")).unwrap()
-});
+pub static PARAM_NAMES: SyncLazy<HashMap<String, HashMap<usize, String>>> =
+    SyncLazy::new(|| serde_json::from_str(&include_str!("codegen/param_names.json")).unwrap());
 
 #[derive(Debug)]
 #[repr(C)]

@@ -11,7 +11,11 @@ pub(crate) struct Deathcam {
 }
 
 impl Deathcam {
-    pub(crate) fn new(flag: Bitflag<u8>, seven: PointerChain<u8>, hotkey: Option<KeyState>) -> Self {
+    pub(crate) fn new(
+        flag: Bitflag<u8>,
+        seven: PointerChain<u8>,
+        hotkey: Option<KeyState>,
+    ) -> Self {
         Deathcam {
             flag,
             seven,

@@ -1,4 +1,4 @@
-use std::fmt::{Display, Debug};
+use std::fmt::{Debug, Display};
 use std::ops::{BitAnd, BitOr, BitXor, Not};
 use std::ptr::null_mut;
 
@@ -56,7 +56,8 @@ impl<T> PointerChain<T> {
                 std::mem::size_of::<usize>(),
                 null_mut(),
             )
-        }.0;
+        }
+        .0;
 
         match result {
             0 => None,

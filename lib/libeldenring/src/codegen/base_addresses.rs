@@ -292,4 +292,3 @@ pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
     func_item_inject: 0x552330,
     func_item_spawn: 0x54c950,
 };
-

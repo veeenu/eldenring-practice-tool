@@ -395,7 +395,12 @@ impl ItemSpawnInstance {
         };
         let mut dur: u32 = 0xffffffff;
 
-        spawn_fn_ptr(*pp_map_item_man, &mut spawn_request as *mut _, &mut dur as *mut _, 0u32);
+        spawn_fn_ptr(
+            *pp_map_item_man,
+            &mut spawn_request as *mut _,
+            &mut dur as *mut _,
+            0u32,
+        );
 
         // #[repr(C)]
         // struct SpawnRequest {

@@ -86,7 +86,13 @@ pub struct Position {
 
 impl Position {
     pub fn read(&self) -> Option<[f32; 5]> {
-        match (self.x.read(), self.y.read(), self.z.read(), self.angle1.read(), self.angle2.read()) {
+        match (
+            self.x.read(),
+            self.y.read(),
+            self.z.read(),
+            self.angle1.read(),
+            self.angle2.read(),
+        ) {
             (Some(x), Some(y), Some(z), Some(r1), Some(r2)) => Some([x, y, z, r1, r2]),
             _ => None,
         }

@@ -4,7 +4,8 @@ use std::fmt::Write;
 
 use hudhook::hooks::dx12::{ImguiRenderLoop, ImguiRenderLoopFlags};
 // use libeldenring::pointers::MOUSE_ENABLE;
-use libeldenring::{ParamVisitor, params::PARAMS, params::PARAM_NAMES};
+use libeldenring::params::{PARAMS, PARAM_NAMES};
+use libeldenring::ParamVisitor;
 
 use imgui::*;
 
@@ -180,7 +181,7 @@ impl ParamTinkerer {
                     }
 
                     ui.columns(1, "##param_columns2", false);
-                     
+
                     ListBox::new("##param_detail")
                         .size([COLUMN3, 220.])
                         .build(ui, || {

@@ -30,16 +30,16 @@ impl TryFrom<(Value, Value)> for ItemIDNode {
             }),
             (Value::String(s), Value::Mapping(m)) => Ok(ItemIDNode::Node {
                 node: s,
-                children: m.into_iter().map(|(k, v)| ItemIDNode::try_from((k, v))).fold(
-                    Ok(Vec::new()),
-                    |o: Result<Vec<_>>, i| {
+                children: m
+                    .into_iter()
+                    .map(|(k, v)| ItemIDNode::try_from((k, v)))
+                    .fold(Ok(Vec::new()), |o: Result<Vec<_>>, i| {
                         let i = i?;
                         o.map(|mut o| {
                             o.push(i);
                             o
                         })
-                    },
-                )?,
+                    })?,
             }),
             (a, b) => Err(format!("invalid value {:?} {:?}", a, b).into()),
         }
@@ -71,10 +71,11 @@ pub(crate) fn codegen() -> Result<()> {
     let val = get_item_ids_yml()?;
 
     let v: Result<Vec<ItemIDNode>> = match val {
-        Value::Mapping(m) => m.into_iter()
+        Value::Mapping(m) => m
+            .into_iter()
             .map(|(k, v)| ItemIDNode::try_from((k, v)))
             .collect(),
-        _ => Err("invalid input format".into())
+        _ => Err("invalid input format".into()),
     };
 
     let v = v?;

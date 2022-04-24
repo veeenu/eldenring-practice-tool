@@ -1,3 +1,4 @@
+#![feature(once_cell)]
 #![feature(array_chunks)]
 
 mod codegen;

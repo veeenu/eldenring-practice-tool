@@ -272,10 +272,7 @@ impl PracticeTool {
 
 impl ImguiRenderLoop for PracticeTool {
     fn render(&mut self, ui: &mut imgui::Ui, flags: &ImguiRenderLoopFlags) {
-        if flags.focused
-            && !ui.io().want_capture_keyboard
-            && self.config.settings.display.keyup()
-        {
+        if flags.focused && !ui.io().want_capture_keyboard && self.config.settings.display.keyup() {
             self.is_shown = !self.is_shown;
             if !self.is_shown {
                 self.pointers.cursor_show.set(false);

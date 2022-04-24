@@ -27,8 +27,7 @@ fn perform_injection() -> Result<(), String> {
 fn main() {
     CombinedLogger::init(vec![TermLogger::new(
         LevelFilter::Trace,
-        ConfigBuilder::new()
-            .build(),
+        ConfigBuilder::new().build(),
         TerminalMode::Mixed,
         ColorChoice::Auto,
     )])

@@ -3,10 +3,10 @@
 // **********************************
 use crate::params::*;
 use crate::prelude::*;
+use macro_param::ParamStruct;
 use std::collections::HashMap;
 use std::ffi::c_void;
 use std::lazy::SyncLazy;
-use macro_param::ParamStruct;
 
 unsafe fn get_lambda<T: ParamStruct>() -> BoxedVisitorLambda {
     Box::new(|ptr, v| {
@@ -20,194 +20,561 @@ type BoxedVisitorLambda = Box<dyn Fn(*const c_void, &mut dyn ParamVisitor) + Sen
 
 pub static PARAM_VTABLE: SyncLazy<HashMap<String, BoxedVisitorLambda>> = SyncLazy::new(|| {
     [
-        ("actionbuttonparam".to_string(), unsafe { get_lambda::<actionbuttonparam>() }),
-        ("aianimtblparam".to_string(), unsafe { get_lambda::<aianimtblparam>() }),
-        ("aiattackparam".to_string(), unsafe { get_lambda::<aiattackparam>() }),
-        ("aioddsparam".to_string(), unsafe { get_lambda::<aioddsparam>() }),
-        ("aisoundparam".to_string(), unsafe { get_lambda::<aisoundparam>() }),
-        ("aistandardinfo".to_string(), unsafe { get_lambda::<aistandardinfo>() }),
-        ("assetgeometryparam".to_string(), unsafe { get_lambda::<assetgeometryparam>() }),
-        ("assetmaterialsfxparam".to_string(), unsafe { get_lambda::<assetmaterialsfxparam>() }),
-        ("assetmodelsfxparam".to_string(), unsafe { get_lambda::<assetmodelsfxparam>() }),
-        ("attackelementcorrectparam".to_string(), unsafe { get_lambda::<attackelementcorrectparam>() }),
-        ("autocreateenvsoundparam".to_string(), unsafe { get_lambda::<autocreateenvsoundparam>() }),
-        ("basechrselectmenuparam".to_string(), unsafe { get_lambda::<basechrselectmenuparam>() }),
-        ("behaviorparam".to_string(), unsafe { get_lambda::<behaviorparam>() }),
-        ("bonfirewarpparam".to_string(), unsafe { get_lambda::<bonfirewarpparam>() }),
-        ("bonfirewarpsubcategoryparam".to_string(), unsafe { get_lambda::<bonfirewarpsubcategoryparam>() }),
-        ("bonfirewarptabparam".to_string(), unsafe { get_lambda::<bonfirewarptabparam>() }),
-        ("buddyparam".to_string(), unsafe { get_lambda::<buddyparam>() }),
-        ("buddystoneparam".to_string(), unsafe { get_lambda::<buddystoneparam>() }),
-        ("budgetparam".to_string(), unsafe { get_lambda::<budgetparam>() }),
-        ("bulletcreatelimitparam".to_string(), unsafe { get_lambda::<bulletcreatelimitparam>() }),
-        ("calccorrectgraph".to_string(), unsafe { get_lambda::<calccorrectgraph>() }),
-        ("camerafadeparam".to_string(), unsafe { get_lambda::<camerafadeparam>() }),
-        ("charainitparam".to_string(), unsafe { get_lambda::<charainitparam>() }),
-        ("charmakemenulistitemparam".to_string(), unsafe { get_lambda::<charmakemenulistitemparam>() }),
-        ("charmakemenutopparam".to_string(), unsafe { get_lambda::<charmakemenutopparam>() }),
-        ("chractivateconditionparam".to_string(), unsafe { get_lambda::<chractivateconditionparam>() }),
-        ("chrmodelparam".to_string(), unsafe { get_lambda::<chrmodelparam>() }),
-        ("clearcountcorrectparam".to_string(), unsafe { get_lambda::<clearcountcorrectparam>() }),
-        ("commonsystemparam".to_string(), unsafe { get_lambda::<commonsystemparam>() }),
-        ("cooltimeparam".to_string(), unsafe { get_lambda::<cooltimeparam>() }),
-        ("cutscenegparamtimeparam".to_string(), unsafe { get_lambda::<cutscenegparamtimeparam>() }),
-        ("cutscenegparamweatherparam".to_string(), unsafe { get_lambda::<cutscenegparamweatherparam>() }),
-        ("cutscenemapidparam".to_string(), unsafe { get_lambda::<cutscenemapidparam>() }),
-        ("cutscenetextureloadparam".to_string(), unsafe { get_lambda::<cutscenetextureloadparam>() }),
-        ("cutscenetimezoneconvertparam".to_string(), unsafe { get_lambda::<cutscenetimezoneconvertparam>() }),
-        ("cutsceneweatheroverridegparamidconvertparam".to_string(), unsafe { get_lambda::<cutsceneweatheroverridegparamidconvertparam>() }),
-        ("decalparam".to_string(), unsafe { get_lambda::<decalparam>() }),
-        ("directioncameraparam".to_string(), unsafe { get_lambda::<directioncameraparam>() }),
-        ("enemycommonparam".to_string(), unsafe { get_lambda::<enemycommonparam>() }),
-        ("enemystandardinfo".to_string(), unsafe { get_lambda::<enemystandardinfo>() }),
-        ("envobjlotparam".to_string(), unsafe { get_lambda::<envobjlotparam>() }),
-        ("equipmtrlsetparam".to_string(), unsafe { get_lambda::<equipmtrlsetparam>() }),
-        ("equipparamaccessory".to_string(), unsafe { get_lambda::<equipparamaccessory>() }),
-        ("equipparamcustomweapon".to_string(), unsafe { get_lambda::<equipparamcustomweapon>() }),
-        ("equipparamgem".to_string(), unsafe { get_lambda::<equipparamgem>() }),
-        ("equipparamgoods".to_string(), unsafe { get_lambda::<equipparamgoods>() }),
-        ("equipparamprotector".to_string(), unsafe { get_lambda::<equipparamprotector>() }),
-        ("equipparamweapon".to_string(), unsafe { get_lambda::<equipparamweapon>() }),
-        ("eventflagusageparam".to_string(), unsafe { get_lambda::<eventflagusageparam>() }),
-        ("faceparam".to_string(), unsafe { get_lambda::<faceparam>() }),
-        ("facerangeparam".to_string(), unsafe { get_lambda::<facerangeparam>() }),
-        ("fetexteffectparam".to_string(), unsafe { get_lambda::<fetexteffectparam>() }),
-        ("footsfxparam".to_string(), unsafe { get_lambda::<footsfxparam>() }),
-        ("gameareaparam".to_string(), unsafe { get_lambda::<gameareaparam>() }),
-        ("gameinfoparam".to_string(), unsafe { get_lambda::<gameinfoparam>() }),
-        ("gamesystemcommonparam".to_string(), unsafe { get_lambda::<gamesystemcommonparam>() }),
-        ("gconfigaaquality".to_string(), unsafe { get_lambda::<gconfigaaquality>() }),
-        ("gconfigdecalquality".to_string(), unsafe { get_lambda::<gconfigdecalquality>() }),
-        ("gconfigdofquality".to_string(), unsafe { get_lambda::<gconfigdofquality>() }),
-        ("gconfigeffectquality".to_string(), unsafe { get_lambda::<gconfigeffectquality>() }),
-        ("gconfiglightingquality".to_string(), unsafe { get_lambda::<gconfiglightingquality>() }),
-        ("gconfigmotionblurquality".to_string(), unsafe { get_lambda::<gconfigmotionblurquality>() }),
-        ("gconfigreflectionquality".to_string(), unsafe { get_lambda::<gconfigreflectionquality>() }),
-        ("gconfigshaderquality".to_string(), unsafe { get_lambda::<gconfigshaderquality>() }),
-        ("gconfigshadowquality".to_string(), unsafe { get_lambda::<gconfigshadowquality>() }),
-        ("gconfigssaoquality".to_string(), unsafe { get_lambda::<gconfigssaoquality>() }),
-        ("gconfigtexturefilterquality".to_string(), unsafe { get_lambda::<gconfigtexturefilterquality>() }),
-        ("gconfigvolumetriceffectquality".to_string(), unsafe { get_lambda::<gconfigvolumetriceffectquality>() }),
-        ("gconfigwaterquality".to_string(), unsafe { get_lambda::<gconfigwaterquality>() }),
-        ("gestureparam".to_string(), unsafe { get_lambda::<gestureparam>() }),
-        ("gparamgridregioninfo".to_string(), unsafe { get_lambda::<gparamgridregioninfo>() }),
-        ("gparamrefsettingsparam".to_string(), unsafe { get_lambda::<gparamrefsettingsparam>() }),
-        ("graphicscommonparam".to_string(), unsafe { get_lambda::<graphicscommonparam>() }),
-        ("graphicsconfig".to_string(), unsafe { get_lambda::<graphicsconfig>() }),
-        ("grasslodrangeparam".to_string(), unsafe { get_lambda::<grasslodrangeparam>() }),
-        ("grassmapsettings".to_string(), unsafe { get_lambda::<grassmapsettings>() }),
-        ("grasstypeparam".to_string(), unsafe { get_lambda::<grasstypeparam>() }),
-        ("hiteffectseparam".to_string(), unsafe { get_lambda::<hiteffectseparam>() }),
-        ("hiteffectsfxconceptparam".to_string(), unsafe { get_lambda::<hiteffectsfxconceptparam>() }),
-        ("hiteffectsfxparam".to_string(), unsafe { get_lambda::<hiteffectsfxparam>() }),
-        ("hitmtrlparam".to_string(), unsafe { get_lambda::<hitmtrlparam>() }),
-        ("itemlotparam".to_string(), unsafe { get_lambda::<itemlotparam>() }),
-        ("keyassignmenuitemparam".to_string(), unsafe { get_lambda::<keyassignmenuitemparam>() }),
-        ("keyassignparam".to_string(), unsafe { get_lambda::<keyassignparam>() }),
-        ("knockbackparam".to_string(), unsafe { get_lambda::<knockbackparam>() }),
-        ("knowledgeloadscreenitemparam".to_string(), unsafe { get_lambda::<knowledgeloadscreenitemparam>() }),
-        ("legacydistantviewpartsreplaceparam".to_string(), unsafe { get_lambda::<legacydistantviewpartsreplaceparam>() }),
-        ("loadbalancerdrawdistscaleparam".to_string(), unsafe { get_lambda::<loadbalancerdrawdistscaleparam>() }),
-        ("loadbalancernewdrawdistscaleparam".to_string(), unsafe { get_lambda::<loadbalancernewdrawdistscaleparam>() }),
-        ("loadbalancerparam".to_string(), unsafe { get_lambda::<loadbalancerparam>() }),
-        ("lockcamparam".to_string(), unsafe { get_lambda::<lockcamparam>() }),
-        ("mapdefaultinfoparam".to_string(), unsafe { get_lambda::<mapdefaultinfoparam>() }),
-        ("mapgdregiondrawparam".to_string(), unsafe { get_lambda::<mapgdregiondrawparam>() }),
-        ("mapgdregioninfo".to_string(), unsafe { get_lambda::<mapgdregioninfo>() }),
-        ("mapgridcreateheightlimitinfo".to_string(), unsafe { get_lambda::<mapgridcreateheightlimitinfo>() }),
-        ("mapmimicryestablishmentparam".to_string(), unsafe { get_lambda::<mapmimicryestablishmentparam>() }),
-        ("mapnametexparam".to_string(), unsafe { get_lambda::<mapnametexparam>() }),
-        ("mappiecetexparam".to_string(), unsafe { get_lambda::<mappiecetexparam>() }),
-        ("materialex".to_string(), unsafe { get_lambda::<materialex>() }),
-        ("menucommonparam".to_string(), unsafe { get_lambda::<menucommonparam>() }),
-        ("menuoffscrrendparam".to_string(), unsafe { get_lambda::<menuoffscrrendparam>() }),
-        ("menupropertylayoutparam".to_string(), unsafe { get_lambda::<menupropertylayoutparam>() }),
-        ("menupropertyspecparam".to_string(), unsafe { get_lambda::<menupropertyspecparam>() }),
-        ("menuvaluetablespecparam".to_string(), unsafe { get_lambda::<menuvaluetablespecparam>() }),
-        ("mimicryestablishmenttexparam".to_string(), unsafe { get_lambda::<mimicryestablishmenttexparam>() }),
-        ("missileparam".to_string(), unsafe { get_lambda::<missileparam>() }),
-        ("modelsfxparam".to_string(), unsafe { get_lambda::<modelsfxparam>() }),
-        ("moveparam".to_string(), unsafe { get_lambda::<moveparam>() }),
-        ("multiplaycorrectionparam".to_string(), unsafe { get_lambda::<multiplaycorrectionparam>() }),
-        ("multisoulbonusrateparam".to_string(), unsafe { get_lambda::<multisoulbonusrateparam>() }),
-        ("networkareaparam".to_string(), unsafe { get_lambda::<networkareaparam>() }),
-        ("networkmsgparam".to_string(), unsafe { get_lambda::<networkmsgparam>() }),
-        ("networkparam".to_string(), unsafe { get_lambda::<networkparam>() }),
-        ("npcaiactionparam".to_string(), unsafe { get_lambda::<npcaiactionparam>() }),
-        ("npcaibehaviorprobabilityparam".to_string(), unsafe { get_lambda::<npcaibehaviorprobabilityparam>() }),
+        ("actionbuttonparam".to_string(), unsafe {
+            get_lambda::<actionbuttonparam>()
+        }),
+        ("aianimtblparam".to_string(), unsafe {
+            get_lambda::<aianimtblparam>()
+        }),
+        ("aiattackparam".to_string(), unsafe {
+            get_lambda::<aiattackparam>()
+        }),
+        ("aioddsparam".to_string(), unsafe {
+            get_lambda::<aioddsparam>()
+        }),
+        ("aisoundparam".to_string(), unsafe {
+            get_lambda::<aisoundparam>()
+        }),
+        ("aistandardinfo".to_string(), unsafe {
+            get_lambda::<aistandardinfo>()
+        }),
+        ("assetgeometryparam".to_string(), unsafe {
+            get_lambda::<assetgeometryparam>()
+        }),
+        ("assetmaterialsfxparam".to_string(), unsafe {
+            get_lambda::<assetmaterialsfxparam>()
+        }),
+        ("assetmodelsfxparam".to_string(), unsafe {
+            get_lambda::<assetmodelsfxparam>()
+        }),
+        ("attackelementcorrectparam".to_string(), unsafe {
+            get_lambda::<attackelementcorrectparam>()
+        }),
+        ("autocreateenvsoundparam".to_string(), unsafe {
+            get_lambda::<autocreateenvsoundparam>()
+        }),
+        ("basechrselectmenuparam".to_string(), unsafe {
+            get_lambda::<basechrselectmenuparam>()
+        }),
+        ("behaviorparam".to_string(), unsafe {
+            get_lambda::<behaviorparam>()
+        }),
+        ("bonfirewarpparam".to_string(), unsafe {
+            get_lambda::<bonfirewarpparam>()
+        }),
+        ("bonfirewarpsubcategoryparam".to_string(), unsafe {
+            get_lambda::<bonfirewarpsubcategoryparam>()
+        }),
+        ("bonfirewarptabparam".to_string(), unsafe {
+            get_lambda::<bonfirewarptabparam>()
+        }),
+        ("buddyparam".to_string(), unsafe {
+            get_lambda::<buddyparam>()
+        }),
+        ("buddystoneparam".to_string(), unsafe {
+            get_lambda::<buddystoneparam>()
+        }),
+        ("budgetparam".to_string(), unsafe {
+            get_lambda::<budgetparam>()
+        }),
+        ("bulletcreatelimitparam".to_string(), unsafe {
+            get_lambda::<bulletcreatelimitparam>()
+        }),
+        ("calccorrectgraph".to_string(), unsafe {
+            get_lambda::<calccorrectgraph>()
+        }),
+        ("camerafadeparam".to_string(), unsafe {
+            get_lambda::<camerafadeparam>()
+        }),
+        ("charainitparam".to_string(), unsafe {
+            get_lambda::<charainitparam>()
+        }),
+        ("charmakemenulistitemparam".to_string(), unsafe {
+            get_lambda::<charmakemenulistitemparam>()
+        }),
+        ("charmakemenutopparam".to_string(), unsafe {
+            get_lambda::<charmakemenutopparam>()
+        }),
+        ("chractivateconditionparam".to_string(), unsafe {
+            get_lambda::<chractivateconditionparam>()
+        }),
+        ("chrmodelparam".to_string(), unsafe {
+            get_lambda::<chrmodelparam>()
+        }),
+        ("clearcountcorrectparam".to_string(), unsafe {
+            get_lambda::<clearcountcorrectparam>()
+        }),
+        ("commonsystemparam".to_string(), unsafe {
+            get_lambda::<commonsystemparam>()
+        }),
+        ("cooltimeparam".to_string(), unsafe {
+            get_lambda::<cooltimeparam>()
+        }),
+        ("cutscenegparamtimeparam".to_string(), unsafe {
+            get_lambda::<cutscenegparamtimeparam>()
+        }),
+        ("cutscenegparamweatherparam".to_string(), unsafe {
+            get_lambda::<cutscenegparamweatherparam>()
+        }),
+        ("cutscenemapidparam".to_string(), unsafe {
+            get_lambda::<cutscenemapidparam>()
+        }),
+        ("cutscenetextureloadparam".to_string(), unsafe {
+            get_lambda::<cutscenetextureloadparam>()
+        }),
+        ("cutscenetimezoneconvertparam".to_string(), unsafe {
+            get_lambda::<cutscenetimezoneconvertparam>()
+        }),
+        (
+            "cutsceneweatheroverridegparamidconvertparam".to_string(),
+            unsafe { get_lambda::<cutsceneweatheroverridegparamidconvertparam>() },
+        ),
+        ("decalparam".to_string(), unsafe {
+            get_lambda::<decalparam>()
+        }),
+        ("directioncameraparam".to_string(), unsafe {
+            get_lambda::<directioncameraparam>()
+        }),
+        ("enemycommonparam".to_string(), unsafe {
+            get_lambda::<enemycommonparam>()
+        }),
+        ("enemystandardinfo".to_string(), unsafe {
+            get_lambda::<enemystandardinfo>()
+        }),
+        ("envobjlotparam".to_string(), unsafe {
+            get_lambda::<envobjlotparam>()
+        }),
+        ("equipmtrlsetparam".to_string(), unsafe {
+            get_lambda::<equipmtrlsetparam>()
+        }),
+        ("equipparamaccessory".to_string(), unsafe {
+            get_lambda::<equipparamaccessory>()
+        }),
+        ("equipparamcustomweapon".to_string(), unsafe {
+            get_lambda::<equipparamcustomweapon>()
+        }),
+        ("equipparamgem".to_string(), unsafe {
+            get_lambda::<equipparamgem>()
+        }),
+        ("equipparamgoods".to_string(), unsafe {
+            get_lambda::<equipparamgoods>()
+        }),
+        ("equipparamprotector".to_string(), unsafe {
+            get_lambda::<equipparamprotector>()
+        }),
+        ("equipparamweapon".to_string(), unsafe {
+            get_lambda::<equipparamweapon>()
+        }),
+        ("eventflagusageparam".to_string(), unsafe {
+            get_lambda::<eventflagusageparam>()
+        }),
+        ("faceparam".to_string(), unsafe {
+            get_lambda::<faceparam>()
+        }),
+        ("facerangeparam".to_string(), unsafe {
+            get_lambda::<facerangeparam>()
+        }),
+        ("fetexteffectparam".to_string(), unsafe {
+            get_lambda::<fetexteffectparam>()
+        }),
+        ("footsfxparam".to_string(), unsafe {
+            get_lambda::<footsfxparam>()
+        }),
+        ("gameareaparam".to_string(), unsafe {
+            get_lambda::<gameareaparam>()
+        }),
+        ("gameinfoparam".to_string(), unsafe {
+            get_lambda::<gameinfoparam>()
+        }),
+        ("gamesystemcommonparam".to_string(), unsafe {
+            get_lambda::<gamesystemcommonparam>()
+        }),
+        ("gconfigaaquality".to_string(), unsafe {
+            get_lambda::<gconfigaaquality>()
+        }),
+        ("gconfigdecalquality".to_string(), unsafe {
+            get_lambda::<gconfigdecalquality>()
+        }),
+        ("gconfigdofquality".to_string(), unsafe {
+            get_lambda::<gconfigdofquality>()
+        }),
+        ("gconfigeffectquality".to_string(), unsafe {
+            get_lambda::<gconfigeffectquality>()
+        }),
+        ("gconfiglightingquality".to_string(), unsafe {
+            get_lambda::<gconfiglightingquality>()
+        }),
+        ("gconfigmotionblurquality".to_string(), unsafe {
+            get_lambda::<gconfigmotionblurquality>()
+        }),
+        ("gconfigreflectionquality".to_string(), unsafe {
+            get_lambda::<gconfigreflectionquality>()
+        }),
+        ("gconfigshaderquality".to_string(), unsafe {
+            get_lambda::<gconfigshaderquality>()
+        }),
+        ("gconfigshadowquality".to_string(), unsafe {
+            get_lambda::<gconfigshadowquality>()
+        }),
+        ("gconfigssaoquality".to_string(), unsafe {
+            get_lambda::<gconfigssaoquality>()
+        }),
+        ("gconfigtexturefilterquality".to_string(), unsafe {
+            get_lambda::<gconfigtexturefilterquality>()
+        }),
+        ("gconfigvolumetriceffectquality".to_string(), unsafe {
+            get_lambda::<gconfigvolumetriceffectquality>()
+        }),
+        ("gconfigwaterquality".to_string(), unsafe {
+            get_lambda::<gconfigwaterquality>()
+        }),
+        ("gestureparam".to_string(), unsafe {
+            get_lambda::<gestureparam>()
+        }),
+        ("gparamgridregioninfo".to_string(), unsafe {
+            get_lambda::<gparamgridregioninfo>()
+        }),
+        ("gparamrefsettingsparam".to_string(), unsafe {
+            get_lambda::<gparamrefsettingsparam>()
+        }),
+        ("graphicscommonparam".to_string(), unsafe {
+            get_lambda::<graphicscommonparam>()
+        }),
+        ("graphicsconfig".to_string(), unsafe {
+            get_lambda::<graphicsconfig>()
+        }),
+        ("grasslodrangeparam".to_string(), unsafe {
+            get_lambda::<grasslodrangeparam>()
+        }),
+        ("grassmapsettings".to_string(), unsafe {
+            get_lambda::<grassmapsettings>()
+        }),
+        ("grasstypeparam".to_string(), unsafe {
+            get_lambda::<grasstypeparam>()
+        }),
+        ("hiteffectseparam".to_string(), unsafe {
+            get_lambda::<hiteffectseparam>()
+        }),
+        ("hiteffectsfxconceptparam".to_string(), unsafe {
+            get_lambda::<hiteffectsfxconceptparam>()
+        }),
+        ("hiteffectsfxparam".to_string(), unsafe {
+            get_lambda::<hiteffectsfxparam>()
+        }),
+        ("hitmtrlparam".to_string(), unsafe {
+            get_lambda::<hitmtrlparam>()
+        }),
+        ("itemlotparam".to_string(), unsafe {
+            get_lambda::<itemlotparam>()
+        }),
+        ("keyassignmenuitemparam".to_string(), unsafe {
+            get_lambda::<keyassignmenuitemparam>()
+        }),
+        ("keyassignparam".to_string(), unsafe {
+            get_lambda::<keyassignparam>()
+        }),
+        ("knockbackparam".to_string(), unsafe {
+            get_lambda::<knockbackparam>()
+        }),
+        ("knowledgeloadscreenitemparam".to_string(), unsafe {
+            get_lambda::<knowledgeloadscreenitemparam>()
+        }),
+        ("legacydistantviewpartsreplaceparam".to_string(), unsafe {
+            get_lambda::<legacydistantviewpartsreplaceparam>()
+        }),
+        ("loadbalancerdrawdistscaleparam".to_string(), unsafe {
+            get_lambda::<loadbalancerdrawdistscaleparam>()
+        }),
+        ("loadbalancernewdrawdistscaleparam".to_string(), unsafe {
+            get_lambda::<loadbalancernewdrawdistscaleparam>()
+        }),
+        ("loadbalancerparam".to_string(), unsafe {
+            get_lambda::<loadbalancerparam>()
+        }),
+        ("lockcamparam".to_string(), unsafe {
+            get_lambda::<lockcamparam>()
+        }),
+        ("mapdefaultinfoparam".to_string(), unsafe {
+            get_lambda::<mapdefaultinfoparam>()
+        }),
+        ("mapgdregiondrawparam".to_string(), unsafe {
+            get_lambda::<mapgdregiondrawparam>()
+        }),
+        ("mapgdregioninfo".to_string(), unsafe {
+            get_lambda::<mapgdregioninfo>()
+        }),
+        ("mapgridcreateheightlimitinfo".to_string(), unsafe {
+            get_lambda::<mapgridcreateheightlimitinfo>()
+        }),
+        ("mapmimicryestablishmentparam".to_string(), unsafe {
+            get_lambda::<mapmimicryestablishmentparam>()
+        }),
+        ("mapnametexparam".to_string(), unsafe {
+            get_lambda::<mapnametexparam>()
+        }),
+        ("mappiecetexparam".to_string(), unsafe {
+            get_lambda::<mappiecetexparam>()
+        }),
+        ("materialex".to_string(), unsafe {
+            get_lambda::<materialex>()
+        }),
+        ("menucommonparam".to_string(), unsafe {
+            get_lambda::<menucommonparam>()
+        }),
+        ("menuoffscrrendparam".to_string(), unsafe {
+            get_lambda::<menuoffscrrendparam>()
+        }),
+        ("menupropertylayoutparam".to_string(), unsafe {
+            get_lambda::<menupropertylayoutparam>()
+        }),
+        ("menupropertyspecparam".to_string(), unsafe {
+            get_lambda::<menupropertyspecparam>()
+        }),
+        ("menuvaluetablespecparam".to_string(), unsafe {
+            get_lambda::<menuvaluetablespecparam>()
+        }),
+        ("mimicryestablishmenttexparam".to_string(), unsafe {
+            get_lambda::<mimicryestablishmenttexparam>()
+        }),
+        ("missileparam".to_string(), unsafe {
+            get_lambda::<missileparam>()
+        }),
+        ("modelsfxparam".to_string(), unsafe {
+            get_lambda::<modelsfxparam>()
+        }),
+        ("moveparam".to_string(), unsafe {
+            get_lambda::<moveparam>()
+        }),
+        ("multiplaycorrectionparam".to_string(), unsafe {
+            get_lambda::<multiplaycorrectionparam>()
+        }),
+        ("multisoulbonusrateparam".to_string(), unsafe {
+            get_lambda::<multisoulbonusrateparam>()
+        }),
+        ("networkareaparam".to_string(), unsafe {
+            get_lambda::<networkareaparam>()
+        }),
+        ("networkmsgparam".to_string(), unsafe {
+            get_lambda::<networkmsgparam>()
+        }),
+        ("networkparam".to_string(), unsafe {
+            get_lambda::<networkparam>()
+        }),
+        ("npcaiactionparam".to_string(), unsafe {
+            get_lambda::<npcaiactionparam>()
+        }),
+        ("npcaibehaviorprobabilityparam".to_string(), unsafe {
+            get_lambda::<npcaibehaviorprobabilityparam>()
+        }),
         ("npcparam".to_string(), unsafe { get_lambda::<npcparam>() }),
-        ("npcthinkparam".to_string(), unsafe { get_lambda::<npcthinkparam>() }),
-        ("objactparam".to_string(), unsafe { get_lambda::<objactparam>() }),
-        ("objectmaterialsfxparam".to_string(), unsafe { get_lambda::<objectmaterialsfxparam>() }),
-        ("objectparam".to_string(), unsafe { get_lambda::<objectparam>() }),
-        ("partsdrawparam".to_string(), unsafe { get_lambda::<partsdrawparam>() }),
-        ("performancecheckparam".to_string(), unsafe { get_lambda::<performancecheckparam>() }),
-        ("phantomparam".to_string(), unsafe { get_lambda::<phantomparam>() }),
-        ("playercommonparam".to_string(), unsafe { get_lambda::<playercommonparam>() }),
-        ("playregionparam".to_string(), unsafe { get_lambda::<playregionparam>() }),
-        ("posturecontrolparamgender".to_string(), unsafe { get_lambda::<posturecontrolparamgender>() }),
-        ("posturecontrolparampro".to_string(), unsafe { get_lambda::<posturecontrolparampro>() }),
-        ("posturecontrolparamwepleft".to_string(), unsafe { get_lambda::<posturecontrolparamwepleft>() }),
-        ("posturecontrolparamwepright".to_string(), unsafe { get_lambda::<posturecontrolparamwepright>() }),
-        ("randomappeareditparam".to_string(), unsafe { get_lambda::<randomappeareditparam>() }),
-        ("randomappearparam".to_string(), unsafe { get_lambda::<randomappearparam>() }),
-        ("reinforceparamprotector".to_string(), unsafe { get_lambda::<reinforceparamprotector>() }),
-        ("reinforceparamweapon".to_string(), unsafe { get_lambda::<reinforceparamweapon>() }),
-        ("resistcorrectparam".to_string(), unsafe { get_lambda::<resistcorrectparam>() }),
-        ("reverbauxsendbusparam".to_string(), unsafe { get_lambda::<reverbauxsendbusparam>() }),
-        ("rideparam".to_string(), unsafe { get_lambda::<rideparam>() }),
-        ("roleparam".to_string(), unsafe { get_lambda::<roleparam>() }),
-        ("rollingobjlotparam".to_string(), unsafe { get_lambda::<rollingobjlotparam>() }),
-        ("runtimebonecontrolparam".to_string(), unsafe { get_lambda::<runtimebonecontrolparam>() }),
-        ("seactivationrangeparam".to_string(), unsafe { get_lambda::<seactivationrangeparam>() }),
-        ("sematerialconvertparam".to_string(), unsafe { get_lambda::<sematerialconvertparam>() }),
-        ("sfxblockresshareparam".to_string(), unsafe { get_lambda::<sfxblockresshareparam>() }),
-        ("shoplineupparam".to_string(), unsafe { get_lambda::<shoplineupparam>() }),
-        ("signpuddleparam".to_string(), unsafe { get_lambda::<signpuddleparam>() }),
-        ("soundassetsoundobjenabledistparam".to_string(), unsafe { get_lambda::<soundassetsoundobjenabledistparam>() }),
-        ("soundautoenvsoundgroupparam".to_string(), unsafe { get_lambda::<soundautoenvsoundgroupparam>() }),
-        ("soundautoreverbevaluationdistparam".to_string(), unsafe { get_lambda::<soundautoreverbevaluationdistparam>() }),
-        ("soundautoreverbselectparam".to_string(), unsafe { get_lambda::<soundautoreverbselectparam>() }),
-        ("soundchrphysicsseparam".to_string(), unsafe { get_lambda::<soundchrphysicsseparam>() }),
-        ("soundcommoningameparam".to_string(), unsafe { get_lambda::<soundcommoningameparam>() }),
-        ("soundcommonsystemparam".to_string(), unsafe { get_lambda::<soundcommonsystemparam>() }),
-        ("soundcutsceneparam".to_string(), unsafe { get_lambda::<soundcutsceneparam>() }),
-        ("speedtreemodel".to_string(), unsafe { get_lambda::<speedtreemodel>() }),
+        ("npcthinkparam".to_string(), unsafe {
+            get_lambda::<npcthinkparam>()
+        }),
+        ("objactparam".to_string(), unsafe {
+            get_lambda::<objactparam>()
+        }),
+        ("objectmaterialsfxparam".to_string(), unsafe {
+            get_lambda::<objectmaterialsfxparam>()
+        }),
+        ("objectparam".to_string(), unsafe {
+            get_lambda::<objectparam>()
+        }),
+        ("partsdrawparam".to_string(), unsafe {
+            get_lambda::<partsdrawparam>()
+        }),
+        ("performancecheckparam".to_string(), unsafe {
+            get_lambda::<performancecheckparam>()
+        }),
+        ("phantomparam".to_string(), unsafe {
+            get_lambda::<phantomparam>()
+        }),
+        ("playercommonparam".to_string(), unsafe {
+            get_lambda::<playercommonparam>()
+        }),
+        ("playregionparam".to_string(), unsafe {
+            get_lambda::<playregionparam>()
+        }),
+        ("posturecontrolparamgender".to_string(), unsafe {
+            get_lambda::<posturecontrolparamgender>()
+        }),
+        ("posturecontrolparampro".to_string(), unsafe {
+            get_lambda::<posturecontrolparampro>()
+        }),
+        ("posturecontrolparamwepleft".to_string(), unsafe {
+            get_lambda::<posturecontrolparamwepleft>()
+        }),
+        ("posturecontrolparamwepright".to_string(), unsafe {
+            get_lambda::<posturecontrolparamwepright>()
+        }),
+        ("randomappeareditparam".to_string(), unsafe {
+            get_lambda::<randomappeareditparam>()
+        }),
+        ("randomappearparam".to_string(), unsafe {
+            get_lambda::<randomappearparam>()
+        }),
+        ("reinforceparamprotector".to_string(), unsafe {
+            get_lambda::<reinforceparamprotector>()
+        }),
+        ("reinforceparamweapon".to_string(), unsafe {
+            get_lambda::<reinforceparamweapon>()
+        }),
+        ("resistcorrectparam".to_string(), unsafe {
+            get_lambda::<resistcorrectparam>()
+        }),
+        ("reverbauxsendbusparam".to_string(), unsafe {
+            get_lambda::<reverbauxsendbusparam>()
+        }),
+        ("rideparam".to_string(), unsafe {
+            get_lambda::<rideparam>()
+        }),
+        ("roleparam".to_string(), unsafe {
+            get_lambda::<roleparam>()
+        }),
+        ("rollingobjlotparam".to_string(), unsafe {
+            get_lambda::<rollingobjlotparam>()
+        }),
+        ("runtimebonecontrolparam".to_string(), unsafe {
+            get_lambda::<runtimebonecontrolparam>()
+        }),
+        ("seactivationrangeparam".to_string(), unsafe {
+            get_lambda::<seactivationrangeparam>()
+        }),
+        ("sematerialconvertparam".to_string(), unsafe {
+            get_lambda::<sematerialconvertparam>()
+        }),
+        ("sfxblockresshareparam".to_string(), unsafe {
+            get_lambda::<sfxblockresshareparam>()
+        }),
+        ("shoplineupparam".to_string(), unsafe {
+            get_lambda::<shoplineupparam>()
+        }),
+        ("signpuddleparam".to_string(), unsafe {
+            get_lambda::<signpuddleparam>()
+        }),
+        ("soundassetsoundobjenabledistparam".to_string(), unsafe {
+            get_lambda::<soundassetsoundobjenabledistparam>()
+        }),
+        ("soundautoenvsoundgroupparam".to_string(), unsafe {
+            get_lambda::<soundautoenvsoundgroupparam>()
+        }),
+        ("soundautoreverbevaluationdistparam".to_string(), unsafe {
+            get_lambda::<soundautoreverbevaluationdistparam>()
+        }),
+        ("soundautoreverbselectparam".to_string(), unsafe {
+            get_lambda::<soundautoreverbselectparam>()
+        }),
+        ("soundchrphysicsseparam".to_string(), unsafe {
+            get_lambda::<soundchrphysicsseparam>()
+        }),
+        ("soundcommoningameparam".to_string(), unsafe {
+            get_lambda::<soundcommoningameparam>()
+        }),
+        ("soundcommonsystemparam".to_string(), unsafe {
+            get_lambda::<soundcommonsystemparam>()
+        }),
+        ("soundcutsceneparam".to_string(), unsafe {
+            get_lambda::<soundcutsceneparam>()
+        }),
+        ("speedtreemodel".to_string(), unsafe {
+            get_lambda::<speedtreemodel>()
+        }),
         ("speffect".to_string(), unsafe { get_lambda::<speffect>() }),
-        ("speffectsetparam".to_string(), unsafe { get_lambda::<speffectsetparam>() }),
-        ("speffectvfx".to_string(), unsafe { get_lambda::<speffectvfx>() }),
-        ("swordartsparam".to_string(), unsafe { get_lambda::<swordartsparam>() }),
-        ("talkparam".to_string(), unsafe { get_lambda::<talkparam>() }),
-        ("throwdirectionsfxparam".to_string(), unsafe { get_lambda::<throwdirectionsfxparam>() }),
-        ("throwparam".to_string(), unsafe { get_lambda::<throwparam>() }),
-        ("toughnessparam".to_string(), unsafe { get_lambda::<toughnessparam>() }),
-        ("tutorialparam".to_string(), unsafe { get_lambda::<tutorialparam>() }),
-        ("waypointparam".to_string(), unsafe { get_lambda::<waypointparam>() }),
-        ("weatherassetcreateparam".to_string(), unsafe { get_lambda::<weatherassetcreateparam>() }),
-        ("weatherassetreplaceparam".to_string(), unsafe { get_lambda::<weatherassetreplaceparam>() }),
-        ("weatherlotparam".to_string(), unsafe { get_lambda::<weatherlotparam>() }),
-        ("weatherlottexparam".to_string(), unsafe { get_lambda::<weatherlottexparam>() }),
-        ("weatherparam".to_string(), unsafe { get_lambda::<weatherparam>() }),
-        ("wepabsorpposparam".to_string(), unsafe { get_lambda::<wepabsorpposparam>() }),
-        ("wetaspectparam".to_string(), unsafe { get_lambda::<wetaspectparam>() }),
-        ("whitesigncooltimeparam".to_string(), unsafe { get_lambda::<whitesigncooltimeparam>() }),
-        ("worldmaplegacyconvparam".to_string(), unsafe { get_lambda::<worldmaplegacyconvparam>() }),
-        ("worldmappieceparam".to_string(), unsafe { get_lambda::<worldmappieceparam>() }),
-        ("worldmapplacenameparam".to_string(), unsafe { get_lambda::<worldmapplacenameparam>() }),
-        ("worldmappointparam".to_string(), unsafe { get_lambda::<worldmappointparam>() }),
-        ("wwisevaluetostrconvertparamformat".to_string(), unsafe { get_lambda::<wwisevaluetostrconvertparamformat>() }),
-        ("atkparampc".to_string(), unsafe { get_lambda::<atkparampc>() }),
-        ("atkparamnpc".to_string(), unsafe { get_lambda::<atkparamnpc>() }),
-        ("behaviorparampc".to_string(), unsafe { get_lambda::<behaviorparampc>() }),
+        ("speffectsetparam".to_string(), unsafe {
+            get_lambda::<speffectsetparam>()
+        }),
+        ("speffectvfx".to_string(), unsafe {
+            get_lambda::<speffectvfx>()
+        }),
+        ("swordartsparam".to_string(), unsafe {
+            get_lambda::<swordartsparam>()
+        }),
+        ("talkparam".to_string(), unsafe {
+            get_lambda::<talkparam>()
+        }),
+        ("throwdirectionsfxparam".to_string(), unsafe {
+            get_lambda::<throwdirectionsfxparam>()
+        }),
+        ("throwparam".to_string(), unsafe {
+            get_lambda::<throwparam>()
+        }),
+        ("toughnessparam".to_string(), unsafe {
+            get_lambda::<toughnessparam>()
+        }),
+        ("tutorialparam".to_string(), unsafe {
+            get_lambda::<tutorialparam>()
+        }),
+        ("waypointparam".to_string(), unsafe {
+            get_lambda::<waypointparam>()
+        }),
+        ("weatherassetcreateparam".to_string(), unsafe {
+            get_lambda::<weatherassetcreateparam>()
+        }),
+        ("weatherassetreplaceparam".to_string(), unsafe {
+            get_lambda::<weatherassetreplaceparam>()
+        }),
+        ("weatherlotparam".to_string(), unsafe {
+            get_lambda::<weatherlotparam>()
+        }),
+        ("weatherlottexparam".to_string(), unsafe {
+            get_lambda::<weatherlottexparam>()
+        }),
+        ("weatherparam".to_string(), unsafe {
+            get_lambda::<weatherparam>()
+        }),
+        ("wepabsorpposparam".to_string(), unsafe {
+            get_lambda::<wepabsorpposparam>()
+        }),
+        ("wetaspectparam".to_string(), unsafe {
+            get_lambda::<wetaspectparam>()
+        }),
+        ("whitesigncooltimeparam".to_string(), unsafe {
+            get_lambda::<whitesigncooltimeparam>()
+        }),
+        ("worldmaplegacyconvparam".to_string(), unsafe {
+            get_lambda::<worldmaplegacyconvparam>()
+        }),
+        ("worldmappieceparam".to_string(), unsafe {
+            get_lambda::<worldmappieceparam>()
+        }),
+        ("worldmapplacenameparam".to_string(), unsafe {
+            get_lambda::<worldmapplacenameparam>()
+        }),
+        ("worldmappointparam".to_string(), unsafe {
+            get_lambda::<worldmappointparam>()
+        }),
+        ("wwisevaluetostrconvertparamformat".to_string(), unsafe {
+            get_lambda::<wwisevaluetostrconvertparamformat>()
+        }),
+        ("atkparampc".to_string(), unsafe {
+            get_lambda::<atkparampc>()
+        }),
+        ("atkparamnpc".to_string(), unsafe {
+            get_lambda::<atkparamnpc>()
+        }),
+        ("behaviorparampc".to_string(), unsafe {
+            get_lambda::<behaviorparampc>()
+        }),
         ("bullet".to_string(), unsafe { get_lambda::<bullet>() }),
         ("ceremony".to_string(), unsafe { get_lambda::<ceremony>() }),
-        ("hpestusflaskrecoveryparam".to_string(), unsafe { get_lambda::<hpestusflaskrecoveryparam>() }),
-        ("mpestusflaskrecoveryparam".to_string(), unsafe { get_lambda::<mpestusflaskrecoveryparam>() }),
+        ("hpestusflaskrecoveryparam".to_string(), unsafe {
+            get_lambda::<hpestusflaskrecoveryparam>()
+        }),
+        ("mpestusflaskrecoveryparam".to_string(), unsafe {
+            get_lambda::<mpestusflaskrecoveryparam>()
+        }),
         ("magic".to_string(), unsafe { get_lambda::<magic>() }),
-        ("multihpestusflaskbonusparam".to_string(), unsafe { get_lambda::<multihpestusflaskbonusparam>() }),
-        ("multimpestusflaskbonusparam".to_string(), unsafe { get_lambda::<multimpestusflaskbonusparam>() }),
-        ("newmenucolortableparam".to_string(), unsafe { get_lambda::<newmenucolortableparam>() }),
-    ].into_iter().collect()
+        ("multihpestusflaskbonusparam".to_string(), unsafe {
+            get_lambda::<multihpestusflaskbonusparam>()
+        }),
+        ("multimpestusflaskbonusparam".to_string(), unsafe {
+            get_lambda::<multimpestusflaskbonusparam>()
+        }),
+        ("newmenucolortableparam".to_string(), unsafe {
+            get_lambda::<newmenucolortableparam>()
+        }),
+    ]
+    .into_iter()
+    .collect()
 });
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
@@ -3377,10 +3744,13 @@ pub struct gamesystemcommonparam {
     pub ai_sight_rate_sunloss_light: f32,
     pub ai_sight_rate_sunloss_dark: f32,
     pub ai_sight_rate_sunloss_very_dark: f32,
-    pub stealth_system_sight_angle_reduce_rate_not_in_stealth_rigid_not_sight_hide_stealth_mode: f32,
-    pub stealth_system_sight_angle_reduce_rate_not_in_stealth_rigid_sight_hide_not_stealth_mode: f32,
+    pub stealth_system_sight_angle_reduce_rate_not_in_stealth_rigid_not_sight_hide_stealth_mode:
+        f32,
+    pub stealth_system_sight_angle_reduce_rate_not_in_stealth_rigid_sight_hide_not_stealth_mode:
+        f32,
     pub stealth_system_sight_angle_reduce_rate_not_in_stealth_rigid_sight_hide_stealth_mode: f32,
-    pub stealth_system_sight_angle_reduce_rate_in_stealth_rigid_not_sight_hide_not_stealth_mode: f32,
+    pub stealth_system_sight_angle_reduce_rate_in_stealth_rigid_not_sight_hide_not_stealth_mode:
+        f32,
     pub stealth_system_sight_angle_reduce_rate_in_stealth_rigid_not_sight_hide_stealth_mode: f32,
     pub stealth_system_sight_angle_reduce_rate_in_stealth_rigid_sight_hide_not_stealth_mode: f32,
     pub stealth_system_sight_angle_reduce_rate_in_stealth_rigid_sight_hide_stealth_mode: f32,
