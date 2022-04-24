@@ -202,7 +202,7 @@ pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c64e38,
     world_chr_man_dbg: 0x3c65048,
     world_chr_man_imp: 0x3c64e38,
-    func_item_inject: 0x242140,
+    func_item_inject: 0x54f640,
     func_item_spawn: 0x549c70,
 };
 
@@ -231,7 +231,7 @@ pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c64e38,
     world_chr_man_dbg: 0x3c65048,
     world_chr_man_imp: 0x3c64e38,
-    func_item_inject: 0x242140,
+    func_item_inject: 0x54f640,
     func_item_spawn: 0x549c70,
 };
 
@@ -260,7 +260,7 @@ pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c64e38,
     world_chr_man_dbg: 0x3c65048,
     world_chr_man_imp: 0x3c64e38,
-    func_item_inject: 0x242140,
+    func_item_inject: 0x54f640,
     func_item_spawn: 0x549c70,
 };
 
