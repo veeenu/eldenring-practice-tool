@@ -331,7 +331,7 @@ impl Widget for ItemSpawner<'_> {
                 |(_, label)| Cow::Borrowed(label),
             );
 
-            Slider::new("Qty", 0, 256).build(ui, &mut self.qty);
+            Slider::new("Qty", 1, 99).build(ui, &mut self.qty);
             if self.hotkey_load.keyup() || ui.button_with_size(&self.label_load, [240., 20.]) {
                 self.spawn();
             }
