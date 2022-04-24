@@ -1,30 +1,88 @@
 #![feature(once_cell)]
 
 use std::fmt::Write;
+use std::path::PathBuf;
+use std::os::windows::ffi::OsStringExt;
 
 use hudhook::hooks::dx12::{ImguiRenderLoop, ImguiRenderLoopFlags};
-// use libeldenring::pointers::MOUSE_ENABLE;
 use libeldenring::params::{PARAMS, PARAM_NAMES};
-use libeldenring::ParamVisitor;
+use libeldenring::prelude::*;
 
 use imgui::*;
+use simplelog::*;
+use winapi::shared::minwindef::*;
+use winapi::um::libloaderapi::*;
+use winapi::um::errhandlingapi::*;
+
+/// Returns the path of the implementor's DLL.
+pub fn get_dll_path() -> Option<PathBuf> {
+    let mut hmodule: HMODULE = std::ptr::null_mut();
+    // SAFETY
+    // This is reckless, but it should never fail, and if it does, it's ok to crash and burn.
+    let gmh_result = unsafe {
+        GetModuleHandleExA(
+            GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT | GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
+            "DllMain".as_ptr() as _,
+            &mut hmodule,
+        )
+    };
+
+    if gmh_result == 0 {
+        error!("get_dll_path: GetModuleHandleExA error: {:x}", unsafe {
+            GetLastError()
+        },);
+        return None;
+    }
+
+    let mut sz_filename = [0u16; MAX_PATH];
+    // SAFETY
+    // pointer to sz_filename always defined and MAX_PATH bounds manually checked
+    let len = unsafe { GetModuleFileNameW(hmodule, sz_filename.as_mut_ptr() as _, MAX_PATH as _) }
+        as usize;
+
+    Some(std::ffi::OsString::from_wide(&sz_filename[..len]).into())
+}
 
 struct ParamTinkerer {
     shown: bool,
     selected_param: usize,
     selected_param_id: usize,
+    pointers: Pointers,
 }
 
 impl ParamTinkerer {
     fn new() -> Self {
         println!("Initializing");
         hudhook::utils::alloc_console();
-        hudhook::utils::simplelog();
+
+        let log_file = get_dll_path()
+            .map(|mut path| {
+                path.pop();
+                path.push("param-tinkerer.log");
+                path
+            })
+            .map(std::fs::File::create);
+
+        if let Some(Ok(log_file)) = log_file {
+            CombinedLogger::init(vec![
+                TermLogger::new(
+                    LevelFilter::Debug,
+                    Config::default(),
+                    TerminalMode::Mixed,
+                    ColorChoice::Auto,
+                ),
+                WriteLogger::new(LevelFilter::Debug, Config::default(), log_file),
+            ])
+            .ok();
+        } else {
+            hudhook::utils::simplelog();
+        }
 
         ParamTinkerer {
-            shown: false,
+            shown: true,
             selected_param: 0,
             selected_param_id: 0,
+            pointers: Pointers::new(),
         }
     }
 }
@@ -34,7 +92,7 @@ impl ImguiRenderLoop for ParamTinkerer {
         if ui.is_key_index_released(0x50) {
             // P key
             self.shown = !self.shown;
-            // MOUSE_ENABLE.write(if self.shown { 1 } else { 0 });
+            self.pointers.cursor_show.set(self.shown);
         }
 
         if !self.shown {

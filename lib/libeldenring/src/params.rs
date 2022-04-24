@@ -5,7 +5,7 @@ use std::ffi::c_void;
 use std::lazy::SyncLazy;
 use std::ptr::null_mut;
 
-use log::{error, info};
+use log::{error, info, debug};
 use parking_lot::RwLock;
 use widestring::U16CStr;
 use windows::core::PCSTR;
@@ -31,9 +31,9 @@ pub static PARAM_NAMES: SyncLazy<HashMap<String, HashMap<usize, String>>> =
 #[derive(Debug)]
 #[repr(C)]
 struct ParamMaster {
-    unk1: [u64; 2],
     start: *const *const ParamEntry,
     end: *const *const ParamEntry,
+    misc: [*const c_void; 16],
 }
 
 #[repr(C)]
@@ -44,9 +44,10 @@ union ParamName {
 
 #[repr(C)]
 struct ParamEntry {
-    address: *const c_void,
-    _unk1: u64,
-    param_name: ParamName,
+    address: *const c_void, // 0x0
+    _unk1: u64,             // 0x8
+    _unk2: u64,             // 0x10
+    param_name: ParamName,  // 0x18
     param_length: u64,
 }
 
@@ -64,16 +65,16 @@ pub struct Param<T: 'static> {
     pub param: Option<&'static mut T>,
 }
 
-const fn param_ptr(v: &Version) -> usize {
+const fn addresses(v: &Version) -> base_addresses::BaseAddresses {
     match v {
-        Version::V1_02_0 => base_addresses::BASE_ADDRESSES_1_02_0.solo_param_repository,
-        Version::V1_02_1 => base_addresses::BASE_ADDRESSES_1_02_1.solo_param_repository,
-        Version::V1_02_2 => base_addresses::BASE_ADDRESSES_1_02_2.solo_param_repository,
-        Version::V1_02_3 => base_addresses::BASE_ADDRESSES_1_02_3.solo_param_repository,
-        Version::V1_03_0 => base_addresses::BASE_ADDRESSES_1_03_0.solo_param_repository,
-        Version::V1_03_1 => base_addresses::BASE_ADDRESSES_1_03_1.solo_param_repository,
-        Version::V1_03_2 => base_addresses::BASE_ADDRESSES_1_03_2.solo_param_repository,
-        Version::V1_04_0 => base_addresses::BASE_ADDRESSES_1_04_0.solo_param_repository,
+        Version::V1_02_0 => base_addresses::BASE_ADDRESSES_1_02_0,
+        Version::V1_02_1 => base_addresses::BASE_ADDRESSES_1_02_1,
+        Version::V1_02_2 => base_addresses::BASE_ADDRESSES_1_02_2,
+        Version::V1_02_3 => base_addresses::BASE_ADDRESSES_1_02_3,
+        Version::V1_03_0 => base_addresses::BASE_ADDRESSES_1_03_0,
+        Version::V1_03_1 => base_addresses::BASE_ADDRESSES_1_03_1,
+        Version::V1_03_2 => base_addresses::BASE_ADDRESSES_1_03_2,
+        Version::V1_04_0 => base_addresses::BASE_ADDRESSES_1_04_0,
     }
 }
 
@@ -93,13 +94,17 @@ impl Params {
     ///
     /// Accesses raw pointers. Should never crash as the param pointers are static.
     pub unsafe fn refresh(&mut self) -> Result<(), String> {
+        let addresses = addresses(&*VERSION);
         let module_base_addr = GetModuleHandleA(PCSTR(null_mut())).0 as usize;
-        let base_ptr = param_ptr(&*VERSION) + module_base_addr;
-        info!("Loading param at {:x}", base_ptr);
-        let base: &ParamMaster = std::ptr::read(base_ptr as *const *const ParamMaster)
+        let base_ptr = addresses.cs_regulation_manager + module_base_addr;
+
+        let base_ptr = *(base_ptr as *const *const c_void);
+        let base_ptr = base_ptr.offset(0x18);
+        let base_ptr = base_ptr as usize;
+
+        let base: &ParamMaster = (base_ptr as *const ParamMaster) //std::ptr::read(base_ptr as *const *const ParamMaster)
             .as_ref()
             .ok_or_else(|| "Invalid param base address".to_string())?;
-        info!("Param base found {:?}", base);
 
         let m = Params::param_entries_from_master(base)?;
         self.0 = m;
@@ -110,8 +115,6 @@ impl Params {
         base: &ParamMaster,
     ) -> Result<BTreeMap<String, (*const c_void, isize)>, String> {
         let count = base.end.offset_from(base.start);
-
-        info!("Param count: {}", count);
 
         let param_entries: &[*const ParamEntry] =
             std::slice::from_raw_parts(base.start, count as usize);
@@ -139,6 +142,8 @@ impl Params {
                 let ptr = *(ptr.offset(0x80) as *const *const c_void);
                 let ptr = *(ptr.offset(0x80) as *const *const c_void);
                 let count = *(ptr.offset(0x0a) as *const u16);
+
+                info!("Name {} ptr {:p} count {}", name, ptr, count);
 
                 Ok((name, (ptr as _, count as isize)))
             })
@@ -231,6 +236,7 @@ impl Params {
     ///
     /// Accesses raw pointers. Ensure that the param is properly initialized (e.g. with the
     /// params well-formed and loaded into memory) before invoking.
+    #[allow(unused)]
     unsafe fn get_param_idx<T: 'static>(&self, s: &str, i: usize) -> Option<Param<T>> {
         let (param_ptr, count) = self.get_param_ptr(s)?;
 
