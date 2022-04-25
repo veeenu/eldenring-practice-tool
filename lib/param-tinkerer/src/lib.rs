@@ -1,8 +1,8 @@
 #![feature(once_cell)]
 
 use std::fmt::Write;
-use std::path::PathBuf;
 use std::os::windows::ffi::OsStringExt;
+use std::path::PathBuf;
 
 use hudhook::hooks::dx12::{ImguiRenderLoop, ImguiRenderLoopFlags};
 use libeldenring::params::{PARAMS, PARAM_NAMES};
@@ -11,8 +11,8 @@ use libeldenring::prelude::*;
 use imgui::*;
 use simplelog::*;
 use winapi::shared::minwindef::*;
-use winapi::um::libloaderapi::*;
 use winapi::um::errhandlingapi::*;
+use winapi::um::libloaderapi::*;
 
 /// Returns the path of the implementor's DLL.
 pub fn get_dll_path() -> Option<PathBuf> {
@@ -76,14 +76,13 @@ impl ParamTinkerer {
             .ok();
         } else {
             // hudhook::utils::simplelog();
-            CombinedLogger::init(vec![
-                TermLogger::new(
-                    LevelFilter::Debug,
-                    Config::default(),
-                    TerminalMode::Mixed,
-                    ColorChoice::Auto,
-                ),
-            ]).ok();
+            CombinedLogger::init(vec![TermLogger::new(
+                LevelFilter::Debug,
+                Config::default(),
+                TerminalMode::Mixed,
+                ColorChoice::Auto,
+            )])
+            .ok();
         }
 
         ParamTinkerer {

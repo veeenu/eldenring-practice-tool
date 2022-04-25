@@ -112,7 +112,13 @@ fn run() -> Result<()> {
     let cargo = env::var("CARGO").unwrap_or_else(|_| "cargo".to_string());
     let status = Command::new(&cargo)
         .current_dir(project_root())
-        .args(&["build", "--release", "--lib", "--package", "eldenring-practice-tool"])
+        .args(&[
+            "build",
+            "--release",
+            "--lib",
+            "--package",
+            "eldenring-practice-tool",
+        ])
         .status()
         .map_err(|e| format!("cargo: {}", e))?;
 
