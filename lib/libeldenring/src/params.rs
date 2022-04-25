@@ -5,7 +5,7 @@ use std::ffi::c_void;
 use std::lazy::SyncLazy;
 use std::ptr::null_mut;
 
-use log::{error, info, debug};
+use log::*;
 use parking_lot::RwLock;
 use widestring::U16CStr;
 use windows::core::PCSTR;

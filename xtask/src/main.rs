@@ -9,6 +9,8 @@ use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+use log::*;
+use simplelog::*;
 use widestring::U16CString;
 use winapi::ctypes::c_void;
 use winapi::shared::minwindef::FALSE;
@@ -27,6 +29,15 @@ type Result<T> = std::result::Result<T, DynError>;
 
 fn main() -> Result<()> {
     dotenv::dotenv().ok();
+
+    CombinedLogger::init(vec![TermLogger::new(
+        LevelFilter::Trace,
+        ConfigBuilder::new().build(),
+        TerminalMode::Mixed,
+        ColorChoice::Auto,
+    )])
+    .ok();
+
     let task = env::args().nth(1);
     match task.as_deref() {
         Some("dist") => dist()?,
@@ -101,7 +112,7 @@ fn run() -> Result<()> {
     let cargo = env::var("CARGO").unwrap_or_else(|_| "cargo".to_string());
     let status = Command::new(&cargo)
         .current_dir(project_root())
-        .args(&["build", "--release", "--package", "eldenring-practice-tool"])
+        .args(&["build", "--release", "--lib", "--package", "eldenring-practice-tool"])
         .status()
         .map_err(|e| format!("cargo: {}", e))?;
 
@@ -119,15 +130,13 @@ fn run() -> Result<()> {
     )?
     .write_all(buf.as_bytes())?;
 
-    let status = Command::new(&cargo)
-        .current_dir(project_root().join("target").join("release"))
-        .args(&["run", "--release", "--bin", "jdsd_er_practice_tool"])
-        .status()
-        .map_err(|e| format!("cargo: {}", e))?;
+    let dll_path = project_root()
+        .join("target")
+        .join("release")
+        .join("libjdsd_er_practice_tool.dll")
+        .canonicalize()?;
 
-    if !status.success() {
-        return Err("cargo run failed".into());
-    }
+    hudhook::inject::inject("ELDEN RING™", dll_path);
 
     Ok(())
 }
