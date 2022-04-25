@@ -3,10 +3,9 @@ name = "param-tinkerer"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
 crate-type = ["cdylib", "rlib"]
-name = "jdsd_eldenring_param_tinkerer"
+name = "jdsd_er_param_tinkerer"
 
 [dependencies]
 imgui = "0.8.0"

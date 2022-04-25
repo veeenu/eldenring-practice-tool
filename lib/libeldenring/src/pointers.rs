@@ -146,7 +146,6 @@ impl Pointers {
             }
         };
 
-        // Torrent ptr: world_chr_man, 0x18390, 0x18, 0
         Self {
             one_shot: bitflag!(0b1; chr_dbg_flags + 0x3),
             no_damage: bitflag!(0b1; chr_dbg_flags + 0xC),
@@ -170,6 +169,7 @@ impl Pointers {
             collision: bitflag!(0b1000; world_chr_man, 0x18468, 0x58, 0xf0),
 
             // WorldChrMan -> Torrent
+            // Torrent ptr: world_chr_man, 0x18390, 0x18, 0
             torrent_collision: bitflag!(0b1000; world_chr_man, 0x18390, 0x18, 0, 0x58, 0xf0),
 
             runes: pointer_chain!(game_data_man, 0x8, 0x6C),
@@ -228,9 +228,6 @@ impl Pointers {
             weapon_hitbox1: bitflag!(0b1; damage_ctrl, 0xA0),
             weapon_hitbox2: bitflag!(0b1; damage_ctrl, 0xA1),
             weapon_hitbox3: bitflag!(0b1; damage_ctrl, 0xA4),
-            // hitbox_high: bitflag!(0b1; hit_ins + 0xC),
-            // hitbox_low: bitflag!(0b1; hit_ins + 0xD),
-            // hitbox_character: bitflag!(0b1; hit_ins + 0xF),
             hitbox_high: bitflag!(0b1; hit_ins_hitbox_offset + 0x0),
             hitbox_low: bitflag!(0b1; hit_ins_hitbox_offset + 0x1),
             hitbox_character: bitflag!(0b1; hit_ins_hitbox_offset + 0x3),
@@ -260,39 +257,3 @@ impl Pointers {
         }
     }
 }
-
-/*
-[ENABLE]
-alloc(ItemData,512,eldenring.exe)
-registersymbol(ItemData)
-
-aobscanmodule(ItemDropCall,eldenring.exe,48 8B C4 56 57 41 56 48 81 EC ?? ?? ?? ?? 48 C7 44 24 ?? ?? ?? ?? ?? 48 89 58 ?? 48 89 68 ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 41 0F B6 F9)
-registersymbol(ItemDropCall)
-
-alloc(ItemDropData,16)
-registersymbol(ItemDropData)
-
-ItemDropData:
-dd #150
-dd #01
-dd 40000000
-dd FFFFFFFF
-
-ItemData:
-mov rcx,[MapItemMan]
-lea rdx,[ItemDropData]
-
-xor r9d,r9d
-lea r8d,[r9+01]
-
-mov eax,[ItemDropData+08]
-add [ItemDropData],eax
-
-sub rsp,28
-call ItemDropCall
-add rsp,28
-
-mov eax,[ItemDropData+08]
-sub [ItemDropData],eax
-ret
-*/

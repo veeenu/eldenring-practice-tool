@@ -48,7 +48,6 @@ fn get_version() -> Version {
         unsafe { GetModuleFileNameW(GetModuleHandleW(PCWSTR(null_mut())), &mut buf) };
         U16CString::from_vec_truncate(buf)
     };
-    info!("{:?}", file_path);
 
     let mut version_info_size =
         unsafe { GetFileVersionInfoSizeW(PCWSTR(file_path.as_ptr()), null_mut()) };
@@ -63,7 +62,6 @@ fn get_version() -> Version {
     };
 
     let mut version_info: *mut VS_FIXEDFILEINFO = null_mut();
-    info!("VerQueryValueW");
     unsafe {
         VerQueryValueW(
             version_info_buf.as_ptr() as _,
@@ -72,7 +70,6 @@ fn get_version() -> Version {
             &mut version_info_size,
         )
     };
-    info!("Version info is {:p}", version_info);
     let version_info = unsafe { version_info.as_ref().unwrap() };
     let major = (version_info.dwFileVersionMS >> 16) & 0xffff;
     let minor = (version_info.dwFileVersionMS) & 0xffff;

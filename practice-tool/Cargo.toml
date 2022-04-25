@@ -4,7 +4,6 @@ version = "1.0.0"
 edition = "2021"
 authors = ["Andrea Venuta <andrea@johndisandonato.stream>"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [[bin]]
 name = "jdsd_er_practice_tool"
 path = "src/main.rs"
@@ -18,7 +17,7 @@ hudhook = { path = "../lib/hudhook/hudhook" }
 libeldenring = { path = "../lib/libeldenring" }
 imgui = "0.8.0"
 imgui-sys = "0.8.0"
-simplelog = "0.11.2"
+simplelog = "0.12.0"
 log-panics = { version = "2.0.0", features = ["with-backtrace"] }
 windows = { version = "0.34.0", features = ["Win32_System_LibraryLoader", "Win32_Foundation"] }
 winapi = { version = "0.3.9", features = ["winuser", "minwindef", "windef", "xinput"] }

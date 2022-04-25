@@ -38,16 +38,16 @@ struct ParamMaster {
 
 #[repr(C)]
 union ParamName {
-    indirect: *const [u16; 90], // size: 8
-    direct: [u16; 8],           // size: 16
+    indirect: *const [u16; 90],
+    direct: [u16; 8],
 }
 
 #[repr(C)]
 struct ParamEntry {
-    address: *const c_void, // 0x0
-    _unk1: u64,             // 0x8
-    _unk2: u64,             // 0x10
-    param_name: ParamName,  // 0x18
+    address: *const c_void,
+    _unk1: u64,
+    _unk2: u64,
+    param_name: ParamName,
     param_length: u64,
 }
 

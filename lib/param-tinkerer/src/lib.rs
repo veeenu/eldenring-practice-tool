@@ -75,7 +75,15 @@ impl ParamTinkerer {
             ])
             .ok();
         } else {
-            hudhook::utils::simplelog();
+            // hudhook::utils::simplelog();
+            CombinedLogger::init(vec![
+                TermLogger::new(
+                    LevelFilter::Debug,
+                    Config::default(),
+                    TerminalMode::Mixed,
+                    ColorChoice::Auto,
+                ),
+            ]).ok();
         }
 
         ParamTinkerer {

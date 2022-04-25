@@ -63,6 +63,10 @@ impl PracticeTool {
             Err(e) => (config::Config::default(), Some(e)),
         };
 
+        if let Some(err) = config_err {
+            error!("{}", err);
+        }
+
         let log_file = crate::util::get_dll_path()
             .map(|mut path| {
                 path.pop();
@@ -71,42 +75,30 @@ impl PracticeTool {
             })
             .map(std::fs::File::create);
 
+        let log_level = config.settings.log_level.inner();
+
+        if log_level < LevelFilter::Debug {
+            hudhook::utils::free_console();
+        }
+
         match log_file {
             Some(Ok(log_file)) => {
                 CombinedLogger::init(vec![
                     TermLogger::new(
-                        config.settings.log_level.inner(),
+                        log_level,
                         Config::default(),
                         TerminalMode::Mixed,
                         ColorChoice::Auto,
                     ),
-                    WriteLogger::new(
-                        config.settings.log_level.inner(),
-                        Config::default(),
-                        log_file,
-                    ),
+                    WriteLogger::new(log_level, Config::default(), log_file),
                 ])
                 .ok();
             }
-            e => {
-                CombinedLogger::init(vec![TermLogger::new(
-                    LevelFilter::Debug, // config.settings.log_level.to_level_filter(),
-                    Config::default(),
-                    TerminalMode::Mixed,
-                    ColorChoice::Auto,
-                )])
-                .ok();
-
-                match e {
-                    None => error!("Could not construct log file path"),
-                    Some(Err(e)) => error!("Could not initialize log file: {:?}", e),
-                    _ => unreachable!(),
-                }
-            }
-        }
-
-        if let Some(err) = config_err {
-            debug!("{}", err);
+            e => match e {
+                None => error!("Could not construct log file path"),
+                Some(Err(e)) => error!("Could not initialize log file: {:?}", e),
+                _ => unreachable!(),
+            },
         }
 
         {
@@ -121,7 +113,6 @@ impl PracticeTool {
                 |mut epg| {
                     epg.find(|i| i.id == 130).and_then(|p| p.param).map(
                         |mut spectral_steed_whistle| {
-                            debug!("{:?}", spectral_steed_whistle);
                             spectral_steed_whistle.icon_id = 12;
                         },
                     );
@@ -130,8 +121,8 @@ impl PracticeTool {
         }
 
         let pointers = Pointers::new();
-        debug!("{:#?}", pointers);
         let widgets = config.make_commands(&pointers);
+        info!("Practice tool initialized");
 
         PracticeTool {
             pointers,

@@ -8,7 +8,7 @@ fn err_to_string<T: std::fmt::Display>(e: T) -> String {
 fn perform_injection() -> Result<(), String> {
     let mut dll_path = std::env::current_exe().unwrap();
     dll_path.pop();
-    dll_path.push("jdsd_eldenring_param_tinkerer.dll");
+    dll_path.push("jdsd_er_param_tinkerer.dll");
 
     if !dll_path.exists() {
         dll_path.pop();
