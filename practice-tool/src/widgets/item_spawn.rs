@@ -322,7 +322,6 @@ impl Widget for ItemSpawner<'_> {
                 |(_, label)| Cow::Borrowed(label),
             );
 
-            // TODO figure out why upgrades don't work.
             ui.same_line();
             ui.set_next_item_width(110.);
             ui.combo(
@@ -372,7 +371,6 @@ impl Display for ItemSpawnInstance {
 
 impl ItemSpawnInstance {
     unsafe fn spawn(&self) {
-        // 550300 in 102
         #[repr(C)]
         struct SpawnRequest {
             one: u32,
@@ -380,10 +378,7 @@ impl ItemSpawnInstance {
             qty: u32,
         }
 
-        // let module_base_addr = windows::Win32::System::LibraryLoader::GetModuleHandleA(windows::core::PCSTR(std::ptr::null_mut())).0 as usize;
-
         type SpawnItemFn = extern "system" fn(*const c_void, *mut SpawnRequest, *mut u32, u32);
-        // let spawn_fn_ptr = std::mem::transmute::<_, SpawnItemFn>(module_base_addr + 0x54E570);
         let spawn_fn_ptr = std::mem::transmute::<_, SpawnItemFn>(self.spawn_item_func_ptr);
         let pp_map_item_man = self.map_item_man as *const *const c_void;
 
@@ -402,38 +397,5 @@ impl ItemSpawnInstance {
             &mut dur as *mut _,
             0u32,
         );
-
-        // #[repr(C)]
-        // struct SpawnRequest {
-        //     item_id: u32,
-        //     qty: u32,
-        //     unk1: u32,
-        //     unk2: u32,
-        // }
-
-        // type SpawnItemFn = extern "system" fn(*const c_void, *mut SpawnRequest);
-        // let spawn_fn_ptr = std::mem::transmute::<_, SpawnItemFn>(self.spawn_item_func_ptr);
-        // let pp_map_item_man = self.map_item_man as *const *const c_void;
-
-        // let item_id = self.item_id;
-        // let qty = self.qty;
-
-        // let mut spawn_request = SpawnRequest {
-        //     item_id,
-        //     qty,
-        //     unk1: item_id & 0xf0000000,
-        //     unk2: 0xffffffff,
-        // };
-
-        // spawn_fn_ptr(
-        //     *pp_map_item_man,
-        //     &mut spawn_request as *mut _,
-        // );
     }
 }
-
-// 0x00000000 -- Weapon
-// 0x10000000 -- Protector
-// 0x20000000 -- Accessory
-// 0x40000000 -- Goods
-// 0x80000000 -- Gem

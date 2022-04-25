@@ -58,49 +58,7 @@ def build_param_layouts(paramdex_path, xtask_path):
     param_names = dict(
         (to_slug(i), i)
         for i in map(lambda x: Path(x).stem.replace('_ST', ''), (paramdex_path / 'ER/Defs').glob('*.xml'))
-        # for i in (xtask_path / 'src' / 'param_names.txt').read_text().splitlines()
     )
-
-    # Manual corrections
-    #xml_files['atkparampc'] = xml_files['atkparam']
-    #xml_files['atkparamnpc'] = xml_files['atkparam']
-    #xml_files['behaviorparampc'] = xml_files['behaviorparam']
-    #xml_files['bullet'] = xml_files['bulletparam']
-    #xml_files['ceremony'] = xml_files['ceremonyparam']
-    # xml_files['charainitparam'] = xml_files['characterinitparam']
-    # xml_files['calccorrectgraph'] = xml_files['caclcorrectgraph']
-    #xml_files['hpestusflaskrecoveryparam'] = xml_files['estusflaskrecoveryparam']
-    #xml_files['mpestusflaskrecoveryparam'] = xml_files['estusflaskrecoveryparam']
-    # xml_files['lodparam'] = xml_files['lodbank']
-    # xml_files['lodparamps'] = xml_files['lodbank']
-    # xml_files['lodparamxb'] = xml_files['lodbank']
-    #xml_files['magic'] = xml_files['magicparam']
-    # xml_files['menupropertylayoutparam'] = xml_files['menupropertylayout']
-    # xml_files['menupropertyspecparam'] = xml_files['menupropertyspec']
-    # xml_files['menuvaluetableparam'] = xml_files['menuvaluetablespec']
-    #xml_files['multihpestusflaskbonusparam'] = xml_files['multiestusflaskbonusparam']
-    #xml_files['multimpestusflaskbonusparam'] = xml_files['multiestusflaskbonusparam']
-    #xml_files['newmenucolortableparam'] = xml_files['menuparamcolortable']
-    # xml_files['throwparam'] = xml_files['throwinfobank']
-    # xml_files['wind'] = xml_files['windparam']
-
-    # print(xml_files.keys())
-
-    #del xml_files['atkparam']
-    #del xml_files['bulletparam']
-    #del xml_files['ceremonyparam']
-    # del xml_files['characterinitparam']
-    # del xml_files['caclcorrectgraph']
-    #del xml_files['estusflaskrecoveryparam']
-    # del xml_files['lodbank']
-    #del xml_files['magicparam']
-    # del xml_files['menupropertylayout']
-    # del xml_files['menupropertyspec']
-    # del xml_files['menuvaluetablespec']
-    #del xml_files['multiestusflaskbonusparam']
-    #del xml_files['menuparamcolortable']
-    # del xml_files['throwinfobank']
-    # del xml_files['windparam']
 
     # Currently broken
     del xml_files['defaultkeyassign']

@@ -40,12 +40,6 @@ impl Widget for Runes {
         if ui.button_with_size(&self.label, [super::BUTTON_WIDTH, super::BUTTON_HEIGHT]) {
             self.add();
         }
-
-        // if let Some(runes) = runes {
-        //     ui.text(format!("[{:>10}]", runes));
-        // } else {
-        //     ui.text("[          ]");
-        // }
     }
 
     fn interact(&mut self) {
