@@ -1,6 +1,7 @@
 commands = [
   { savefile_manager = "o", hotkey_back = "q", hotkey_close = "0" },
   { item_spawner = "u", hotkey_back = "q", hotkey_close = "0" },
+  { character_stats = "next", hotkey_close = "0" },
   { flag = "no_damage", hotkey = "1" },
   { flag = "no_dead", hotkey = "2" },
   { flag = "no_update_ai", hotkey = "3" },

@@ -63,10 +63,6 @@ impl PracticeTool {
             Err(e) => (config::Config::default(), Some(e)),
         };
 
-        if let Some(err) = config_err {
-            error!("{}", err);
-        }
-
         let log_file = crate::util::get_dll_path()
             .map(|mut path| {
                 path.pop();
@@ -99,6 +95,10 @@ impl PracticeTool {
                 Some(Err(e)) => error!("Could not initialize log file: {:?}", e),
                 _ => unreachable!(),
             },
+        }
+
+        if let Some(err) = config_err {
+            error!("{}", err);
         }
 
         wait_option_thread(

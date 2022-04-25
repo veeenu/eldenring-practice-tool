@@ -17,6 +17,7 @@ use crate::widgets::position::SavePosition;
 use crate::widgets::quitout::Quitout;
 use crate::widgets::runes::Runes;
 use crate::widgets::savefile_manager::SavefileManager;
+use crate::widgets::character_stats::CharacterStatsEdit;
 use crate::widgets::Widget;
 
 #[cfg_attr(test, derive(Debug))]
@@ -78,6 +79,11 @@ enum CfgCommand {
         #[serde(rename = "cycle_speed")]
         cycle_speed: Vec<f32>,
         hotkey: KeyState,
+    },
+    CharacterStats {
+        #[serde(rename = "character_stats")]
+        hotkey_open: KeyState,
+        hotkey_close: KeyState,
     },
     Runes {
         #[serde(rename = "runes")]
@@ -203,6 +209,14 @@ impl Config {
                             chains.torrent_animation_speed.clone(),
                         ],
                         hotkey.clone(),
+                    )),
+                    CfgCommand::CharacterStats {
+                        hotkey_open,
+                        hotkey_close,
+                    } => Box::new(CharacterStatsEdit::new(
+                        hotkey_open.clone(),
+                        hotkey_close.clone(),
+                        chains.character_stats.clone(),
                     )),
                     CfgCommand::Runes { amount, hotkey } => {
                         Box::new(Runes::new(*amount, chains.runes.clone(), hotkey.clone()))

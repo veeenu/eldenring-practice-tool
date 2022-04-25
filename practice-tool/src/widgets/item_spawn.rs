@@ -283,7 +283,7 @@ impl Widget for ItemSpawner<'_> {
         }
 
         let style_tokens =
-            [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, [0., 0., 0., 0.])];
+            [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, super::MODAL_BACKGROUND)];
 
         if let Some(_token) = PopupModal::new(ISP_TAG)
             .flags(

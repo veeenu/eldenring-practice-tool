@@ -1,5 +1,6 @@
 #![allow(clippy::new_without_default)]
 
+use std::fmt::Display;
 use std::ptr::null_mut;
 
 use windows::core::PCSTR;
@@ -32,6 +33,7 @@ pub struct Pointers {
 
     pub all_no_dead: Bitflag<u8>,
 
+    pub character_stats: PointerChain<CharacterStats>,
     pub runes: PointerChain<u32>,
     pub igt: PointerChain<usize>,
 
@@ -75,6 +77,11 @@ pub struct Pointers {
     pub base_addresses: BaseAddresses,
 }
 
+//
+// Position
+//
+
+/// Encodes the position vector and two rotation angles.
 #[derive(Debug, Clone)]
 pub struct Position {
     pub x: PointerChain<f32>,
@@ -104,6 +111,29 @@ impl Position {
         self.z.write(z);
         self.angle1.write(r1);
         self.angle2.write(r2);
+    }
+}
+
+//
+// Character stats
+//
+
+#[derive(Debug, Clone)]
+#[repr(C)]
+pub struct CharacterStats {
+    pub vigor: i32,
+    pub mind: i32,
+    pub endurance: i32,
+    pub strength: i32,
+    pub dexterity: i32,
+    pub intelligence: i32,
+    pub faith: i32,
+    pub arcane: i32,
+}
+
+impl Display for CharacterStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "CharacterStats {{ }}")
     }
 }
 
@@ -172,8 +202,10 @@ impl Pointers {
             // Torrent ptr: world_chr_man, 0x18390, 0x18, 0
             torrent_collision: bitflag!(0b1000; world_chr_man, 0x18390, 0x18, 0, 0x58, 0xf0),
 
+            character_stats: pointer_chain!(game_data_man, 0x8, 0x3c),
             runes: pointer_chain!(game_data_man, 0x8, 0x6C),
             igt: pointer_chain!(game_data_man, 0xA0),
+
             quitout: pointer_chain!(cs_menu_man_imp, 0x8, 0x5d),
             cursor_show: bitflag!(0b1; cs_menu_man_imp, 0xAC),
             gravity: bitflag!(0b1; world_chr_man, 0x18468, 0x190, 0x68, 0x1d3),
