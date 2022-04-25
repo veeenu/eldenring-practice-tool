@@ -108,7 +108,7 @@ fn main() {
             }
         }
         Err(e) => {
-            let error_msg = format!("Unexpected error checking for new version: {}\0", e);
+            let error_msg = format!("Could not check for a new version: {}\0", e);
             unsafe {
                 MessageBoxA(
                     0 as HWND,
