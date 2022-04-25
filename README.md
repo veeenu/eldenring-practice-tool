@@ -35,11 +35,6 @@ If you spawn on horseback, the `deathcam` flag will not work properly at first.
 It will just lock the camera in place. It is enough to get off the horse and then the
 flag should work as intended again. If it doesn't work, a quitout will most likely fix it.
 
-## No upgrades in item spawner (Issue: https://github.com/veeenu/eldenring-practice-tool/issues/3)
-
-At the moment, you can't spawn an upgraded weapon as I have not figured out a way to map upgrade
-level to item ID. This feature will happen as soon as this will get figured out.
-
 # Troubleshooting / FAQ
 
 ## I found an issue. What do I do?

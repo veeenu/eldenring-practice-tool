@@ -36,7 +36,10 @@ impl CharacterStatsEdit {
 
 impl Widget for CharacterStatsEdit {
     fn render(&mut self, ui: &imgui::Ui) {
-        if ui.button_with_size(&self.label_open, [super::BUTTON_WIDTH, super::BUTTON_HEIGHT]) {
+        if ui.button_with_size(
+            &self.label_open,
+            [super::BUTTON_WIDTH, super::BUTTON_HEIGHT],
+        ) {
             self.stats = self.ptr.read();
         }
 
@@ -58,15 +61,34 @@ impl Widget for CharacterStatsEdit {
         {
             let _tok = ui.push_item_width(150.);
             if let Some(stats) = self.stats.as_mut() {
-                ui.input_int("Vigor", &mut stats.vigor).build();
-                ui.input_int("Mind", &mut stats.mind).build();
-                ui.input_int("Endurance", &mut stats.endurance).build();
-                ui.input_int("Strength", &mut stats.strength).build();
-                ui.input_int("Dexterity", &mut stats.dexterity).build();
-                ui.input_int("Intelligence", &mut stats.intelligence)
-                    .build();
-                ui.input_int("Faith", &mut stats.faith).build();
-                ui.input_int("Arcane", &mut stats.arcane).build();
+                if ui.input_int("Vigor", &mut stats.vigor).build() {
+                    stats.vigor = stats.vigor.clamp(1, 99);
+                }
+                if ui.input_int("Mind", &mut stats.mind).build() {
+                    stats.mind = stats.mind.clamp(1, 99);
+                }
+                if ui.input_int("Endurance", &mut stats.endurance).build() {
+                    stats.endurance = stats.endurance.clamp(1, 99);
+                }
+                if ui.input_int("Strength", &mut stats.strength).build() {
+                    stats.strength = stats.strength.clamp(1, 99);
+                }
+                if ui.input_int("Dexterity", &mut stats.dexterity).build() {
+                    stats.dexterity = stats.dexterity.clamp(1, 99);
+                }
+                if ui
+                    .input_int("Intelligence", &mut stats.intelligence)
+                    .build()
+                {
+                    stats.intelligence = stats.intelligence.clamp(1, 99);
+                }
+                if ui.input_int("Faith", &mut stats.faith).build() {
+                    stats.faith = stats.faith.clamp(1, 99);
+                }
+                if ui.input_int("Arcane", &mut stats.arcane).build() {
+                    stats.arcane = stats.arcane.clamp(1, 99);
+                }
+
                 if ui.button_with_size("Apply", [super::BUTTON_WIDTH, super::BUTTON_HEIGHT]) {
                     self.ptr.write(stats.clone());
                 }
