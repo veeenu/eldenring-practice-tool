@@ -124,12 +124,12 @@ impl<'a> From<&'a ItemIDNode> for ItemIDNodeRef<'a> {
     fn from(v: &'a ItemIDNode) -> Self {
         match v {
             ItemIDNode::Leaf { node, value } => ItemIDNodeRef::Leaf {
-                node: &node,
+                node,
                 value: *value,
             },
             ItemIDNode::Node { node, children } => ItemIDNodeRef::Node {
-                node: &node,
-                children: children.into_iter().map(ItemIDNodeRef::from).collect(),
+                node,
+                children: children.iter().map(ItemIDNodeRef::from).collect(),
             },
         }
     }
@@ -142,9 +142,9 @@ impl ItemIDNode {
         } else {
             match self {
                 ItemIDNode::Leaf { node, value } => {
-                    if string_match(&filter, &node) {
+                    if string_match(filter, node) {
                         Some(ItemIDNodeRef::Leaf {
-                            node: &node,
+                            node,
                             value: *value,
                         })
                     } else {
@@ -160,7 +160,7 @@ impl ItemIDNode {
                         None
                     } else {
                         Some(ItemIDNodeRef::Node {
-                            node: &node,
+                            node,
                             children,
                         })
                     }
@@ -294,17 +294,18 @@ impl Widget for ItemSpawner<'_> {
             )
             .begin_popup(ui)
         {
-            let tok = ui.push_item_width(-1.);
-            if InputText::new(ui, "##item-spawn-filter", &mut self.filter_string)
-                .hint("Filter...")
-                .build()
             {
-                self.item_id_tree = ITEM_ID_TREE
-                    .iter()
-                    .filter_map(|n| n.filter(&self.filter_string))
-                    .collect();
+                let _tok = ui.push_item_width(-1.);
+                if InputText::new(ui, "##item-spawn-filter", &mut self.filter_string)
+                    .hint("Filter...")
+                    .build()
+                {
+                    self.item_id_tree = ITEM_ID_TREE
+                        .iter()
+                        .filter_map(|n| n.filter(&self.filter_string))
+                        .collect();
+                }
             }
-            drop(tok);
             ChildWindow::new("##item-spawn-list")
                 .size([240., 200.])
                 .build(ui, || {

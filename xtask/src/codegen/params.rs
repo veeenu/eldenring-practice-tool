@@ -54,7 +54,7 @@ fn codegen_param_names() -> Result<()> {
                 }
             })
         })
-        .filter_map(|e| e);
+        .flatten();
 
     let r = Regex::new(r"^(\d+)\s+(.+)").unwrap();
 

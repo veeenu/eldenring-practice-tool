@@ -251,13 +251,12 @@ impl ParamTinkerer {
                     ListBox::new("##param_detail")
                         .size([COLUMN3, 220.])
                         .build(ui, || {
-                            let token = ui.push_item_width(120.);
+                            let _tok = ui.push_item_width(120.);
                             params.visit_param_item(
                                 param_name,
                                 param_idx,
                                 &mut ImguiParamVisitor(ui),
                             );
-                            drop(token);
                         });
                 };
             });

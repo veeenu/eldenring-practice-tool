@@ -26,7 +26,7 @@ pub static PARAMS: SyncLazy<RwLock<Params>> = SyncLazy::new(|| unsafe {
 });
 
 pub static PARAM_NAMES: SyncLazy<HashMap<String, HashMap<usize, String>>> =
-    SyncLazy::new(|| serde_json::from_str(&include_str!("codegen/param_names.json")).unwrap());
+    SyncLazy::new(|| serde_json::from_str(include_str!("codegen/param_names.json")).unwrap());
 
 #[derive(Debug)]
 #[repr(C)]
@@ -171,14 +171,11 @@ impl Params {
         param_idx: usize,
         visitor: &mut T,
     ) {
-        PARAM_VTABLE
-            .get(param)
-            .and_then(|lambda| {
-                unsafe { self.get_param_idx_ptr(param, param_idx) }.map(|v| (lambda, v))
-            })
-            .map(|(lambda, ptr)| {
-                lambda(ptr, visitor);
-            });
+        if let Some((lambda, ptr)) = PARAM_VTABLE.get(param).and_then(|lambda| {
+            unsafe { self.get_param_idx_ptr(param, param_idx) }.map(|v| (lambda, v))
+        }) {
+            lambda(ptr, visitor);
+        };
     }
 
     /// # Safety

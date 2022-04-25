@@ -228,7 +228,7 @@ impl Pointers {
             weapon_hitbox1: bitflag!(0b1; damage_ctrl, 0xA0),
             weapon_hitbox2: bitflag!(0b1; damage_ctrl, 0xA1),
             weapon_hitbox3: bitflag!(0b1; damage_ctrl, 0xA4),
-            hitbox_high: bitflag!(0b1; hit_ins_hitbox_offset + 0x0),
+            hitbox_high: bitflag!(0b1; hit_ins_hitbox_offset),
             hitbox_low: bitflag!(0b1; hit_ins_hitbox_offset + 0x1),
             hitbox_character: bitflag!(0b1; hit_ins_hitbox_offset + 0x3),
             show_map: bitflag!(0b1; group_mask + 0x2),
