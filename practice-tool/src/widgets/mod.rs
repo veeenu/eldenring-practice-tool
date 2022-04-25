@@ -4,7 +4,7 @@ use parking_lot::Mutex;
 
 pub(crate) const BUTTON_WIDTH: f32 = 240.;
 pub(crate) const BUTTON_HEIGHT: f32 = 0.;
-pub(crate) const MODAL_BACKGROUND: [f32; 4] = [0., 0., 0., 0.7];
+pub(crate) const MODAL_BACKGROUND: [f32; 4] = [0.1, 0.1, 0.1, 0.5];
 
 pub(crate) mod cycle_speed;
 pub(crate) mod deathcam;

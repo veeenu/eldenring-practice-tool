@@ -148,16 +148,6 @@ impl Widget for SavefileManager {
         if ui.button_with_size(&self.label, [super::BUTTON_WIDTH, super::BUTTON_HEIGHT]) {
             ui.open_popup(SFM_TAG);
         }
-        // let [cx, cy] = ui.cursor_pos();
-        // let [wx, wy] = ui.window_pos();
-        // let [x, y] = [cx + wx, cy + wy];
-        // unsafe {
-        //     imgui_sys::igSetNextWindowPos(
-        //         imgui_sys::ImVec2 { x, y },
-        //         Condition::Always as _,
-        //         imgui_sys::ImVec2 { x: 0., y: 0. },
-        //     )
-        // };
 
         let style_tokens =
             [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, super::MODAL_BACKGROUND)];
@@ -319,9 +309,10 @@ impl DirEntry {
         }
     }
 
-    fn values(&self) -> impl IntoIterator<Item = (usize, bool, &str)> {
+    fn values(&self, directories_only: bool) -> impl IntoIterator<Item = (usize, bool, &str)> {
         self.list
             .iter()
+            .filter(move |(d, _)| !directories_only || d.is_dir())
             .enumerate()
             .map(|(i, f)| (i, i == self.cursor, f.1.as_str()))
     }
@@ -374,8 +365,6 @@ impl DirStack {
 
         if let Some(e) = new_entry {
             self.stack.push(e);
-        } else {
-            error!("Can't enter!");
         }
     }
 
@@ -402,7 +391,10 @@ impl DirStack {
     }
 
     fn values(&self) -> impl IntoIterator<Item = (usize, bool, &str)> {
-        self.stack.last().unwrap_or(&self.top).values()
+        match self.stack.last() {
+            Some(d) => d.values(false).into_iter(),
+            None => self.top.values(true).into_iter()
+        }
     }
 
     fn current(&self) -> Option<&PathBuf> {
