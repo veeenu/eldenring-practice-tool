@@ -29,6 +29,7 @@ pub struct BaseAddresses {
     pub world_chr_man_imp: usize,
     pub func_item_spawn: usize,
     pub func_item_inject: usize,
+    pub func_remove_intro_screens: usize,
 }
 
 impl BaseAddresses {
@@ -60,6 +61,7 @@ impl BaseAddresses {
             world_chr_man_imp: self.world_chr_man_imp + base,
             func_item_spawn: self.func_item_spawn + base,
             func_item_inject: self.func_item_inject + base,
+            func_remove_intro_screens: self.func_remove_intro_screens + base,
         }
     }
 }
@@ -91,6 +93,7 @@ pub const BASE_ADDRESSES_1_02_0: BaseAddresses = BaseAddresses {
     world_chr_man_imp: 0x3c50268,
     func_item_inject: 0x54e570,
     func_item_spawn: 0x548c20,
+    func_remove_intro_screens: 0xaaad4a,
 };
 
 pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
@@ -120,6 +123,7 @@ pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
     world_chr_man_imp: 0x3c50288,
     func_item_inject: 0x54e5e0,
     func_item_spawn: 0x548c90,
+    func_remove_intro_screens: 0xaaadca,
 };
 
 pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
@@ -149,6 +153,7 @@ pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
     world_chr_man_imp: 0x3c502a8,
     func_item_inject: 0x54e5e0,
     func_item_spawn: 0x548c90,
+    func_remove_intro_screens: 0xaaae3a,
 };
 
 pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
@@ -178,6 +183,7 @@ pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
     world_chr_man_imp: 0x3c532c8,
     func_item_inject: 0x54e700,
     func_item_spawn: 0x548db0,
+    func_remove_intro_screens: 0xaaaf1a,
 };
 
 pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
@@ -207,6 +213,7 @@ pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
     world_chr_man_imp: 0x3c64e38,
     func_item_inject: 0x54f640,
     func_item_spawn: 0x549c70,
+    func_remove_intro_screens: 0xab021d,
 };
 
 pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
@@ -236,6 +243,7 @@ pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
     world_chr_man_imp: 0x3c64e38,
     func_item_inject: 0x54f640,
     func_item_spawn: 0x549c70,
+    func_remove_intro_screens: 0xab022d,
 };
 
 pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
@@ -265,6 +273,7 @@ pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
     world_chr_man_imp: 0x3c64e38,
     func_item_inject: 0x54f640,
     func_item_spawn: 0x549c70,
+    func_remove_intro_screens: 0xab020d,
 };
 
 pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
@@ -294,4 +303,6 @@ pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
     world_chr_man_imp: 0x3c080e8,
     func_item_inject: 0x552330,
     func_item_spawn: 0x54c950,
+    func_remove_intro_screens: 0xa8fb6d,
 };
+

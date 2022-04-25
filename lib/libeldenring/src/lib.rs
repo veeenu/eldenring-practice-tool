@@ -16,6 +16,8 @@ pub mod prelude {
     pub use crate::{wait_option, wait_option_thread, ParamStruct, ParamVisitor};
 }
 
+/// Wait for an option value to be valid. Repeatedly calls the provided function, sleeping
+/// 500 ms in between calls, until it returns `Some(T)`.
 pub fn wait_option<T, F: FnMut() -> Option<T>>(mut f: F) -> T {
     loop {
         if let Some(t) = f() {
@@ -25,6 +27,9 @@ pub fn wait_option<T, F: FnMut() -> Option<T>>(mut f: F) -> T {
     }
 }
 
+/// Wait for an option value to be valid. Repeatedly calls the provided function, sleeping
+/// 500 ms in between calls, until it returns `Some(T)`. The waiting happens in a separate
+/// thread.
 pub fn wait_option_thread<
     T,
     F: 'static + Send + FnMut() -> Option<T>,
@@ -42,6 +47,8 @@ pub fn wait_option_thread<
     });
 }
 
+/// Implemented by generated code. Each method allows visiting a param's value by name and
+/// stores the visited value in the second argument.
 pub trait ParamVisitor {
     fn visit_u8(&mut self, name: &str, v: &mut u8);
     fn visit_u16(&mut self, name: &str, v: &mut u16);
@@ -53,6 +60,7 @@ pub trait ParamVisitor {
     fn visit_bool(&mut self, name: &str, v: &mut bool);
 }
 
+/// Implemented by generated code. Visits all the fields of a `ParamVisitor`.
 pub trait ParamStruct {
     fn visit<T: ParamVisitor + ?Sized>(&mut self, t: &mut T);
 }

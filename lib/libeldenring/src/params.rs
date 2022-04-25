@@ -1,4 +1,5 @@
 pub use crate::codegen::param_data::*;
+use crate::prelude::base_addresses::BaseAddresses;
 
 use std::collections::{BTreeMap, HashMap};
 use std::ffi::c_void;
@@ -11,8 +12,7 @@ use widestring::U16CStr;
 use windows::core::PCSTR;
 use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 
-use crate::codegen::base_addresses;
-use crate::version::{Version, VERSION};
+use crate::version::VERSION;
 use crate::{wait_option, ParamVisitor};
 
 pub static PARAMS: SyncLazy<RwLock<Params>> = SyncLazy::new(|| unsafe {
@@ -65,19 +65,6 @@ pub struct Param<T: 'static> {
     pub param: Option<&'static mut T>,
 }
 
-const fn addresses(v: &Version) -> base_addresses::BaseAddresses {
-    match v {
-        Version::V1_02_0 => base_addresses::BASE_ADDRESSES_1_02_0,
-        Version::V1_02_1 => base_addresses::BASE_ADDRESSES_1_02_1,
-        Version::V1_02_2 => base_addresses::BASE_ADDRESSES_1_02_2,
-        Version::V1_02_3 => base_addresses::BASE_ADDRESSES_1_02_3,
-        Version::V1_03_0 => base_addresses::BASE_ADDRESSES_1_03_0,
-        Version::V1_03_1 => base_addresses::BASE_ADDRESSES_1_03_1,
-        Version::V1_03_2 => base_addresses::BASE_ADDRESSES_1_03_2,
-        Version::V1_04_0 => base_addresses::BASE_ADDRESSES_1_04_0,
-    }
-}
-
 pub struct Params(BTreeMap<String, (*const c_void, isize)>);
 unsafe impl Send for Params {}
 unsafe impl Sync for Params {}
@@ -94,7 +81,7 @@ impl Params {
     ///
     /// Accesses raw pointers. Should never crash as the param pointers are static.
     pub unsafe fn refresh(&mut self) -> Result<(), String> {
-        let addresses = addresses(&*VERSION);
+        let addresses: BaseAddresses = (*VERSION).into();
         let module_base_addr = GetModuleHandleA(PCSTR(null_mut())).0 as usize;
         let base_ptr = addresses.cs_regulation_manager + module_base_addr;
 

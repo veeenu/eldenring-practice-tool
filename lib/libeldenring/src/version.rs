@@ -1,6 +1,8 @@
 use std::lazy::SyncLazy;
 use std::ptr::null_mut;
 
+use crate::prelude::base_addresses::{self, BaseAddresses};
+
 use log::*;
 use widestring::U16CString;
 use windows::core::PCWSTR;
@@ -10,6 +12,7 @@ use windows::Win32::Storage::FileSystem::{
 };
 use windows::Win32::System::LibraryLoader::{GetModuleFileNameW, GetModuleHandleW};
 
+#[derive(Clone, Copy)]
 pub enum Version {
     V1_02_0,
     V1_02_1,
@@ -39,6 +42,25 @@ impl From<(u32, u32, u32)> for Version {
                 panic!()
             }
         }
+    }
+}
+
+const fn addresses(v: Version) -> base_addresses::BaseAddresses {
+    match v {
+        Version::V1_02_0 => base_addresses::BASE_ADDRESSES_1_02_0,
+        Version::V1_02_1 => base_addresses::BASE_ADDRESSES_1_02_1,
+        Version::V1_02_2 => base_addresses::BASE_ADDRESSES_1_02_2,
+        Version::V1_02_3 => base_addresses::BASE_ADDRESSES_1_02_3,
+        Version::V1_03_0 => base_addresses::BASE_ADDRESSES_1_03_0,
+        Version::V1_03_1 => base_addresses::BASE_ADDRESSES_1_03_1,
+        Version::V1_03_2 => base_addresses::BASE_ADDRESSES_1_03_2,
+        Version::V1_04_0 => base_addresses::BASE_ADDRESSES_1_04_0,
+    }
+}
+
+impl From<Version> for BaseAddresses {
+    fn from(v: Version) -> Self {
+        addresses(v)
     }
 }
 
