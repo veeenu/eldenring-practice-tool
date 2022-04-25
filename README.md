@@ -97,7 +97,8 @@ Sure! See you over here 👉 [https://twitch.tv/johndisandonato](https://twitch.
 - [curiouspeanut](https://twitch.tv/curiouspeanut), [Weider96](https://twitch.tv/weider96),
   [Siegbruh](https://twitch.tv/siegbruh), [catalystz](https://twitch.tv/catalystz),
   [danisangb](https://twitch.tv/danisangb), [GiantCookieJar](https://twitch.tv/GiantCookieJar),
-  [Ahady](https://twitch.tv/ahady), [Gin](https://twitch.tv/g1nnz)
+  [Ahady](https://twitch.tv/ahady), [Gin](https://twitch.tv/g1nnz),
+  [Nemz38](https://twitch.tv/nemz38), [Noobest](https://twitch.tv/noobest),
   for beta testing the tool.
 
 # Development

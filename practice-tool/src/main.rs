@@ -1,45 +1,21 @@
-use hudhook::{inject, log};
-use simplelog::*;
+// johndisandonato's Elden Ring Practice Tool
+// Copyright (C) 2022  johndisandonato <https://github.com/veeenu>
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published
+// by the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-fn err_to_string<T: std::fmt::Display>(e: T) -> String {
-    format!("Error: {}", e)
-}
-
-fn perform_injection() -> Result<(), String> {
-    let mut dll_path = std::env::current_exe().unwrap();
-    dll_path.pop();
-    dll_path.push("jdsd_er_practice_tool.dll");
-
-    if !dll_path.exists() {
-        dll_path.pop();
-        dll_path.push("libjdsd_er_practice_tool.dll");
-        dll_path.set_extension("dll");
-    }
-
-    let dll_path = dll_path.canonicalize().map_err(err_to_string)?;
-    log::trace!("Injecting {:?}", dll_path);
-
-    inject::inject("ELDEN RING™", dll_path);
-
-    Ok(())
-}
-
-fn main() {
-    CombinedLogger::init(vec![TermLogger::new(
-        LevelFilter::Trace,
-        ConfigBuilder::new().build(),
-        TerminalMode::Mixed,
-        ColorChoice::Auto,
-    )])
-    .ok();
-    log::info!("test");
-    perform_injection().unwrap();
-}
-
-/*
-use hudhook::inject::inject;
 use pkg_version::*;
-use semver::Version;
+use semver::*;
 use simplelog::*;
 use winapi::shared::windef::*;
 use winapi::um::winuser::*;
@@ -53,8 +29,8 @@ fn get_current_version() -> Version {
         major: pkg_version_major!(),
         minor: pkg_version_minor!(),
         patch: pkg_version_patch!(),
-        pre: vec![],
-        build: vec![],
+        pre: Prerelease::EMPTY,
+        build: BuildMetadata::EMPTY,
     }
 }
 
@@ -67,10 +43,11 @@ fn get_latest_version() -> Result<(Version, String, String), String> {
     }
 
     let release =
-        ureq::get("https://api.github.com/repos/veeenu/darksoulsiii-practice-tool/releases/latest")
+        ureq::get("https://api.github.com/repos/veeenu/eldenring-practice-tool/releases/latest")
             .call()
-            .into_json_deserialize::<GithubRelease>()
-            .map_err(|e| format!("Couldn't check version: {:?}", e))?;
+            .map_err(|e| format!("{}", e))?
+            .into_json::<GithubRelease>()
+            .map_err(|e| format!("{}", e))?;
 
     let version = Version::parse(&release.tag_name).map_err(err_to_string)?;
 
@@ -80,18 +57,18 @@ fn get_latest_version() -> Result<(Version, String, String), String> {
 fn perform_injection() -> Result<(), String> {
     let mut dll_path = std::env::current_exe().unwrap();
     dll_path.pop();
-    dll_path.push("jdsd_dsiii_practice_tool.dll");
+    dll_path.push("jdsd_er_practice_tool.dll");
 
     if !dll_path.exists() {
         dll_path.pop();
-        dll_path.push("libjdsd_dsiii_practice_tool");
+        dll_path.push("libjdsd_er_practice_tool");
         dll_path.set_extension("dll");
     }
 
     let dll_path = dll_path.canonicalize().map_err(err_to_string)?;
     log::trace!("Injecting {:?}", dll_path);
 
-    inject("DARK SOULS III", dll_path);
+    hudhook::inject::inject("ELDEN RING™", dll_path);
 
     Ok(())
 }
@@ -100,9 +77,10 @@ fn main() {
     CombinedLogger::init(vec![TermLogger::new(
         LevelFilter::Trace,
         ConfigBuilder::new()
-            .add_filter_allow("jdsd_dsiii_practice_tool".to_string())
+            .add_filter_allow("jdsd_er_practice_tool".to_string())
             .build(),
         TerminalMode::Mixed,
+        ColorChoice::Auto,
     )])
     .ok();
     let current_version = get_current_version();
@@ -153,4 +131,4 @@ fn main() {
             );
         }
     }
-}*/
+}
