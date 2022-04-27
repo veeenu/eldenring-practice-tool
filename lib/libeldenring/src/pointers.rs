@@ -121,18 +121,18 @@ impl Position {
 #[derive(Debug, Clone)]
 #[repr(C)]
 pub struct CharacterStats {
-    pub vigor: i32,         // 3C
-    pub mind: i32,          // 40
-    pub endurance: i32,     // 44
-    pub strength: i32,      // 48
-    pub dexterity: i32,     // 4C
-    pub intelligence: i32,  // 50
-    pub faith: i32,         // 54
-    pub arcane: i32,        // 58
-    pub pad1: [u32; 2],     // 60, 64
-    pub level: i32,         // 68
-    pub runes: i32,         // 6C
-    pub runes_tot: i32,     // 70
+    pub vigor: i32,
+    pub mind: i32,
+    pub endurance: i32,
+    pub strength: i32,
+    pub dexterity: i32,
+    pub intelligence: i32,
+    pub faith: i32,
+    pub arcane: i32,
+    pub pad1: [u32; 3],
+    pub level: i32,
+    pub runes: i32,
+    pub runes_tot: i32,
 }
 
 impl Display for CharacterStats {
@@ -144,16 +144,6 @@ impl Display for CharacterStats {
 impl Pointers {
     pub fn new() -> Self {
         let base_module_address = unsafe { GetModuleHandleA(PCSTR(null_mut())) }.0 as usize;
-        // let base_addresses = match *crate::version::VERSION {
-        //     Version::V1_02_0 => base_addresses::BASE_ADDRESSES_1_02_0,
-        //     Version::V1_02_1 => base_addresses::BASE_ADDRESSES_1_02_1,
-        //     Version::V1_02_2 => base_addresses::BASE_ADDRESSES_1_02_2,
-        //     Version::V1_02_3 => base_addresses::BASE_ADDRESSES_1_02_3,
-        //     Version::V1_03_0 => base_addresses::BASE_ADDRESSES_1_03_0,
-        //     Version::V1_03_1 => base_addresses::BASE_ADDRESSES_1_03_1,
-        //     Version::V1_03_2 => base_addresses::BASE_ADDRESSES_1_03_2,
-        //     Version::V1_04_0 => base_addresses::BASE_ADDRESSES_1_04_0,
-        // }
         let base_addresses = BaseAddresses::from(*crate::version::VERSION)
             .with_module_base_addr(base_module_address);
 
@@ -172,10 +162,12 @@ impl Pointers {
         } = base_addresses;
 
         // Special cases
+        
+        let version = *crate::version::VERSION;
+        use Version::*;
 
         let global_position_offset = {
-            use Version::*;
-            match *crate::version::VERSION {
+            match version {
                 V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6b8,
                 V1_04_0 | V1_04_1 => 0x6b0,
             }
@@ -214,7 +206,12 @@ impl Pointers {
             quitout: pointer_chain!(cs_menu_man_imp, 0x8, 0x5d),
             cursor_show: bitflag!(0b1; cs_menu_man_imp, 0xAC),
             gravity: bitflag!(0b1; world_chr_man, 0x18468, 0x190, 0x68, 0x1d3),
-            display_stable_pos: bitflag!(0b1; world_chr_man, 0x18468, 0x6FD),
+            display_stable_pos: bitflag!(0b1; world_chr_man, 0x18468, 
+                match version {
+                    V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6FD,
+                    V1_04_0 | V1_04_1 => 0x6F5,
+                }
+            ),
             global_position: Position {
                 x: pointer_chain!(world_chr_man, 0x18468, global_position_offset),
                 y: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x4),
