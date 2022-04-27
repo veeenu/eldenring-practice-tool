@@ -1,4 +1,8 @@
-# eldenring-practice-tool
+# Elden Ring Practice Tool
+
+[![build](https://github.com/veeenu/eldenring-practice-tool/actions/workflows/build.yml/badge.svg)](https://github.com/veeenu/eldenring-practice-tool/actions)
+[![GitHub all releases](https://img.shields.io/github/downloads/veeenu/eldenring-practice-tool/total)](https://github.com/veeenu/eldenring-practice-tool/releases/latest)
+[![GitHub](https://img.shields.io/github/license/veeenu/eldenring-practice-tool)](https://github.com/veeenu/eldenring-practice-tool/blob/main/LICENSE)
 
 A tool for practicing speedruns. It is compatible with all Elden Ring patches.
 
