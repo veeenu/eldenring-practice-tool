@@ -66,13 +66,18 @@ static AOBS_DIRECT: SyncLazy<Vec<(&str, Vec<&str>)>> = SyncLazy::new(|| {
 ]
 });
 
-#[derive(PartialEq, Eq, Hash)]
+#[derive(PartialEq, Eq, Hash, Clone, Copy)]
 pub struct Version(u32, u32, u32);
 
 impl Version {
-    fn to_fromsoft_string(&self) -> String {
+    fn to_fromsoft_string(self) -> String {
         format!("{}.{:02}.{}", self.0, self.1, self.2)
     }
+}
+
+struct VersionData {
+    version: Version,
+    aobs: Vec<(&'static str, usize)>,
 }
 
 fn szcmp(source: &[CHAR], s: &str) -> bool {
@@ -281,7 +286,12 @@ fn get_file_version(file: &Path) -> Version {
     Version(major, minor, patch)
 }
 
-fn codegen_struct() -> String {
+//
+// Codegen routine
+//
+
+/// Generate the `BaseAddresses` struct.
+fn codegen_base_addresses_struct() -> String {
     let mut generated = String::new();
 
     generated.push_str("// **********************************\n");
@@ -338,7 +348,8 @@ fn codegen_struct() -> String {
     generated
 }
 
-fn codegen_version(ver: &Version, aobs: &[(&str, usize)]) -> String {
+/// Generate `BaseAddresses` instances.
+fn codegen_base_addresses_instances(ver: &Version, aobs: &[(&str, usize)]) -> String {
     let mut string = aobs.iter().fold(
         format!(
             "pub const BASE_ADDRESSES_{}_{:02}_{}: BaseAddresses = BaseAddresses {{\n",
@@ -350,6 +361,68 @@ fn codegen_version(ver: &Version, aobs: &[(&str, usize)]) -> String {
         },
     );
     string.push_str("};\n\n");
+    string
+}
+
+/// Generate the `Version` enum and `From<Version> for BaseAddresses`.
+fn codegen_version_enum(ver: &[VersionData]) -> String {
+    let mut string = String::new();
+
+    // pub enum Version
+
+    string.push_str("#[derive(Clone, Copy)]\n");
+    string.push_str("pub enum Version {\n");
+
+    for v in ver {
+        string.push_str(&format!(
+            "    V{}_{:02}_{},\n",
+            v.version.0, v.version.1, v.version.2
+        ));
+    }
+
+    string.push_str("}\n\n");
+
+    // impl From<(u32, u32, u32)> for Version
+
+    string.push_str("impl From<(u32, u32, u32)> for Version {\n");
+    string.push_str("    fn from(v: (u32, u32, u32)) -> Self {\n");
+    string.push_str("        match v {\n");
+
+    for v in ver {
+        let Version(maj, min, patch) = v.version;
+        string.push_str(&format!(
+            "            ({maj}, {min}, {patch}) => Version::V{maj}_{min:02}_{patch},\n"
+        ));
+    }
+
+    string.push_str("            (maj, min, patch) => {\n");
+    string.push_str(
+        "                log::error!(\"Unrecognized version {maj}.{min:02}.{patch}\");\n",
+    );
+    string.push_str("                panic!()\n");
+    string.push_str("            }\n");
+    string.push_str("        }\n");
+    string.push_str("    }\n");
+    string.push_str("}\n\n");
+
+    // impl From<Version> for BaseAddresses
+
+    string.push_str("impl From<Version> for BaseAddresses {\n");
+    string.push_str("    fn from(v: Version) -> Self {\n");
+    string.push_str("        match v {\n");
+
+    for v in ver {
+        let Version(maj, min, patch) = v.version;
+        let stem = format!("{maj}_{min:02}_{patch}");
+        string.push_str(&format!(
+            "            Version::V{stem} => BASE_ADDRESSES_{stem},\n"
+        ));
+    }
+
+    string.push_str("        }\n");
+    string.push_str("    }\n");
+    string.push_str("}\n\n");
+
     string
 }
 
@@ -383,7 +456,7 @@ fn codegen_base_addresses_path() -> PathBuf {
 pub(crate) fn get_base_addresses() {
     let mut processed_versions: HashSet<Version> = HashSet::new();
 
-    let codegen = patches_paths()
+    let version_data = patches_paths()
         .filter(|p| p.exists())
         .filter_map(|exe| {
             let version = get_file_version(&exe);
@@ -394,16 +467,20 @@ pub(crate) fn get_base_addresses() {
                 println!("\nVERSION {}: {:?}", version.to_fromsoft_string(), exe);
 
                 let (_base_addr, bytes) = get_base_module_bytes(&exe).unwrap();
-                let mem_aobs = find_aobs(bytes);
-                let codegen = codegen_version(&version, &mem_aobs);
+                let aobs = find_aobs(bytes);
                 processed_versions.insert(version);
-                Some(codegen)
+                Some(VersionData { version, aobs })
             }
         })
-        .fold(codegen_struct(), |mut o, i| {
-            o.push_str(&i);
-            o
-        });
+        .collect::<Vec<_>>();
+
+    let mut codegen = codegen_base_addresses_struct();
+    codegen.push_str(&codegen_version_enum(&version_data));
+
+    let codegen = version_data.iter().fold(codegen, |mut o, i| {
+        o.push_str(&codegen_base_addresses_instances(&i.version, &i.aobs));
+        o
+    });
 
     File::create(codegen_base_addresses_path())
         .unwrap()

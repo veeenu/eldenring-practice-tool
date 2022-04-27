@@ -1,7 +1,7 @@
 use std::lazy::SyncLazy;
 use std::ptr::null_mut;
 
-use crate::prelude::base_addresses::{self, BaseAddresses};
+pub use crate::prelude::base_addresses::Version;
 
 use log::*;
 use widestring::U16CString;
@@ -12,57 +12,7 @@ use windows::Win32::Storage::FileSystem::{
 };
 use windows::Win32::System::LibraryLoader::{GetModuleFileNameW, GetModuleHandleW};
 
-#[derive(Clone, Copy)]
-pub enum Version {
-    V1_02_0,
-    V1_02_1,
-    V1_02_2,
-    V1_02_3,
-    V1_03_0,
-    V1_03_1,
-    V1_03_2,
-    V1_04_0,
-}
-
 pub static VERSION: SyncLazy<Version> = SyncLazy::new(get_version);
-
-impl From<(u32, u32, u32)> for Version {
-    fn from(v: (u32, u32, u32)) -> Self {
-        match v {
-            (1, 2, 0) => Version::V1_02_0,
-            (1, 2, 1) => Version::V1_02_1,
-            (1, 2, 2) => Version::V1_02_2,
-            (1, 2, 3) => Version::V1_02_3,
-            (1, 3, 0) => Version::V1_03_0,
-            (1, 3, 1) => Version::V1_03_1,
-            (1, 3, 2) => Version::V1_03_2,
-            (1, 4, 0) => Version::V1_04_0,
-            _ => {
-                error!("Unrecognized version {}.{:02}.{}", v.0, v.1, v.2);
-                panic!()
-            }
-        }
-    }
-}
-
-const fn addresses(v: Version) -> base_addresses::BaseAddresses {
-    match v {
-        Version::V1_02_0 => base_addresses::BASE_ADDRESSES_1_02_0,
-        Version::V1_02_1 => base_addresses::BASE_ADDRESSES_1_02_1,
-        Version::V1_02_2 => base_addresses::BASE_ADDRESSES_1_02_2,
-        Version::V1_02_3 => base_addresses::BASE_ADDRESSES_1_02_3,
-        Version::V1_03_0 => base_addresses::BASE_ADDRESSES_1_03_0,
-        Version::V1_03_1 => base_addresses::BASE_ADDRESSES_1_03_1,
-        Version::V1_03_2 => base_addresses::BASE_ADDRESSES_1_03_2,
-        Version::V1_04_0 => base_addresses::BASE_ADDRESSES_1_04_0,
-    }
-}
-
-impl From<Version> for BaseAddresses {
-    fn from(v: Version) -> Self {
-        addresses(v)
-    }
-}
 
 fn get_version() -> Version {
     let file_path = {

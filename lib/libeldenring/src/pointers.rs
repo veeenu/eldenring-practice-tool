@@ -6,8 +6,8 @@ use std::ptr::null_mut;
 use windows::core::PCSTR;
 use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 
-use crate::codegen::base_addresses::{self, BaseAddresses};
 use crate::memedit::*;
+use crate::prelude::base_addresses::BaseAddresses;
 use crate::prelude::Version;
 
 #[derive(Debug)]
@@ -121,14 +121,18 @@ impl Position {
 #[derive(Debug, Clone)]
 #[repr(C)]
 pub struct CharacterStats {
-    pub vigor: i32,
-    pub mind: i32,
-    pub endurance: i32,
-    pub strength: i32,
-    pub dexterity: i32,
-    pub intelligence: i32,
-    pub faith: i32,
-    pub arcane: i32,
+    pub vigor: i32,         // 3C
+    pub mind: i32,          // 40
+    pub endurance: i32,     // 44
+    pub strength: i32,      // 48
+    pub dexterity: i32,     // 4C
+    pub intelligence: i32,  // 50
+    pub faith: i32,         // 54
+    pub arcane: i32,        // 58
+    pub pad1: [u32; 2],     // 60, 64
+    pub level: i32,         // 68
+    pub runes: i32,         // 6C
+    pub runes_tot: i32,     // 70
 }
 
 impl Display for CharacterStats {
@@ -140,17 +144,18 @@ impl Display for CharacterStats {
 impl Pointers {
     pub fn new() -> Self {
         let base_module_address = unsafe { GetModuleHandleA(PCSTR(null_mut())) }.0 as usize;
-        let base_addresses = match *crate::version::VERSION {
-            Version::V1_02_0 => base_addresses::BASE_ADDRESSES_1_02_0,
-            Version::V1_02_1 => base_addresses::BASE_ADDRESSES_1_02_1,
-            Version::V1_02_2 => base_addresses::BASE_ADDRESSES_1_02_2,
-            Version::V1_02_3 => base_addresses::BASE_ADDRESSES_1_02_3,
-            Version::V1_03_0 => base_addresses::BASE_ADDRESSES_1_03_0,
-            Version::V1_03_1 => base_addresses::BASE_ADDRESSES_1_03_1,
-            Version::V1_03_2 => base_addresses::BASE_ADDRESSES_1_03_2,
-            Version::V1_04_0 => base_addresses::BASE_ADDRESSES_1_04_0,
-        }
-        .with_module_base_addr(base_module_address);
+        // let base_addresses = match *crate::version::VERSION {
+        //     Version::V1_02_0 => base_addresses::BASE_ADDRESSES_1_02_0,
+        //     Version::V1_02_1 => base_addresses::BASE_ADDRESSES_1_02_1,
+        //     Version::V1_02_2 => base_addresses::BASE_ADDRESSES_1_02_2,
+        //     Version::V1_02_3 => base_addresses::BASE_ADDRESSES_1_02_3,
+        //     Version::V1_03_0 => base_addresses::BASE_ADDRESSES_1_03_0,
+        //     Version::V1_03_1 => base_addresses::BASE_ADDRESSES_1_03_1,
+        //     Version::V1_03_2 => base_addresses::BASE_ADDRESSES_1_03_2,
+        //     Version::V1_04_0 => base_addresses::BASE_ADDRESSES_1_04_0,
+        // }
+        let base_addresses = BaseAddresses::from(*crate::version::VERSION)
+            .with_module_base_addr(base_module_address);
 
         let BaseAddresses {
             chr_dbg_flags,
@@ -172,7 +177,7 @@ impl Pointers {
             use Version::*;
             match *crate::version::VERSION {
                 V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6b8,
-                V1_04_0 => 0x6b0,
+                V1_04_0 | V1_04_1 => 0x6b0,
             }
         };
 

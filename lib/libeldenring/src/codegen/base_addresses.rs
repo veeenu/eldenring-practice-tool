@@ -66,6 +66,55 @@ impl BaseAddresses {
     }
 }
 
+#[derive(Clone, Copy)]
+pub enum Version {
+    V1_02_0,
+    V1_02_1,
+    V1_02_2,
+    V1_02_3,
+    V1_03_0,
+    V1_03_1,
+    V1_03_2,
+    V1_04_0,
+    V1_04_1,
+}
+
+impl From<(u32, u32, u32)> for Version {
+    fn from(v: (u32, u32, u32)) -> Self {
+        match v {
+            (1, 2, 0) => Version::V1_02_0,
+            (1, 2, 1) => Version::V1_02_1,
+            (1, 2, 2) => Version::V1_02_2,
+            (1, 2, 3) => Version::V1_02_3,
+            (1, 3, 0) => Version::V1_03_0,
+            (1, 3, 1) => Version::V1_03_1,
+            (1, 3, 2) => Version::V1_03_2,
+            (1, 4, 0) => Version::V1_04_0,
+            (1, 4, 1) => Version::V1_04_1,
+            (maj, min, patch) => {
+                log::error!("Unrecognized version {maj}.{min:02}.{patch}");
+                panic!()
+            }
+        }
+    }
+}
+
+impl From<Version> for BaseAddresses {
+    fn from(v: Version) -> Self {
+        match v {
+            Version::V1_02_0 => BASE_ADDRESSES_1_02_0,
+            Version::V1_02_1 => BASE_ADDRESSES_1_02_1,
+            Version::V1_02_2 => BASE_ADDRESSES_1_02_2,
+            Version::V1_02_3 => BASE_ADDRESSES_1_02_3,
+            Version::V1_03_0 => BASE_ADDRESSES_1_03_0,
+            Version::V1_03_1 => BASE_ADDRESSES_1_03_1,
+            Version::V1_03_2 => BASE_ADDRESSES_1_03_2,
+            Version::V1_04_0 => BASE_ADDRESSES_1_04_0,
+            Version::V1_04_1 => BASE_ADDRESSES_1_04_1,
+        }
+    }
+}
+
 pub const BASE_ADDRESSES_1_02_0: BaseAddresses = BaseAddresses {
     bullet_man: 0x3c4c9c8,
     csfd4_virtual_memory_flag: 0x3c526e8,
@@ -304,5 +353,35 @@ pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
     func_item_inject: 0x552330,
     func_item_spawn: 0x54c950,
     func_remove_intro_screens: 0xa8fb6d,
+};
+
+pub const BASE_ADDRESSES_1_04_1: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3c04828,
+    csfd4_virtual_memory_flag: 0x3c0a538,
+    cs_flipper: 0x442ab08,
+    cs_menu_man: 0x8ba66924,
+    cs_menu_man_imp: 0x3c0d9d0,
+    cs_net_man: 0x3bfcf40,
+    cs_regulation_manager: 0x3c27fd8,
+    cs_session_manager: 0x3c1ba90,
+    chr_dbg_flags: 0x3c082df,
+    damage_ctrl: 0x3c084b8,
+    field_area: 0x3c0b2c0,
+    game_data_man: 0x3c00028,
+    game_man: 0x3c0ba08,
+    global_pos: 0x3c080e8,
+    group_mask: 0x39f681f,
+    hit_ins: 0x3c0c1c8,
+    hit_ins_hitbox_offset: 0x3c0c1b4,
+    map_item_man: 0x3c09b50,
+    menu_man_ins: 0x3c0d9d0,
+    msg_repository: 0x3c1eab8,
+    solo_param_repository: 0x3c232e8,
+    world_chr_man: 0x3c080e8,
+    world_chr_man_dbg: 0x3c082d8,
+    world_chr_man_imp: 0x3c080e8,
+    func_item_inject: 0x552240,
+    func_item_spawn: 0x54c860,
+    func_remove_intro_screens: 0xa8fa7d,
 };
 

@@ -4,6 +4,7 @@ use crate::util::KeyState;
 use libeldenring::prelude::*;
 
 use imgui::*;
+use log::*;
 
 #[derive(Debug)]
 pub(crate) struct CharacterStatsEdit {
@@ -41,6 +42,7 @@ impl Widget for CharacterStatsEdit {
             [super::BUTTON_WIDTH, super::BUTTON_HEIGHT],
         ) {
             self.stats = self.ptr.read();
+            debug!("{:?}", self.stats);
         }
 
         if self.stats.is_some() {
@@ -61,6 +63,9 @@ impl Widget for CharacterStatsEdit {
         {
             let _tok = ui.push_item_width(150.);
             if let Some(stats) = self.stats.as_mut() {
+                if ui.input_int("Level", &mut stats.level).build() {
+                    stats.level = stats.level.clamp(1, 999);
+                }
                 if ui.input_int("Vigor", &mut stats.vigor).build() {
                     stats.vigor = stats.vigor.clamp(1, 99);
                 }
@@ -87,6 +92,13 @@ impl Widget for CharacterStatsEdit {
                 }
                 if ui.input_int("Arcane", &mut stats.arcane).build() {
                     stats.arcane = stats.arcane.clamp(1, 99);
+                }
+
+                if ui.input_int("Runes", &mut stats.runes).build() {
+                    stats.runes = stats.level.clamp(1, 2i32.pow(31));
+                }
+                if ui.input_int("Runes (tot)", &mut stats.runes_tot).build() {
+                    stats.runes_tot = stats.level.clamp(1, 2i32.pow(31));
                 }
 
                 if ui.button_with_size("Apply", [super::BUTTON_WIDTH, super::BUTTON_HEIGHT]) {
