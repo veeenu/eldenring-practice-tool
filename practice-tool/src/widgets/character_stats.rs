@@ -96,9 +96,6 @@ impl Widget for CharacterStatsEdit {
                 if ui.input_int("Runes", &mut stats.runes).build() {
                     stats.runes = stats.runes.clamp(1, i32::MAX);
                 }
-                if ui.input_int("Runes (tot)", &mut stats.runes_tot).build() {
-                    stats.runes_tot = stats.runes_tot.clamp(1, i32::MAX);
-                }
 
                 if ui.button_with_size("Apply", [super::BUTTON_WIDTH, super::BUTTON_HEIGHT]) {
                     self.ptr.write(stats.clone());

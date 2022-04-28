@@ -314,7 +314,7 @@ impl Widget for ItemSpawner<'_> {
                     }
                 });
 
-            ui.set_next_item_width(110.);
+            ui.set_next_item_width(115.);
             ui.combo(
                 "##item-spawn-affinity",
                 &mut self.affinity,
@@ -323,7 +323,7 @@ impl Widget for ItemSpawner<'_> {
             );
 
             ui.same_line();
-            ui.set_next_item_width(110.);
+            ui.set_next_item_width(115.);
             ui.combo(
                 "##item-spawn-upgrade",
                 &mut self.upgrade,
