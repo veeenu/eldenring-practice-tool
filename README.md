@@ -12,7 +12,7 @@ To run the tool, extract all files from the zip archive and double-click the
 `.exe` file he tool will automatically appear over the game, and it can be
 toggled by pressing `0`.
 
-You can download the latest release [here](https://github.com/veeenu/eldenring-practice-tool/releases).
+You can download the latest release [here](https://github.com/veeenu/eldenring-practice-tool/releases/latest).
 
 If you need help, **please first read** the [Known Issues](#known-issues) and [FAQ](#troubleshooting--faq) sections for
 solutions, or ways to get in touch.
@@ -92,7 +92,7 @@ Sure! See you over here 👉 [https://twitch.tv/johndisandonato](https://twitch.
 - The [Soulsmodding community](http://soulsmodding.wikidot.com/) for the
   [Param definitions](https://github.com/soulsmods/Paramdex) and the
   Cheat Engine table maintained by Pav.
-- Pav and wasted for technical help in figuring out pointers.
+- Pav, wasted, jamesq7 for technical help in figuring things out.
 - [curiouspeanut](https://twitch.tv/curiouspeanut), [Weider96](https://twitch.tv/weider96),
   [Siegbruh](https://twitch.tv/siegbruh), [catalystz](https://twitch.tv/catalystz),
   [danisangb](https://twitch.tv/danisangb), [GiantCookieJar](https://twitch.tv/GiantCookieJar),
@@ -125,7 +125,7 @@ cargo xtask dist
 
 This task will create release artifacts in `target/dist/jdsd_er_practice_tool.zip`.
 
-## Codegen
+## Code generation
 
 ```
 cargo xtask codegen
