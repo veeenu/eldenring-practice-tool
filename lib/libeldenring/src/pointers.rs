@@ -73,6 +73,7 @@ pub struct Pointers {
     // Functions
     pub func_item_spawn: usize,
     pub func_item_inject: usize,
+    pub func_dbg_action_force: PointerChain<u8>,
 
     pub base_addresses: BaseAddresses,
 }
@@ -287,6 +288,7 @@ impl Pointers {
 
             func_item_spawn,
             func_item_inject,
+            func_dbg_action_force: pointer_chain!(base_addresses.func_dbg_action_force + 7),
             base_addresses,
         }
     }

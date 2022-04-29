@@ -18,6 +18,7 @@ use crate::widgets::quitout::Quitout;
 use crate::widgets::runes::Runes;
 use crate::widgets::savefile_manager::SavefileManager;
 use crate::widgets::character_stats::CharacterStatsEdit;
+use crate::widgets::action_freeze::ActionFreeze;
 use crate::widgets::Widget;
 
 #[cfg_attr(test, derive(Debug))]
@@ -156,6 +157,12 @@ impl Config {
                         Box::new(Deathcam::new(
                             chains.deathcam.0.clone(),
                             chains.deathcam.1.clone(),
+                            hotkey.clone(),
+                        ))
+                    }
+                    CfgCommand::SpecialFlag { flag, hotkey } if flag == "action_freeze" => {
+                        Box::new(ActionFreeze::new(
+                            chains.func_dbg_action_force.clone(),
                             hotkey.clone(),
                         ))
                     }

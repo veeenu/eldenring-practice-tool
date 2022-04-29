@@ -16,6 +16,7 @@ pub(crate) mod position;
 pub(crate) mod quitout;
 pub(crate) mod runes;
 pub(crate) mod character_stats;
+pub(crate) mod action_freeze;
 pub(crate) mod savefile_manager;
 
 pub(crate) trait Widget: Send + Sync + std::fmt::Debug {

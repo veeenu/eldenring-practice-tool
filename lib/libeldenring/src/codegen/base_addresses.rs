@@ -30,6 +30,7 @@ pub struct BaseAddresses {
     pub func_item_spawn: usize,
     pub func_item_inject: usize,
     pub func_remove_intro_screens: usize,
+    pub func_dbg_action_force: usize,
 }
 
 impl BaseAddresses {
@@ -62,6 +63,7 @@ impl BaseAddresses {
             func_item_spawn: self.func_item_spawn + base,
             func_item_inject: self.func_item_inject + base,
             func_remove_intro_screens: self.func_remove_intro_screens + base,
+            func_dbg_action_force: self.func_dbg_action_force + base,
         }
     }
 }
@@ -140,6 +142,7 @@ pub const BASE_ADDRESSES_1_02_0: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c50268,
     world_chr_man_dbg: 0x3c50478,
     world_chr_man_imp: 0x3c50268,
+    func_dbg_action_force: 0x527214a,
     func_item_inject: 0x54e570,
     func_item_spawn: 0x548c20,
     func_remove_intro_screens: 0xaaad4a,
@@ -170,6 +173,7 @@ pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c50288,
     world_chr_man_dbg: 0x3c50498,
     world_chr_man_imp: 0x3c50288,
+    func_dbg_action_force: 0x53f757d,
     func_item_inject: 0x54e5e0,
     func_item_spawn: 0x548c90,
     func_remove_intro_screens: 0xaaadca,
@@ -200,6 +204,7 @@ pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c502a8,
     world_chr_man_dbg: 0x3c504b8,
     world_chr_man_imp: 0x3c502a8,
+    func_dbg_action_force: 0x4f45cb0,
     func_item_inject: 0x54e5e0,
     func_item_spawn: 0x548c90,
     func_remove_intro_screens: 0xaaae3a,
@@ -230,6 +235,7 @@ pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c532c8,
     world_chr_man_dbg: 0x3c53520,
     world_chr_man_imp: 0x3c532c8,
+    func_dbg_action_force: 0x4edd1ef,
     func_item_inject: 0x54e700,
     func_item_spawn: 0x548db0,
     func_remove_intro_screens: 0xaaaf1a,
@@ -260,6 +266,7 @@ pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c64e38,
     world_chr_man_dbg: 0x3c65048,
     world_chr_man_imp: 0x3c64e38,
+    func_dbg_action_force: 0x1e42a5c,
     func_item_inject: 0x54f640,
     func_item_spawn: 0x549c70,
     func_remove_intro_screens: 0xab021d,
@@ -290,6 +297,7 @@ pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c64e38,
     world_chr_man_dbg: 0x3c65048,
     world_chr_man_imp: 0x3c64e38,
+    func_dbg_action_force: 0x523c67d,
     func_item_inject: 0x54f640,
     func_item_spawn: 0x549c70,
     func_remove_intro_screens: 0xab022d,
@@ -320,6 +328,7 @@ pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c64e38,
     world_chr_man_dbg: 0x3c65048,
     world_chr_man_imp: 0x3c64e38,
+    func_dbg_action_force: 0x54e7d76,
     func_item_inject: 0x54f640,
     func_item_spawn: 0x549c70,
     func_remove_intro_screens: 0xab020d,
@@ -350,6 +359,7 @@ pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c080e8,
     world_chr_man_dbg: 0x3c082d8,
     world_chr_man_imp: 0x3c080e8,
+    func_dbg_action_force: 0x4ff4205,
     func_item_inject: 0x552330,
     func_item_spawn: 0x54c950,
     func_remove_intro_screens: 0xa8fb6d,
@@ -380,6 +390,7 @@ pub const BASE_ADDRESSES_1_04_1: BaseAddresses = BaseAddresses {
     world_chr_man: 0x3c080e8,
     world_chr_man_dbg: 0x3c082d8,
     world_chr_man_imp: 0x3c080e8,
+    func_dbg_action_force: 0x55ac951,
     func_item_inject: 0x552240,
     func_item_spawn: 0x54c860,
     func_remove_intro_screens: 0xa8fa7d,

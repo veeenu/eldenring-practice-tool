@@ -62,7 +62,10 @@ static AOBS_DIRECT: SyncLazy<Vec<(&str, Vec<&str>)>> = SyncLazy::new(|| {
         "40 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 70 FF FF FF 48 81 EC 90 01 00 00 48 C7 45 C8 FE FF FF FF 48 89 9C 24 D8"]), // 1.04
     ("FuncRemoveIntroScreens", vec![
         "74 53 48 8B 05 ?? ?? ?? ?? 48 85 C0 75 2E 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 4C 8B C8"
-    ])
+    ]),
+    ("FuncDbgActionForce", vec![
+        "48 8B 41 08 0F BE 80 B1 E9 00 00 48 8D 64"
+    ]),
 ]
 });
 
