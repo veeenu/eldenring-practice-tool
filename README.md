@@ -73,7 +73,8 @@ By using the tool, you agree that I will not be held liable for any bans or unin
 ## My game crashes / the tool doesn't start
 
 - Always start with a clean zip of the latest release.
-- When in doubt, wait for the main menu of the game to appear before launching the tool
+- EAC needs to be [bypassed](https://wiki.speedsouls.com/eldenring:EAC_Bypass).
+- When in doubt, wait for the main menu of the game to appear before launching the tool.
 - Antivirus software and old Windows versions will interact poorly with the tool, as it
   employs some techniques that are usually typical of malware. Don't worry, the tool is
   safe! The source code is fully available and auditable in this repository.
