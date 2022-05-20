@@ -19,6 +19,11 @@ solutions, or ways to get in touch.
 
 # Known issues
 
+## Fullscreen freeze (Issue: https://github.com/veeenu/eldenring-practice-tool/issues/23)
+
+The tool presently freezes the game if it is run in fullscreen mode. This is a high priority bug but chances are
+it will take a while to study and fix. In the meantime, you can run the game in Windowed or Borderless Windowed mode.
+
 ## Stake of Marika instant quitouts (Issue: https://github.com/veeenu/eldenring-practice-tool/issues/6)
 
 If you use the *instant quitout* feature in a Stake of Marika area while dying, the usual choice dialog will pop up.
