@@ -145,7 +145,8 @@ impl SavefileManager {
 
 impl Widget for SavefileManager {
     fn render(&mut self, ui: &imgui::Ui) {
-        if ui.button_with_size(&self.label, [super::BUTTON_WIDTH, super::BUTTON_HEIGHT]) {
+        let scale = super::scaling_factor(ui);
+        if ui.button_with_size(&self.label, [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT]) {
             ui.open_popup(SFM_TAG);
         }
 

@@ -159,10 +159,7 @@ impl ItemIDNode {
                     if children.is_empty() {
                         None
                     } else {
-                        Some(ItemIDNodeRef::Node {
-                            node,
-                            children,
-                        })
+                        Some(ItemIDNodeRef::Node { node, children })
                     }
                 }
             }
@@ -278,7 +275,13 @@ impl ItemSpawner<'_> {
 
 impl Widget for ItemSpawner<'_> {
     fn render(&mut self, ui: &imgui::Ui) {
-        if ui.button_with_size("Spawn item", [super::BUTTON_WIDTH, super::BUTTON_HEIGHT]) {
+        if ui.button_with_size(
+            "Spawn item",
+            [
+                super::BUTTON_WIDTH * super::scaling_factor(ui),
+                super::BUTTON_HEIGHT,
+            ],
+        ) {
             ui.open_popup(ISP_TAG);
         }
 

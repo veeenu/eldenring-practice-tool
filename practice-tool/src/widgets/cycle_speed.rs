@@ -50,7 +50,13 @@ impl Widget for CycleSpeed {
             format!("Speed ({})", self.hotkey)
         };
 
-        if ui.button_with_size(&label, [super::BUTTON_WIDTH, super::BUTTON_HEIGHT]) {
+        if ui.button_with_size(
+            &label,
+            [
+                super::BUTTON_WIDTH * super::scaling_factor(ui),
+                super::BUTTON_HEIGHT,
+            ],
+        ) {
             self.cycle();
         }
     }

@@ -118,6 +118,8 @@ fn run() -> Result<()> {
             "--lib",
             "--package",
             "eldenring-practice-tool",
+            "--features",
+            "hudhook/dxgi_debug",
         ])
         .status()
         .map_err(|e| format!("cargo: {}", e))?;

@@ -99,6 +99,7 @@ Sure! See you over here 👉 [https://twitch.tv/johndisandonato](https://twitch.
   [Ahady](https://twitch.tv/ahady), [Gin](https://twitch.tv/g1nnz),
   [Nemz38](https://twitch.tv/nemz38), [Noobest](https://twitch.tv/noobest),
   for beta testing the tool.
+- The font used in the UI is [Comic Mono](https://github.com/dtinth/comic-mono-font).
 
 # Development
 

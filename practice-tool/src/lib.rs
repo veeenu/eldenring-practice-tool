@@ -29,12 +29,22 @@ use libeldenring::prelude::*;
 
 use crate::widgets::Widget;
 
+struct FontIDs {
+    small: FontId,
+    normal: FontId,
+    big: FontId,
+}
+
+unsafe impl Send for FontIDs {}
+unsafe impl Sync for FontIDs {}
+
 struct PracticeTool {
     pointers: Pointers,
     widgets: Vec<Box<dyn Widget>>,
     config: config::Config,
     log: Vec<(Instant, String)>,
     is_shown: bool,
+    fonts: Option<FontIDs>,
 }
 
 impl PracticeTool {
@@ -128,10 +138,11 @@ impl PracticeTool {
             config,
             is_shown: false,
             log: Default::default(),
+            fonts: None,
         }
     }
 
-    fn render_visible(&mut self, ui: &mut imgui::Ui, flags: &ImguiRenderLoopFlags) {
+    fn render_visible(&mut self, ui: &imgui::Ui, flags: &ImguiRenderLoopFlags) {
         let [dw, dh] = { ui.io().display_size };
         imgui::Window::new("##tool_window")
             .position([16., 16.], Condition::Always)
@@ -154,14 +165,20 @@ impl PracticeTool {
                     }
                 }
 
-                if ui.button_with_size("Close", [widgets::BUTTON_WIDTH, widgets::BUTTON_HEIGHT]) {
+                if ui.button_with_size(
+                    "Close",
+                    [
+                        widgets::BUTTON_WIDTH * widgets::scaling_factor(ui),
+                        widgets::BUTTON_HEIGHT,
+                    ],
+                ) {
                     self.is_shown = false;
                     self.pointers.cursor_show.set(false);
                 }
             });
     }
 
-    fn render_closed(&mut self, ui: &mut imgui::Ui, flags: &ImguiRenderLoopFlags) {
+    fn render_closed(&mut self, ui: &imgui::Ui, flags: &ImguiRenderLoopFlags) {
         let stack_tokens = vec![
             ui.push_style_var(StyleVar::WindowRounding(0.)),
             ui.push_style_var(StyleVar::FrameBorderSize(0.)),
@@ -255,7 +272,7 @@ impl PracticeTool {
         }
     }
 
-    fn render_logs(&mut self, ui: &mut imgui::Ui, _flags: &ImguiRenderLoopFlags) {
+    fn render_logs(&mut self, ui: &imgui::Ui, _flags: &ImguiRenderLoopFlags) {
         let io = ui.io();
 
         let [dw, dh] = io.display_size;
@@ -293,10 +310,31 @@ impl PracticeTool {
             st.pop();
         }
     }
+
+    fn set_font<'a>(&mut self, ui: &'a imgui::Ui) -> imgui::FontStackToken<'a> {
+        let width = ui.io().display_size[0];
+        let font_id = self
+            .fonts
+            .as_mut()
+            .map(|fonts| {
+                if width > 2000. {
+                    fonts.big
+                } else if width > 1200. {
+                    fonts.normal
+                } else {
+                    fonts.small
+                }
+            })
+            .unwrap();
+
+        ui.push_font(font_id)
+    }
 }
 
 impl ImguiRenderLoop for PracticeTool {
     fn render(&mut self, ui: &mut imgui::Ui, flags: &ImguiRenderLoopFlags) {
+        let font_token = self.set_font(ui);
+
         if flags.focused && !ui.io().want_capture_keyboard && self.config.settings.display.keyup() {
             self.is_shown = !self.is_shown;
             if !self.is_shown {
@@ -321,6 +359,28 @@ impl ImguiRenderLoop for PracticeTool {
         }
 
         self.render_logs(ui, flags);
+        drop(font_token);
+    }
+
+    fn initialize(&mut self, ctx: &mut imgui::Context) {
+        let mut fonts = ctx.fonts();
+        self.fonts = Some(FontIDs {
+            small: fonts.add_font(&[FontSource::TtfData {
+                data: include_bytes!("../../lib/ComicMono.ttf"),
+                size_pixels: 11.,
+                config: None,
+            }]),
+            normal: fonts.add_font(&[FontSource::TtfData {
+                data: include_bytes!("../../lib/ComicMono.ttf"),
+                size_pixels: 18.,
+                config: None,
+            }]),
+            big: fonts.add_font(&[FontSource::TtfData {
+                data: include_bytes!("../../lib/ComicMono.ttf"),
+                size_pixels: 24.,
+                config: None,
+            }]),
+        });
     }
 }
 

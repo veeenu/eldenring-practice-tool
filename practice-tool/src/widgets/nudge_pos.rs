@@ -59,16 +59,18 @@ impl Widget for NudgePosition {
         let valid = self.chunk_position.y.eval().is_some();
         let _token = ui.begin_disabled(!valid);
 
+        let button_width = super::BUTTON_WIDTH * super::scaling_factor(ui);
+
         if ui.button_with_size(
             &self.nudge_up_label,
-            [super::BUTTON_WIDTH * 0.5 - 4., super::BUTTON_HEIGHT],
+            [button_width * 0.5 - 4., super::BUTTON_HEIGHT],
         ) {
             self.do_nudge_up();
         }
         ui.same_line();
         if ui.button_with_size(
             &self.nudge_down_label,
-            [super::BUTTON_WIDTH * 0.5 - 4., super::BUTTON_HEIGHT],
+            [button_width * 0.5 - 4., super::BUTTON_HEIGHT],
         ) {
             self.do_nudge_down();
         }

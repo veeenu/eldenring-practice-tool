@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use parking_lot::Mutex;
 
-pub(crate) const BUTTON_WIDTH: f32 = 240.;
+pub(crate) const BUTTON_WIDTH: f32 = 320.;
 pub(crate) const BUTTON_HEIGHT: f32 = 0.;
 pub(crate) const MODAL_BACKGROUND: [f32; 4] = [0.1, 0.1, 0.1, 0.5];
 
@@ -39,5 +39,16 @@ pub(crate) trait Widget: Send + Sync + std::fmt::Debug {
     }
     fn log(&mut self) -> Option<Vec<String>> {
         None
+    }
+}
+
+pub(crate) fn scaling_factor(ui: &imgui::Ui) -> f32 {
+    let width = ui.io().display_size[0];
+    if width > 2000. {
+        1. + 1. / 3.
+    } else if width > 1200. {
+        1.
+    } else {
+        2. / 3.
     }
 }
