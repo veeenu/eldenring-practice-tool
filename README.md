@@ -12,12 +12,17 @@ To run the tool, extract all files from the zip archive and double-click the
 `.exe` file he tool will automatically appear over the game, and it can be
 toggled by pressing `0`.
 
-You can download the latest release [here](https://github.com/veeenu/eldenring-practice-tool/releases).
+You can download the latest release [here](https://github.com/veeenu/eldenring-practice-tool/releases/latest).
 
 If you need help, **please first read** the [Known Issues](#known-issues) and [FAQ](#troubleshooting--faq) sections for
 solutions, or ways to get in touch.
 
 # Known issues
+
+## Fullscreen freeze (Issue: https://github.com/veeenu/eldenring-practice-tool/issues/23)
+
+The tool presently freezes the game if it is run in fullscreen mode. This is a high priority bug but chances are
+it will take a while to study and fix. In the meantime, you can run the game in Windowed or Borderless Windowed mode.
 
 ## Stake of Marika instant quitouts (Issue: https://github.com/veeenu/eldenring-practice-tool/issues/6)
 
@@ -73,7 +78,9 @@ By using the tool, you agree that I will not be held liable for any bans or unin
 ## My game crashes / the tool doesn't start
 
 - Always start with a clean zip of the latest release.
-- When in doubt, wait for the main menu of the game to appear before launching the tool
+- EAC needs to be [bypassed](https://wiki.speedsouls.com/eldenring:EAC_Bypass).
+- When in doubt, wait for the main menu of the game to appear before launching the tool.
+- If you are running in [fullscreen](https://github.com/veeenu/eldenring-practice-tool/issues/23), try borderless or windowed mode.
 - Antivirus software and old Windows versions will interact poorly with the tool, as it
   employs some techniques that are usually typical of malware. Don't worry, the tool is
   safe! The source code is fully available and auditable in this repository.
@@ -92,7 +99,7 @@ Sure! See you over here 👉 [https://twitch.tv/johndisandonato](https://twitch.
 - The [Soulsmodding community](http://soulsmodding.wikidot.com/) for the
   [Param definitions](https://github.com/soulsmods/Paramdex) and the
   Cheat Engine table maintained by Pav.
-- Pav and wasted for technical help in figuring out pointers.
+- Pav, wasted, jamesq7 for technical help in figuring things out.
 - [curiouspeanut](https://twitch.tv/curiouspeanut), [Weider96](https://twitch.tv/weider96),
   [Siegbruh](https://twitch.tv/siegbruh), [catalystz](https://twitch.tv/catalystz),
   [danisangb](https://twitch.tv/danisangb), [GiantCookieJar](https://twitch.tv/GiantCookieJar),
@@ -126,7 +133,7 @@ cargo xtask dist
 
 This task will create release artifacts in `target/dist/jdsd_er_practice_tool.zip`.
 
-## Codegen
+## Code generation
 
 ```
 cargo xtask codegen
