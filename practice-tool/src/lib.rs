@@ -22,7 +22,9 @@ mod widgets;
 
 use std::time::Instant;
 
+use const_format::formatcp;
 use imgui::*;
+use pkg_version::*;
 
 use hudhook::hooks::dx12::{ImguiRenderLoop, ImguiRenderLoopFlags};
 use libeldenring::prelude::*;
@@ -214,7 +216,12 @@ impl PracticeTool {
                     .movable(false)
                     .title_bar(false)
                     .build(ui, || {
-                        ui.text("Elden Ring Practice Tool");
+                        ui.text(formatcp!(
+                            "Elden Ring Practice Tool v{}.{}.{}",
+                            pkg_version_major!() as usize,
+                            pkg_version_minor!() as usize,
+                            pkg_version_patch!() as usize,
+                        ));
                         ui.separator();
                         ui.text(format!(
                             "Press the {} key to open/close the tool's\n\
