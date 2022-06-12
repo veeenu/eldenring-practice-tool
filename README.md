@@ -58,7 +58,7 @@ flag should work as intended again. If it doesn't work, a quitout will most like
     ![Add eldenring.exe](lib/data/dxcpl1.png)
   - Select `Force On` under `Direct3D/DXGI DebugLayer`.
     ![Force debug layer on](lib/data/dxcpl2.png)
-  - (Once you're done, you can revert these steps by selecting `Application Controlled` again and
+  - (Once you're done troubleshooting, you can revert these steps by selecting `Application Controlled` again and
     then removing `eldenring.exe` from the list).
 - Reproduce the steps that cause your bug.
 - Go [here](https://github.com/veeenu/eldenring-practice-tool/issues/new) and submit a new issue:
