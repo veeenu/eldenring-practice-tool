@@ -55,9 +55,28 @@ fn main() -> Result<()> {
 
 fn dist() -> Result<()> {
     let cargo = env::var("CARGO").unwrap_or_else(|_| "cargo".to_string());
-    let status = Command::new(cargo)
+
+    let status = Command::new(&cargo)
         .current_dir(project_root())
         .args(&["build", "--release", "--package", "eldenring-practice-tool"])
+        .status()
+        .map_err(|e| format!("cargo: {}", e))?;
+
+    if !status.success() {
+        return Err("cargo build failed".into());
+    }
+
+    let status = Command::new(&cargo)
+        .current_dir(project_root())
+        .args(&[
+            "build",
+            "--profile",
+            "release-dxgidebug",
+            "--package",
+            "eldenring-practice-tool",
+            "--features",
+            "dxgi-debug",
+        ])
         .status()
         .map_err(|e| format!("cargo: {}", e))?;
 
@@ -74,35 +93,84 @@ fn dist() -> Result<()> {
     std::fs::remove_dir_all(dist_dir()).ok();
     std::fs::create_dir_all(dist_dir())?;
 
-    let mut zip = ZipWriter::new(File::create(dist_dir().join("jdsd_er_practice_tool.zip"))?);
-    let file_options = FileOptions::default().compression_method(CompressionMethod::Deflated);
+    //
+    // Create distribution zip files
+    //
 
-    let mut buf: Vec<u8> = Vec::new();
+    struct DistZipFile {
+        zip: ZipWriter<File>,
+        file_options: FileOptions,
+    }
 
-    let mut add_zip = |src: PathBuf, dst: &str| -> Result<()> {
-        File::open(&src)
-            .map_err(|e| format!("{}: Couldn't open file: {}", dst, e))?
-            .read_to_end(&mut buf)
-            .map_err(|e| format!("{}: Couldn't read file: {}", dst, e))?;
-        zip.start_file(dst, file_options)
-            .map_err(|e| format!("{}: Couldn't start zip file: {}", dst, e))?;
-        zip.write_all(&buf)
-            .map_err(|e| format!("{}: Couldn't write zip: {}", dst, e))?;
-        buf.clear();
-        Ok(())
-    };
+    impl DistZipFile {
+        fn new(zip_name: &str) -> Result<Self> {
+            let zip = ZipWriter::new(File::create(dist_dir().join(zip_name))?);
+            let file_options =
+                FileOptions::default().compression_method(CompressionMethod::Deflated);
 
-    add_zip(
+            Ok(Self { zip, file_options })
+        }
+
+        fn add(&mut self, src: PathBuf, dst: &str) -> Result<()> {
+            self.add_map(src, dst, |buf| buf)
+        }
+
+        fn add_map<F>(&mut self, src: PathBuf, dst: &str, f: F) -> Result<()>
+        where
+            F: Fn(Vec<u8>) -> Vec<u8>,
+        {
+            let mut buf = Vec::new();
+            File::open(&src)
+                .map_err(|e| format!("{}: Couldn't open file: {}", dst, e))?
+                .read_to_end(&mut buf)
+                .map_err(|e| format!("{}: Couldn't read file: {}", dst, e))?;
+
+            let buf = f(buf);
+
+            self.zip
+                .start_file(dst, self.file_options)
+                .map_err(|e| format!("{}: Couldn't start zip file: {}", dst, e))?;
+            self.zip
+                .write_all(&buf)
+                .map_err(|e| format!("{}: Couldn't write zip: {}", dst, e))?;
+            Ok(())
+        }
+    }
+
+    let mut dist = DistZipFile::new("jdsd_er_practice_tool.zip")?;
+
+    dist.add(
         project_root().join("target/release/jdsd_er_practice_tool.exe"),
         "jdsd_er_practice_tool.exe",
     )?;
-    add_zip(
+    dist.add(
         project_root().join("target/release/libjdsd_er_practice_tool.dll"),
         "jdsd_er_practice_tool.dll",
     )?;
-    add_zip(
+    dist.add(
         project_root().join("jdsd_er_practice_tool.toml"),
         "jdsd_er_practice_tool.toml",
+    )?;
+
+    let mut dist_debug = DistZipFile::new("jdsd_er_practice_tool_debug.zip")?;
+
+    dist_debug.add(
+        project_root().join("target/release-dxgidebug/jdsd_er_practice_tool.exe"),
+        "jdsd_er_practice_tool.exe",
+    )?;
+    dist_debug.add(
+        project_root().join("target/release-dxgidebug/libjdsd_er_practice_tool.dll"),
+        "jdsd_er_practice_tool.dll",
+    )?;
+    dist_debug.add_map(
+        project_root().join("jdsd_er_practice_tool.toml"),
+        "jdsd_er_practice_tool.toml",
+        |buf| {
+            String::from_utf8(buf)
+                .unwrap()
+                .replace(r#"log_level = "INFO""#, r#"log_level = "TRACE""#)
+                .into_bytes()
+        },
     )?;
 
     Ok(())

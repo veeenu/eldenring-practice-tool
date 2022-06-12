@@ -13,3 +13,6 @@ exclude = [
 [profile.release]
 strip = "symbols"
 lto = true
+
+[profile.release-dxgidebug]
+inherits = "release"

@@ -29,7 +29,7 @@ impl CycleSpeed {
                 .values
                 .iter()
                 .find(|&&x| x > speed)
-                .unwrap_or_else(|| self.values.get(0).unwrap_or(&1.0))
+                .unwrap_or_else(|| self.values.first().unwrap_or(&1.0))
         });
         if let Some(speed) = next {
             self.ptr[0].write(speed);

@@ -353,13 +353,14 @@ fn codegen_base_addresses_struct() -> String {
 
 /// Generate `BaseAddresses` instances.
 fn codegen_base_addresses_instances(ver: &Version, aobs: &[(&str, usize)]) -> String {
+    use std::fmt::Write;
     let mut string = aobs.iter().fold(
         format!(
             "pub const BASE_ADDRESSES_{}_{:02}_{}: BaseAddresses = BaseAddresses {{\n",
             ver.0, ver.1, ver.2
         ),
         |mut o, (name, offset)| {
-            o.push_str(&format!("    {}: 0x{:x},\n", AsSnakeCase(name), offset));
+            writeln!(o, "    {}: 0x{:x},", AsSnakeCase(name), offset).unwrap();
             o
         },
     );
@@ -369,6 +370,7 @@ fn codegen_base_addresses_instances(ver: &Version, aobs: &[(&str, usize)]) -> St
 
 /// Generate the `Version` enum and `From<Version> for BaseAddresses`.
 fn codegen_version_enum(ver: &[VersionData]) -> String {
+    use std::fmt::Write;
     let mut string = String::new();
 
     // pub enum Version
@@ -377,10 +379,12 @@ fn codegen_version_enum(ver: &[VersionData]) -> String {
     string.push_str("pub enum Version {\n");
 
     for v in ver {
-        string.push_str(&format!(
-            "    V{}_{:02}_{},\n",
+        writeln!(
+            string,
+            "    V{}_{:02}_{},",
             v.version.0, v.version.1, v.version.2
-        ));
+        )
+        .unwrap();
     }
 
     string.push_str("}\n\n");
@@ -393,9 +397,11 @@ fn codegen_version_enum(ver: &[VersionData]) -> String {
 
     for v in ver {
         let Version(maj, min, patch) = v.version;
-        string.push_str(&format!(
-            "            ({maj}, {min}, {patch}) => Version::V{maj}_{min:02}_{patch},\n"
-        ));
+        writeln!(
+            string,
+            "            ({maj}, {min}, {patch}) => Version::V{maj}_{min:02}_{patch},"
+        )
+        .unwrap();
     }
 
     string.push_str("            (maj, min, patch) => {\n");
@@ -417,9 +423,11 @@ fn codegen_version_enum(ver: &[VersionData]) -> String {
     for v in ver {
         let Version(maj, min, patch) = v.version;
         let stem = format!("{maj}_{min:02}_{patch}");
-        string.push_str(&format!(
-            "            Version::V{stem} => BASE_ADDRESSES_{stem},\n"
-        ));
+        writeln!(
+            string,
+            "            Version::V{stem} => BASE_ADDRESSES_{stem},"
+        )
+        .unwrap();
     }
 
     string.push_str("        }\n");

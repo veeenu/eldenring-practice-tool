@@ -1,6 +1,6 @@
 [package]
 name = "eldenring-practice-tool"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2021"
 authors = ["Andrea Venuta <andrea@johndisandonato.stream>"]
 
@@ -11,6 +11,10 @@ path = "src/main.rs"
 [lib]
 crate-type = ["cdylib", "rlib"]
 name = "libjdsd_er_practice_tool"
+
+[features]
+default = []
+dxgi-debug = ["hudhook/dxgi-debug"]
 
 [dependencies]
 hudhook = { path = "../lib/hudhook/hudhook" }
