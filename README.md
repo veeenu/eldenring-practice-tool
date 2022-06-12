@@ -53,10 +53,13 @@ flag should work as intended again. If it doesn't work, a quitout will most like
   the game will run slower with this version, due to the intense log reporting. This is normal.
 - Enable DXGI debug layer:
   - Press `Windows + R` to open the "Run" dialog, type `dxcpl.exe` and press enter.
+    
     ![Run dxcpl.exe](lib/data/dxcpl0.png)
   - Click `Edit List...`, then `Add`, then find the path to `eldenring.exe` and select it.
+  
     ![Add eldenring.exe](lib/data/dxcpl1.png)
   - Select `Force On` under `Direct3D/DXGI DebugLayer`.
+  
     ![Force debug layer on](lib/data/dxcpl2.png)
   - (Once you're done troubleshooting, you can revert these steps by selecting `Application Controlled` again and
     then removing `eldenring.exe` from the list).
