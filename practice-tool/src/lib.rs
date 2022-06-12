@@ -373,17 +373,17 @@ impl ImguiRenderLoop for PracticeTool {
         let mut fonts = ctx.fonts();
         self.fonts = Some(FontIDs {
             small: fonts.add_font(&[FontSource::TtfData {
-                data: include_bytes!("../../lib/ComicMono.ttf"),
+                data: include_bytes!("../../lib/data/ComicMono.ttf"),
                 size_pixels: 11.,
                 config: None,
             }]),
             normal: fonts.add_font(&[FontSource::TtfData {
-                data: include_bytes!("../../lib/ComicMono.ttf"),
+                data: include_bytes!("../../lib/data/ComicMono.ttf"),
                 size_pixels: 18.,
                 config: None,
             }]),
             big: fonts.add_font(&[FontSource::TtfData {
-                data: include_bytes!("../../lib/ComicMono.ttf"),
+                data: include_bytes!("../../lib/data/ComicMono.ttf"),
                 size_pixels: 24.,
                 config: None,
             }]),
