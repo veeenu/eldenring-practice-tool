@@ -181,13 +181,15 @@ impl PracticeTool {
     }
 
     fn render_closed(&mut self, ui: &imgui::Ui, flags: &ImguiRenderLoopFlags) {
+        let [w, h] = ui.io().display_size;
+
         let stack_tokens = vec![
             ui.push_style_var(StyleVar::WindowRounding(0.)),
             ui.push_style_var(StyleVar::FrameBorderSize(0.)),
             ui.push_style_var(StyleVar::WindowBorderSize(0.)),
         ];
         imgui::Window::new("##msg_window")
-            .position([16., 16.], Condition::Always)
+            .position([w * 35. / 1920., h * 112. / 1080.], Condition::Always)
             .bg_alpha(0.0)
             .flags({
                 WindowFlags::NO_TITLE_BAR
@@ -197,7 +199,7 @@ impl PracticeTool {
                     | WindowFlags::ALWAYS_AUTO_RESIZE
             })
             .build(ui, || {
-                ui.text("johndisandonato's Elden Ring Practice Tool");
+                ui.text("johndisandonato's Practice Tool");
 
                 ui.same_line();
 

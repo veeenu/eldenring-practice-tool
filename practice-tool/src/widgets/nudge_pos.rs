@@ -7,6 +7,7 @@ use super::Widget;
 #[derive(Debug)]
 pub(crate) struct NudgePosition {
     chunk_position: Position,
+    torrent_chunk_position: Position,
     nudge: f32,
     nudge_up: Option<KeyState>,
     nudge_down: Option<KeyState>,
@@ -17,6 +18,7 @@ pub(crate) struct NudgePosition {
 impl NudgePosition {
     pub(crate) fn new(
         chunk_position: Position,
+        torrent_chunk_position: Position,
         nudge: f32,
         nudge_up: Option<KeyState>,
         nudge_down: Option<KeyState>,
@@ -33,6 +35,7 @@ impl NudgePosition {
         };
         NudgePosition {
             chunk_position,
+            torrent_chunk_position,
             nudge,
             nudge_up,
             nudge_down,
@@ -45,11 +48,17 @@ impl NudgePosition {
         if let Some(y) = self.chunk_position.y.read() {
             self.chunk_position.y.write(y + self.nudge);
         }
+        if let Some(y) = self.torrent_chunk_position.y.read() {
+            self.torrent_chunk_position.y.write(y + self.nudge);
+        }
     }
 
     fn do_nudge_down(&mut self) {
         if let Some(y) = self.chunk_position.y.read() {
             self.chunk_position.y.write(y - self.nudge);
+        }
+        if let Some(y) = self.torrent_chunk_position.y.read() {
+            self.torrent_chunk_position.y.write(y - self.nudge);
         }
     }
 }

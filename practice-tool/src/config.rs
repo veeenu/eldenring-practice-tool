@@ -202,6 +202,7 @@ impl Config {
                         nudge_down,
                     } => Box::new(NudgePosition::new(
                         chains.chunk_position.clone(),
+                        chains.torrent_chunk_position.clone(),
                         *nudge,
                         nudge_up.clone(),
                         nudge_down.clone(),
