@@ -148,6 +148,7 @@ impl Widget for SavefileManager {
         let scale = super::scaling_factor(ui);
         if ui.button_with_size(&self.label, [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT]) {
             ui.open_popup(SFM_TAG);
+            self.dir_stack.refresh();
         }
 
         let style_tokens =
@@ -244,6 +245,7 @@ impl Widget for SavefileManager {
                 || self.key_close.keyup()
             {
                 ui.close_current_popup();
+                self.dir_stack.refresh();
             }
         }
 
