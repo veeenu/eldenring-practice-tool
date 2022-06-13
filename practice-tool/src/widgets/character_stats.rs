@@ -38,10 +38,7 @@ impl CharacterStatsEdit {
 impl Widget for CharacterStatsEdit {
     fn render(&mut self, ui: &imgui::Ui) {
         let button_width = super::BUTTON_WIDTH * super::scaling_factor(ui);
-        if ui.button_with_size(
-            &self.label_open,
-            [button_width, super::BUTTON_HEIGHT],
-        ) {
+        if ui.button_with_size(&self.label_open, [button_width, super::BUTTON_HEIGHT]) {
             self.stats = self.ptr.read();
             debug!("{:?}", self.stats);
         }

@@ -146,7 +146,10 @@ impl SavefileManager {
 impl Widget for SavefileManager {
     fn render(&mut self, ui: &imgui::Ui) {
         let scale = super::scaling_factor(ui);
-        if ui.button_with_size(&self.label, [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT]) {
+        if ui.button_with_size(
+            &self.label,
+            [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT],
+        ) {
             ui.open_popup(SFM_TAG);
             self.dir_stack.refresh();
         }
@@ -396,7 +399,7 @@ impl DirStack {
     fn values(&self) -> impl IntoIterator<Item = (usize, bool, &str)> {
         match self.stack.last() {
             Some(d) => d.values(false).into_iter(),
-            None => self.top.values(true).into_iter()
+            None => self.top.values(true).into_iter(),
         }
     }
 

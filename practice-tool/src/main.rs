@@ -99,9 +99,9 @@ fn main() {
         Ok((latest_version, download_url, release_notes)) => {
             if latest_version > current_version {
                 let update_msg = format!(
-          "A new version of the practice tool is available!\n\nLatest version: {}\nInstalled version: {}\n\nRelease notes:\n{}\n\nDo you want to download the update?\0",
-          latest_version, current_version, release_notes
-        );
+                    "A new version of the practice tool is available!\n\nLatest version: {}\nInstalled version: {}\n\nRelease notes:\n{}\n\nDo you want to download the update?\0",
+                    latest_version, current_version, release_notes
+                );
 
                 let msgbox_response = unsafe {
                     MessageBoxA(

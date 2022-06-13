@@ -429,4 +429,3 @@ pub const BASE_ADDRESSES_1_05_0: BaseAddresses = BaseAddresses {
     func_item_spawn: 0x54ce60,
     func_remove_intro_screens: 0xa9417d,
 };
-

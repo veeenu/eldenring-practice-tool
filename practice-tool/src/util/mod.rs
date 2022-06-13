@@ -1,10 +1,13 @@
 mod vk;
 
 pub(crate) use vk::*;
-use windows::Win32::Foundation::{GetLastError, MAX_PATH, HINSTANCE};
-use windows::Win32::System::LibraryLoader::{GetModuleHandleExA, GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, GetModuleFileNameW};
-use windows::Win32::UI::Input::KeyboardAndMouse::GetAsyncKeyState;
 use windows::core::PCSTR;
+use windows::Win32::Foundation::{GetLastError, HINSTANCE, MAX_PATH};
+use windows::Win32::System::LibraryLoader::{
+    GetModuleFileNameW, GetModuleHandleExA, GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
+    GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+};
+use windows::Win32::UI::Input::KeyboardAndMouse::GetAsyncKeyState;
 
 use std::ffi::OsString;
 use std::fmt::Display;
@@ -38,8 +41,7 @@ pub fn get_dll_path() -> Option<PathBuf> {
     let mut sz_filename = [0u16; MAX_PATH as _];
     // SAFETY
     // pointer to sz_filename always defined and MAX_PATH bounds manually checked
-    let len = unsafe { GetModuleFileNameW(hmodule, &mut sz_filename) }
-        as usize;
+    let len = unsafe { GetModuleFileNameW(hmodule, &mut sz_filename) } as usize;
 
     Some(OsString::from_wide(&sz_filename[..len]).into())
 }

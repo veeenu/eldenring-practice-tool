@@ -6,6 +6,8 @@ pub(crate) const BUTTON_WIDTH: f32 = 320.;
 pub(crate) const BUTTON_HEIGHT: f32 = 0.;
 pub(crate) const MODAL_BACKGROUND: [f32; 4] = [0.1, 0.1, 0.1, 0.5];
 
+pub(crate) mod action_freeze;
+pub(crate) mod character_stats;
 pub(crate) mod cycle_speed;
 pub(crate) mod deathcam;
 pub(crate) mod flag;
@@ -15,8 +17,6 @@ pub(crate) mod nudge_pos;
 pub(crate) mod position;
 pub(crate) mod quitout;
 pub(crate) mod runes;
-pub(crate) mod character_stats;
-pub(crate) mod action_freeze;
 pub(crate) mod savefile_manager;
 
 pub(crate) trait Widget: Send + Sync + std::fmt::Debug {

@@ -38,7 +38,10 @@ impl Widget for Runes {
         let runes = self.ptr.read();
         let _token = ui.begin_disabled(runes.is_none());
 
-        if ui.button_with_size(&self.label, [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT]) {
+        if ui.button_with_size(
+            &self.label,
+            [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT],
+        ) {
             self.add();
         }
     }

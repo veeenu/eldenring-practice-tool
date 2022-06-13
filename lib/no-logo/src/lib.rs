@@ -1,5 +1,5 @@
 #![feature(once_cell)]
-use std::ffi::{c_void};
+use std::ffi::c_void;
 use std::lazy::SyncLazy;
 use std::ptr::null_mut;
 
@@ -27,38 +27,37 @@ type FnHResult = unsafe extern "stdcall" fn() -> HRESULT;
 type FnGetClassObject =
     unsafe extern "stdcall" fn(*const c_void, *const c_void, *const c_void) -> HRESULT;
 
-static SYMBOLS: SyncLazy<(FnDirectInput8Create, FnHResult, FnGetClassObject, FnHResult, FnHResult)> =
-    SyncLazy::new(|| unsafe {
-        apply_patch();
-        let mut sys_path = vec![0u16; 320];
-        let len = GetSystemDirectoryW(&mut sys_path) as u32;
+static SYMBOLS: SyncLazy<(
+    FnDirectInput8Create,
+    FnHResult,
+    FnGetClassObject,
+    FnHResult,
+    FnHResult,
+)> = SyncLazy::new(|| unsafe {
+    apply_patch();
+    let mut sys_path = vec![0u16; 320];
+    let len = GetSystemDirectoryW(&mut sys_path) as u32;
 
-        let sys_path = format!(
-            "{}\\dinput8.dll",
-            U16CString::from_ptr_truncate(sys_path.as_ptr(), len as usize).to_string_lossy()
-        );
-        let sys_path = U16CString::from_str(&sys_path).unwrap();
+    let sys_path = format!(
+        "{}\\dinput8.dll",
+        U16CString::from_ptr_truncate(sys_path.as_ptr(), len as usize).to_string_lossy()
+    );
+    let sys_path = U16CString::from_str(&sys_path).unwrap();
 
-        let module = LoadLibraryW(PCWSTR(sys_path.as_ptr() as _));
+    let module = LoadLibraryW(PCWSTR(sys_path.as_ptr() as _));
 
-        (
-            std::mem::transmute(
-                GetProcAddress(module, PCSTR("DirectInput8Create\0".as_ptr())).unwrap(),
-            ),
-            std::mem::transmute(
-                GetProcAddress(module, PCSTR("DllCanUnloadNow\0".as_ptr())).unwrap(),
-            ),
-            std::mem::transmute(
-                GetProcAddress(module, PCSTR("DllGetClassObject\0".as_ptr())).unwrap(),
-            ),
-            std::mem::transmute(
-                GetProcAddress(module, PCSTR("DllRegisterServer\0".as_ptr())).unwrap(),
-            ),
-            std::mem::transmute(
-                GetProcAddress(module, PCSTR("DllUnregisterServer\0".as_ptr())).unwrap(),
-            ),
-        )
-    });
+    (
+        std::mem::transmute(
+            GetProcAddress(module, PCSTR("DirectInput8Create\0".as_ptr())).unwrap(),
+        ),
+        std::mem::transmute(GetProcAddress(module, PCSTR("DllCanUnloadNow\0".as_ptr())).unwrap()),
+        std::mem::transmute(GetProcAddress(module, PCSTR("DllGetClassObject\0".as_ptr())).unwrap()),
+        std::mem::transmute(GetProcAddress(module, PCSTR("DllRegisterServer\0".as_ptr())).unwrap()),
+        std::mem::transmute(
+            GetProcAddress(module, PCSTR("DllUnregisterServer\0".as_ptr())).unwrap(),
+        ),
+    )
+});
 
 unsafe fn apply_patch() {
     let module_base = GetModuleHandleW(PCWSTR(null_mut()));
@@ -88,7 +87,7 @@ pub unsafe extern "stdcall" fn DirectInput8Create(
 // pub unsafe extern "stdcall" fn DllCanUnloadNow() -> HRESULT {
 //     (SYMBOLS.1)()
 // }
-// 
+//
 // #[no_mangle]
 // pub unsafe extern "stdcall" fn DllGetClassObject(
 //     a: *const c_void,
@@ -97,17 +96,16 @@ pub unsafe extern "stdcall" fn DirectInput8Create(
 // ) -> HRESULT {
 //     (SYMBOLS.2)(a, b, c)
 // }
-// 
+//
 // #[no_mangle]
 // pub unsafe extern "stdcall" fn DllRegisterServer() -> HRESULT {
 //     (SYMBOLS.3)()
 // }
-// 
+//
 // #[no_mangle]
 // pub unsafe extern "stdcall" fn DllUnregisterServer() -> HRESULT {
 //     (SYMBOLS.4)()
 // }
-
 
 // #[no_mangle]
 // unsafe extern "C" fn DllMain(
@@ -118,6 +116,6 @@ pub unsafe extern "stdcall" fn DirectInput8Create(
 //     if reason == DLL_PROCESS_ATTACH {
 //         apply_patch();
 //     }
-// 
+//
 //     BOOL(1)
 // }

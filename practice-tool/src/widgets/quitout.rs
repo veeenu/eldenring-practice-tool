@@ -25,7 +25,10 @@ impl Widget for Quitout {
     fn render(&mut self, ui: &imgui::Ui) {
         let scale = super::scaling_factor(ui);
 
-        if ui.button_with_size(&self.label, [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT]) {
+        if ui.button_with_size(
+            &self.label,
+            [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT],
+        ) {
             self.ptr.write(1);
         }
     }

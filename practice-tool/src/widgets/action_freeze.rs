@@ -1,7 +1,7 @@
 use libeldenring::memedit::PointerChain;
 
-use crate::util::KeyState;
 use super::Widget;
+use crate::util::KeyState;
 
 #[derive(Debug)]
 pub(crate) struct ActionFreeze {
@@ -29,7 +29,7 @@ impl ActionFreeze {
         self.ptr.read().and_then(|val| match val {
             0xB2 => Some(true),
             0xB1 => Some(false),
-            _ => None
+            _ => None,
         })
     }
 

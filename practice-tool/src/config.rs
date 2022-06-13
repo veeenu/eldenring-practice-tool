@@ -7,6 +7,8 @@ use serde::Deserialize;
 
 use crate::util;
 use crate::util::KeyState;
+use crate::widgets::action_freeze::ActionFreeze;
+use crate::widgets::character_stats::CharacterStatsEdit;
 use crate::widgets::cycle_speed::CycleSpeed;
 use crate::widgets::deathcam::Deathcam;
 use crate::widgets::flag::Flag;
@@ -17,8 +19,6 @@ use crate::widgets::position::SavePosition;
 use crate::widgets::quitout::Quitout;
 use crate::widgets::runes::Runes;
 use crate::widgets::savefile_manager::SavefileManager;
-use crate::widgets::character_stats::CharacterStatsEdit;
-use crate::widgets::action_freeze::ActionFreeze;
 use crate::widgets::Widget;
 
 #[cfg_attr(test, derive(Debug))]
