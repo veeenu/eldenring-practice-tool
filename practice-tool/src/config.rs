@@ -362,9 +362,9 @@ impl TryFrom<String> for MultiFlagSpec {
                     |c| &c.show_geom[10],
                     |c| &c.show_geom[11],
                     |c| &c.show_geom[12],
-                    |c| &c.show_geom[13],
-                    |c| &c.show_geom[14],
-                    |c| &c.show_map,
+                    |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 13 }], // UGLY
+                    |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 14 }], // AS
+                    |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 15 }], // SIN
                 ],
             )),
             e => Err(format!("\"{}\" is not a valid multiflag specifier", e)),

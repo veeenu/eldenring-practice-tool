@@ -66,7 +66,7 @@ pub struct Pointers {
     pub field_area_compass: Bitflag<u8>,
 
     // GroupMask
-    pub show_map: Bitflag<u8>,
+    // pub show_map: Bitflag<u8>,
     pub show_geom: Vec<Bitflag<u8>>,
     pub show_chr: Bitflag<u8>,
 
@@ -163,7 +163,7 @@ impl Pointers {
         } = base_addresses;
 
         // Special cases
-        
+
         let version = *crate::version::VERSION;
         use Version::*;
 
@@ -172,6 +172,54 @@ impl Pointers {
                 V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6b8,
                 V1_04_0 | V1_04_1 | V1_05_0 => 0x6b0,
             }
+        };
+
+        let group_mask = match version {
+            V1_05_0 => group_mask - 8,
+            _ => group_mask,
+        };
+
+        let show_geom = match version {
+            V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
+            | V1_04_1 => vec![
+                bitflag!(0b1; group_mask + 2),
+                bitflag!(0b1; group_mask + 3),
+                bitflag!(0b1; group_mask + 4),
+                bitflag!(0b1; group_mask + 5),
+                bitflag!(0b1; group_mask + 6),
+                bitflag!(0b1; group_mask + 7),
+                bitflag!(0b1; group_mask + 8),
+                bitflag!(0b1; group_mask + 0),
+                bitflag!(0b1; group_mask + 0xa),
+                bitflag!(0b1; group_mask + 0xb),
+                bitflag!(0b1; group_mask + 0xc),
+                bitflag!(0b1; group_mask + 0xd),
+                bitflag!(0b1; group_mask + 0xf),
+                bitflag!(0b1; group_mask + 0x10),
+                bitflag!(0b1; group_mask + 0x11),
+                bitflag!(0b1; group_mask + 0x12),
+            ],
+            V1_05_0 => vec![
+                bitflag!(0b1; group_mask + 0),
+                bitflag!(0b1; group_mask + 1),
+                bitflag!(0b1; group_mask + 2),
+                bitflag!(0b1; group_mask + 3),
+                bitflag!(0b1; group_mask + 5),
+                bitflag!(0b1; group_mask + 6),
+                bitflag!(0b1; group_mask + 8),
+                bitflag!(0b1; group_mask + 0xa),
+                bitflag!(0b1; group_mask + 0xb),
+                bitflag!(0b1; group_mask + 0xc),
+                bitflag!(0b1; group_mask + 0xd),
+                bitflag!(0b1; group_mask + 0xe),
+                bitflag!(0b1; group_mask + 0xf),
+            ],
+        };
+
+        let show_chr = match version {
+            V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
+            | V1_04_1 => bitflag!(0b1; group_mask + 0xe),
+            V1_05_0 => bitflag!(0b1; group_mask + 4),
         };
 
         Self {
@@ -207,7 +255,7 @@ impl Pointers {
             quitout: pointer_chain!(cs_menu_man_imp, 0x8, 0x5d),
             cursor_show: bitflag!(0b1; cs_menu_man_imp, 0xAC),
             gravity: bitflag!(0b1; world_chr_man, 0x18468, 0x190, 0x68, 0x1d3),
-            display_stable_pos: bitflag!(0b1; world_chr_man, 0x18468, 
+            display_stable_pos: bitflag!(0b1; world_chr_man, 0x18468,
                 match version {
                     V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6FD,
                     V1_04_0 | V1_04_1 | V1_05_0 => 0x6F5,
@@ -266,25 +314,8 @@ impl Pointers {
             hitbox_high: bitflag!(0b1; hit_ins_hitbox_offset),
             hitbox_low: bitflag!(0b1; hit_ins_hitbox_offset + 0x1),
             hitbox_character: bitflag!(0b1; hit_ins_hitbox_offset + 0x3),
-            show_map: bitflag!(0b1; group_mask + 0x2),
-            show_geom: vec![
-                bitflag!(0b1; group_mask + 0x3),
-                bitflag!(0b1; group_mask + 0x4),
-                bitflag!(0b1; group_mask + 0x5),
-                bitflag!(0b1; group_mask + 0x6),
-                bitflag!(0b1; group_mask + 0x7),
-                bitflag!(0b1; group_mask + 0x8),
-                bitflag!(0b1; group_mask + 0x9),
-                bitflag!(0b1; group_mask + 0xA),
-                bitflag!(0b1; group_mask + 0xB),
-                bitflag!(0b1; group_mask + 0xC),
-                bitflag!(0b1; group_mask + 0xD),
-                bitflag!(0b1; group_mask + 0xF),  // VFX
-                bitflag!(0b1; group_mask + 0x10), // Cutscene
-                bitflag!(0b1; group_mask + 0x11), // Unknown
-                bitflag!(0b1; group_mask + 0x12), // Grass
-            ],
-            show_chr: bitflag!(0b1; group_mask + 0xE),
+            show_geom,
+            show_chr,
 
             func_item_spawn,
             func_item_inject,
