@@ -9,6 +9,8 @@ use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+use dll_syringe::process::OwnedProcess;
+use dll_syringe::Syringe;
 use log::*;
 use simplelog::*;
 use widestring::U16CString;
@@ -187,7 +189,7 @@ fn run() -> Result<()> {
             "--package",
             "eldenring-practice-tool",
             "--features",
-            "hudhook/dxgi_debug",
+            "hudhook/dxgi-debug",
         ])
         .status()
         .map_err(|e| format!("cargo: {}", e))?;
@@ -212,7 +214,10 @@ fn run() -> Result<()> {
         .join("libjdsd_er_practice_tool.dll")
         .canonicalize()?;
 
-    hudhook::inject::inject("ELDEN RING™", dll_path);
+    let process = OwnedProcess::find_first_by_name("eldenring.exe")
+        .ok_or_else(|| format!("Could not find process"))?;
+    let syringe = Syringe::for_process(process);
+    syringe.inject(dll_path)?;
 
     Ok(())
 }

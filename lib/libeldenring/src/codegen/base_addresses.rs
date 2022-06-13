@@ -79,6 +79,7 @@ pub enum Version {
     V1_03_2,
     V1_04_0,
     V1_04_1,
+    V1_05_0,
 }
 
 impl From<(u32, u32, u32)> for Version {
@@ -93,6 +94,7 @@ impl From<(u32, u32, u32)> for Version {
             (1, 3, 2) => Version::V1_03_2,
             (1, 4, 0) => Version::V1_04_0,
             (1, 4, 1) => Version::V1_04_1,
+            (1, 5, 0) => Version::V1_05_0,
             (maj, min, patch) => {
                 log::error!("Unrecognized version {maj}.{min:02}.{patch}");
                 panic!()
@@ -113,6 +115,7 @@ impl From<Version> for BaseAddresses {
             Version::V1_03_2 => BASE_ADDRESSES_1_03_2,
             Version::V1_04_0 => BASE_ADDRESSES_1_04_0,
             Version::V1_04_1 => BASE_ADDRESSES_1_04_1,
+            Version::V1_05_0 => BASE_ADDRESSES_1_05_0,
         }
     }
 }
@@ -394,5 +397,36 @@ pub const BASE_ADDRESSES_1_04_1: BaseAddresses = BaseAddresses {
     func_item_inject: 0x552240,
     func_item_spawn: 0x54c860,
     func_remove_intro_screens: 0xa8fa7d,
+};
+
+pub const BASE_ADDRESSES_1_05_0: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3c1c6e8,
+    csfd4_virtual_memory_flag: 0x3c222e8,
+    cs_flipper: 0x4442c18,
+    cs_menu_man: 0x8ba67044,
+    cs_menu_man_imp: 0x3c25780,
+    cs_net_man: 0x3c14e00,
+    cs_regulation_manager: 0x3c3fdd8,
+    cs_session_manager: 0x3c33850,
+    chr_dbg_flags: 0x3c20089,
+    damage_ctrl: 0x3c20268,
+    field_area: 0x3c23070,
+    game_data_man: 0x3c17ee8,
+    game_man: 0x3c237b8,
+    global_pos: 0x3c1fe98,
+    group_mask: 0x3a0d838,
+    hit_ins: 0x3c23f78,
+    hit_ins_hitbox_offset: 0x3c23f64,
+    map_item_man: 0x3c21900,
+    menu_man_ins: 0x3c25780,
+    msg_repository: 0x3c36878,
+    solo_param_repository: 0x3c3b0d8,
+    world_chr_man: 0x3c1fe98,
+    world_chr_man_dbg: 0x3c200d0,
+    world_chr_man_imp: 0x3c1fe98,
+    func_dbg_action_force: 0x3683da,
+    func_item_inject: 0x552840,
+    func_item_spawn: 0x54ce60,
+    func_remove_intro_screens: 0xa9417d,
 };
 

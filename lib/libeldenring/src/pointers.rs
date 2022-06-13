@@ -170,7 +170,7 @@ impl Pointers {
         let global_position_offset = {
             match version {
                 V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6b8,
-                V1_04_0 | V1_04_1 => 0x6b0,
+                V1_04_0 | V1_04_1 | V1_05_0 => 0x6b0,
             }
         };
 
@@ -210,7 +210,7 @@ impl Pointers {
             display_stable_pos: bitflag!(0b1; world_chr_man, 0x18468, 
                 match version {
                     V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6FD,
-                    V1_04_0 | V1_04_1 => 0x6F5,
+                    V1_04_0 | V1_04_1 | V1_05_0 => 0x6F5,
                 }
             ),
             global_position: Position {
