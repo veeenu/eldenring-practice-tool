@@ -215,7 +215,7 @@ fn run() -> Result<()> {
         .canonicalize()?;
 
     let process = OwnedProcess::find_first_by_name("eldenring.exe")
-        .ok_or_else(|| format!("Could not find process"))?;
+        .ok_or_else(|| "Could not find process".to_string())?;
     let syringe = Syringe::for_process(process);
     syringe.inject(dll_path)?;
 

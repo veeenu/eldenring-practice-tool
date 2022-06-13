@@ -1,48 +1,44 @@
 mod vk;
 
 pub(crate) use vk::*;
+use windows::Win32::Foundation::{GetLastError, MAX_PATH, HINSTANCE};
+use windows::Win32::System::LibraryLoader::{GetModuleHandleExA, GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, GetModuleFileNameW};
+use windows::Win32::UI::Input::KeyboardAndMouse::GetAsyncKeyState;
+use windows::core::PCSTR;
 
 use std::ffi::OsString;
 use std::fmt::Display;
 use std::os::windows::prelude::OsStringExt;
 use std::path::PathBuf;
-use std::ptr::null_mut;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 use log::*;
 use serde::Deserialize;
-use winapi::shared::minwindef::{HMODULE, MAX_PATH};
-use winapi::um::errhandlingapi::GetLastError;
-use winapi::um::libloaderapi::{
-    GetModuleFileNameW, GetModuleHandleExA, GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
-    GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-};
-use winapi::um::winuser::GetAsyncKeyState;
 
 /// Returns the path of the implementor's DLL.
 pub fn get_dll_path() -> Option<PathBuf> {
-    let mut hmodule: HMODULE = null_mut();
+    let mut hmodule: HINSTANCE = Default::default();
     // SAFETY
     // This is reckless, but it should never fail, and if it does, it's ok to crash and burn.
     let gmh_result = unsafe {
         GetModuleHandleExA(
             GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT | GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
-            "DllMain".as_ptr() as _,
+            PCSTR("DllMain\0".as_ptr()),
             &mut hmodule,
         )
     };
 
-    if gmh_result == 0 {
+    if gmh_result.0 == 0 {
         error!("get_dll_path: GetModuleHandleExA error: {:x}", unsafe {
-            GetLastError()
+            GetLastError().0
         },);
         return None;
     }
 
-    let mut sz_filename = [0u16; MAX_PATH];
+    let mut sz_filename = [0u16; MAX_PATH as _];
     // SAFETY
     // pointer to sz_filename always defined and MAX_PATH bounds manually checked
-    let len = unsafe { GetModuleFileNameW(hmodule, sz_filename.as_mut_ptr() as _, MAX_PATH as _) }
+    let len = unsafe { GetModuleFileNameW(hmodule, &mut sz_filename) }
         as usize;
 
     Some(OsString::from_wide(&sz_filename[..len]).into())

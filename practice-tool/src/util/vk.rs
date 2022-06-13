@@ -1,6 +1,8 @@
 use std::collections::HashMap;
 use std::lazy::SyncLazy;
 
+use windows::Win32::UI::Input::KeyboardAndMouse::*;
+
 pub(crate) fn get_key_code(k: &str) -> Option<i32> {
     VK_SYMBOL_MAP.get(&k.to_lowercase()).copied()
 }
@@ -10,7 +12,6 @@ pub(crate) fn get_key_repr(k: i32) -> Option<&'static str> {
 }
 
 pub static VK_SYMBOL_MAP: SyncLazy<HashMap<String, i32>> = SyncLazy::new(|| {
-    use winapi::um::winuser::*;
     [
         ("lbutton", VK_LBUTTON),
         ("rbutton", VK_RBUTTON),
@@ -54,42 +55,42 @@ pub static VK_SYMBOL_MAP: SyncLazy<HashMap<String, i32>> = SyncLazy::new(|| {
         ("insert", VK_INSERT),
         ("delete", VK_DELETE),
         ("help", VK_HELP),
-        ("0", '0' as i32),
-        ("1", '1' as i32),
-        ("2", '2' as i32),
-        ("3", '3' as i32),
-        ("4", '4' as i32),
-        ("5", '5' as i32),
-        ("6", '6' as i32),
-        ("7", '7' as i32),
-        ("8", '8' as i32),
-        ("9", '9' as i32),
-        ("a", 'A' as i32),
-        ("b", 'B' as i32),
-        ("c", 'C' as i32),
-        ("d", 'D' as i32),
-        ("e", 'E' as i32),
-        ("f", 'F' as i32),
-        ("g", 'G' as i32),
-        ("h", 'H' as i32),
-        ("i", 'I' as i32),
-        ("j", 'J' as i32),
-        ("k", 'K' as i32),
-        ("l", 'L' as i32),
-        ("m", 'M' as i32),
-        ("n", 'N' as i32),
-        ("o", 'O' as i32),
-        ("p", 'P' as i32),
-        ("q", 'Q' as i32),
-        ("r", 'R' as i32),
-        ("s", 'S' as i32),
-        ("t", 'T' as i32),
-        ("u", 'U' as i32),
-        ("v", 'V' as i32),
-        ("w", 'W' as i32),
-        ("x", 'X' as i32),
-        ("y", 'Y' as i32),
-        ("z", 'Z' as i32),
+        ("0", VIRTUAL_KEY('0' as _)),
+        ("1", VIRTUAL_KEY('1' as _)),
+        ("2", VIRTUAL_KEY('2' as _)),
+        ("3", VIRTUAL_KEY('3' as _)),
+        ("4", VIRTUAL_KEY('4' as _)),
+        ("5", VIRTUAL_KEY('5' as _)),
+        ("6", VIRTUAL_KEY('6' as _)),
+        ("7", VIRTUAL_KEY('7' as _)),
+        ("8", VIRTUAL_KEY('8' as _)),
+        ("9", VIRTUAL_KEY('9' as _)),
+        ("a", VIRTUAL_KEY('A' as _)),
+        ("b", VIRTUAL_KEY('B' as _)),
+        ("c", VIRTUAL_KEY('C' as _)),
+        ("d", VIRTUAL_KEY('D' as _)),
+        ("e", VIRTUAL_KEY('E' as _)),
+        ("f", VIRTUAL_KEY('F' as _)),
+        ("g", VIRTUAL_KEY('G' as _)),
+        ("h", VIRTUAL_KEY('H' as _)),
+        ("i", VIRTUAL_KEY('I' as _)),
+        ("j", VIRTUAL_KEY('J' as _)),
+        ("k", VIRTUAL_KEY('K' as _)),
+        ("l", VIRTUAL_KEY('L' as _)),
+        ("m", VIRTUAL_KEY('M' as _)),
+        ("n", VIRTUAL_KEY('N' as _)),
+        ("o", VIRTUAL_KEY('O' as _)),
+        ("p", VIRTUAL_KEY('P' as _)),
+        ("q", VIRTUAL_KEY('Q' as _)),
+        ("r", VIRTUAL_KEY('R' as _)),
+        ("s", VIRTUAL_KEY('S' as _)),
+        ("t", VIRTUAL_KEY('T' as _)),
+        ("u", VIRTUAL_KEY('U' as _)),
+        ("v", VIRTUAL_KEY('V' as _)),
+        ("w", VIRTUAL_KEY('W' as _)),
+        ("x", VIRTUAL_KEY('X' as _)),
+        ("y", VIRTUAL_KEY('Y' as _)),
+        ("z", VIRTUAL_KEY('Z' as _)),
         ("lwin", VK_LWIN),
         ("rwin", VK_RWIN),
         ("apps", VK_APPS),
@@ -188,7 +189,7 @@ pub static VK_SYMBOL_MAP: SyncLazy<HashMap<String, i32>> = SyncLazy::new(|| {
         ("oem_clear", VK_OEM_CLEAR),
     ]
     .iter()
-    .map(|&(k, v)| (String::from(k).to_lowercase(), v))
+    .map(|&(k, v)| (String::from(k).to_lowercase(), v.0 as _))
     .collect()
 });
 

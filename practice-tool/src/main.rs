@@ -14,11 +14,18 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+use dll_syringe::process::OwnedProcess;
+use dll_syringe::Syringe;
 use pkg_version::*;
 use semver::*;
 use simplelog::*;
-use winapi::shared::windef::*;
-use winapi::um::winuser::*;
+use windows::core::PCSTR;
+use windows::Win32::Foundation::HWND;
+use windows::Win32::UI::WindowsAndMessaging::{
+    MessageBoxA, IDYES, MB_ICONERROR, MB_ICONINFORMATION, MB_OK, MB_YESNO,
+};
+// use winapi::shared::windef::*;
+// use winapi::um::winuser::*;
 
 fn err_to_string<T: std::fmt::Display>(e: T) -> String {
     format!("Error: {}", e)
@@ -68,7 +75,10 @@ fn perform_injection() -> Result<(), String> {
     let dll_path = dll_path.canonicalize().map_err(err_to_string)?;
     log::trace!("Injecting {:?}", dll_path);
 
-    hudhook::inject::inject("ELDEN RING™", dll_path);
+    let process = OwnedProcess::find_first_by_name("eldenring.exe")
+        .ok_or_else(|| "Could not find process".to_string())?;
+    let syringe = Syringe::for_process(process);
+    syringe.inject(dll_path).map_err(|e| format!("{e}"))?;
 
     Ok(())
 }
@@ -95,9 +105,9 @@ fn main() {
 
                 let msgbox_response = unsafe {
                     MessageBoxA(
-                        0 as HWND,
-                        update_msg.as_str().as_ptr() as _,
-                        "Update available\0".as_ptr() as _,
+                        HWND(0),
+                        PCSTR(update_msg.as_str().as_ptr()),
+                        PCSTR("Update available\0".as_ptr()),
                         MB_YESNO | MB_ICONINFORMATION,
                     )
                 };
@@ -111,9 +121,9 @@ fn main() {
             let error_msg = format!("Could not check for a new version: {}\0", e);
             unsafe {
                 MessageBoxA(
-                    0 as HWND,
-                    error_msg.as_str().as_ptr() as _,
-                    "Error\0".as_ptr() as _,
+                    HWND(0),
+                    PCSTR(error_msg.as_str().as_ptr()),
+                    PCSTR("Error\0".as_ptr()),
                     MB_OK | MB_ICONERROR,
                 );
             }
@@ -124,9 +134,9 @@ fn main() {
         let error_msg = format!("{}\0", e);
         unsafe {
             MessageBoxA(
-                0 as HWND,
-                error_msg.as_str().as_ptr() as _,
-                "Error\0".as_ptr() as _,
+                HWND(0),
+                PCSTR(error_msg.as_str().as_ptr()),
+                PCSTR("Error\0".as_ptr()),
                 MB_OK | MB_ICONERROR,
             );
         }
