@@ -23,7 +23,3 @@ jobs:
         with:
           name: jdsd_er_practice_tool
           path: target/dist/jdsd_er_practice_tool.zip
-      - uses: actions/upload-artifact@v2
-        with:
-          name: jdsd_er_practice_tool_debug
-          path: target/dist/jdsd_er_practice_tool_debug.zip

@@ -32,6 +32,8 @@ pub(crate) struct Config {
 pub(crate) struct Settings {
     pub(crate) log_level: LevelFilterSerde,
     pub(crate) display: KeyState,
+    #[serde(default)]
+    pub(crate) dxgi_debug: bool,
 }
 
 #[cfg_attr(test, derive(Debug))]
@@ -244,6 +246,7 @@ impl Default for Config {
             settings: Settings {
                 log_level: LevelFilterSerde(LevelFilter::Debug),
                 display: KeyState::new(util::get_key_code("0").unwrap()),
+                dxgi_debug: false,
             },
             commands: Vec::new(),
         }

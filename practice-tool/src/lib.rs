@@ -109,6 +109,10 @@ impl PracticeTool {
             },
         }
 
+        if config.settings.dxgi_debug {
+            hudhook::hooks::dx12::enable_dxgi_debug();
+        }
+
         if let Some(err) = config_err {
             error!("{}", err);
         }
@@ -218,6 +222,7 @@ impl PracticeTool {
                     .movable(false)
                     .title_bar(false)
                     .build(ui, || {
+                        self.pointers.cursor_show.set(true);
                         ui.text(formatcp!(
                             "Elden Ring Practice Tool v{}.{}.{}",
                             pkg_version_major!() as usize,
@@ -247,6 +252,7 @@ impl PracticeTool {
                         ui.separator();
                         if ui.button("Close") {
                             ui.close_current_popup();
+                            self.pointers.cursor_show.set(false);
                         }
                         ui.same_line();
                         if ui.button("Submit issue") {

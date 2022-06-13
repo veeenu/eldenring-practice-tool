@@ -68,24 +68,6 @@ fn dist() -> Result<()> {
         return Err("cargo build failed".into());
     }
 
-    let status = Command::new(&cargo)
-        .current_dir(project_root())
-        .args(&[
-            "build",
-            "--profile",
-            "release-dxgidebug",
-            "--package",
-            "eldenring-practice-tool",
-            "--features",
-            "dxgi-debug",
-        ])
-        .status()
-        .map_err(|e| format!("cargo: {}", e))?;
-
-    if !status.success() {
-        return Err("cargo build failed".into());
-    }
-
     update_icon(
         project_root().join("target/release/jdsd_er_practice_tool.exe"),
         project_root().join("practice-tool/src/icon.ico"),
@@ -96,7 +78,7 @@ fn dist() -> Result<()> {
     std::fs::create_dir_all(dist_dir())?;
 
     //
-    // Create distribution zip files
+    // Create distribution zip file(s)
     //
 
     struct DistZipFile {
@@ -154,27 +136,6 @@ fn dist() -> Result<()> {
         "jdsd_er_practice_tool.toml",
     )?;
 
-    let mut dist_debug = DistZipFile::new("jdsd_er_practice_tool_debug.zip")?;
-
-    dist_debug.add(
-        project_root().join("target/release-dxgidebug/jdsd_er_practice_tool.exe"),
-        "jdsd_er_practice_tool.exe",
-    )?;
-    dist_debug.add(
-        project_root().join("target/release-dxgidebug/libjdsd_er_practice_tool.dll"),
-        "jdsd_er_practice_tool.dll",
-    )?;
-    dist_debug.add_map(
-        project_root().join("jdsd_er_practice_tool.toml"),
-        "jdsd_er_practice_tool.toml",
-        |buf| {
-            String::from_utf8(buf)
-                .unwrap()
-                .replace(r#"log_level = "INFO""#, r#"log_level = "TRACE""#)
-                .into_bytes()
-        },
-    )?;
-
     Ok(())
 }
 
@@ -188,8 +149,6 @@ fn run() -> Result<()> {
             "--lib",
             "--package",
             "eldenring-practice-tool",
-            "--features",
-            "hudhook/dxgi-debug",
         ])
         .status()
         .map_err(|e| format!("cargo: {}", e))?;

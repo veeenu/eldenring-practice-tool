@@ -12,10 +12,6 @@ path = "src/main.rs"
 crate-type = ["cdylib", "rlib"]
 name = "libjdsd_er_practice_tool"
 
-[features]
-default = []
-dxgi-debug = ["hudhook/dxgi-debug"]
-
 [dependencies]
 hudhook = { path = "../lib/hudhook/hudhook" }
 libeldenring = { path = "../lib/libeldenring" }
