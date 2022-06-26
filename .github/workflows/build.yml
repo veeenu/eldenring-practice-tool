@@ -32,4 +32,5 @@ jobs:
           release_id: 69336452
           asset_path: target/dist/jdsd_er_practice_tool.zip
           asset_content_type: application/zip
+          asset_name: jdsd_er_practice_tool-$$.zip
           max_releases: 1
