@@ -24,10 +24,13 @@ jobs:
           name: jdsd_er_practice_tool
           path: target/dist/jdsd_er_practice_tool.zip
       - name: Update nightly release
-        uses: eine/tip@master
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag: nightly
-          rm: true
-          token: ${{ secrets.GITHUB_TOKEN }}
-          files: target/dist/jdsd_er_practice_tool.zip
+          upload_url: https://uploads.github.com/repos/veeenu/eldenring-practice-tool/releases/70590819/assets{?name,label}
+          asset_path: target/dist/jdsd_er_practice_tool.zip
+          asset_name: jdsd_er_practice_tool.zip
+          asset_content_type: application/zip
+          
 
