@@ -1,6 +1,6 @@
 #![feature(once_cell)]
 use std::ffi::c_void;
-use std::lazy::SyncLazy;
+use std::sync::LazyLock;
 use std::ptr::null_mut;
 
 use libeldenring::prelude::*;
@@ -27,13 +27,13 @@ type FnHResult = unsafe extern "stdcall" fn() -> HRESULT;
 type FnGetClassObject =
     unsafe extern "stdcall" fn(*const c_void, *const c_void, *const c_void) -> HRESULT;
 
-static SYMBOLS: SyncLazy<(
+static SYMBOLS: LazyLock<(
     FnDirectInput8Create,
     FnHResult,
     FnGetClassObject,
     FnHResult,
     FnHResult,
-)> = SyncLazy::new(|| unsafe {
+)> = LazyLock::new(|| unsafe {
     apply_patch();
     let mut sys_path = vec![0u16; 320];
     let len = GetSystemDirectoryW(&mut sys_path) as u32;

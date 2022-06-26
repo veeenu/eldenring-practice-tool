@@ -3,7 +3,7 @@ use std::env;
 use std::ffi::c_void;
 use std::fs::File;
 use std::io::Write;
-use std::lazy::SyncLazy;
+use std::sync::LazyLock;
 use std::path::{Path, PathBuf};
 use std::ptr::{null, null_mut};
 
@@ -53,7 +53,7 @@ const AOBS: &[(&str, &str)] = &[
 ];
 
 // Direct AoB patterns -- grab the position of the match. For static functions
-static AOBS_DIRECT: SyncLazy<Vec<(&str, Vec<&str>)>> = SyncLazy::new(|| {
+static AOBS_DIRECT: LazyLock<Vec<(&str, Vec<&str>)>> = LazyLock::new(|| {
     vec![
     ("FuncItemSpawn", vec!["48 8B C4 56 57 41 56 48 81 EC ?? ?? ?? ?? 48 C7 44 24 ?? ?? ?? ?? ?? 48 89 58 ?? 48 89 68 ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 41 0F B6 F9"]),
     ("FuncItemInject", vec![

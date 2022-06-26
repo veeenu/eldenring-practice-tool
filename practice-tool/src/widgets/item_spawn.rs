@@ -6,7 +6,7 @@ use crate::util::KeyState;
 use std::borrow::Cow;
 use std::ffi::c_void;
 use std::fmt::Display;
-use std::lazy::SyncLazy;
+use std::sync::LazyLock;
 
 use imgui::*;
 use serde::Deserialize;
@@ -183,8 +183,8 @@ fn string_match(needle: &str, haystack: &str) -> bool {
 }
 
 const ISP_TAG: &str = "##item-spawn";
-static ITEM_ID_TREE: SyncLazy<Vec<ItemIDNode>> =
-    SyncLazy::new(|| serde_json::from_str(include_str!("item_ids.json")).unwrap());
+static ITEM_ID_TREE: LazyLock<Vec<ItemIDNode>> =
+    LazyLock::new(|| serde_json::from_str(include_str!("item_ids.json")).unwrap());
 
 #[derive(Debug)]
 pub(crate) struct ItemSpawner<'a> {

@@ -3,7 +3,7 @@ use crate::prelude::base_addresses::BaseAddresses;
 
 use std::collections::{BTreeMap, HashMap};
 use std::ffi::c_void;
-use std::lazy::SyncLazy;
+use std::sync::LazyLock;
 use std::ptr::null_mut;
 
 use log::*;
@@ -15,7 +15,7 @@ use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 use crate::version::VERSION;
 use crate::{wait_option, ParamVisitor};
 
-pub static PARAMS: SyncLazy<RwLock<Params>> = SyncLazy::new(|| unsafe {
+pub static PARAMS: LazyLock<RwLock<Params>> = LazyLock::new(|| unsafe {
     wait_option(|| match Params::new() {
         Ok(p) => Some(RwLock::new(p)),
         Err(e) => {
@@ -25,8 +25,8 @@ pub static PARAMS: SyncLazy<RwLock<Params>> = SyncLazy::new(|| unsafe {
     })
 });
 
-pub static PARAM_NAMES: SyncLazy<HashMap<String, HashMap<usize, String>>> =
-    SyncLazy::new(|| serde_json::from_str(include_str!("codegen/param_names.json")).unwrap());
+pub static PARAM_NAMES: LazyLock<HashMap<String, HashMap<usize, String>>> =
+    LazyLock::new(|| serde_json::from_str(include_str!("codegen/param_names.json")).unwrap());
 
 #[derive(Debug)]
 #[repr(C)]

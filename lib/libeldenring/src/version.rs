@@ -1,4 +1,4 @@
-use std::lazy::SyncLazy;
+use std::sync::LazyLock;
 use std::ptr::null_mut;
 
 pub use crate::prelude::base_addresses::Version;
@@ -12,7 +12,7 @@ use windows::Win32::Storage::FileSystem::{
 };
 use windows::Win32::System::LibraryLoader::{GetModuleFileNameW, GetModuleHandleW};
 
-pub static VERSION: SyncLazy<Version> = SyncLazy::new(get_version);
+pub static VERSION: LazyLock<Version> = LazyLock::new(get_version);
 
 fn get_version() -> Version {
     let file_path = {
