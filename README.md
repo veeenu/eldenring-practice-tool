@@ -49,8 +49,9 @@ flag should work as intended again. If it doesn't work, a quitout will most like
 
 ## I found an issue. What do I do?
 
-- Download the debug-enabled version of the tool (`jdsd_er_practice_tool_debug.zip`). Consider that
-  the game will run slower with this version, due to the intense log reporting. This is normal.
+- Apply the following settings to `jdsd_er_practice_tool.toml`:
+  - `log_level = "TRACE"` 
+  - `dxgi_debug = true`
 - Enable DXGI debug layer:
   - Press `Windows + R` to open the "Run" dialog, type `dxcpl.exe` and press enter.
     
