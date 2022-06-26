@@ -281,7 +281,7 @@ struct DirEntry {
 }
 
 impl DirEntry {
-    fn new(path: &Path) -> DirEntry {
+    fn new(path: &Path, cursor: Option<usize>) -> DirEntry {
         let mut list = DirStack::ls(path).unwrap();
 
         list.sort_by(|a, b| {
@@ -296,7 +296,7 @@ impl DirEntry {
             }
         });
 
-        let list = list
+        let list: Vec<_> = list
             .into_iter()
             .map(|a| {
                 let repr = if a.is_dir() {
@@ -308,9 +308,11 @@ impl DirEntry {
             })
             .collect();
 
+        let max_len = list.len();
+
         DirEntry {
             list,
-            cursor: 0,
+            cursor: cursor.unwrap_or(0).min(max_len),
             path: PathBuf::from(path),
         }
     }
@@ -355,7 +357,7 @@ struct DirStack {
 impl DirStack {
     fn new(path: &Path) -> Result<Self, String> {
         Ok(DirStack {
-            top: DirEntry::new(path),
+            top: DirEntry::new(path, None),
             stack: Vec::new(),
         })
     }
@@ -367,7 +369,7 @@ impl DirStack {
             .unwrap_or(&self.top)
             .current()
             .filter(|current_entry| current_entry.is_dir())
-            .map(|current_entry| DirEntry::new(current_entry));
+            .map(|current_entry| DirEntry::new(current_entry, None));
 
         if let Some(e) = new_entry {
             self.stack.push(e);
@@ -425,9 +427,9 @@ impl DirStack {
 
     fn refresh(&mut self) {
         if let Some(l) = self.stack.last_mut() {
-            *l = DirEntry::new(l.path());
+            *l = DirEntry::new(l.path(), Some(l.cursor));
         } else {
-            self.top = DirEntry::new(self.top.path());
+            self.top = DirEntry::new(self.top.path(), Some(self.top.cursor));
         }
     }
 
