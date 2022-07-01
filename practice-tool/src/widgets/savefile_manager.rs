@@ -6,9 +6,8 @@ use std::process::Command;
 use imgui::*;
 use log::error;
 
-use crate::util::{get_key_code, KeyState};
-
 use super::Widget;
+use crate::util::{get_key_code, KeyState};
 
 const SFM_TAG: &str = "##savefile-manager";
 
@@ -98,11 +97,7 @@ impl SavefileManager {
                 self.log = match load_savefile(src_path, &self.savefile_path) {
                     Ok(()) => Some(format!(
                         "Loaded {}/{}",
-                        if self.breadcrumbs == "/" {
-                            ""
-                        } else {
-                            &self.breadcrumbs
-                        },
+                        if self.breadcrumbs == "/" { "" } else { &self.breadcrumbs },
                         src_path.file_name().unwrap().to_str().unwrap()
                     )),
                     Err(e) => Some(format!("Error loading savefile: {}", e)),
@@ -130,14 +125,10 @@ impl SavefileManager {
                 self.dir_stack.refresh();
                 Some(format!(
                     "Imported {}/{}",
-                    if self.breadcrumbs == "/" {
-                        ""
-                    } else {
-                        &self.breadcrumbs
-                    },
+                    if self.breadcrumbs == "/" { "" } else { &self.breadcrumbs },
                     dst_path.file_name().unwrap().to_str().unwrap()
                 ))
-            }
+            },
             Err(e) => Some(format!("Error importing savefile: {}", e)),
         };
     }
@@ -146,10 +137,7 @@ impl SavefileManager {
 impl Widget for SavefileManager {
     fn render(&mut self, ui: &imgui::Ui) {
         let scale = super::scaling_factor(ui);
-        if ui.button_with_size(
-            &self.label,
-            [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT],
-        ) {
+        if ui.button_with_size(&self.label, [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT]) {
             ui.open_popup(SFM_TAG);
             self.dir_stack.refresh();
         }
@@ -167,12 +155,10 @@ impl Widget for SavefileManager {
             )
             .begin_popup(ui)
         {
-            ChildWindow::new("##savefile-manager-breadcrumbs")
-                .size([240., 14.])
-                .build(ui, || {
-                    ui.text(&self.breadcrumbs);
-                    ui.set_scroll_x(ui.scroll_max_x());
-                });
+            ChildWindow::new("##savefile-manager-breadcrumbs").size([240., 14.]).build(ui, || {
+                ui.text(&self.breadcrumbs);
+                ui.set_scroll_x(ui.scroll_max_x());
+            });
 
             let center_scroll_y = if self.key_down.keyup() {
                 self.dir_stack.next();
@@ -221,9 +207,7 @@ impl Widget for SavefileManager {
 
             {
                 let _tok = ui.push_item_width(174.);
-                ui.input_text("##savefile_name", &mut self.savefile_name)
-                    .hint("file name")
-                    .build();
+                ui.input_text("##savefile_name", &mut self.savefile_name).hint("file name").build();
                 self.input_edited = ui.is_item_active();
             }
 
@@ -310,11 +294,7 @@ impl DirEntry {
 
         let max_len = list.len();
 
-        DirEntry {
-            list,
-            cursor: cursor.unwrap_or(0).min(max_len),
-            path: PathBuf::from(path),
-        }
+        DirEntry { list, cursor: cursor.unwrap_or(0).min(max_len), path: PathBuf::from(path) }
     }
 
     fn values(&self, directories_only: bool) -> impl IntoIterator<Item = (usize, bool, &str)> {
@@ -356,10 +336,7 @@ struct DirStack {
 
 impl DirStack {
     fn new(path: &Path) -> Result<Self, String> {
-        Ok(DirStack {
-            top: DirEntry::new(path, None),
-            stack: Vec::new(),
-        })
+        Ok(DirStack { top: DirEntry::new(path, None), stack: Vec::new() })
     }
 
     fn enter(&mut self) {
@@ -434,9 +411,9 @@ impl DirStack {
     }
 
     // TODO SAFETY
-    // FS errors would be permission denied (which shouldn't happen but should be reported)
-    // and not a directory (which doesn't happen because we checked for is_dir).
-    // For the moment, I just unwrap.
+    // FS errors would be permission denied (which shouldn't happen but should be
+    // reported) and not a directory (which doesn't happen because we checked
+    // for is_dir). For the moment, I just unwrap.
     fn ls(path: &Path) -> Result<Vec<PathBuf>, String> {
         Ok(std::fs::read_dir(path)
             .map_err(|e| format!("{}", e))?
@@ -448,14 +425,10 @@ impl DirStack {
 
 fn get_savefile_path() -> Result<PathBuf, String> {
     let re = regex::Regex::new(r"^[a-f0-9]+$").unwrap();
-    let savefile_path: PathBuf = [
-        std::env::var("APPDATA")
-            .map_err(|e| format!("{}", e))?
-            .as_str(),
-        "EldenRing",
-    ]
-    .iter()
-    .collect();
+    let savefile_path: PathBuf =
+        [std::env::var("APPDATA").map_err(|e| format!("{}", e))?.as_str(), "EldenRing"]
+            .iter()
+            .collect();
     std::fs::read_dir(&savefile_path)
         .map_err(|e| format!("{}", e))?
         .filter_map(|e| e.ok())

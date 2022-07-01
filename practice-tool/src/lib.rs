@@ -23,11 +23,10 @@ mod widgets;
 use std::time::Instant;
 
 use const_format::formatcp;
-use imgui::*;
-use pkg_version::*;
-
 use hudhook::hooks::dx12::{ImguiRenderLoop, ImguiRenderLoopFlags};
+use imgui::*;
 use libeldenring::prelude::*;
+use pkg_version::*;
 
 use crate::widgets::Widget;
 
@@ -101,7 +100,7 @@ impl PracticeTool {
                     WriteLogger::new(log_level, Config::default(), log_file),
                 ])
                 .ok();
-            }
+            },
             e => match e {
                 None => error!("Could not construct log file path"),
                 Some(Err(e)) => error!("Could not initialize log file: {:?}", e),
@@ -171,13 +170,10 @@ impl PracticeTool {
                     }
                 }
 
-                if ui.button_with_size(
-                    "Close",
-                    [
-                        widgets::BUTTON_WIDTH * widgets::scaling_factor(ui),
-                        widgets::BUTTON_HEIGHT,
-                    ],
-                ) {
+                if ui.button_with_size("Close", [
+                    widgets::BUTTON_WIDTH * widgets::scaling_factor(ui),
+                    widgets::BUTTON_HEIGHT,
+                ]) {
                     self.is_shown = false;
                     self.pointers.cursor_show.set(false);
                 }
@@ -231,16 +227,12 @@ impl PracticeTool {
                         ));
                         ui.separator();
                         ui.text(format!(
-                            "Press the {} key to open/close the tool's\n\
-                             interface.\n\n\
-                             You can toggle flags/launch commands by\n\
-                             clicking in the UI or by pressing\n\
-                             the hotkeys (in the parentheses).\n\n\
-                             You can configure your tool by editing\n\
-                             the jdsd_er_practice_tool.toml file with\n\
-                             a text editor. If you break something,\n\
-                             just download a fresh file!\n\n\
-                             Thank you for using my tool! <3\n",
+                            "Press the {} key to open/close the tool's\ninterface.\n\nYou can \
+                             toggle flags/launch commands by\nclicking in the UI or by \
+                             pressing\nthe hotkeys (in the parentheses).\n\nYou can configure \
+                             your tool by editing\nthe jdsd_er_practice_tool.toml file with\na \
+                             text editor. If you break something,\njust download a fresh \
+                             file!\n\nThank you for using my tool! <3\n",
                             self.config.settings.display
                         ));
                         ui.separator();
@@ -369,8 +361,7 @@ impl ImguiRenderLoop for PracticeTool {
                 let now = Instant::now();
                 self.log.extend(logs.into_iter().map(|l| (now, l)));
             }
-            self.log
-                .retain(|(tm, _)| tm.elapsed() < std::time::Duration::from_secs(5));
+            self.log.retain(|(tm, _)| tm.elapsed() < std::time::Duration::from_secs(5));
         }
 
         self.render_logs(ui, flags);

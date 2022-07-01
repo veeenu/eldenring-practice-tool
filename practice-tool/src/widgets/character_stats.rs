@@ -1,10 +1,9 @@
+use imgui::*;
+use libeldenring::prelude::*;
+use log::*;
+
 use super::Widget;
 use crate::util::KeyState;
-
-use libeldenring::prelude::*;
-
-use imgui::*;
-use log::*;
 
 #[derive(Debug)]
 pub(crate) struct CharacterStatsEdit {
@@ -24,14 +23,7 @@ impl CharacterStatsEdit {
     ) -> Self {
         let label_open = format!("Edit stats ({})", hotkey_open);
         let label_close = format!("Close ({})", hotkey_close);
-        CharacterStatsEdit {
-            hotkey_open,
-            hotkey_close,
-            label_open,
-            label_close,
-            ptr,
-            stats: None,
-        }
+        CharacterStatsEdit { hotkey_open, hotkey_close, label_open, label_close, ptr, stats: None }
     }
 }
 
@@ -79,10 +71,7 @@ impl Widget for CharacterStatsEdit {
                 if ui.input_int("Dexterity", &mut stats.dexterity).build() {
                     stats.dexterity = stats.dexterity.clamp(1, 99);
                 }
-                if ui
-                    .input_int("Intelligence", &mut stats.intelligence)
-                    .build()
-                {
+                if ui.input_int("Intelligence", &mut stats.intelligence).build() {
                     stats.intelligence = stats.intelligence.clamp(1, 99);
                 }
                 if ui.input_int("Faith", &mut stats.faith).build() {

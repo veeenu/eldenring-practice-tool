@@ -5,10 +5,9 @@ use std::os::windows::ffi::OsStringExt;
 use std::path::PathBuf;
 
 use hudhook::hooks::dx12::{ImguiRenderLoop, ImguiRenderLoopFlags};
+use imgui::*;
 use libeldenring::params::{PARAMS, PARAM_NAMES};
 use libeldenring::prelude::*;
-
-use imgui::*;
 use simplelog::*;
 use winapi::shared::minwindef::*;
 use winapi::um::errhandlingapi::*;
@@ -18,7 +17,8 @@ use winapi::um::libloaderapi::*;
 pub fn get_dll_path() -> Option<PathBuf> {
     let mut hmodule: HMODULE = std::ptr::null_mut();
     // SAFETY
-    // This is reckless, but it should never fail, and if it does, it's ok to crash and burn.
+    // This is reckless, but it should never fail, and if it does, it's ok to crash
+    // and burn.
     let gmh_result = unsafe {
         GetModuleHandleExA(
             GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT | GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
@@ -28,9 +28,7 @@ pub fn get_dll_path() -> Option<PathBuf> {
     };
 
     if gmh_result == 0 {
-        error!("get_dll_path: GetModuleHandleExA error: {:x}", unsafe {
-            GetLastError()
-        },);
+        error!("get_dll_path: GetModuleHandleExA error: {:x}", unsafe { GetLastError() },);
         return None;
     }
 
@@ -147,18 +145,13 @@ impl ParamTinkerer {
                     ui.set_current_column_width(COLUMN1 + 10.);
 
                     ui.push_item_width(-1.);
-                    ListBox::new("##param_names")
-                        .size([COLUMN1, 220.])
-                        .build(ui, || {
-                            for (idx, k) in params.keys().enumerate() {
-                                if Selectable::new(k)
-                                    .selected(idx == self.selected_param)
-                                    .build(ui)
-                                {
-                                    self.selected_param = idx;
-                                }
+                    ListBox::new("##param_names").size([COLUMN1, 220.]).build(ui, || {
+                        for (idx, k) in params.keys().enumerate() {
+                            if Selectable::new(k).selected(idx == self.selected_param).build(ui) {
+                                self.selected_param = idx;
                             }
-                        });
+                        }
+                    });
 
                     params
                         .keys()
@@ -172,27 +165,25 @@ impl ParamTinkerer {
 
                     let mut buf = String::new();
                     ui.push_item_width(-1.);
-                    ListBox::new("##param_ids")
-                        .size([COLUMN2, 220.])
-                        .build(ui, || {
-                            for (idx, id) in param_entries.enumerate() {
-                                let param_repr = PARAM_NAMES
-                                    .get(param_name)
-                                    .and_then(|param_id_names| param_id_names.get(&(id as usize)))
-                                    .unwrap_or_else(|| {
-                                        buf.clear();
-                                        write!(buf, "{}", id).ok();
-                                        &buf
-                                    });
-                                if Selectable::new(param_repr)
-                                    .selected(idx == self.selected_param_id)
-                                    .build(ui)
-                                {
-                                    info!("Selected {idx}: {id}");
-                                    self.selected_param_id = idx;
-                                }
+                    ListBox::new("##param_ids").size([COLUMN2, 220.]).build(ui, || {
+                        for (idx, id) in param_entries.enumerate() {
+                            let param_repr = PARAM_NAMES
+                                .get(param_name)
+                                .and_then(|param_id_names| param_id_names.get(&(id as usize)))
+                                .unwrap_or_else(|| {
+                                    buf.clear();
+                                    write!(buf, "{}", id).ok();
+                                    &buf
+                                });
+                            if Selectable::new(param_repr)
+                                .selected(idx == self.selected_param_id)
+                                .build(ui)
+                            {
+                                info!("Selected {idx}: {id}");
+                                self.selected_param_id = idx;
                             }
-                        });
+                        }
+                    });
 
                     (param_name, self.selected_param_id)
                 });
@@ -248,16 +239,10 @@ impl ParamTinkerer {
 
                     ui.columns(1, "##param_columns2", false);
 
-                    ListBox::new("##param_detail")
-                        .size([COLUMN3, 220.])
-                        .build(ui, || {
-                            let _tok = ui.push_item_width(120.);
-                            params.visit_param_item(
-                                param_name,
-                                param_idx,
-                                &mut ImguiParamVisitor(ui),
-                            );
-                        });
+                    ListBox::new("##param_detail").size([COLUMN3, 220.]).build(ui, || {
+                        let _tok = ui.push_item_width(120.);
+                        params.visit_param_item(param_name, param_idx, &mut ImguiParamVisitor(ui));
+                    });
                 };
             });
     }

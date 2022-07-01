@@ -1,8 +1,7 @@
 use libeldenring::prelude::*;
 
-use crate::util::KeyState;
-
 use super::Widget;
+use crate::util::KeyState;
 
 #[derive(Debug)]
 pub(crate) struct Runes {
@@ -14,12 +13,7 @@ pub(crate) struct Runes {
 
 impl Runes {
     pub(crate) fn new(amount: u32, ptr: PointerChain<u32>, hotkey: KeyState) -> Self {
-        Runes {
-            label: format!("Add {} Runes ({})", amount, hotkey),
-            ptr,
-            hotkey,
-            amount,
-        }
+        Runes { label: format!("Add {} Runes ({})", amount, hotkey), ptr, hotkey, amount }
     }
 
     fn add(&self) -> Option<u32> {
@@ -38,10 +32,7 @@ impl Widget for Runes {
         let runes = self.ptr.read();
         let _token = ui.begin_disabled(runes.is_none());
 
-        if ui.button_with_size(
-            &self.label,
-            [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT],
-        ) {
+        if ui.button_with_size(&self.label, [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT]) {
             self.add();
         }
     }

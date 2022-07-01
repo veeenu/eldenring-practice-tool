@@ -1,9 +1,9 @@
 use std::cmp::Ordering;
 
-use crate::util::KeyState;
 use libeldenring::prelude::*;
 
 use super::Widget;
+use crate::util::KeyState;
 
 #[derive(Debug)]
 pub(crate) struct CycleSpeed {
@@ -16,11 +16,7 @@ impl CycleSpeed {
     pub(crate) fn new(values: &[f32], ptr: [PointerChain<f32>; 2], hotkey: KeyState) -> Self {
         let mut values = values.to_vec();
         values.sort_by(|a, b| a.partial_cmp(b).unwrap_or(Ordering::Equal));
-        CycleSpeed {
-            ptr,
-            hotkey,
-            values,
-        }
+        CycleSpeed { ptr, hotkey, values }
     }
 
     fn cycle(&self) -> Option<f32> {
@@ -50,13 +46,10 @@ impl Widget for CycleSpeed {
             format!("Speed ({})", self.hotkey)
         };
 
-        if ui.button_with_size(
-            &label,
-            [
-                super::BUTTON_WIDTH * super::scaling_factor(ui),
-                super::BUTTON_HEIGHT,
-            ],
-        ) {
+        if ui.button_with_size(&label, [
+            super::BUTTON_WIDTH * super::scaling_factor(ui),
+            super::BUTTON_HEIGHT,
+        ]) {
             self.cycle();
         }
     }

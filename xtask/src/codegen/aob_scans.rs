@@ -3,9 +3,9 @@ use std::env;
 use std::ffi::c_void;
 use std::fs::File;
 use std::io::Write;
-use std::sync::LazyLock;
 use std::path::{Path, PathBuf};
 use std::ptr::{null, null_mut};
+use std::sync::LazyLock;
 
 use heck::AsSnakeCase;
 use rayon::prelude::*;
@@ -26,15 +26,26 @@ use windows::Win32::System::Threading::{CreateProcessW, OpenProcess, *};
 
 // Indirect AoB patterns -- grab the bytes 3-7 as a u32 offset.
 const AOBS: &[(&str, &str)] = &[
-    ("BulletMan", "48 8B 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 44 24 ?? 48 89 44 24 ?? 48 89 7C 24 ?? C7 44 24 ?? ?? ?? ?? ?? 48"),
+    (
+        "BulletMan",
+        "48 8B 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 44 24 ?? 48 89 44 24 ?? 48 89 7C 24 ?? C7 44 \
+         24 ?? ?? ?? ?? ?? 48",
+    ),
     ("ChrDbgFlags", "?? 80 3D ?? ?? ?? ?? 00 0F 85 ?? ?? ?? ?? 32 C0 48"),
     ("CSFD4VirtualMemoryFlag", "48 8B 3D ?? ?? ?? ?? 48 85 FF 74 ?? 48 8B 49"),
     ("CSFlipper", "48 8B 0D ?? ?? ?? ?? 80 BB D7 00 00 00 00 0F 84 CE 00 00 00 48 85 C9 75 2E"),
     ("CSMenuMan", "E8 ?? ?? ?? ?? 4C 8B F8 48 85 C0 0F 84 ?? ?? ?? ?? 48 8B 0D"),
-    ("CSMenuManImp", "48 8B 0D ?? ?? ?? ?? 48 8B 49 08 E8 ?? ?? ?? ?? 48 8B D0 48 8B CE E8 ?? ?? ?? ??"),
+    (
+        "CSMenuManImp",
+        "48 8B 0D ?? ?? ?? ?? 48 8B 49 08 E8 ?? ?? ?? ?? 48 8B D0 48 8B CE E8 ?? ?? ?? ??",
+    ),
     ("CSNetMan", "48 8B 0D ?? ?? ?? ?? 48 85 C9 74 5E 48 8B 89 ?? ?? ?? ?? B2 01"),
     ("CSRegulationManager", "48 8B 0D ?? ?? ?? ?? 48 85 C9 74 0B 4C 8B C0 48 8B D7"),
-    ("CSSessionManager", "48 8B 05 ?? ?? ?? ?? 48 89 9C 24 E8 00 00 00 48 89 B4 24 B0 00 00 00 4C 89 A4 24 A8 00 00 00 4C 89 AC 24 A0 00 00 00 48 85 C0"),
+    (
+        "CSSessionManager",
+        "48 8B 05 ?? ?? ?? ?? 48 89 9C 24 E8 00 00 00 48 89 B4 24 B0 00 00 00 4C 89 A4 24 A8 00 \
+         00 00 4C 89 AC 24 A0 00 00 00 48 85 C0",
+    ),
     ("DamageCtrl", "48 8B 05 ?? ?? ?? ?? 49 8B D9 49 8B F8 48 8B F2 48 85 C0 75 2E"),
     ("FieldArea", "48 8B 3D ?? ?? ?? ?? 48 85 FF 0F 84 ?? ?? ?? ?? 45 38 66 34"),
     ("GameDataMan", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 05 48 8B 40 58 C3 C3"),
@@ -43,30 +54,51 @@ const AOBS: &[(&str, &str)] = &[
     ("HitIns", "48 8B 05 ?? ?? ?? ?? 48 8D 4C 24 ?? 48 89 4c 24 ?? 0F 10 44 24 70"),
     ("HitInsHitboxOffset", "0F B6 25 ?? ?? ?? ?? 44 0F B6 3D ?? ?? ?? ?? E8 ?? ?? ?? ?? 0F B6 F8"),
     ("GlobalPos", "48 8B 3D ?? ?? ?? ?? 33 DB 49 8B F0 4C 8B F1 48 85 FF"),
-    ("MapItemMan", "48 8B 0D ?? ?? ?? ?? C7 44 24 50 FF FF FF FF C7 45 A0 FF FF FF FF 48 85 C9 75 2E"),
+    (
+        "MapItemMan",
+        "48 8B 0D ?? ?? ?? ?? C7 44 24 50 FF FF FF FF C7 45 A0 FF FF FF FF 48 85 C9 75 2E",
+    ),
     ("MenuManIns", "48 8b 0d ?? ?? ?? ?? 48 8b 53 08 48 8b 92 d8 00 00 00 48 83 c4 20 5b"),
     ("MsgRepository", "48 8B 3D ?? ?? ?? ?? 44 0F B6 30 48 85 FF 75 26"),
-    ("SoloParamRepository", "48 8B 0D ?? ?? ?? ?? 48 85 C9 0F 84 ?? ?? ?? ?? 45 33 C0 BA 8D 00 00 00 E8"),
-    ("WorldChrMan", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 0F 48 39 88 ?? ?? ?? ?? 75 06 89 B1 5C 03 00 00 0F 28 05 ?? ?? ?? ?? 4C 8D 45 E7"),
+    (
+        "SoloParamRepository",
+        "48 8B 0D ?? ?? ?? ?? 48 85 C9 0F 84 ?? ?? ?? ?? 45 33 C0 BA 8D 00 00 00 E8",
+    ),
+    (
+        "WorldChrMan",
+        "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 0F 48 39 88 ?? ?? ?? ?? 75 06 89 B1 5C 03 00 00 0F 28 \
+         05 ?? ?? ?? ?? 4C 8D 45 E7",
+    ),
     ("WorldChrManDbg", "48 8B 0D ?? ?? ?? ?? 89 5C 24 20 48 85 C9 74 12 B8 ?? ?? ?? ?? 8B D8"),
-    ("WorldChrManImp", "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 0F 48 39 88 ?? ?? ?? ?? 75 06 89 B1 5C 03 00 00 0F 28 05 ?? ?? ?? ?? 4C 8D 45 E7"),
+    (
+        "WorldChrManImp",
+        "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 0F 48 39 88 ?? ?? ?? ?? 75 06 89 B1 5C 03 00 00 0F 28 \
+         05 ?? ?? ?? ?? 4C 8D 45 E7",
+    ),
 ];
 
 // Direct AoB patterns -- grab the position of the match. For static functions
 static AOBS_DIRECT: LazyLock<Vec<(&str, Vec<&str>)>> = LazyLock::new(|| {
     vec![
-    ("FuncItemSpawn", vec!["48 8B C4 56 57 41 56 48 81 EC ?? ?? ?? ?? 48 C7 44 24 ?? ?? ?? ?? ?? 48 89 58 ?? 48 89 68 ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 41 0F B6 F9"]),
-    ("FuncItemInject", vec![
-        "40 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 B0 48 81 EC 50 01 00 00 48 C7 45 C0 FE FF FF FF", // 1.02
-        "40 55 56 57 41 54 41 55 41 56 41 57 48 8d ac 24 ?? ?? ?? ?? 48 81 ec ?? ?? ?? ?? 48 c7 45 ?? ?? ?? ?? ?? 48 89 9c 24 ?? ?? ?? ?? 48 8b 05 ?? ?? ?? ?? 48 33 c4 48 89 85 ?? ?? ?? ?? 44 89 4c 24", // 1.03
-        "40 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 70 FF FF FF 48 81 EC 90 01 00 00 48 C7 45 C8 FE FF FF FF 48 89 9C 24 D8"]), // 1.04
-    ("FuncRemoveIntroScreens", vec![
-        "74 53 48 8B 05 ?? ?? ?? ?? 48 85 C0 75 2E 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 4C 8B C8"
-    ]),
-    ("FuncDbgActionForce", vec![
-        "48 8B 41 08 0F BE 80 B1 E9 00 00 48 8D 64"
-    ]),
-]
+        ("FuncItemSpawn", vec![
+            "48 8B C4 56 57 41 56 48 81 EC ?? ?? ?? ?? 48 C7 44 24 ?? ?? ?? ?? ?? 48 89 58 ?? 48 \
+             89 68 ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 41 0F B6 F9",
+        ]),
+        ("FuncItemInject", vec![
+            "40 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 B0 48 81 EC 50 01 00 00 48 C7 45 C0 \
+             FE FF FF FF", // 1.02
+            "40 55 56 57 41 54 41 55 41 56 41 57 48 8d ac 24 ?? ?? ?? ?? 48 81 ec ?? ?? ?? ?? 48 \
+             c7 45 ?? ?? ?? ?? ?? 48 89 9c 24 ?? ?? ?? ?? 48 8b 05 ?? ?? ?? ?? 48 33 c4 48 89 85 \
+             ?? ?? ?? ?? 44 89 4c 24", // 1.03
+            "40 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 70 FF FF FF 48 81 EC 90 01 00 00 48 \
+             C7 45 C8 FE FF FF FF 48 89 9C 24 D8",
+        ]), // 1.04
+        ("FuncRemoveIntroScreens", vec![
+            "74 53 48 8B 05 ?? ?? ?? ?? 48 85 C0 75 2E 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 4C 8B \
+             C8",
+        ]),
+        ("FuncDbgActionForce", vec!["48 8B 41 08 0F BE 80 B1 E9 00 00 48 8D 64"]),
+    ]
 });
 
 #[derive(PartialEq, Eq, Hash, Clone, Copy)]
@@ -99,21 +131,17 @@ fn into_needle(pattern: &str) -> Vec<Option<u8>> {
 
 fn naive_search(bytes: &[u8], pattern: &[Option<u8>]) -> Option<usize> {
     bytes.windows(pattern.len()).position(|wnd| {
-        wnd.iter()
-            .zip(pattern.iter())
-            .all(|(byte, pattern)| match pattern {
-                Some(x) => byte == x,
-                None => true,
-            })
+        wnd.iter().zip(pattern.iter()).all(|(byte, pattern)| match pattern {
+            Some(x) => byte == x,
+            None => true,
+        })
     })
 }
 
 fn read_base_module_data(proc_name: &str, pid: u32) -> Option<(usize, Vec<u8>)> {
     let module_snapshot = unsafe { CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid) };
-    let mut module_entry = MODULEENTRY32 {
-        dwSize: std::mem::size_of::<MODULEENTRY32>() as _,
-        ..Default::default()
-    };
+    let mut module_entry =
+        MODULEENTRY32 { dwSize: std::mem::size_of::<MODULEENTRY32>() as _, ..Default::default() };
 
     unsafe { Module32First(module_snapshot, &mut module_entry) };
 
@@ -131,10 +159,7 @@ fn read_base_module_data(proc_name: &str, pid: u32) -> Option<(usize, Vec<u8>)> 
                     &mut bytes_read,
                 )
             };
-            println!(
-                "Read {:x} out of {:x} bytes",
-                bytes_read, module_entry.modBaseSize
-            );
+            println!("Read {:x} out of {:x} bytes", bytes_read, module_entry.modBaseSize);
             unsafe { CloseHandle(process) };
             return Some((module_entry.modBaseAddr as usize, buf));
         }
@@ -147,14 +172,10 @@ fn read_base_module_data(proc_name: &str, pid: u32) -> Option<(usize, Vec<u8>)> 
 
 fn get_base_module_bytes(exe_path: &Path) -> Option<(usize, Vec<u8>)> {
     let mut process_info = PROCESS_INFORMATION::default();
-    let startup_info = STARTUPINFOW {
-        cb: std::mem::size_of::<STARTUPINFOW>() as _,
-        ..Default::default()
-    };
+    let startup_info =
+        STARTUPINFOW { cb: std::mem::size_of::<STARTUPINFOW>() as _, ..Default::default() };
 
-    let mut exe = U16CString::from_str(exe_path.to_str().unwrap())
-        .unwrap()
-        .into_vec();
+    let mut exe = U16CString::from_str(exe_path.to_str().unwrap()).unwrap().into_vec();
     exe.push(0);
 
     let process = unsafe {
@@ -173,17 +194,11 @@ fn get_base_module_bytes(exe_path: &Path) -> Option<(usize, Vec<u8>)> {
     };
 
     if !process.as_bool() {
-        eprintln!(
-            "Could not create process: {:x}",
-            unsafe { GetLastError() }.0
-        );
+        eprintln!("Could not create process: {:x}", unsafe { GetLastError() }.0);
         return None;
     }
 
-    println!(
-        "Process handle={:x} pid={}",
-        process_info.hProcess.0, process_info.dwProcessId
-    );
+    println!("Process handle={:x} pid={}", process_info.hProcess.0, process_info.dwProcessId);
 
     let mut debug_event = DEBUG_EVENT::default();
 
@@ -237,10 +252,7 @@ fn find_aobs(bytes: Vec<u8>) -> Vec<(&'static str, usize)> {
     let mut aob_offsets_direct = AOBS_DIRECT
         .iter()
         .filter_map(|(name, aob)| {
-            if let Some(r) = aob
-                .iter()
-                .find_map(|aob| naive_search(&bytes, &into_needle(aob)))
-            {
+            if let Some(r) = aob.iter().find_map(|aob| naive_search(&bytes, &into_needle(aob))) {
                 Some((*name, r))
             } else {
                 eprintln!("{name:24} not found");
@@ -289,7 +301,6 @@ fn get_file_version(file: &Path) -> Version {
     Version(major, minor, patch)
 }
 
-//
 // Codegen routine
 //
 
@@ -325,11 +336,7 @@ fn codegen_base_addresses_struct() -> String {
         &AOBS
             .iter()
             .map(|(name, _)| {
-                format!(
-                    "            {}: self.{} + base,\n",
-                    AsSnakeCase(name),
-                    AsSnakeCase(name)
-                )
+                format!("            {}: self.{} + base,\n", AsSnakeCase(name), AsSnakeCase(name))
             })
             .collect::<Vec<_>>()
             .join(""),
@@ -338,11 +345,7 @@ fn codegen_base_addresses_struct() -> String {
         &AOBS_DIRECT
             .iter()
             .map(|(name, _)| {
-                format!(
-                    "            {}: self.{} + base,\n",
-                    AsSnakeCase(name),
-                    AsSnakeCase(name)
-                )
+                format!("            {}: self.{} + base,\n", AsSnakeCase(name), AsSnakeCase(name))
             })
             .collect::<Vec<_>>()
             .join(""),
@@ -379,12 +382,7 @@ fn codegen_version_enum(ver: &[VersionData]) -> String {
     string.push_str("pub enum Version {\n");
 
     for v in ver {
-        writeln!(
-            string,
-            "    V{}_{:02}_{},",
-            v.version.0, v.version.1, v.version.2
-        )
-        .unwrap();
+        writeln!(string, "    V{}_{:02}_{},", v.version.0, v.version.1, v.version.2).unwrap();
     }
 
     string.push_str("}\n\n");
@@ -423,11 +421,7 @@ fn codegen_version_enum(ver: &[VersionData]) -> String {
     for v in ver {
         let Version(maj, min, patch) = v.version;
         let stem = format!("{maj}_{min:02}_{patch}");
-        writeln!(
-            string,
-            "            Version::V{stem} => BASE_ADDRESSES_{stem},"
-        )
-        .unwrap();
+        writeln!(string, "            Version::V{stem} => BASE_ADDRESSES_{stem},").unwrap();
     }
 
     string.push_str("        }\n");
@@ -493,8 +487,5 @@ pub(crate) fn get_base_addresses() {
         o
     });
 
-    File::create(codegen_base_addresses_path())
-        .unwrap()
-        .write_all(codegen.as_bytes())
-        .unwrap();
+    File::create(codegen_base_addresses_path()).unwrap().write_all(codegen.as_bytes()).unwrap();
 }

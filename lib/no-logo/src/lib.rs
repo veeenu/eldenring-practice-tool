@@ -1,10 +1,9 @@
 #![feature(once_cell)]
 use std::ffi::c_void;
-use std::sync::LazyLock;
 use std::ptr::null_mut;
+use std::sync::LazyLock;
 
 use libeldenring::prelude::*;
-
 use u16cstr::*;
 use widestring::*;
 use windows::core::*;

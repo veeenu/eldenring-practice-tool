@@ -1,5 +1,13 @@
 mod vk;
 
+use std::ffi::OsString;
+use std::fmt::Display;
+use std::os::windows::prelude::OsStringExt;
+use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
+
+use log::*;
+use serde::Deserialize;
 pub(crate) use vk::*;
 use windows::core::PCSTR;
 use windows::Win32::Foundation::{GetLastError, HINSTANCE, MAX_PATH};
@@ -9,20 +17,12 @@ use windows::Win32::System::LibraryLoader::{
 };
 use windows::Win32::UI::Input::KeyboardAndMouse::GetAsyncKeyState;
 
-use std::ffi::OsString;
-use std::fmt::Display;
-use std::os::windows::prelude::OsStringExt;
-use std::path::PathBuf;
-use std::sync::atomic::{AtomicBool, Ordering};
-
-use log::*;
-use serde::Deserialize;
-
 /// Returns the path of the implementor's DLL.
 pub fn get_dll_path() -> Option<PathBuf> {
     let mut hmodule: HINSTANCE = Default::default();
     // SAFETY
-    // This is reckless, but it should never fail, and if it does, it's ok to crash and burn.
+    // This is reckless, but it should never fail, and if it does, it's ok to crash
+    // and burn.
     let gmh_result = unsafe {
         GetModuleHandleExA(
             GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT | GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
@@ -32,9 +32,7 @@ pub fn get_dll_path() -> Option<PathBuf> {
     };
 
     if gmh_result.0 == 0 {
-        error!("get_dll_path: GetModuleHandleExA error: {:x}", unsafe {
-            GetLastError().0
-        },);
+        error!("get_dll_path: GetModuleHandleExA error: {:x}", unsafe { GetLastError().0 },);
         return None;
     }
 

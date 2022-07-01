@@ -25,7 +25,6 @@ use zip::{CompressionMethod, ZipWriter};
 type DynError = Box<dyn std::error::Error>;
 type Result<T> = std::result::Result<T, DynError>;
 
-//
 // Main
 //
 
@@ -51,7 +50,6 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-//
 // Tasks
 //
 
@@ -77,7 +75,6 @@ fn dist() -> Result<()> {
     std::fs::remove_dir_all(dist_dir()).ok();
     std::fs::create_dir_all(dist_dir())?;
 
-    //
     // Create distribution zip file(s)
     //
 
@@ -114,9 +111,7 @@ fn dist() -> Result<()> {
             self.zip
                 .start_file(dst, self.file_options)
                 .map_err(|e| format!("{}: Couldn't start zip file: {}", dst, e))?;
-            self.zip
-                .write_all(&buf)
-                .map_err(|e| format!("{}: Couldn't write zip: {}", dst, e))?;
+            self.zip.write_all(&buf).map_err(|e| format!("{}: Couldn't write zip: {}", dst, e))?;
             Ok(())
         }
     }
@@ -131,10 +126,7 @@ fn dist() -> Result<()> {
         project_root().join("target/release/libjdsd_er_practice_tool.dll"),
         "jdsd_er_practice_tool.dll",
     )?;
-    dist.add(
-        project_root().join("jdsd_er_practice_tool.toml"),
-        "jdsd_er_practice_tool.toml",
-    )?;
+    dist.add(project_root().join("jdsd_er_practice_tool.toml"), "jdsd_er_practice_tool.toml")?;
 
     Ok(())
 }
@@ -143,13 +135,7 @@ fn run() -> Result<()> {
     let cargo = env::var("CARGO").unwrap_or_else(|_| "cargo".to_string());
     let status = Command::new(&cargo)
         .current_dir(project_root())
-        .args(&[
-            "build",
-            "--release",
-            "--lib",
-            "--package",
-            "eldenring-practice-tool",
-        ])
+        .args(&["build", "--release", "--lib", "--package", "eldenring-practice-tool"])
         .status()
         .map_err(|e| format!("cargo: {}", e))?;
 
@@ -159,13 +145,8 @@ fn run() -> Result<()> {
 
     let mut buf = String::new();
     File::open(project_root().join("jdsd_er_practice_tool.toml"))?.read_to_string(&mut buf)?;
-    File::create(
-        project_root()
-            .join("target")
-            .join("release")
-            .join("jdsd_er_practice_tool.toml"),
-    )?
-    .write_all(buf.as_bytes())?;
+    File::create(project_root().join("target").join("release").join("jdsd_er_practice_tool.toml"))?
+        .write_all(buf.as_bytes())?;
 
     let dll_path = project_root()
         .join("target")
@@ -201,7 +182,6 @@ help .......... print this help
     );
 }
 
-//
 // Utilities
 //
 
@@ -224,11 +204,8 @@ fn update_icon(path: PathBuf, icon: PathBuf) -> Result<()> {
     let mut buf: Vec<u8> = Vec::new();
     File::open(icon)?.read_to_end(&mut buf)?;
 
-    let mut group_header: &mut GroupHeader = unsafe {
-        (buf.as_ptr() as *mut GroupHeader)
-            .as_mut()
-            .ok_or("Invalid pointer")?
-    };
+    let mut group_header: &mut GroupHeader =
+        unsafe { (buf.as_ptr() as *mut GroupHeader).as_mut().ok_or("Invalid pointer")? };
 
     let start: usize = group_header.offset as usize;
     let count: usize = group_header.bytes as usize;
@@ -238,10 +215,8 @@ fn update_icon(path: PathBuf, icon: PathBuf) -> Result<()> {
     group_header.offset = 1;
 
     unsafe {
-        let handle = BeginUpdateResourceW(
-            U16CString::from_str(path.to_str().unwrap())?.as_ptr(),
-            FALSE,
-        );
+        let handle =
+            BeginUpdateResourceW(U16CString::from_str(path.to_str().unwrap())?.as_ptr(), FALSE);
 
         UpdateResourceW(
             handle,
@@ -268,11 +243,7 @@ fn update_icon(path: PathBuf, icon: PathBuf) -> Result<()> {
 }
 
 fn project_root() -> PathBuf {
-    Path::new(&env!("CARGO_MANIFEST_DIR"))
-        .ancestors()
-        .nth(1)
-        .unwrap()
-        .to_path_buf()
+    Path::new(&env!("CARGO_MANIFEST_DIR")).ancestors().nth(1).unwrap().to_path_buf()
 }
 
 fn dist_dir() -> PathBuf {

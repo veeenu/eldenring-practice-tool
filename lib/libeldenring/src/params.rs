@@ -1,10 +1,7 @@
-pub use crate::codegen::param_data::*;
-use crate::prelude::base_addresses::BaseAddresses;
-
 use std::collections::{BTreeMap, HashMap};
 use std::ffi::c_void;
-use std::sync::LazyLock;
 use std::ptr::null_mut;
+use std::sync::LazyLock;
 
 use log::*;
 use parking_lot::RwLock;
@@ -12,6 +9,8 @@ use widestring::U16CStr;
 use windows::core::PCSTR;
 use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 
+pub use crate::codegen::param_data::*;
+use crate::prelude::base_addresses::BaseAddresses;
 use crate::version::VERSION;
 use crate::{wait_option, ParamVisitor};
 
@@ -21,7 +20,7 @@ pub static PARAMS: LazyLock<RwLock<Params>> = LazyLock::new(|| unsafe {
         Err(e) => {
             info!("Waiting on memory: {}", e);
             None
-        }
+        },
     })
 });
 
@@ -79,7 +78,8 @@ impl Params {
 
     /// # Safety
     ///
-    /// Accesses raw pointers. Should never crash as the param pointers are static.
+    /// Accesses raw pointers. Should never crash as the param pointers are
+    /// static.
     pub unsafe fn refresh(&mut self) -> Result<(), String> {
         let addresses: BaseAddresses = (*VERSION).into();
         let module_base_addr = GetModuleHandleA(PCSTR(null_mut())).0 as usize;
@@ -89,7 +89,7 @@ impl Params {
         let base_ptr = base_ptr.offset(0x18);
         let base_ptr = base_ptr as usize;
 
-        let base: &ParamMaster = (base_ptr as *const ParamMaster) //std::ptr::read(base_ptr as *const *const ParamMaster)
+        let base: &ParamMaster = (base_ptr as *const ParamMaster) // std::ptr::read(base_ptr as *const *const ParamMaster)
             .as_ref()
             .ok_or_else(|| "Invalid param base address".to_string())?;
 
@@ -167,8 +167,9 @@ impl Params {
 
     /// # Safety
     ///
-    /// Accesses raw pointers. Ensure that the param is properly initialized (e.g. with the
-    /// params well-formed and loaded into memory) before invoking.
+    /// Accesses raw pointers. Ensure that the param is properly initialized
+    /// (e.g. with the params well-formed and loaded into memory) before
+    /// invoking.
     pub unsafe fn iter_param_ids(&self, s: &str) -> Option<impl Iterator<Item = u64>> {
         let (param_ptr, count) = self.get_param_ptr(s)?;
 
@@ -180,11 +181,12 @@ impl Params {
 
     /// # Safety
     ///
-    /// Accesses raw pointers. Ensure that the param is properly initialized (e.g. with the
-    /// params well-formed and loaded into memory) before invoking.
+    /// Accesses raw pointers. Ensure that the param is properly initialized
+    /// (e.g. with the params well-formed and loaded into memory) before
+    /// invoking.
     ///
-    /// This is somewhat expensive as it calculates each param's offset at every iteration. If you
-    /// only need the param IDs, use `iter_param_ids`.
+    /// This is somewhat expensive as it calculates each param's offset at every
+    /// iteration. If you only need the param IDs, use `iter_param_ids`.
     pub unsafe fn iter_param<T: 'static>(&self, s: &str) -> Option<impl Iterator<Item = Param<T>>> {
         let (param_ptr, count) = self.get_param_ptr(s)?;
 
@@ -199,8 +201,9 @@ impl Params {
 
     /// # Safety
     ///
-    /// Accesses raw pointers. Ensure that the param is properly initialized (e.g. with the
-    /// params well-formed and loaded into memory) before invoking.
+    /// Accesses raw pointers. Ensure that the param is properly initialized
+    /// (e.g. with the params well-formed and loaded into memory) before
+    /// invoking.
     unsafe fn get_param_idx_ptr(&self, s: &str, i: usize) -> Option<*const c_void> {
         let (param_ptr, count) = self.get_param_ptr(s)?;
 
@@ -216,8 +219,9 @@ impl Params {
 
     /// # Safety
     ///
-    /// Accesses raw pointers. Ensure that the param is properly initialized (e.g. with the
-    /// params well-formed and loaded into memory) before invoking.
+    /// Accesses raw pointers. Ensure that the param is properly initialized
+    /// (e.g. with the params well-formed and loaded into memory) before
+    /// invoking.
     #[allow(unused)]
     unsafe fn get_param_idx<T: 'static>(&self, s: &str, i: usize) -> Option<Param<T>> {
         let (param_ptr, count) = self.get_param_ptr(s)?;

@@ -1,7 +1,5 @@
-use std::sync::LazyLock;
 use std::ptr::null_mut;
-
-pub use crate::prelude::base_addresses::Version;
+use std::sync::LazyLock;
 
 use log::*;
 use widestring::U16CString;
@@ -11,6 +9,8 @@ use windows::Win32::Storage::FileSystem::{
     GetFileVersionInfoSizeW, GetFileVersionInfoW, VerQueryValueW, VS_FIXEDFILEINFO,
 };
 use windows::Win32::System::LibraryLoader::{GetModuleFileNameW, GetModuleHandleW};
+
+pub use crate::prelude::base_addresses::Version;
 
 pub static VERSION: LazyLock<Version> = LazyLock::new(get_version);
 

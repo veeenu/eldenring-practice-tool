@@ -1,7 +1,7 @@
-use crate::util::KeyState;
 use libeldenring::memedit::Bitflag;
 
 use super::Widget;
+use crate::util::KeyState;
 
 #[derive(Debug)]
 pub(crate) struct Flag {

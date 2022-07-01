@@ -1,8 +1,7 @@
 use libeldenring::prelude::*;
 
-use crate::util::KeyState;
-
 use super::Widget;
+use crate::util::KeyState;
 
 #[derive(Debug)]
 pub(crate) struct SavePosition {
@@ -48,8 +47,7 @@ impl SavePosition {
         ) {
             let [sx, sy, sz, sr1, sr2] = self.saved_position;
 
-            self.chunk_position
-                .write([sx - gx + cx, sy - gy + cy, sz - gz + cz, sr1, sr2]);
+            self.chunk_position.write([sx - gx + cx, sy - gy + cy, sz - gz + cz, sr1, sr2]);
 
             self.torrent_chunk_position.write([
                 sx - gx + tcx,
@@ -66,10 +64,9 @@ impl Widget for SavePosition {
     fn render(&mut self, ui: &imgui::Ui) {
         let saved_pos = self.saved_position;
 
-        let (read_pos, valid) = if let (Some([x, y, z, _, _]), Some(angle)) = (
-            self.global_position.read(),
-            self.chunk_position.angle1.read(),
-        ) {
+        let (read_pos, valid) = if let (Some([x, y, z, _, _]), Some(angle)) =
+            (self.global_position.read(), self.chunk_position.angle1.read())
+        {
             ([x, y, z, angle], true)
         } else {
             ([0f32; 4], false)
@@ -78,17 +75,17 @@ impl Widget for SavePosition {
         let _token = ui.begin_disabled(!valid);
         let button_width = super::BUTTON_WIDTH * super::scaling_factor(ui);
 
-        if ui.button_with_size(
-            format!("Load ({})", self.hotkey),
-            [button_width * 0.33 - 4., super::BUTTON_HEIGHT],
-        ) {
+        if ui.button_with_size(format!("Load ({})", self.hotkey), [
+            button_width * 0.33 - 4.,
+            super::BUTTON_HEIGHT,
+        ]) {
             self.load_position();
         }
         ui.same_line();
-        if ui.button_with_size(
-            format!("Save ({} + {})", self.modifier, self.hotkey),
-            [button_width * 0.67 - 4., super::BUTTON_HEIGHT],
-        ) {
+        if ui.button_with_size(format!("Save ({} + {})", self.modifier, self.hotkey), [
+            button_width * 0.67 - 4.,
+            super::BUTTON_HEIGHT,
+        ]) {
             self.save_position();
         }
         ui.text(format!(

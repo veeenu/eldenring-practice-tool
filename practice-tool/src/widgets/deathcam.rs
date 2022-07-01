@@ -1,7 +1,7 @@
-use crate::util::KeyState;
 use libeldenring::memedit::{Bitflag, PointerChain};
 
 use super::Widget;
+use crate::util::KeyState;
 
 #[derive(Debug)]
 pub(crate) struct Deathcam {
@@ -16,11 +16,7 @@ impl Deathcam {
         seven: PointerChain<u8>,
         hotkey: Option<KeyState>,
     ) -> Self {
-        Deathcam {
-            flag,
-            seven,
-            hotkey,
-        }
+        Deathcam { flag, seven, hotkey }
     }
 }
 

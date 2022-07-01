@@ -8,10 +8,7 @@ pub fn macro_param(t: TokenStream) -> TokenStream {
     let input = parse_macro_input!(t as DeriveInput);
     let name = input.ident;
     let fields_punct = match input.data {
-        Data::Struct(DataStruct {
-            fields: Fields::Named(fields),
-            ..
-        }) => fields.named,
+        Data::Struct(DataStruct { fields: Fields::Named(fields), .. }) => fields.named,
         _ => panic!("Only structs with named fields can be annotated"),
     };
 
@@ -27,7 +24,7 @@ pub fn macro_param(t: TokenStream) -> TokenStream {
                         let meta_list = match attr.parse_meta() {
                             Ok(Meta::List(meta_list)) if meta_list.path.is_ident("bitflag") => {
                                 meta_list
-                            }
+                            },
                             other => unimplemented!("Unimplemented attribute {:#?}", other),
                         };
 
@@ -51,7 +48,7 @@ pub fn macro_param(t: TokenStream) -> TokenStream {
                                     set_ident,
                                     get_ident,
                                 ))
-                            }
+                            },
                             other => panic!("Wrong attribute parameters: {:#?}", other),
                         }
                     })
@@ -60,39 +57,31 @@ pub fn macro_param(t: TokenStream) -> TokenStream {
         })
         .collect::<Vec<_>>();
 
-    let bitfield_methods = fields_with_bitfields
-        .iter()
-        .flat_map(|(field, bitfield_spec)| {
-            bitfield_spec
-                .iter()
-                .map(|(_, field_idx, set_ident, get_ident)| {
-                    let ident = format_ident!("{}", field.ident.as_ref().unwrap());
-                    quote! {
-                        #[allow(unused)]
-                        pub fn #get_ident(&self) -> bool {
-                            self.#ident & (1 << #field_idx) != 0
-                        }
+    let bitfield_methods = fields_with_bitfields.iter().flat_map(|(field, bitfield_spec)| {
+        bitfield_spec.iter().map(|(_, field_idx, set_ident, get_ident)| {
+            let ident = format_ident!("{}", field.ident.as_ref().unwrap());
+            quote! {
+                #[allow(unused)]
+                pub fn #get_ident(&self) -> bool {
+                    self.#ident & (1 << #field_idx) != 0
+                }
 
-                        #[allow(unused)]
-                        pub fn #set_ident(&mut self, state: bool) {
-                            if state {
-                                self.#ident |= 1 << #field_idx;
-                            } else {
-                                self.#ident &= !(1 << #field_idx);
-                            }
-                        }
+                #[allow(unused)]
+                pub fn #set_ident(&mut self, state: bool) {
+                    if state {
+                        self.#ident |= 1 << #field_idx;
+                    } else {
+                        self.#ident &= !(1 << #field_idx);
                     }
-                })
-        });
+                }
+            }
+        })
+    });
 
     let field_visit = fields_with_bitfields
         .iter()
         .filter_map(|(field, bitfield_spec)| match field {
-            &Field {
-                ident: Some(ident),
-                ty: Type::Path(TypePath { path, .. }),
-                ..
-            } => {
+            &Field { ident: Some(ident), ty: Type::Path(TypePath { path, .. }), .. } => {
                 let ty_ident = path.segments[0].ident.to_string();
                 match ty_ident.as_str() {
                     "u8" if !bitfield_spec.is_empty() => {
@@ -109,36 +98,33 @@ pub fn macro_param(t: TokenStream) -> TokenStream {
                         Some(quote! {
                             #(#bitfield_visit)*
                         })
-                    }
+                    },
                     "u8" | "u16" | "u32" | "i8" | "i16" | "i32" | "f32" => {
                         let ident = format_ident!("{}", ident);
                         let visit_ty = format_ident!("visit_{}", ty_ident);
                         Some(quote! {
                             t.#visit_ty(stringify!(#ident), &mut self.#ident);
                         })
-                    }
+                    },
                     other => panic!("Unrecognized type {:#?}", other),
                 }
-            }
+            },
             &Field {
                 ident: Some(_),
                 ty:
                     Type::Array(TypeArray {
                         elem: _,
-                        len:
-                            Expr::Lit(ExprLit {
-                                lit: Lit::Int(_), ..
-                            }),
+                        len: Expr::Lit(ExprLit { lit: Lit::Int(_), .. }),
                         ..
                     }),
                 ..
             } => {
                 // Just ignore array fields
                 None
-            }
+            },
             field => {
                 panic!("Unrecognized field {:#?}", field);
-            }
+            },
         })
         .collect::<Vec<_>>();
 

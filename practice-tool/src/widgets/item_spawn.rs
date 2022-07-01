@@ -1,15 +1,14 @@
-use libeldenring::prelude::*;
-
-use super::Widget;
-use crate::util::KeyState;
-
 use std::borrow::Cow;
 use std::ffi::c_void;
 use std::fmt::Display;
 use std::sync::LazyLock;
 
 use imgui::*;
+use libeldenring::prelude::*;
 use serde::Deserialize;
+
+use super::Widget;
+use crate::util::KeyState;
 
 static AFFINITIES: [(u32, &str); 13] = [
     (0, "No affinity"),
@@ -59,26 +58,14 @@ static UPGRADES: [(u32, &str); 26] = [
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 enum ItemIDNode {
-    Leaf {
-        node: String,
-        value: u32,
-    },
-    Node {
-        node: String,
-        children: Vec<ItemIDNode>,
-    },
+    Leaf { node: String, value: u32 },
+    Node { node: String, children: Vec<ItemIDNode> },
 }
 
 #[derive(Debug)]
 enum ItemIDNodeRef<'a> {
-    Leaf {
-        node: &'a str,
-        value: u32,
-    },
-    Node {
-        node: &'a str,
-        children: Vec<ItemIDNodeRef<'a>>,
-    },
+    Leaf { node: &'a str, value: u32 },
+    Node { node: &'a str, children: Vec<ItemIDNodeRef<'a>> },
 }
 
 impl<'a> ItemIDNodeRef<'a> {
@@ -100,22 +87,18 @@ impl<'a> ItemIDNodeRef<'a> {
                 if ui.is_item_clicked() {
                     *current = *value;
                 }
-            }
+            },
             ItemIDNodeRef::Node { node, children } => {
                 let n = TreeNode::<&str>::new(*node).label::<&str, &str>(node);
 
-                let n = if filtered {
-                    n.opened(filtered, Condition::Always)
-                } else {
-                    n
-                };
+                let n = if filtered { n.opened(filtered, Condition::Always) } else { n };
 
                 n.flags(TreeNodeFlags::SPAN_AVAIL_WIDTH).build(ui, || {
                     for node in children {
                         node.render(ui, current, filtered);
                     }
                 });
-            }
+            },
         }
     }
 }
@@ -123,10 +106,7 @@ impl<'a> ItemIDNodeRef<'a> {
 impl<'a> From<&'a ItemIDNode> for ItemIDNodeRef<'a> {
     fn from(v: &'a ItemIDNode) -> Self {
         match v {
-            ItemIDNode::Leaf { node, value } => ItemIDNodeRef::Leaf {
-                node,
-                value: *value,
-            },
+            ItemIDNode::Leaf { node, value } => ItemIDNodeRef::Leaf { node, value: *value },
             ItemIDNode::Node { node, children } => ItemIDNodeRef::Node {
                 node,
                 children: children.iter().map(ItemIDNodeRef::from).collect(),
@@ -143,14 +123,11 @@ impl ItemIDNode {
             match self {
                 ItemIDNode::Leaf { node, value } => {
                     if string_match(filter, node) {
-                        Some(ItemIDNodeRef::Leaf {
-                            node,
-                            value: *value,
-                        })
+                        Some(ItemIDNodeRef::Leaf { node, value: *value })
                     } else {
                         None
                     }
-                }
+                },
                 ItemIDNode::Node { node, children } => {
                     let children: Vec<_> = children
                         .iter()
@@ -161,7 +138,7 @@ impl ItemIDNode {
                     } else {
                         Some(ItemIDNodeRef::Node { node, children })
                     }
-                }
+                },
             }
         }
     }
@@ -267,7 +244,7 @@ impl ItemSpawner<'_> {
             Some(mut v) => {
                 v.push(log);
                 Some(v)
-            }
+            },
             None => Some(vec![log]),
         };
     }
@@ -275,13 +252,10 @@ impl ItemSpawner<'_> {
 
 impl Widget for ItemSpawner<'_> {
     fn render(&mut self, ui: &imgui::Ui) {
-        if ui.button_with_size(
-            "Spawn item",
-            [
-                super::BUTTON_WIDTH * super::scaling_factor(ui),
-                super::BUTTON_HEIGHT,
-            ],
-        ) {
+        if ui.button_with_size("Spawn item", [
+            super::BUTTON_WIDTH * super::scaling_factor(ui),
+            super::BUTTON_HEIGHT,
+        ]) {
             ui.open_popup(ISP_TAG);
         }
 
@@ -303,36 +277,26 @@ impl Widget for ItemSpawner<'_> {
                     .hint("Filter...")
                     .build()
                 {
-                    self.item_id_tree = ITEM_ID_TREE
-                        .iter()
-                        .filter_map(|n| n.filter(&self.filter_string))
-                        .collect();
+                    self.item_id_tree =
+                        ITEM_ID_TREE.iter().filter_map(|n| n.filter(&self.filter_string)).collect();
                 }
             }
-            ChildWindow::new("##item-spawn-list")
-                .size([240., 200.])
-                .build(ui, || {
-                    for node in &self.item_id_tree {
-                        node.render(ui, &mut self.item_id, !self.filter_string.is_empty());
-                    }
-                });
+            ChildWindow::new("##item-spawn-list").size([240., 200.]).build(ui, || {
+                for node in &self.item_id_tree {
+                    node.render(ui, &mut self.item_id, !self.filter_string.is_empty());
+                }
+            });
 
             ui.set_next_item_width(115.);
-            ui.combo(
-                "##item-spawn-affinity",
-                &mut self.affinity,
-                &AFFINITIES,
-                |(_, label)| Cow::Borrowed(label),
-            );
+            ui.combo("##item-spawn-affinity", &mut self.affinity, &AFFINITIES, |(_, label)| {
+                Cow::Borrowed(label)
+            });
 
             ui.same_line();
             ui.set_next_item_width(115.);
-            ui.combo(
-                "##item-spawn-upgrade",
-                &mut self.upgrade,
-                &UPGRADES,
-                |(_, label)| Cow::Borrowed(label),
-            );
+            ui.combo("##item-spawn-upgrade", &mut self.upgrade, &UPGRADES, |(_, label)| {
+                Cow::Borrowed(label)
+            });
 
             Slider::new("Qty", 1, 99).build(ui, &mut self.qty);
             if self.hotkey_load.keyup() || ui.button_with_size(&self.label_load, [240., 20.]) {
@@ -387,18 +351,9 @@ impl ItemSpawnInstance {
 
         let item_id = self.item_id;
         let qty = self.qty;
-        let mut spawn_request = SpawnRequest {
-            one: 1,
-            item_id,
-            qty,
-        };
+        let mut spawn_request = SpawnRequest { one: 1, item_id, qty };
         let mut dur: u32 = 0xffffffff;
 
-        spawn_fn_ptr(
-            *pp_map_item_man,
-            &mut spawn_request as *mut _,
-            &mut dur as *mut _,
-            0u32,
-        );
+        spawn_fn_ptr(*pp_map_item_man, &mut spawn_request as *mut _, &mut dur as *mut _, 0u32);
     }
 }

@@ -1,8 +1,7 @@
 use libeldenring::prelude::*;
 
-use crate::util::KeyState;
-
 use super::Widget;
+use crate::util::KeyState;
 
 #[derive(Debug)]
 pub(crate) struct NudgePosition {
@@ -70,17 +69,16 @@ impl Widget for NudgePosition {
 
         let button_width = super::BUTTON_WIDTH * super::scaling_factor(ui);
 
-        if ui.button_with_size(
-            &self.nudge_up_label,
-            [button_width * 0.5 - 4., super::BUTTON_HEIGHT],
-        ) {
+        if ui
+            .button_with_size(&self.nudge_up_label, [button_width * 0.5 - 4., super::BUTTON_HEIGHT])
+        {
             self.do_nudge_up();
         }
         ui.same_line();
-        if ui.button_with_size(
-            &self.nudge_down_label,
-            [button_width * 0.5 - 4., super::BUTTON_HEIGHT],
-        ) {
+        if ui.button_with_size(&self.nudge_down_label, [
+            button_width * 0.5 - 4.,
+            super::BUTTON_HEIGHT,
+        ]) {
             self.do_nudge_down();
         }
     }

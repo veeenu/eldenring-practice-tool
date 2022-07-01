@@ -1,7 +1,6 @@
-use libeldenring::prelude::*;
-
 use std::str::FromStr;
 
+use libeldenring::prelude::*;
 use log::{error, LevelFilter};
 use serde::Deserialize;
 
@@ -143,54 +142,45 @@ impl Config {
                         hotkey.clone(),
                     ))
                         as Box<dyn Widget>,
-                    CfgCommand::MultiFlagUser {
-                        flags,
-                        hotkey,
+                    CfgCommand::MultiFlagUser { flags, hotkey, label } => Box::new(MultiFlag::new(
                         label,
-                    } => Box::new(MultiFlag::new(
-                        label,
-                        flags
-                            .iter()
-                            .map(|flag| (flag.getter)(chains).clone())
-                            .collect(),
+                        flags.iter().map(|flag| (flag.getter)(chains).clone()).collect(),
                         hotkey.clone(),
-                    )) as Box<dyn Widget>,
+                    ))
+                        as Box<dyn Widget>,
                     CfgCommand::SpecialFlag { flag, hotkey } if flag == "deathcam" => {
                         Box::new(Deathcam::new(
                             chains.deathcam.0.clone(),
                             chains.deathcam.1.clone(),
                             hotkey.clone(),
                         ))
-                    }
+                    },
                     CfgCommand::SpecialFlag { flag, hotkey } if flag == "action_freeze" => {
                         Box::new(ActionFreeze::new(
                             chains.func_dbg_action_force.clone(),
                             hotkey.clone(),
                         ))
-                    }
+                    },
                     CfgCommand::SpecialFlag { flag, hotkey: _ } => {
                         error!("Invalid flag {}", flag);
                         return None;
-                    }
-                    CfgCommand::SavefileManager {
-                        hotkey_load,
-                        hotkey_back,
-                        hotkey_close,
-                    } => SavefileManager::new_widget(
-                        hotkey_load.clone(),
-                        hotkey_back.clone(),
-                        hotkey_close.clone(),
-                    ),
-                    CfgCommand::ItemSpawner {
-                        hotkey_load,
-                        hotkey_close,
-                    } => Box::new(ItemSpawner::new(
-                        chains.func_item_inject,
-                        chains.base_addresses.map_item_man,
-                        chains.gravity.clone(),
-                        hotkey_load.clone(),
-                        hotkey_close.clone(),
-                    )),
+                    },
+                    CfgCommand::SavefileManager { hotkey_load, hotkey_back, hotkey_close } => {
+                        SavefileManager::new_widget(
+                            hotkey_load.clone(),
+                            hotkey_back.clone(),
+                            hotkey_close.clone(),
+                        )
+                    },
+                    CfgCommand::ItemSpawner { hotkey_load, hotkey_close } => {
+                        Box::new(ItemSpawner::new(
+                            chains.func_item_inject,
+                            chains.base_addresses.map_item_man,
+                            chains.gravity.clone(),
+                            hotkey_load.clone(),
+                            hotkey_close.clone(),
+                        ))
+                    },
                     CfgCommand::Position { hotkey, modifier } => Box::new(SavePosition::new(
                         chains.global_position.clone(),
                         chains.chunk_position.clone(),
@@ -198,42 +188,33 @@ impl Config {
                         hotkey.clone(),
                         modifier.clone(),
                     )),
-                    CfgCommand::NudgePosition {
-                        nudge,
-                        nudge_up,
-                        nudge_down,
-                    } => Box::new(NudgePosition::new(
-                        chains.chunk_position.clone(),
-                        chains.torrent_chunk_position.clone(),
-                        *nudge,
-                        nudge_up.clone(),
-                        nudge_down.clone(),
-                    )),
-                    CfgCommand::CycleSpeed {
+                    CfgCommand::NudgePosition { nudge, nudge_up, nudge_down } => {
+                        Box::new(NudgePosition::new(
+                            chains.chunk_position.clone(),
+                            chains.torrent_chunk_position.clone(),
+                            *nudge,
+                            nudge_up.clone(),
+                            nudge_down.clone(),
+                        ))
+                    },
+                    CfgCommand::CycleSpeed { cycle_speed, hotkey } => Box::new(CycleSpeed::new(
                         cycle_speed,
-                        hotkey,
-                    } => Box::new(CycleSpeed::new(
-                        cycle_speed,
-                        [
-                            chains.animation_speed.clone(),
-                            chains.torrent_animation_speed.clone(),
-                        ],
+                        [chains.animation_speed.clone(), chains.torrent_animation_speed.clone()],
                         hotkey.clone(),
                     )),
-                    CfgCommand::CharacterStats {
-                        hotkey_open,
-                        hotkey_close,
-                    } => Box::new(CharacterStatsEdit::new(
-                        hotkey_open.clone(),
-                        hotkey_close.clone(),
-                        chains.character_stats.clone(),
-                    )),
+                    CfgCommand::CharacterStats { hotkey_open, hotkey_close } => {
+                        Box::new(CharacterStatsEdit::new(
+                            hotkey_open.clone(),
+                            hotkey_close.clone(),
+                            chains.character_stats.clone(),
+                        ))
+                    },
                     CfgCommand::Runes { amount, hotkey } => {
                         Box::new(Runes::new(*amount, chains.runes.clone(), hotkey.clone()))
-                    }
+                    },
                     CfgCommand::Quitout { hotkey } => {
                         Box::new(Quitout::new(chains.quitout.clone(), hotkey.clone()))
-                    }
+                    },
                 })
             })
             .collect()
@@ -268,10 +249,7 @@ impl std::fmt::Debug for FlagSpec {
 
 impl FlagSpec {
     fn new(label: &str, getter: fn(&Pointers) -> &Bitflag<u8>) -> FlagSpec {
-        FlagSpec {
-            label: label.to_string(),
-            getter,
-        }
+        FlagSpec { label: label.to_string(), getter }
     }
 }
 
@@ -287,39 +265,36 @@ impl TryFrom<String> for FlagSpec {
                 }
             }
         }
-        flag_spec!(
-            value.as_str(),
-            [
-                (one_shot, "One shot"),
-                (no_damage, "All no damage"),
-                (no_dead, "No death"),
-                (no_hit, "No hit"),
-                (no_goods_consume, "Inf Consumables"),
-                (no_stamina_consume, "Inf Stamina"),
-                (no_fp_consume, "Inf Focus"),
-                (no_ashes_of_war_fp_consume, "Inf Focus (AoW)"),
-                (no_arrows_consume, "Inf arrows"),
-                (no_attack, "No attack"),
-                (no_move, "No move"),
-                (no_update_ai, "No update AI"),
-                (gravity, "No Gravity"),
-                (torrent_gravity, "No Gravity (Torrent)"),
-                (collision, "No Collision"),
-                (torrent_collision, "No Collision (Torrent)"),
-                (display_stable_pos, "Show stable pos"),
-                (weapon_hitbox1, "Weapon hitbox #1"),
-                (weapon_hitbox2, "Weapon hitbox #2"),
-                (weapon_hitbox3, "Weapon hitbox #3"),
-                (hitbox_high, "High world hitbox"),
-                (hitbox_low, "Low world hitbox"),
-                (hitbox_character, "Character hitbox"),
-                (field_area_direction, "Direction HUD"),
-                (field_area_altimeter, "Altimeter HUD"),
-                (field_area_compass, "Compass HUD"),
-                // (show_map, "Show/hide map"),
-                (show_chr, "Show/hide character"),
-            ]
-        )
+        flag_spec!(value.as_str(), [
+            (one_shot, "One shot"),
+            (no_damage, "All no damage"),
+            (no_dead, "No death"),
+            (no_hit, "No hit"),
+            (no_goods_consume, "Inf Consumables"),
+            (no_stamina_consume, "Inf Stamina"),
+            (no_fp_consume, "Inf Focus"),
+            (no_ashes_of_war_fp_consume, "Inf Focus (AoW)"),
+            (no_arrows_consume, "Inf arrows"),
+            (no_attack, "No attack"),
+            (no_move, "No move"),
+            (no_update_ai, "No update AI"),
+            (gravity, "No Gravity"),
+            (torrent_gravity, "No Gravity (Torrent)"),
+            (collision, "No Collision"),
+            (torrent_collision, "No Collision (Torrent)"),
+            (display_stable_pos, "Show stable pos"),
+            (weapon_hitbox1, "Weapon hitbox #1"),
+            (weapon_hitbox2, "Weapon hitbox #2"),
+            (weapon_hitbox3, "Weapon hitbox #3"),
+            (hitbox_high, "High world hitbox"),
+            (hitbox_low, "Low world hitbox"),
+            (hitbox_character, "Character hitbox"),
+            (field_area_direction, "Direction HUD"),
+            (field_area_altimeter, "Altimeter HUD"),
+            (field_area_compass, "Compass HUD"),
+            // (show_map, "Show/hide map"),
+            (show_chr, "Show/hide character"),
+        ])
     }
 }
 
@@ -338,10 +313,7 @@ impl std::fmt::Debug for MultiFlagSpec {
 
 impl MultiFlagSpec {
     fn new(label: &str, items: Vec<fn(&Pointers) -> &Bitflag<u8>>) -> MultiFlagSpec {
-        MultiFlagSpec {
-            label: label.to_string(),
-            items,
-        }
+        MultiFlagSpec { label: label.to_string(), items }
     }
 }
 
@@ -350,27 +322,24 @@ impl TryFrom<String> for MultiFlagSpec {
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
         match value.as_str() {
-            "show_map" => Ok(MultiFlagSpec::new(
-                "Show/hide map",
-                vec![
-                    |c| &c.show_geom[0],
-                    |c| &c.show_geom[1],
-                    |c| &c.show_geom[2],
-                    |c| &c.show_geom[3],
-                    |c| &c.show_geom[4],
-                    |c| &c.show_geom[5],
-                    |c| &c.show_geom[6],
-                    |c| &c.show_geom[7],
-                    |c| &c.show_geom[8],
-                    |c| &c.show_geom[9],
-                    |c| &c.show_geom[10],
-                    |c| &c.show_geom[11],
-                    |c| &c.show_geom[12],
-                    |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 13 }], // UGLY
-                    |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 14 }], // AS
-                    |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 15 }], // SIN
-                ],
-            )),
+            "show_map" => Ok(MultiFlagSpec::new("Show/hide map", vec![
+                |c| &c.show_geom[0],
+                |c| &c.show_geom[1],
+                |c| &c.show_geom[2],
+                |c| &c.show_geom[3],
+                |c| &c.show_geom[4],
+                |c| &c.show_geom[5],
+                |c| &c.show_geom[6],
+                |c| &c.show_geom[7],
+                |c| &c.show_geom[8],
+                |c| &c.show_geom[9],
+                |c| &c.show_geom[10],
+                |c| &c.show_geom[11],
+                |c| &c.show_geom[12],
+                |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 13 }], // UGLY
+                |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 14 }], // AS
+                |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 15 }], // SIN
+            ])),
             e => Err(format!("\"{}\" is not a valid multiflag specifier", e)),
         }
     }
@@ -386,10 +355,7 @@ mod tests {
             "{:?}",
             toml::from_str::<toml::Value>(include_str!("../../jdsd_er_practice_tool.toml"))
         );
-        println!(
-            "{:?}",
-            Config::parse(include_str!("../../jdsd_er_practice_tool.toml"))
-        );
+        println!("{:?}", Config::parse(include_str!("../../jdsd_er_practice_tool.toml")));
     }
 
     #[test]
