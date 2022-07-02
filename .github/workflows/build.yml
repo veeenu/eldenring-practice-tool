@@ -23,7 +23,7 @@ jobs:
         run: cargo xtask dist
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: jdsd_er_practice_tool
           path: target/dist/jdsd_er_practice_tool.zip
@@ -37,7 +37,7 @@ jobs:
           asset_name: jdsd_er_practice_tool.zip
 
       - name: Upload nightly release asset
-        uses: actions/upload-release-asset@v2
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
