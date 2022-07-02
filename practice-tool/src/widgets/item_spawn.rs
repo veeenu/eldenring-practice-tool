@@ -271,6 +271,8 @@ impl Widget for ItemSpawner<'_> {
             )
             .begin_popup(ui)
         {
+            let button_height = super::BUTTON_HEIGHT * super::scaling_factor(ui);
+
             {
                 let _tok = ui.push_item_width(-1.);
                 if InputText::new(ui, "##item-spawn-filter", &mut self.filter_string)
@@ -281,29 +283,33 @@ impl Widget for ItemSpawner<'_> {
                         ITEM_ID_TREE.iter().filter_map(|n| n.filter(&self.filter_string)).collect();
                 }
             }
-            ChildWindow::new("##item-spawn-list").size([240., 200.]).build(ui, || {
+            ChildWindow::new("##item-spawn-list").size([400., 200.]).build(ui, || {
                 for node in &self.item_id_tree {
                     node.render(ui, &mut self.item_id, !self.filter_string.is_empty());
                 }
             });
 
-            ui.set_next_item_width(115.);
+            ui.set_next_item_width(195.);
             ui.combo("##item-spawn-affinity", &mut self.affinity, &AFFINITIES, |(_, label)| {
                 Cow::Borrowed(label)
             });
 
             ui.same_line();
-            ui.set_next_item_width(115.);
+            ui.set_next_item_width(195.);
             ui.combo("##item-spawn-upgrade", &mut self.upgrade, &UPGRADES, |(_, label)| {
                 Cow::Borrowed(label)
             });
 
             Slider::new("Qty", 1, 99).build(ui, &mut self.qty);
-            if self.hotkey_load.keyup() || ui.button_with_size(&self.label_load, [240., 20.]) {
+            if self.hotkey_load.keyup()
+                || ui.button_with_size(&self.label_load, [400., button_height])
+            {
                 self.spawn();
             }
 
-            if self.hotkey_close.keyup() || ui.button_with_size(&self.label_close, [240., 20.]) {
+            if self.hotkey_close.keyup()
+                || ui.button_with_size(&self.label_close, [400., button_height])
+            {
                 ui.close_current_popup();
             }
         }
