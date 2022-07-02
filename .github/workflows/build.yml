@@ -23,7 +23,7 @@ jobs:
         run: cargo xtask dist
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v1
         with:
           name: jdsd_er_practice_tool
           path: target/dist/jdsd_er_practice_tool.zip
