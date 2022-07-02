@@ -46,6 +46,7 @@ struct PracticeTool {
     log: Vec<(Instant, String)>,
     is_shown: bool,
     fonts: Option<FontIDs>,
+    config_err: Option<String>,
 }
 
 impl PracticeTool {
@@ -71,7 +72,16 @@ impl PracticeTool {
 
         let (config, config_err) = match load_config() {
             Ok(config) => (config, None),
-            Err(e) => (config::Config::default(), Some(e)),
+            Err(e) => (
+                config::Config::default(),
+                Some({
+                    error!("{}", e);
+                    format!(
+                        "Configuration error, please review your jdsd_er_practice_tool.toml \
+                         file.\n\n{e}"
+                    )
+                }),
+            ),
         };
 
         let log_file = crate::util::get_dll_path()
@@ -112,10 +122,6 @@ impl PracticeTool {
             hudhook::hooks::dx12::enable_dxgi_debug();
         }
 
-        if let Some(err) = config_err {
-            error!("{}", err);
-        }
-
         wait_option_thread(
             || unsafe {
                 let mut params = PARAMS.write();
@@ -144,6 +150,7 @@ impl PracticeTool {
             is_shown: false,
             log: Default::default(),
             fonts: None,
+            config_err,
         }
     }
 
@@ -157,10 +164,13 @@ impl PracticeTool {
                 WindowFlags::NO_TITLE_BAR
                     | WindowFlags::NO_RESIZE
                     | WindowFlags::NO_MOVE
-                    // | WindowFlags::NO_SCROLLBAR
                     | WindowFlags::ALWAYS_AUTO_RESIZE
             })
             .build(ui, || {
+                if let Some(e) = self.config_err.as_ref() {
+                    ui.text(e);
+                }
+
                 for w in self.widgets.iter_mut() {
                     w.render(ui);
                 }
