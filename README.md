@@ -15,9 +15,6 @@ toggled by pressing `0`.
 
 You can download the **latest stable release** [here](https://github.com/veeenu/eldenring-practice-tool/releases/latest).
 
-You can download the current unstable release [here](https://github.com/veeenu/eldenring-practice-tool/releases/tag/nightly).
-Please only do so if you are contributing to bugs troubleshooting: it will most likely be broken.
-
 If you need help, **please first read** the [Known Issues](#known-issues) and [FAQ](#troubleshooting--faq) sections for
 solutions, or ways to get in touch.
 
@@ -73,6 +70,10 @@ flag should work as intended again. If it doesn't work, a quitout will most like
   explain the problem, compress the `jdsd_er_practice_tool.log` file, and attach it.
 
 I'll do my best to get back to you and fix the bug.
+
+While troubleshooting bugs, I may ask you to use the [nightly release](https://github.com/veeenu/eldenring-practice-tool/releases/tag/nightly)
+instead of the latest stable release. This is an automated release with the very latest changes,
+intended for faster issues feedback cycles. Don't use it otherwise!
 
 ## Where are all the key bindings?
 
