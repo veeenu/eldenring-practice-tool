@@ -43,7 +43,6 @@ pub fn get_dll_path() -> Option<PathBuf> {
     Some(OsString::from_wide(&sz_filename[..len]).into())
 }
 
-
 struct ParamTinkerer {
     shown: bool,
     selected_param: usize,

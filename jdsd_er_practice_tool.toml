@@ -18,6 +18,7 @@ commands = [
 
   { flag = "hitbox_high", hotkey = "F1" },
   { flag = "hitbox_low", hotkey = "F2" },
+  { flag = "hitbox_f" },
   { flag = "hitbox_character", hotkey = "F3" },
   { flags = ["weapon_hitbox1", "weapon_hitbox2", "weapon_hitbox3"], hotkey = "F4", label = "Weapon hitboxes" },
   { flag = "display_stable_pos", hotkey = "F5" },
