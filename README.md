@@ -13,7 +13,10 @@ To run the tool, extract all files from the zip archive and double-click the
 `.exe` file he tool will automatically appear over the game, and it can be
 toggled by pressing `0`.
 
-You can download the latest release [here](https://github.com/veeenu/eldenring-practice-tool/releases/latest).
+You can download the **latest stable release** [here](https://github.com/veeenu/eldenring-practice-tool/releases/latest).
+
+You can download the current unstable release [here](https://github.com/veeenu/eldenring-practice-tool/releases/tag/nightly).
+Please only do so if you are contributing to bugs troubleshooting: it will most likely be broken.
 
 If you need help, **please first read** the [Known Issues](#known-issues) and [FAQ](#troubleshooting--faq) sections for
 solutions, or ways to get in touch.
@@ -53,6 +56,7 @@ flag should work as intended again. If it doesn't work, a quitout will most like
   - `log_level = "TRACE"` 
   - `dxgi_debug = true`
 - Enable DXGI debug layer:
+  - Install Microsoft's [graphics diagnostic tools](https://docs.microsoft.com/en-us/windows/uwp/gaming/use-the-directx-runtime-and-visual-studio-graphics-diagnostic-features).
   - Press `Windows + R` to open the "Run" dialog, type `dxcpl.exe` and press enter.
     
     ![Run dxcpl.exe](lib/data/dxcpl0.png)
