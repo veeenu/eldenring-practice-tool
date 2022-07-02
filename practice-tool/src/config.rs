@@ -288,6 +288,7 @@ impl TryFrom<String> for FlagSpec {
             (weapon_hitbox3, "Weapon hitbox #3"),
             (hitbox_high, "High world hitbox"),
             (hitbox_low, "Low world hitbox"),
+            (hitbox_f, "Walls hitbox"),
             (hitbox_character, "Character hitbox"),
             (field_area_direction, "Direction HUD"),
             (field_area_altimeter, "Altimeter HUD"),

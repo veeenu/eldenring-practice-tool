@@ -1,7 +1,8 @@
 #![feature(once_cell)]
 
+use std::ffi::OsString;
 use std::fmt::Write;
-use std::os::windows::ffi::OsStringExt;
+use std::os::windows::prelude::OsStringExt;
 use std::path::PathBuf;
 
 use hudhook::hooks::dx12::{ImguiRenderLoop, ImguiRenderLoopFlags};
@@ -9,37 +10,39 @@ use imgui::*;
 use libeldenring::params::{PARAMS, PARAM_NAMES};
 use libeldenring::prelude::*;
 use simplelog::*;
-use winapi::shared::minwindef::*;
-use winapi::um::errhandlingapi::*;
-use winapi::um::libloaderapi::*;
+use windows::core::PCSTR;
+use windows::Win32::Foundation::{GetLastError, HINSTANCE, MAX_PATH};
+use windows::Win32::System::LibraryLoader::{
+    GetModuleFileNameW, GetModuleHandleExA, GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
+    GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+};
 
 /// Returns the path of the implementor's DLL.
 pub fn get_dll_path() -> Option<PathBuf> {
-    let mut hmodule: HMODULE = std::ptr::null_mut();
+    let mut hmodule = HINSTANCE(0);
     // SAFETY
     // This is reckless, but it should never fail, and if it does, it's ok to crash
     // and burn.
-    let gmh_result = unsafe {
+    if !unsafe {
         GetModuleHandleExA(
             GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT | GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
-            "DllMain".as_ptr() as _,
+            PCSTR("DllMain".as_ptr() as _),
             &mut hmodule,
         )
-    };
-
-    if gmh_result == 0 {
-        error!("get_dll_path: GetModuleHandleExA error: {:x}", unsafe { GetLastError() },);
+        .as_bool()
+    } {
+        error!("get_dll_path: GetModuleHandleExA error: {:x}", unsafe { GetLastError().0 },);
         return None;
     }
 
-    let mut sz_filename = [0u16; MAX_PATH];
+    let mut sz_filename = [0u16; MAX_PATH as usize];
     // SAFETY
     // pointer to sz_filename always defined and MAX_PATH bounds manually checked
-    let len = unsafe { GetModuleFileNameW(hmodule, sz_filename.as_mut_ptr() as _, MAX_PATH as _) }
-        as usize;
+    let len = unsafe { GetModuleFileNameW(hmodule, &mut sz_filename) } as usize;
 
-    Some(std::ffi::OsString::from_wide(&sz_filename[..len]).into())
+    Some(OsString::from_wide(&sz_filename[..len]).into())
 }
+
 
 struct ParamTinkerer {
     shown: bool,
@@ -248,4 +251,4 @@ impl ParamTinkerer {
     }
 }
 
-hudhook::hudhook!(|| { hudhook::hooks::dx12::hook_imgui(ParamTinkerer::new()) });
+hudhook::hudhook!(ParamTinkerer::new().into_hook());

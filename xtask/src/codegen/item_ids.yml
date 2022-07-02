@@ -1,1596 +1,1777 @@
 "Weapons":
-  "Daggers":
-    "Dagger": 0x000F4240
-    "Black Knife": 0x000F6950
-    "Parrying Dagger": 0x000F9060
-    "Miséricorde": 0x000FB770
-    "Reduvia": 0x000FDE80
-    "Crystal Knife": 0x00100590
-    "Celebrant's Sickle": 0x00102CA0
-    "Glintstone Kris": 0x001053B0
-    "Scorpion's Stinger": 0x00107AC0
-    "Great Knife": 0x0010A1D0
-    "Wakizashi": 0x0010C8E0
-    "Cinquedea": 0x0010EFF0
-    "Ivory Sickle": 0x00113E10
-    "Bloodstained Dagger": 0x00116520
-    "Erdsteel Dagger": 0x00118C30
-    "Blade of Calling": 0x0011B340
-  "Straight swords":
-    "Longsword": 0x001E8480
-    "Short Sword": 0x001EAB90
-    "Broadsword": 0x001ED2A0
-    "Lordsworn's Straight Sword": 0x001F20C0
-    "Weathered Straight Sword": 0x001F47D0
-    "Ornamental Straight Sword": 0x001F6EE0
-    "Golden Epitaph": 0x001F95F0
-    "Nox Flowing Sword": 0x001FBD00
-    "Inseparable Sword": 0x001FE410
-    "Coded Sword": 0x00203230
-    "Sword of Night and Flame": 0x0020A760
-    "Crystal Sword": 0x0020CE70
-    "Carian Knight's Sword": 0x002143A0
-    "Sword of St. Trina": 0x00216AB0
-    "Miquellan Knight's Sword": 0x002191C0
-    "Cane Sword": 0x0021B8D0
-    "Regalia of Eochaid": 0x0021DFE0
-    "Noble's Slender Sword": 0x002206F0
-    "Warhawk's Talon": 0x00222E00
-    "Lazuli Glintstone Sword": 0x00225510
-    "Rotten Crystal Sword": 0x00227C20
-  "Greatswords":
-    "Bastard Sword": 0x002DC6C0
-    "Forked Greatsword": 0x002DEDD0
-    "Iron Greatsword": 0x002E14E0
-    "Lordsworn's Greatsword": 0x002E3BF0
-    "Knight's Greatsword": 0x002E6300
-    "Flamberge": 0x002E8A10
-    "Ordovis's Greatsword": 0x002EB120
-    "Alabaster Lord's Sword": 0x002ED830
-    "Banished Knight's Greatsword": 0x002EFF40
-    "Dark Moon Greatsword": 0x002F2650
-    "Sacred Relic Sword": 0x002F4D60
-    "Helphen's Steeple": 0x002FC290
-    "Blasphemous Blade": 0x002FE9A0
-    "Marais Executioner's Sword": 0x003010B0
-    "Sword of Milos": 0x003037C0
-    "Golden Order Greatsword": 0x00305ED0
-    "Claymore": 0x003085E0
-    "Gargoyle's Greatsword": 0x0030ACF0
-    "Death's Poker": 0x0030D400
-    "Gargoyle's Blackblade": 0x0030FB10
-  "Colossal swords":
-    "Greatsword": 0x003D0900
-    "Watchdog's Greatsword": 0x003D3010
-    "Maliketh's Black Blade": 0x003D5720
-    "Troll's Golden Sword": 0x003D7E30
-    "Zweihander": 0x003DA540
-    "Starscourge Greatsword": 0x003DCC50
-    "Royal Greatsword": 0x003DF360
-    "Godslayer's Greatsword": 0x003E1A70
-    "Ruins Greatsword": 0x003E4180
-    "Grafted Blade Greatsword": 0x003E8FA0
-    "Troll Knight's Sword": 0x003EB6B0
-  "Thrusting swords":
-    "Estoc": 0x004C4B40
-    "Cleanrot Knight's Sword": 0x004C7250
-    "Rapier": 0x004C9960
-    "Rogier's Rapier": 0x004CC070
-    "Antspur Rapier": 0x004CE780
-    "Frozen Needle": 0x004D0E90
-    "Noble's Estoc": 0x004D35A0
-    "Bloody Helice": 0x005B8D80
-    "Godskin Stitcher": 0x005BB490
-    "Great Épée": 0x005BDBA0
-    "Dragon King's Cragblade": 0x005C29C0
-  "Curved swords":
-    "Falchion": 0x006ACFC0
-    "Beastman's Curved Sword": 0x006AF6D0
-    "Shotel": 0x006B1DE0
-    "Shamshir": 0x006B44F0
-    "Bandit's Curved Sword": 0x006B6C00
-    "Magma Blade": 0x006B9310
-    "Flowing Curved Sword": 0x006BBA20
-    "Wing of Astel": 0x006BE130
-    "Scavenger's Curved Sword": 0x006C0840
-    "Eclipse Shotel": 0x006C5660
-    "Serpent-God's Curved Sword": 0x006C7D70
-    "Mantis Blade": 0x006CA480
-    "Scimitar": 0x006CF2A0
-    "Grossmesser": 0x006D19B0
-  "Curved greatswords":
-    "Onyx Lord's Greatsword": 0x007A3910
-    "Dismounter": 0x007A6020
-    "Bloodhound's Fang": 0x007A8730
-    "Magma Wyrm's Scalesword": 0x007AAE40
-    "Zamor Curved Sword": 0x007AD550
-    "Omen Cleaver": 0x007AFC60
-    "Monk's Flameblade": 0x007B2370
-    "Beastman's Cleaver": 0x007B4A80
-    "Morgott's Cursed Sword": 0x007B98A0
-  "Katanas":
-    "Uchigatana": 0x00895440
-    "Nagakiba": 0x00897B50
-    "Hand of Malenia": 0x0089A260
-    "Meteoric Ore Blade": 0x0089C970
-    "Rivers of Blood": 0x0089F080
-    "Moonveil": 0x008A3EA0
-    "Dragonscale Blade": 0x008A65B0
-    "Serpentbone Blade": 0x008A8CC0
-  "Twinblades":
-    "Twinblade": 0x00989680
-    "Godskin Peeler": 0x0098BD90
-    "Twinned Knight Swords": 0x00990BB0
-    "Eleonora's Poleblade": 0x009959D0
-    "Gargoyle's Twinblade": 0x0099CF00
-    "Gargoyle's Black Blades": 0x0099F610
-  "Hammers":
-    "Mace": 0x00A7D8C0
-    "Club": 0x00A7FFD0
-    "Curved Club": 0x00A84DF0
-    "Warpick": 0x00A87500
-    "Morning Star": 0x00A89C10
-    "Varré's Bouquet": 0x00A8C320
-    "Spiked Club": 0x00A8EA30
-    "Hammer": 0x00A91140
-    "Monk's Flamemace": 0x00A93850
-    "Envoy's Horn": 0x00A95F60
-    "Scepter of the All-Knowing": 0x00A98670
-    "Nox Flowing Hammer": 0x00A9AD80
-    "Ringed Finger": 0x00A9D490
-    "Stone Club": 0x00A9FBA0
-    "Marika's Hammer": 0x00AA22B0
-  "Greathammers":
-    "Large Club": 0x00B71B00
-    "Greathorn Hammer": 0x00B74210
-    "Battle Hammer": 0x00B76920
-    "Great Mace": 0x00B80560
-    "Curved Great Club": 0x00B85380
-    "Celebrant's Skull": 0x00B916D0
-    "Pickaxe": 0x00B93DE0
-    "Beastclaw Greathammer": 0x00B964F0
-    "Envoy's Long Horn": 0x00B98C00
-    "Cranial Vessel Candlestand": 0x00B9B310
-    "Great Stars": 0x00B9DA20
-    "Brick Hammer": 0x00BA0130
-    "Devourer's Scepter": 0x00BA2840
-    "Rotten Battle Hammer": 0x00BA4F50
-  "Flails":
-    "Nightrider Flail": 0x00C65D40
-    "Flail": 0x00C68450
-    "Family Heads": 0x00C6AB60
-    "Bastard's Stars": 0x00C6D270
-    "Chainlink Flail": 0x00C6F980
-  "Axes":
-    "Battle Axe": 0x00D59F80
-    "Forked Hatchet": 0x00D5C690
-    "Hand Axe": 0x00D5EDA0
-    "Jawbone Axe": 0x00D614B0
-    "Iron Cleaver": 0x00D63BC0
-    "Ripple Blade": 0x00D662D0
-    "Celebrant's Cleaver": 0x00D689E0
-    "Icerind Hatchet": 0x00D6D800
-    "Highland Axe": 0x00D72620
-    "Sacrificial Axe": 0x00D74D30
-    "Rosus' Axe": 0x00D77440
-    "Stormhawk Axe": 0x00D7C260
-  "Greataxes":
-    "Greataxe": 0x00E4E1C0
-    "Warped Axe": 0x00E508D0
-    "Great Omenkiller Cleaver": 0x00E52FE0
-    "Crescent Moon Axe": 0x00E556F0
-    "Axe of Godrick": 0x00E57E00
-    "Longhaft Axe": 0x00E5A510
-    "Rusted Anchor": 0x00E5CC20
-    "Executioner's Greataxe": 0x00E61A40
-    "Winged Greathorn": 0x00E68F70
-    "Butchering Knife": 0x00E6B680
-    "Gargoyle's Great Axe": 0x00E6DD90
-    "Gargoyle's Black Axe": 0x00E704A0
-  "Spears":
-    "Short Spear": 0x00F42400
-    "Spear": 0x00F44B10
-    "Crystal Spear": 0x00F47220
-    "Clayman's Harpoon": 0x00F49930
-    "Cleanrot Spear": 0x00F4C040
-    "Partisan": 0x00F4E750
-    "Celebrant's Rib-Rake": 0x00F50E60
-    "Pike": 0x00F53570
-    "Torchpole": 0x00F55C80
-    "Bolt of Gransax": 0x00F58390
-    "Cross-Naginata": 0x00F5D1B0
-    "Death Ritual Spear": 0x00F5F8C0
-    "Inquisitor's Girandole": 0x00F61FD0
-    "Spiked Spear": 0x00F646E0
-    "Iron Spear": 0x00F66DF0
-    "Rotten Crystal Spear": 0x00F69500
-    "Mohgwyn's Sacred Spear": 0x01038D50
-    "Siluria's Tree": 0x0103B460
-    "Vyke's War Spear": 0x01042990
-    "Lance": 0x010450A0
-    "Treespear": 0x010477B0
-  "Halberds":
-    "Halberd": 0x0112A880
-    "Pest's Glaive": 0x0112CF90
-    "Lucerne": 0x0112F6A0
-    "Banished Knight's Halberd": 0x01131DB0
-    "Commander's Standard": 0x011344C0
-    "Nightrider Glaive": 0x01136BD0
-    "Ripple Crescent Halberd": 0x011392E0
-    "Vulgar Militia Saw": 0x0113B9F0
-    "Golden Halberd": 0x0113E100
-    "Glaive": 0x01140810
-    "Loretta's War Sickle": 0x01142F20
-    "Guardian's Swordspear": 0x01145630
-    "Vulgar Militia Shotel": 0x0114A450
-    "Dragon Halberd": 0x0114CB60
-    "Gargoyle's Halberd": 0x0114F270
-    "Gargoyle's Black Halberd": 0x01151980
-  "Reapers":
-    "Scythe": 0x0121EAC0
-    "Grave Scythe": 0x012211D0
-    "Halo Scythe": 0x012238E0
-    "Winged Scythe": 0x0122D520
-  "Whips":
-    "Whip": 0x01312D00
-    "Thorned Whip": 0x01317B20
-    "Magma Whip Candlestick": 0x0131A230
-    "Hoslow's Petal Whip": 0x0131F050
-    "Giant's Red Braid": 0x01321760
-    "Urumi": 0x01323E70
-  "Fists":
-    "Caestus": 0x01406F40
-    "Spiked Caestus": 0x01409650
-    "Grafted Dragon": 0x014159A0
-    "Iron Ball": 0x014180B0
-    "Star Fist": 0x0141A7C0
-    "Katar": 0x0141F5E0
-    "Clinging Bone": 0x01421CF0
-    "Veteran's Prosthesis": 0x01424400
-    "Cipher Pata": 0x01426B10
-    "Hookclaws": 0x014FB180
-    "Venomous Fang": 0x014FD890
-    "Bloodhound Claws": 0x014FFFA0
-    "Raptor Talons": 0x015026B0
-  "Colossal weapons":
-    "Prelate's Inferno Crozier": 0x015EF3C0
-    "Watchdog's Staff": 0x015F1AD0
-    "Great Club": 0x015F41E0
-    "Envoy's Greathorn": 0x015F68F0
-    "Duelist Greataxe": 0x015F9000
-    "Axe of Godfrey": 0x015FB710
-    "Dragon Greatclaw": 0x015FDE20
-    "Staff of the Avatar": 0x01600530
-    "Fallingstar Beast Jaw": 0x01602C40
-    "Ghiza's Wheel": 0x01607A60
-    "Giant-Crusher": 0x0160A170
-    "Golem's Halberd": 0x0160C880
-    "Troll's Hammer": 0x0160EF90
-    "Rotten Staff": 0x016116A0
-    "Rotten Greataxe": 0x01613DB0
-  "Torches":
-    "Torch": 0x016E3600
-    "Steel-Wire Torch": 0x016E8420
-    "St. Trina's Torch": 0x016ED240
-    "Ghostflame Torch": 0x016EF950
-    "Beast-Repellent Torch": 0x016F2060
-    "Sentry's Torch": 0x016F4770
-"Shields":
-  "Small shields":
-    "Buckler": 0x01C9C380
-    "Perfumer's Shield": 0x01C9EA90
-    "Man-Serpent's Shield": 0x01CA11A0
-    "Rickety Shield": 0x01CA38B0
-    "Pillory Shield": 0x01CA5FC0
-    "Beastman's Jar-Shield": 0x01CAADE0
-    "Red Thorn Roundshield": 0x01CAD4F0
-    "Scripture Wooden Shield": 0x01CAFC00
-    "Riveted Wooden Shield": 0x01CB2310
-    "Blue-White Wooden Shield": 0x01CB4A20
-    "Rift Shield": 0x01CB7130
-    "Iron Roundshield": 0x01CB9840
-    "Gilded Iron Shield": 0x01CBBF50
-    "Ice Crest Shield": 0x01CBE660
-    "Smoldering Shield": 0x01CC0D70
-    "Spiralhorn Shield": 0x01CCA9B0
-    "Coil Shield": 0x01CCD0C0
-  "Medium shields":
-    "Kite Shield": 0x01D905C0
-    "Marred Leather Shield": 0x01D92CD0
-    "Marred Wooden Shield": 0x01D953E0
-    "Banished Knight's Shield": 0x01D97AF0
-    "Albinauric Shield": 0x01D9A200
-    "Sun Realm Shield": 0x01D9C910
-    "Silver Mirrorshield": 0x01D9F020
-    "Round Shield": 0x01DA1730
-    "Scorpion Kite Shield": 0x01DA3E40
-    "Twinbird Kite Shield": 0x01DA6550
-    "Blue-Gold Kite Shield": 0x01DA8C60
-    "Brass Shield": 0x01DB0190
-    "Great Turtle Shell": 0x01DB28A0
-    "Shield of the Guilty": 0x01DB9DD0
-    "Carian Knight's Shield": 0x01DBEBF0
-    "Large Leather Shield": 0x01DC8830
-    "Horse Crest Wooden Shield": 0x01DCAF40
-    "Candletree Wooden Shield": 0x01DCD650
-    "Flame Crest Wooden Shield": 0x01DCFD60
-    "Hawk Crest Wooden Shield": 0x01DD2470
-    "Beast Crest Heater Shield": 0x01DD4B80
-    "Red Crest Heater Shield": 0x01DD7290
-    "Blue Crest Heater Shield": 0x01DD99A0
-    "Eclipse Crest Heater Shield": 0x01DDC0B0
-    "Inverted Hawk Heater Shield": 0x01DDE7C0
-    "Heater Shield": 0x01DE0ED0
-    "Black Leather Shield": 0x01DE35E0
-  "Greatshields":
-    "Dragon Towershield": 0x01E84800
-    "Distinguished Greatshield": 0x01E89620
-    "Crucible Hornshield": 0x01E8BD30
-    "Dragonclaw Shield": 0x01E8E440
-    "Briar Greatshield": 0x01E90B50
-    "Erdtree Greatshield": 0x01E98080
-    "Golden Beast Crest Shield": 0x01E9A790
-    "Jellyfish Shield": 0x01EA1CC0
-    "Fingerprint Stone Shield": 0x01EA43D0
-    "Icon Shield": 0x01EA6AE0
-    "One-Eyed Shield": 0x01EA91F0
-    "Visage Shield": 0x01EAB900
-    "Spiked Palisade Shield": 0x01EAE010
-    "Manor Towershield": 0x01EB2E30
-    "Crossed-Tree Towershield": 0x01EB5540
-    "Inverted Hawk Towershield": 0x01EB7C50
-    "Ant's Skull Plate": 0x01EBA360
-    "Redmane Greatshield": 0x01EBCA70
-    "Eclipse Crest Greatshield": 0x01EBF180
-    "Cuckoo Greatshield": 0x01EC1890
-    "Golden Greatshield": 0x01EC3FA0
-    "Gilded Greatshield": 0x01EC66B0
-    "Haligtree Crest Greatshield": 0x01EC8DC0
-    "Wooden Greatshield": 0x01ECB4D0
-    "Lordsworn's Shield": 0x01ECDBE0
-"Catalysts":
-  "Staves":
-    "Glintstone Staff": 0x01F78A40
-    "Crystal Staff": 0x01F82680
-    "Gelmir Glintstone Staff": 0x01F84D90
-    "Demi-Human Queen's Staff": 0x01F874A0
-    "Carian Regal Scepter": 0x01F8E9D0
-    "Digger's Staff": 0x01F95F00
-    "Astrologer's Staff": 0x01F98610
-    "Carian Glintblade Staff": 0x01FA2250
-    "Prince of Death's Staff": 0x01FA4960
-    "Albinauric Staff": 0x01FA7070
-    "Academy Glintstone Staff": 0x01FA9780
-    "Carian Glintstone Staff": 0x01FABE90
-    "Azur's Glintstone Staff": 0x01FB0CB0
-    "Lusat's Glintstone Staff": 0x01FB33C0
-    "Meteorite Staff": 0x01FB5AD0
-    "Staff of the Guilty": 0x01FB81E0
-    "Rotten Crystal Staff": 0x01FBA8F0
-    "Staff of Loss": 0x01FBD000
-  "Seals":
-    "Finger Seal": 0x0206CC80
-    "Godslayer's Seal": 0x0206F390
-    "Giant's Seal": 0x02071AA0
-    "Gravel Stone Seal": 0x020741B0
-    "Clawmark Seal": 0x020768C0
-    "Golden Order Seal": 0x0207B6E0
-    "Erdtree Seal": 0x0207DDF0
-    "Dragon Communion Seal": 0x02080500
-    "Frenzied Flame Seal": 0x02082C10
-"Ranged":
-  "Bows":
-    "Shortbow": 0x02625A00
-    "Misbegotten Shortbow": 0x02628110
-    "Red Branch Shortbow": 0x0262A820
-    "Harp Bow": 0x0262CF30
-    "Composite Bow": 0x02631D50
-    "Longbow": 0x02719C40
-    "Albinauric Bow": 0x0271C350
-    "Horn Bow": 0x0271EA60
-    "Erdtree Bow": 0x02721170
-    "Serpent Bow": 0x02723880
-    "Pulley Bow": 0x027286A0
-    "Black Bow": 0x0272ADB0
-  "Greatbows":
-    "Lion Greatbow": 0x0280DE80
-    "Golem Greatbow": 0x02810590
-    "Erdtree Greatbow": 0x028153B0
-    "Greatbow": 0x02817AC0
-  "Crossbows":
-    "Soldier's Crossbow": 0x029020C0
-    "Light Crossbow": 0x02906EE0
-    "Heavy Crossbow": 0x029095F0
-    "Pulley Crossbow": 0x0290E410
-    "Full Moon Crossbow": 0x02910B20
-    "Arbalest": 0x02915940
-    "Crepus's Black-Key Crossbow": 0x0291CE70
-    "Hand Ballista": 0x029F6300
-    "Jar Cannon": 0x029F8A10
-  "Arrows":
-    "Arrow": 0x02FAF080
-    "Fire Arrow": 0x02FB1790
-    "Serpent Arrow": 0x02FB3EA0
-    "Bone Arrow (Fletched)": 0x02FB65B0
-    "St. Trina's Arrow": 0x02FB8CC0
-    "Shattershard Arrow (Fletched)": 0x02FBDAE0
-    "Rainbow Stone Arrow (Fletched)": 0x02FC2900
-    "Golden Arrow": 0x02FC5010
-    "Dwelling Arrow": 0x02FC7720
-    "Bone Arrow": 0x02FC9E30
-    "Firebone Arrow (Fletched)": 0x02FCEC50
-    "Firebone Arrow": 0x02FD1360
-    "Poisonbone Arrow (Fletched)": 0x02FD3A70
-    "Poisonbone Arrow": 0x02FD6180
-    "Sleepbone Arrow (Fletched)": 0x02FD8890
-    "Sleepbone Arrow": 0x02FDAFA0
-    "Stormwing Bone Arrow": 0x02FDD6B0
-    "Lightningbone Arrow (Fletched)": 0x02FDFDC0
-    "Lightningbone Arrow": 0x02FE24D0
-    "Rainbow Stone Arrow": 0x02FE4BE0
-    "Shattershard Arrow": 0x02FE72F0
-    "Spiritflame Arrow": 0x02FE9A00
-    "Magicbone Arrow (Fletched)": 0x02FEE820
-    "Magicbone Arrow": 0x02FF0F30
-    "Haligbone Arrow (Fletched)": 0x02FF3640
-    "Haligbone Arrow": 0x02FF5D50
-    "Bloodbone Arrow (Fletched)": 0x02FF8460
-    "Bloodbone Arrow": 0x02FFAB70
-    "Coldbone Arrow (Fletched)": 0x02FFD280
-    "Coldbone Arrow": 0x02FFF990
-    "Rotbone Arrow (Fletched)": 0x030020A0
-    "Rotbone Arrow": 0x030047B0
-    "Great Arrow": 0x030A32C0
-    "Golem's Great Arrow": 0x030A59D0
-    "Golden Great Arrow": 0x030A80E0
-    "Golem's Magic Arrow": 0x030AA7F0
-    "Radahn's Spear": 0x030ACF00
-    "Bone Great Arrow (Fletched)": 0x030AF610
-    "Bone Great Arrow": 0x030B1D20
-  "Bolts":
-    "Bolt": 0x03197500
-    "Lightning Bolt": 0x03199C10
-    "Perfumer's Bolt": 0x0319C320
-    "Black-Key Bolt": 0x0319EA30
-    "Burred Bolt": 0x031A1140
-    "Meteor Bolt": 0x031A3850
-    "Explosive Bolt": 0x031A5F60
-    "Golden Bolt": 0x031A8670
-    "Lordsworn's Bolt": 0x031AAD80
-    "Bone Bolt": 0x031AD490
-    "Firebone Bolt": 0x031AFBA0
-    "Lightningbone Bolt": 0x031B22B0
-    "Magicbone Bolt": 0x031B49C0
-    "Haligbone Bolt": 0x031B70D0
-    "Poisonbone Bolt": 0x031B97E0
-    "Bloodbone Bolt": 0x031BBEF0
-    "Coldbone Bolt": 0x031BE600
-    "Rotbone Bolt": 0x031C0D10
-    "Sleepbone Bolt": 0x031C3420
-    "Flaming Bolt": 0x031C5B30
-    "Ballista Bolt": 0x0328B740
-    "Explosive Greatbolt": 0x03290560
-    "Bone Ballista Bolt": 0x03292C70
-    "Lightning Greatbolt": 0x0328DE50
+    "?":
+        "Unarmed": 110000
+    "Daggers":
+        "Dagger": 1000000
+        "Black Knife": 1010000
+        "Parrying Dagger": 1020000
+        "Misricorde": 1030000
+        "Reduvia": 1040000
+        "Crystal Knife": 1050000
+        "Celebrant's Sickle": 1060000
+        "Glintstone Kris": 1070000
+        "Scorpion's Stinger": 1080000
+        "Great Knife": 1090000
+        "Wakizashi": 1100000
+        "Cinquedea": 1110000
+        "Ivory Sickle": 1130000
+        "Bloodstained Dagger": 1140000
+        "Erdsteel Dagger": 1150000
+        "Blade of Calling": 1160000
+    "Straight Swords":
+        "Longsword": 2000000
+        "Short Sword": 2010000
+        "Broadsword": 2020000
+        "Royal Soldier Straight Sword": 2030000
+        "Lordsworn's Straight Sword": 2040000
+        "Weathered Straight Sword": 2050000
+        "Ornamental Straight Sword": 2060000
+        "Golden Epitaph": 2070000
+        "Nox Flowing Sword": 2080000
+        "Inseparable Sword": 2090000
+        "Coded Sword": 2110000
+        "Sword of Night and Flame": 2140000
+        "Crystal Sword": 2150000
+        "Carian Knight's Sword": 2180000
+        "Sword of St. Trina": 2190000
+        "Miquellan Knight's Sword": 2200000
+        "Cane Sword": 2210000
+        "Regalia of Eochaid": 2220000
+        "Noble's Slender Sword": 2230000
+        "Warhawk's Talon": 2240000
+        "Lazuli Glintstone Sword": 2250000
+        "Rotten Crystal Sword": 2260000
+    "Greatswords":
+        "Bastard Sword": 3000000
+        "Forked Greatsword": 3010000
+        "Iron Greatsword": 3020000
+        "Lordsworn's Greatsword": 3030000
+        "Knight's Greatsword": 3040000
+        "Flamberge": 3050000
+        "Ordovis's Greatsword": 3060000
+        "Alabaster Lord's Sword": 3070000
+        "Banished Knight's Greatsword": 3080000
+        "Dark Moon Greatsword": 3090000
+        "Sacred Relic Sword": 3100000
+        "Helphen's Steeple": 3130000
+        "Blasphemous Blade": 3140000
+        "Marais Executioner's Sword": 3150000
+        "Sword of Milos": 3160000
+        "Golden Order Greatsword": 3170000
+        "Claymore": 3180000
+        "Gargoyle's Greatsword": 3190000
+        "Death's Poker": 3200000
+        "Gargoyle's Blackblade": 3210000
+    "Colossal Swords":
+        "Greatsword": 4000000
+        "Watchdog's Greatsword": 4010000
+        "Maliketh's Black Blade": 4020000
+        "Troll's Golden Sword": 4030000
+        "Zweihander": 4040000
+        "Starscourge Greatsword": 4050000
+        "Royal Greatsword": 4060000
+        "Godslayer's Greatsword": 4070000
+        "Ruins Greatsword": 4080000
+        "Grafted Blade Greatsword": 4100000
+        "Troll Knight's Sword": 4110000
+    "Thrusting Swords":
+        "Estoc": 5000000
+        "Cleanrot Knight's Sword": 5010000
+        "Rapier": 5020000
+        "Rogier's Rapier": 5030000
+        "Antspur Rapier": 5040000
+        "Frozen Needle": 5050000
+        "Noble's Estoc": 5060000
+    "Great Thrusting Swords":
+        "Bloody Helice": 6000000
+        "Godskin Stitcher": 6010000
+        "Great pe": 6020000
+        "Dragon King's Cragblade": 6040000
+    "Curved Swords":
+        "Falchion": 7000000
+        "Beastman's Curved Sword": 7010000
+        "Shotel": 7020000
+        "Shamshir": 7030000
+        "Bandit's Curved Sword": 7040000
+        "Magma Blade": 7050000
+        "Flowing Curved Sword": 7060000
+        "Wing of Astel": 7070000
+        "Scavenger's Curved Sword": 7080000
+        "Sharktooth Curved Sword": 7090000
+        "Eclipse Shotel": 7100000
+        "Serpent-God's Curved Sword": 7110000
+        "Mantis Blade": 7120000
+        "Scimitar": 7140000
+        "Grossmesser": 7150000
+    "Curved Greatswords":
+        "Onyx Lord's Greatsword": 8010000
+        "Dismounter": 8020000
+        "Bloodhound's Fang": 8030000
+        "Magma Wyrm's Scalesword": 8040000
+        "Zamor Curved Sword": 8050000
+        "Omen Cleaver": 8060000
+        "Monk's Flameblade": 8070000
+        "Beastman's Cleaver": 8080000
+        "Morgott's Cursed Sword": 8100000
+        "Holy Inferno Greatsword": 8110000
+    "Katanas":
+        "Uchigatana": 9000000
+        "Nagakiba": 9010000
+        "Hand of Malenia": 9020000
+        "Meteoric Ore Blade": 9030000
+        "Rivers of Blood": 9040000
+        "Moonveil": 9060000
+        "Dragonscale Blade": 9070000
+        "Serpentbone Blade": 9080000
+    "Twinblades":
+        "Twinblade": 10000000
+        "Godskin Peeler": 10010000
+        "Twinned Knight Swords": 10030000
+        "Eleonora's Poleblade": 10050000
+        "Abundance and Decay Twinblade": 10060000
+        "Abundance Twinblade": 10070000
+        "Gargoyle's Twinblade": 10080000
+        "Gargoyle's Black Blades": 10090000
+    "Hammers":
+        "Mace": 11000000
+        "Club": 11010000
+        "Curved Club": 11030000
+        "Warpick": 11040000
+        "Morning Star": 11050000
+        "Varr's Bouquet": 11060000
+        "Spiked Club": 11070000
+        "Hammer": 11080000
+        "Monk's Flamemace": 11090000
+        "Envoy's Horn": 11100000
+        "Scepter of the All-Knowing": 11110000
+        "Nox Flowing Hammer": 11120000
+        "Ringed Finger": 11130000
+        "Stone Club": 11140000
+        "Marika's Hammer": 11150000
+        "Father Marika's Hammer": 11160000
+    "Greathammers":
+        "Large Club": 12000000
+        "Greathorn Hammer": 12010000
+        "Battle Hammer": 12020000
+        "Great Mace": 12060000
+        "Curved Great Club": 12080000
+        "Celebrant's Skull": 12130000
+        "Pickaxe": 12140000
+        "Beastclaw Greathammer": 12150000
+        "Envoy's Long Horn": 12160000
+        "Cranial Vessel Candlestand": 12170000
+        "Great Stars": 12180000
+        "Brick Hammer": 12190000
+        "Devourer's Scepter": 12200000
+        "Rotten Battle Hammer": 12210000
+    "Flails":
+        "Nightrider Flail": 13000000
+        "Flail": 13010000
+        "Family Heads": 13020000
+        "Bastard's Stars": 13030000
+        "Chainlink Flail": 13040000
+    "Axes":
+        "Battle Axe": 14000000
+        "Forked Hatchet": 14010000
+        "Hand Axe": 14020000
+        "Jawbone Axe": 14030000
+        "Iron Cleaver": 14040000
+        "Ripple Blade": 14050000
+        "Celebrant's Cleaver": 14060000
+        "Icerind Hatchet": 14080000
+        "Highland Axe": 14100000
+        "Sacrificial Axe": 14110000
+        "Rosus' Axe": 14120000
+        "Burial Axe": 14130000
+        "Stormhawk Axe": 14140000
+    "Greataxes":
+        "Greataxe": 15000000
+        "Warped Axe": 15010000
+        "Great Omenkiller Cleaver": 15020000
+        "Crescent Moon Axe": 15030000
+        "Axe of Godrick": 15040000
+        "Longhaft Axe": 15050000
+        "Rusted Anchor": 15060000
+        "Executioner's Greataxe": 15080000
+        "Winged Greathorn": 15110000
+        "Butchering Knife": 15120000
+        "Gargoyle's Great Axe": 15130000
+        "Gargoyle's Black Axe": 15140000
+    "Spears":
+        "Short Spear": 16000000
+        "Spear": 16010000
+        "Crystal Spear": 16020000
+        "Clayman's Harpoon": 16030000
+        "Cleanrot Spear": 16040000
+        "Partisan": 16050000
+        "Celebrant's Rib-Rake": 16060000
+        "Pike": 16070000
+        "Torchpole": 16080000
+        "Bolt of Gransax": 16090000
+        "Cross-Naginata": 16110000
+        "Death Ritual Spear": 16120000
+        "Inquisitor's Girandole": 16130000
+        "Spiked Spear": 16140000
+        "Iron Spear": 16150000
+        "Rotten Crystal Spear": 16160000
+    "Lances":
+        "Mohgwyn's Sacred Spear": 17010000
+        "Siluria's Tree": 17020000
+        "Serpent-Hunter": 17030000
+        "Vyke's War Spear": 17050000
+        "Lance": 17060000
+        "Treespear": 17070000
+    "Halberds":
+        "Halberd": 18000000
+        "Pest's Glaive": 18010000
+        "Lucerne": 18020000
+        "Banished Knight's Halberd": 18030000
+        "Commander's Standard": 18040000
+        "Nightrider Glaive": 18050000
+        "Ripple Crescent Halberd": 18060000
+        "Vulgar Militia Saw": 18070000
+        "Golden Halberd": 18080000
+        "Glaive": 18090000
+        "Loretta's War Sickle": 18100000
+        "Guardian's Swordspear": 18110000
+        "Vulgar Militia Shotel": 18130000
+        "Dragon Halberd": 18140000
+        "Gargoyle's Halberd": 18150000
+        "Gargoyle's Black Halberd": 18160000
+    "Reapers":
+        "Scythe": 19000000
+        "Grave Scythe": 19010000
+        "Halo Scythe": 19020000
+        "Heretic's Hook": 19050000
+        "Winged Scythe": 19060000
+    "Whips":
+        "Whip": 20000000
+        "Thorned Whip": 20020000
+        "Magma Whip Candlestick": 20030000
+        "Hoslow's Petal Whip": 20050000
+        "Giant's Red Braid": 20060000
+        "Urumi": 20070000
+    "Caesti":
+        "Caestus": 21000000
+        "Spiked Caestus": 21010000
+        "Grafted Dragon": 21060000
+        "Iron Ball": 21070000
+        "Star Fist": 21080000
+        "Katar": 21100000
+        "Clinging Bone": 21110000
+        "Veteran's Prosthesis": 21120000
+        "Cipher Pata": 21130000
+    "Claws":
+        "Hookclaws": 22000000
+        "Venomous Fang": 22010000
+        "Bloodhound Claws": 22020000
+        "Raptor Talons": 22030000
+    "Colossal Weapons":
+        "Prelate's Inferno Crozier": 23000000
+        "Watchdog's Staff": 23010000
+        "Great Club": 23020000
+        "Envoy's Greathorn": 23030000
+        "Duelist Greataxe": 23040000
+        "Axe of Godfrey": 23050000
+        "Dragon Greatclaw": 23060000
+        "Staff of the Avatar": 23070000
+        "Fallingstar Beast Jaw": 23080000
+        "Ghiza's Wheel": 23100000
+        "Giant-Crusher": 23110000
+        "Golem's Halberd": 23120000
+        "Troll's Hammer": 23130000
+        "Rotten Staff": 23140000
+        "Rotten Greataxe": 23150000
+    "Torches":
+        "Torch": 24000000
+        "Steel-Wire Torch": 24020000
+        "St. Trina's Torch": 24040000
+        "Ghostflame Torch": 24050000
+        "Beast-Repellent Torch": 24060000
+        "Sentry's Torch": 24070000
+    "Small Shields":
+        "Buckler": 30000000
+        "Perfumer's Shield": 30010000
+        "Man-Serpent's Shield": 30020000
+        "Rickety Shield": 30030000
+        "Pillory Shield": 30040000
+        "Beastman's Jar-Shield": 30060000
+        "Red Thorn Roundshield": 30070000
+        "Scripture Wooden Shield": 30080000
+        "Riveted Wooden Shield": 30090000
+        "Blue-White Wooden Shield": 30100000
+        "Rift Shield": 30110000
+        "Iron Roundshield": 30120000
+        "Gilded Iron Shield": 30130000
+        "Ice Crest Shield": 30140000
+        "Smoldering Shield": 30150000
+        "Spiralhorn Shield": 30190000
+        "Coil Shield": 30200000
+    "Medium Shields":
+        "Kite Shield": 31000000
+        "Marred Leather Shield": 31010000
+        "Marred Wooden Shield": 31020000
+        "Banished Knight's Shield": 31030000
+        "Albinauric Shield": 31040000
+        "Sun Realm Shield": 31050000
+        "Silver Mirrorshield": 31060000
+        "Round Shield": 31070000
+        "Scorpion Kite Shield": 31080000
+        "Twinbird Kite Shield": 31090000
+        "Blue-Gold Kite Shield": 31100000
+        "Brass Shield": 31130000
+        "Great Turtle Shell": 31140000
+        "Shield of the Guilty": 31170000
+        "Carian Knight's Shield": 31190000
+        "Large Leather Shield": 31230000
+        "Horse Crest Wooden Shield": 31240000
+        "Candletree Wooden Shield": 31250000
+        "Flame Crest Wooden Shield": 31260000
+        "Hawk Crest Wooden Shield": 31270000
+        "Beast Crest Heater Shield": 31280000
+        "Red Crest Heater Shield": 31290000
+        "Blue Crest Heater Shield": 31300000
+        "Eclipse Crest Heater Shield": 31310000
+        "Inverted Hawk Heater Shield": 31320000
+        "Heater Shield": 31330000
+        "Black Leather Shield": 31340000
+    "Greatshields":
+        "Dragon Towershield": 32000000
+        "Distinguished Greatshield": 32020000
+        "Crucible Hornshield": 32030000
+        "Dragonclaw Shield": 32040000
+        "Briar Greatshield": 32050000
+        "Erdtree Greatshield": 32080000
+        "Golden Beast Crest Shield": 32090000
+        "Jellyfish Shield": 32120000
+        "Fingerprint Stone Shield": 32130000
+        "Icon Shield": 32140000
+        "One-Eyed Shield": 32150000
+        "Visage Shield": 32160000
+        "Spiked Palisade Shield": 32170000
+        "Manor Towershield": 32190000
+        "Crossed-Tree Towershield": 32200000
+        "Inverted Hawk Towershield": 32210000
+        "Ant's Skull Plate": 32220000
+        "Redmane Greatshield": 32230000
+        "Eclipse Crest Greatshield": 32240000
+        "Cuckoo Greatshield": 32250000
+        "Golden Greatshield": 32260000
+        "Gilded Greatshield": 32270000
+        "Haligtree Crest Greatshield": 32280000
+        "Wooden Greatshield": 32290000
+        "Lordsworn's Shield": 32300000
+    "Staves":
+        "Glintstone Staff": 33000000
+        "Crystal Staff": 33040000
+        "Gelmir Glintstone Staff": 33050000
+        "Demi-Human Queen's Staff": 33060000
+        "Carian Regal Scepter": 33090000
+        "Digger's Staff": 33120000
+        "Astrologer's Staff": 33130000
+        "Carian Glintblade Staff": 33170000
+        "Prince of Death's Staff": 33180000
+        "Albinauric Staff": 33190000
+        "Academy Glintstone Staff": 33200000
+        "Carian Glintstone Staff": 33210000
+        "Azur's Glintstone Staff": 33230000
+        "Lusat's Glintstone Staff": 33240000
+        "Meteorite Staff": 33250000
+        "Staff of the Guilty": 33260000
+        "Rotten Crystal Staff": 33270000
+        "Staff of Loss": 33280000
+    "Seals":
+        "Finger Seal": 34000000
+        "Godslayer's Seal": 34010000
+        "Giant's Seal": 34020000
+        "Gravel Stone Seal": 34030000
+        "Clawmark Seal": 34040000
+        "Golden Order Seal": 34060000
+        "Erdtree Seal": 34070000
+        "Dragon Communion Seal": 34080000
+        "Frenzied Flame Seal": 34090000
+    "Small Bows":
+        "Shortbow": 40000000
+        "Misbegotten Shortbow": 40010000
+        "Red Branch Shortbow": 40020000
+        "Harp Bow": 40030000
+        "Composite Bow": 40050000
+    "Bows":
+        "Longbow": 41000000
+        "Albinauric Bow": 41010000
+        "Horn Bow": 41020000
+        "Erdtree Bow": 41030000
+        "Serpent Bow": 41040000
+        "Pulley Bow": 41060000
+        "Black Bow": 41070000
+    "Greatbows":
+        "Lion Greatbow": 42000000
+        "Golem Greatbow": 42010000
+        "Erdtree Greatbow": 42030000
+        "Greatbow": 42040000
+    "Crossbows":
+        "Soldier's Crossbow": 43000000
+        "Light Crossbow": 43020000
+        "Heavy Crossbow": 43030000
+        "Pulley Crossbow": 43050000
+        "Full Moon Crossbow": 43060000
+        "Arbalest": 43080000
+        "Buckshot Crossbow": 43100000
+        "Crepus's Black-Key Crossbow": 43110000
+    "Ballistae":
+        "Hand Ballista": 44000000
+        "Jar Cannon": 44010000
+    "Arrows":
+        "Arrow": 50000000
+        "Fire Arrow": 50010000
+        "Serpent Arrow": 50020000
+        "Bone Arrow (Fletched)": 50030000
+        "St. Trina's Arrow": 50040000
+        "Shattershard Arrow (Fletched)": 50060000
+        "Rainbow Stone Arrow (Fletched)": 50080000
+        "Golden Arrow": 50090000
+        "Dwelling Arrow": 50100000
+        "Bone Arrow": 50110000
+        "Firebone Arrow (Fletched)": 50130000
+        "Firebone Arrow": 50140000
+        "Poisonbone Arrow (Fletched)": 50150000
+        "Poisonbone Arrow": 50160000
+        "Sleepbone Arrow (Fletched)": 50170000
+        "Sleepbone Arrow": 50180000
+        "Stormwing Bone Arrow": 50190000
+        "Lightningbone Arrow (Fletched)": 50200000
+        "Lightningbone Arrow": 50210000
+        "Rainbow Stone Arrow": 50220000
+        "Shattershard Arrow": 50230000
+        "Spiritflame Arrow": 50240000
+        "Storm Arrow": 50250000
+        "Magicbone Arrow (Fletched)": 50260000
+        "Magicbone Arrow": 50270000
+        "Haligbone Arrow (Fletched)": 50280000
+        "Haligbone Arrow": 50290000
+        "Bloodbone Arrow (Fletched)": 50300000
+        "Bloodbone Arrow": 50310000
+        "Coldbone Arrow (Fletched)": 50320000
+        "Coldbone Arrow": 50330000
+        "Rotbone Arrow (Fletched)": 50340000
+        "Rotbone Arrow": 50350000
+    "Greatarrows":
+        "Great Arrow": 51000000
+        "Golem's Great Arrow": 51010000
+        "Golden Great Arrow": 51020000
+        "Golem's Magic Arrow": 51030000
+        "Radahn's Spear": 51040000
+        "Bone Great Arrow (Fletched)": 51050000
+        "Bone Great Arrow": 51060000
+    "Bolts":
+        "Bolt": 52000000
+        "Lightning Bolt": 52010000
+        "Perfumer's Bolt": 52020000
+        "Black-Key Bolt": 52030000
+        "Burred Bolt": 52040000
+        "Meteor Bolt": 52050000
+        "Explosive Bolt": 52060000
+        "Golden Bolt": 52070000
+        "Lordsworn's Bolt": 52080000
+        "Bone Bolt": 52090000
+        "Firebone Bolt": 52100000
+        "Lightningbone Bolt": 52110000
+        "Magicbone Bolt": 52120000
+        "Haligbone Bolt": 52130000
+        "Poisonbone Bolt": 52140000
+        "Bloodbone Bolt": 52150000
+        "Coldbone Bolt": 52160000
+        "Rotbone Bolt": 52170000
+        "Sleepbone Bolt": 52180000
+        "Flaming Bolt": 52190000
+    "Greatbolts":
+        "Ballista Bolt": 53000000
+        "Lightning Greatbolt": 53010000
+        "Explosive Greatbolt": 53020000
+        "Bone Ballista Bolt": 53030000
 "Armor":
-  "Iron Helmet": 0x10009C40
-  "Scale Armor": 0x10009CA4
-  "Iron Gauntlets": 0x10009D08
-  "Leather Trousers": 0x10009D6C
-  "Kaiden Helm": 0x1000C350
-  "Kaiden Armor": 0x1000C3B4
-  "Kaiden Gauntlets": 0x1000C418
-  "Kaiden Trousers": 0x1000C47C
-  "Drake Knight Helm": 0x1000EA60
-  "Drake Knight Armor": 0x1000EAC4
-  "Drake Knight Gauntlets": 0x1000EB28
-  "Drake Knight Greaves": 0x1000EB8C
-  "Drake Knight Helm (Altered)": 0x1000EE48
-  "Drake Knight Armor (Altered)": 0x1000EEAC
-  "Scaled Helm": 0x10013880
-  "Scaled Armor": 0x100138E4
-  "Scaled Gauntlets": 0x10013948
-  "Scaled Greaves": 0x100139AC
-  "Scaled Armor (Altered)": 0x10013CCC
-  "Perfumer Hood": 0x10015F90
-  "Perfumer Robe": 0x10015FF4
-  "Perfumer Gloves": 0x10016058
-  "Perfumer Sarong": 0x100160BC
-  "Perfumer Robe (Altered)": 0x100163DC
-  "Traveler's Hat": 0x100186A0
-  "Perfumer's Traveling Garb": 0x10018704
-  "Traveler's Gloves": 0x10018768
-  "Traveler's Slops": 0x100187CC
-  "Perfumer's Traveling Garb (Altered)": 0x10018AEC
-  "Alberich's Pointed Hat": 0x1001D4C0
-  "Alberich's Robe": 0x1001D524
-  "Alberich's Bracers": 0x1001D588
-  "Alberich's Trousers": 0x1001D5EC
-  "Alberich's Pointed Hat (Altered)": 0x1001D8A8
-  "Alberich's Robe (Altered)": 0x1001D90C
-  "Spellblade's Pointed Hat": 0x1001FBD0
-  "Spellblade's Traveling Attire": 0x1001FC34
-  "Spellblade's Gloves": 0x1001FC98
-  "Spellblade's Trousers": 0x1001FCFC
-  "Spellblade's Traveling Attire (Altered)": 0x1002001C
-  "Bull-Goat Helm": 0x100222E0
-  "Bull-Goat Armor": 0x10022344
-  "Bull-Goat Gauntlets": 0x100223A8
-  "Bull-Goat Greaves": 0x1002240C
-  "Iron Kasa": 0x100249F0
-  "Ronin's Armor": 0x10024A54
-  "Ronin's Gauntlets": 0x10024AB8
-  "Ronin's Greaves": 0x10024B1C
-  "Ronin's Armor (Altered)": 0x10024E3C
-  "Guilty Hood": 0x10027100
-  "Cloth Garb": 0x10027164
-  "Cloth Trousers": 0x1002722C
-  "Black Wolf Mask": 0x10029810
-  "Blaidd's Armor": 0x10029874
-  "Blaidd's Gauntlets": 0x100298D8
-  "Blaidd's Greaves": 0x1002993C
-  "Blaidd's Armor (Altered)": 0x10029C5C
-  "Black Knife Hood": 0x1002BF20
-  "Black Knife Armor": 0x1002BF84
-  "Black Knife Gauntlets": 0x1002BFE8
-  "Black Knife Greaves": 0x1002C04C
-  "Black Knife Armor (Altered)": 0x1002C36C
-  "Exile Hood": 0x1002E630
-  "Exile Armor": 0x1002E694
-  "Exile Gauntlets": 0x1002E6F8
-  "Exile Greaves": 0x1002E75C
-  "Banished Knight Helm": 0x10030D40
-  "Banished Knight Armor": 0x10030DA4
-  "Banished Knight Gauntlets": 0x10030E08
-  "Banished Knight Greaves": 0x10030E6C
-  "Banished Knight Helm (Altered)": 0x10031128
-  "Banished Knight Armor (Altered)": 0x1003118C
-  "Briar Helm": 0x10033450
-  "Briar Armor": 0x100334B4
-  "Briar Gauntlets": 0x10033518
-  "Briar Greaves": 0x1003357C
-  "Briar Armor (Altered)": 0x1003389C
-  "Page Hood": 0x10035B60
-  "Page Garb": 0x10035BC4
-  "Page Trousers": 0x10035C8C
-  "Page Garb (Altered)": 0x10035FAC
-  "Night's Cavalry Helm": 0x10038270
-  "Night's Cavalry Armor": 0x100382D4
-  "Night's Cavalry Gauntlets": 0x10038338
-  "Night's Cavalry Greaves": 0x1003839C
-  "Night's Cavalry Helm (Altered)": 0x10038658
-  "Night's Cavalry Armor (Altered)": 0x100386BC
-  "Blue Silver Mail Hood": 0x1003A980
-  "Blue Silver Mail Armor": 0x1003A9E4
-  "Blue Silver Bracelets": 0x1003AA48
-  "Blue Silver Mail Skirt": 0x1003AAAC
-  "Blue Silver Mail Armor (Altered)": 0x1003ADCC
-  "Nomadic Merchant's Chapeau": 0x1003D090
-  "Nomadic Merchant's Finery": 0x1003D0F4
-  "Nomadic Merchant's Trousers": 0x1003D1BC
-  "Nomadic Merchant's Finery (Altered)": 0x1003D4DC
-  "Malformed Dragon Helm": 0x1003F7A0
-  "Malformed Dragon Armor": 0x1003F804
-  "Malformed Dragon Gauntlets": 0x1003F868
-  "Malformed Dragon Greaves": 0x1003F8CC
-  "Tree Sentinel Helm": 0x10041EB0
-  "Tree Sentinel Armor": 0x10041F14
-  "Tree Sentinel Gauntlets": 0x10041F78
-  "Tree Sentinel Greaves": 0x10041FDC
-  "Tree Sentinel Armor (Altered)": 0x100422FC
-  "Royal Knight Helm": 0x100445C0
-  "Royal Knight Armor": 0x10044624
-  "Royal Knight Gauntlets": 0x10044688
-  "Royal Knight Greaves": 0x100446EC
-  "Royal Knight Armor (Altered)": 0x10044A0C
-  "Nox Monk Hood": 0x10046CD0
-  "Nox Monk Armor": 0x10046D34
-  "Nox Monk Bracelets": 0x10046D98
-  "Nox Monk Greaves": 0x10046DFC
-  "Nox Monk Hood (Altered)": 0x100470B8
-  "Nox Monk Armor (Altered)": 0x1004711C
-  "Nox Swordstress Crown": 0x100474A0
-  "Nox Swordstress Armor": 0x10047504
-  "Night Maiden Twin Crown": 0x10047888
-  "Night Maiden Armor": 0x100478EC
-  "Nox Swordstress Crown (Altered)": 0x10047C70
-  "Nox Swordstress Armor (Altered)": 0x10047CD4
-  "Great Horned Headband": 0x100493E0
-  "Fur Raiment": 0x10049444
-  "Fur Leggings": 0x1004950C
-  "Shining Horned Headband": 0x100497C8
-  "Shaman Furs": 0x1004982C
-  "Shaman Leggings": 0x100498F4
-  "Duelist Helm": 0x1004BAF0
-  "Gravekeeper Cloak": 0x1004BB54
-  "Duelist Greaves": 0x1004BC1C
-  "Gravekeeper Cloak (Altered)": 0x1004BF3C
-  "Sanguine Noble Hood": 0x1004E200
-  "Sanguine Noble Robe": 0x1004E264
-  "Sanguine Noble Waistcloth": 0x1004E32C
-  "Guardian Mask": 0x10050910
-  "Guardian Garb (Full Bloom)": 0x10050974
-  "Guardian Bracers": 0x100509D8
-  "Guardian Greaves": 0x10050A3C
-  "Guardian Garb": 0x10050D5C
-  "Cleanrot Helm": 0x10053020
-  "Cleanrot Armor": 0x10053084
-  "Cleanrot Gauntlets": 0x100530E8
-  "Cleanrot Greaves": 0x1005314C
-  "Cleanrot Helm (Altered)": 0x10053408
-  "Cleanrot Armor (Altered)": 0x1005346C
-  "Fire Monk Hood": 0x10055730
-  "Fire Monk Armor": 0x10055794
-  "Fire Monk Gauntlets": 0x100557F8
-  "Fire Monk Greaves": 0x1005585C
-  "Blackflame Monk Hood": 0x10055B18
-  "Blackflame Monk Armor": 0x10055B7C
-  "Blackflame Monk Gauntlets": 0x10055BE0
-  "Blackflame Monk Greaves": 0x10055C44
-  "Fire Prelate Helm": 0x10057E40
-  "Fire Prelate Armor": 0x10057EA4
-  "Fire Prelate Gauntlets": 0x10057F08
-  "Fire Prelate Greaves": 0x10057F6C
-  "Fire Prelate Armor (Altered)": 0x1005828C
-  "Aristocrat Headband": 0x1005A550
-  "Aristocrat Garb": 0x1005A5B4
-  "Aristocrat Boots": 0x1005A67C
-  "Aristocrat Garb (Altered)": 0x1005A99C
-  "Aristocrat Hat": 0x1005CC60
-  "Aristocrat Coat": 0x1005CCC4
-  "Old Aristocrat Cowl": 0x1005F370
-  "Old Aristocrat Gown": 0x1005F3D4
-  "Old Aristocrat Shoes": 0x1005F49C
-  "Vulgar Militia Helm": 0x100668A0
-  "Vulgar Militia Armor": 0x10066904
-  "Vulgar Militia Gauntlets": 0x10066968
-  "Vulgar Militia Greaves": 0x100669CC
-  "Sage Hood": 0x10068FB0
-  "Sage Robe": 0x10069014
-  "Sage Trousers": 0x100690DC
-  "Pumpkin Helm": 0x1006B6C0
-  "Elden Lord Crown": 0x100704E0
-  "Elden Lord Armor": 0x10070544
-  "Elden Lord Bracers": 0x100705A8
-  "Elden Lord Greaves": 0x1007060C
-  "Elden Lord Armor (Altered)": 0x1007092C
-  "Radahn's Redmane Helm": 0x10072BF0
-  "Radahn's Lion Armor": 0x10072C54
-  "Radahn's Gauntlets": 0x10072CB8
-  "Radahn's Greaves": 0x10072D1C
-  "Radahn's Lion Armor (Altered)": 0x1007303C
-  "Lord of Blood's Robe": 0x10075364
-  "Lord of Blood's Robe (Altered)": 0x1007574C
-  "Queen's Crescent Crown": 0x1007C830
-  "Queen's Robe": 0x1007C894
-  "Queen's Bracelets": 0x1007C8F8
-  "Queen's Leggings": 0x1007C95C
-  "Godskin Apostle Hood": 0x1007EF40
-  "Godskin Apostle Robe": 0x1007EFA4
-  "Godskin Apostle Bracelets": 0x1007F008
-  "Godskin Apostle Trousers": 0x1007F06C
-  "Godskin Noble Hood": 0x10081650
-  "Godskin Noble Robe": 0x100816B4
-  "Godskin Noble Bracelets": 0x10081718
-  "Godskin Noble Trousers": 0x1008177C
-  "Depraved Perfumer Headscarf": 0x10083D60
-  "Depraved Perfumer Robe": 0x10083DC4
-  "Depraved Perfumer Gloves": 0x10083E28
-  "Depraved Perfumer Trousers": 0x10083E8C
-  "Depraved Perfumer Robe (Altered)": 0x100841AC
-  "Crucible Axe Helm": 0x1008B290
-  "Crucible Axe Armor": 0x1008B2F4
-  "Crucible Gauntlets": 0x1008B358
-  "Crucible Greaves": 0x1008B3BC
-  "Crucible Tree Helm": 0x1008B678
-  "Crucible Tree Armor": 0x1008B6DC
-  "Crucible Axe Armor (Altered)": 0x1008BAC4
-  "Crucible Tree Armor (Altered)": 0x1008BEAC
-  "Lusat's Glintstone Crown": 0x1008D9A0
-  "Lusat's Robe": 0x1008DA04
-  "Lusat's Manchettes": 0x1008DA68
-  "Old Sorcerer's Legwraps": 0x1008DACC
-  "Azur's Glintstone Crown": 0x1008DD88
-  "Azur's Glintstone Robe": 0x1008DDEC
-  "Azur's Manchettes": 0x1008DE50
-  "All-Knowing Helm": 0x100900B0
-  "All-Knowing Armor": 0x10090114
-  "All-Knowing Gauntlets": 0x10090178
-  "All-Knowing Greaves": 0x100901DC
-  "All-Knowing Armor (Altered)": 0x100904FC
-  "Twinned Helm": 0x100927C0
-  "Twinned Armor": 0x10092824
-  "Twinned Gauntlets": 0x10092888
-  "Twinned Greaves": 0x100928EC
-  "Twinned Armor (Altered)": 0x10092C0C
-  "Prophet Blindfold": 0x100975E0
-  "Corhyn's Robe": 0x10097644
-  "Prophet Trousers": 0x1009770C
-  "Prophet Robe (Altered)": 0x10097A2C
-  "Prophet Robe": 0x10097E14
-  "Astrologer Hood": 0x10099CF0
-  "Astrologer Robe": 0x10099D54
-  "Astrologer Gloves": 0x10099DB8
-  "Astrologer Trousers": 0x10099E1C
-  "Astrologer Robe (Altered)": 0x1009A13C
-  "Lionel's Helm": 0x1009C400
-  "Lionel's Armor": 0x1009C464
-  "Lionel's Gauntlets": 0x1009C4C8
-  "Lionel's Greaves": 0x1009C52C
-  "Lionel's Armor (Altered)": 0x1009C84C
-  "Hoslow's Helm": 0x1009EB10
-  "Hoslow's Armor": 0x1009EB74
-  "Hoslow's Gauntlets": 0x1009EBD8
-  "Hoslow's Greaves": 0x1009EC3C
-  "Diallos's Mask": 0x1009EEF8
-  "Hoslow's Armor (Altered)": 0x1009F344
-  "Vagabond Knight Helm": 0x100A1220
-  "Vagabond Knight Armor": 0x100A1284
-  "Vagabond Knight Gauntlets": 0x100A12E8
-  "Vagabond Knight Greaves": 0x100A134C
-  "Vagabond Knight Armor (Altered)": 0x100A166C
-  "Blue Cloth Cowl": 0x100A3930
-  "Blue Cloth Vest": 0x100A3994
-  "Warrior Gauntlets": 0x100A39F8
-  "Warrior Greaves": 0x100A3A5C
-  "White Mask": 0x100A6040
-  "War Surgeon Gown": 0x100A60A4
-  "War Surgeon Gloves": 0x100A6108
-  "War Surgeon Trousers": 0x100A616C
-  "War Surgeon Gown (Altered)": 0x100A648C
-  "Royal Remains Helm": 0x100A8750
-  "Royal Remains Armor": 0x100A87B4
-  "Royal Remains Gauntlets": 0x100A8818
-  "Royal Remains Greaves": 0x100A887C
-  "Beast Champion Helm": 0x100AFC80
-  "Beast Champion Armor": 0x100AFCE4
-  "Beast Champion Gauntlets": 0x100AFD48
-  "Beast Champion Greaves": 0x100AFDAC
-  "Beast Champion Armor (Altered)": 0x100B00CC
-  "Champion Headband": 0x100B2390
-  "Champion Pauldron": 0x100B23F4
-  "Champion Bracers": 0x100B2458
-  "Champion Gaiters": 0x100B24BC
-  "Crimson Hood": 0x100B4AA0
-  "Noble's Traveling Garb": 0x100B4B04
-  "Noble's Gloves": 0x100B4B68
-  "Noble's Trousers": 0x100B4BCC
-  "Navy Hood": 0x100B4E88
-  "Maliketh's Helm": 0x100B98C0
-  "Maliketh's Armor": 0x100B9924
-  "Maliketh's Gauntlets": 0x100B9988
-  "Maliketh's Greaves": 0x100B99EC
-  "Maliketh's Armor (Altered)": 0x100B9D0C
-  "Malenia's Winged Helm": 0x100BBFD0
-  "Malenia's Armor": 0x100BC034
-  "Malenia's Gauntlet": 0x100BC098
-  "Malenia's Greaves": 0x100BC0FC
-  "Malenia's Armor (Altered)": 0x100BC41C
-  "Veteran's Helm": 0x100BE6E0
-  "Veteran's Armor": 0x100BE744
-  "Veteran's Gauntlets": 0x100BE7A8
-  "Veteran's Greaves": 0x100BE80C
-  "Veteran's Armor (Altered)": 0x100BEB2C
-  "Bloodhound Knight Helm": 0x100C0DF0
-  "Bloodhound Knight Armor": 0x100C0E54
-  "Bloodhound Knight Gauntlets": 0x100C0EB8
-  "Bloodhound Knight Greaves": 0x100C0F1C
-  "Bloodhound Knight Armor (Altered)": 0x100C123C
-  "Festive Hood": 0x100C3500
-  "Festive Garb": 0x100C3564
-  "Festive Hood (Altered)": 0x100C38E8
-  "Festive Garb (Altered)": 0x100C394C
-  "Blue Festive Hood": 0x100C3CD0
-  "Blue Festive Garb": 0x100C3D34
-  "Commoner's Headband": 0x100C5C10
-  "Commoner's Garb": 0x100C5C74
-  "Commoner's Shoes": 0x100C5D3C
-  "Commoner's Headband (Altered)": 0x100C5FF8
-  "Commoner's Garb (Altered)": 0x100C605C
-  "Commoner's Simple Garb": 0x100C63E0
-  "Commoner's Simple Garb (Altered)": 0x100C6444
-  "Envoy Crown": 0x100C8320
-  "Twinsage Glintstone Crown": 0x100CAA30
-  "Raya Lucarian Robe": 0x100CAA94
-  "Sorcerer Manchettes": 0x100CAAF8
-  "Sorcerer Leggings": 0x100CAB5C
-  "Olivinus Glintstone Crown": 0x100CAE18
-  "Lazuli Glintstone Crown": 0x100CB200
-  "Karolos Glintstone Crown": 0x100CB5E8
-  "Witch's Glintstone Crown": 0x100CB9D0
-  "Marionette Soldier Helm": 0x100CD140
-  "Marionette Soldier Armor": 0x100CD1A4
-  "Marionette Soldier Birdhelm": 0x100CF850
-  "Raging Wolf Helm": 0x100D1F60
-  "Raging Wolf Armor": 0x100D1FC4
-  "Raging Wolf Gauntlets": 0x100D2028
-  "Raging Wolf Greaves": 0x100D208C
-  "Raging Wolf Armor (Altered)": 0x100D23AC
-  "Land of Reeds Helm": 0x100D4670
-  "Land of Reeds Armor": 0x100D46D4
-  "Land of Reeds Gauntlets": 0x100D4738
-  "Land of Reeds Greaves": 0x100D479C
-  "Land of Reeds Armor (Altered)": 0x100D4ABC
-  "Okina Mask": 0x100D4E40
-  "White Reed Armor": 0x100D4EA4
-  "White Reed Gauntlets": 0x100D4F08
-  "White Reed Greaves": 0x100D4F6C
-  "Confessor Hood": 0x100D6D80
-  "Confessor Armor": 0x100D6DE4
-  "Confessor Gloves": 0x100D6E48
-  "Confessor Boots": 0x100D6EAC
-  "Confessor Hood (Altered)": 0x100D7168
-  "Confessor Armor (Altered)": 0x100D71CC
-  "Prisoner Iron Mask": 0x100D9490
-  "Prisoner Clothing": 0x100D94F4
-  "Prisoner Trousers": 0x100D95BC
-  "Blackguard's Iron Mask": 0x100D9878
-  "Traveling Maiden Hood": 0x100DBBA0
-  "Traveling Maiden Robe": 0x100DBC04
-  "Traveling Maiden Gloves": 0x100DBC68
-  "Traveling Maiden Boots": 0x100DBCCC
-  "Traveling Maiden Robe (Altered)": 0x100DBFEC
-  "Finger Maiden Fillet": 0x100DC370
-  "Finger Maiden Robe": 0x100DC3D4
-  "Finger Maiden Shoes": 0x100DC49C
-  "Finger Maiden Robe (Altered)": 0x100DC7BC
-  "Preceptor's Big Hat": 0x100DE2B0
-  "Preceptor's Long Gown": 0x100DE314
-  "Preceptor's Gloves": 0x100DE378
-  "Preceptor's Trousers": 0x100DE3DC
-  "Mask of Confidence": 0x100DE698
-  "Preceptor's Long Gown (Altered)": 0x100DE6FC
-  "Grass Hair Ornament": 0x100E09C0
-  "Skeletal Mask": 0x100E30D0
-  "Raptor's Black Feathers": 0x100E3134
-  "Bandit Manchettes": 0x100E3198
-  "Bandit Boots": 0x100E31FC
-  "Bandit Garb": 0x100E351C
-  "Eccentric's Hood": 0x100E57E0
-  "Eccentric's Armor": 0x100E5844
-  "Eccentric's Manchettes": 0x100E58A8
-  "Eccentric's Breeches": 0x100E590C
-  "Eccentric's Hood (Altered)": 0x100E5BC8
-  "Fingerprint Helm": 0x100E7EF0
-  "Fingerprint Armor": 0x100E7F54
-  "Fingerprint Gauntlets": 0x100E7FB8
-  "Fingerprint Greaves": 0x100E801C
-  "Fingerprint Armor (Altered)": 0x100E833C
-  "Consort's Mask": 0x100EA600
-  "Consort's Robe": 0x100EA664
-  "Consort's Trousers": 0x100EA72C
-  "Ruler's Mask": 0x100EA9E8
-  "Ruler's Robe": 0x100EAA4C
-  "Upper-Class Robe": 0x100EAE34
-  "Marais Mask": 0x100EB1B8
-  "Marais Robe": 0x100EB21C
-  "Bloodsoaked Manchettes": 0x100EB280
-  "Bloodsoaked Mask": 0x100EB5A0
-  "Official's Attire": 0x100EB604
-  "Omen Helm": 0x100ECD10
-  "Omen Armor": 0x100ECD74
-  "Omen Gauntlets": 0x100ECDD8
-  "Omen Greaves": 0x100ECE3C
-  "Carian Knight Helm": 0x100EF420
-  "Carian Knight Armor": 0x100EF484
-  "Carian Knight Gauntlets": 0x100EF4E8
-  "Carian Knight Greaves": 0x100EF54C
-  "Carian Knight Armor (Altered)": 0x100EF86C
-  "Hierodas Glintstone Crown": 0x100F1B30
-  "Errant Sorcerer Robe": 0x100F1B94
-  "Errant Sorcerer Manchettes": 0x100F1BF8
-  "Errant Sorcerer Boots": 0x100F1C5C
-  "Errant Sorcerer Robe (Altered)": 0x100F1F7C
-  "Haima Glintstone Crown": 0x100F4240
-  "Battlemage Robe": 0x100F42A4
-  "Battlemage Manchettes": 0x100F4308
-  "Battlemage Legwraps": 0x100F436C
-  "Snow Witch Hat": 0x100F6950
-  "Snow Witch Robe": 0x100F69B4
-  "Snow Witch Skirt": 0x100F6A7C
-  "Snow Witch Robe (Altered)": 0x100F6D9C
-  "Traveler's Clothes": 0x100F90C4
-  "Traveler's Manchettes": 0x100F9128
-  "Traveler's Boots": 0x100F918C
-  "Juvenile Scholar Cap": 0x100FB770
-  "Juvenile Scholar Robe": 0x100FB7D4
-  "Radiant Gold Mask": 0x100FDE80
-  "Goldmask's Rags": 0x100FDEE4
-  "Gold Bracelets": 0x100FDF48
-  "Gold Waistwrap": 0x100FDFAC
-  "Fell Omen Cloak": 0x101005F4
-  "Albinauric Mask": 0x10102CA0
-  "Dirty Chainmail": 0x10102D04
-  "Zamor Mask": 0x101053B0
-  "Zamor Armor": 0x10105414
-  "Zamor Bracelets": 0x10105478
-  "Zamor Legwraps": 0x101054DC
-  "Imp Head (Cat)": 0x10107AC0
-  "Imp Head (Fanged)": 0x10107EA8
-  "Imp Head (Long-Tongued)": 0x10108290
-  "Imp Head (Corpse)": 0x10108678
-  "Imp Head (Wolf)": 0x10108A60
-  "Imp Head (Elder)": 0x10108E48
-  "Silver Tear Mask": 0x1010A1D0
-  "Chain Coif": 0x1010C8E0
-  "Chain Armor": 0x1010C944
-  "Chain Gauntlets": 0x1010C9A8
-  "Chain Leggings": 0x1010CA0C
-  "Greathelm": 0x1010CCC8
-  "Eye Surcoat": 0x1010CD2C
-  "Tree Surcoat": 0x1010D114
-  "Octopus Head": 0x1010EFF0
-  "Jar": 0x10111700
-  "Mushroom Head": 0x10113E10
-  "Mushroom Body": 0x10113E74
-  "Mushroom Arms": 0x10113ED8
-  "Mushroom Legs": 0x10113F3C
-  "Nox Mirrorhelm": 0x1013D620
-  "Iji's Mirrorhelm": 0x1013DA08
-  "Black Hood": 0x10155CC0
-  "Leather Armor": 0x10155D24
-  "Leather Gloves": 0x10155D88
-  "Leather Boots": 0x10155DEC
-  "Bandit Mask": 0x101560A8
-  "Knight Helm": 0x1016E360
-  "Knight Armor": 0x1016E3C4
-  "Knight Gauntlets": 0x1016E428
-  "Knight Greaves": 0x1016E48C
-  "Greathood": 0x10186A00
-  "Godrick Soldier Helm": 0x1019F0A0
-  "Tree-and-Beast Surcoat": 0x1019F104
-  "Godrick Soldier Gauntlets": 0x1019F168
-  "Godrick Soldier Greaves": 0x1019F1CC
-  "Raya Lucarian Helm": 0x101A17B0
-  "Cuckoo Surcoat": 0x101A1814
-  "Raya Lucarian Gauntlets": 0x101A1878
-  "Raya Lucarian Greaves": 0x101A18DC
-  "Leyndell Soldier Helm": 0x101A3EC0
-  "Erdtree Surcoat": 0x101A3F24
-  "Leyndell Soldier Gauntlets": 0x101A3F88
-  "Leyndell Soldier Greaves": 0x101A3FEC
-  "Radahn Soldier Helm": 0x101A65D0
-  "Redmane Surcoat": 0x101A6634
-  "Radahn Soldier Gauntlets": 0x101A6698
-  "Radahn Soldier Greaves": 0x101A66FC
-  "Mausoleum Surcoat": 0x101A8D44
-  "Mausoleum Gauntlets": 0x101A8DA8
-  "Mausoleum Greaves": 0x101A8E0C
-  "Haligtree Helm": 0x101AB3F0
-  "Haligtree Crest Surcoat": 0x101AB454
-  "Haligtree Gauntlets": 0x101AB4B8
-  "Haligtree Greaves": 0x101AB51C
-  "Gelmir Knight Helm": 0x101ADB00
-  "Gelmir Knight Armor": 0x101ADB64
-  "Gelmir Knight Gauntlets": 0x101ADBC8
-  "Gelmir Knight Greaves": 0x101ADC2C
-  "Gelmir Knight Armor (Altered)": 0x101ADF4C
-  "Godrick Knight Helm": 0x101B0210
-  "Godrick Knight Armor": 0x101B0274
-  "Godrick Knight Gauntlets": 0x101B02D8
-  "Godrick Knight Greaves": 0x101B033C
-  "Godrick Knight Armor (Altered)": 0x101B065C
-  "Cuckoo Knight Helm": 0x101B2920
-  "Cuckoo Knight Armor": 0x101B2984
-  "Cuckoo Knight Gauntlets": 0x101B29E8
-  "Cuckoo Knight Greaves": 0x101B2A4C
-  "Cuckoo Knight Armor (Altered)": 0x101B2D6C
-  "Leyndell Knight Helm": 0x101B5030
-  "Leyndell Knight Armor": 0x101B5094
-  "Leyndell Knight Gauntlets": 0x101B50F8
-  "Leyndell Knight Greaves": 0x101B515C
-  "Leyndell Knight Armor (Altered)": 0x101B547C
-  "Redmane Knight Helm": 0x101B7740
-  "Redmane Knight Armor": 0x101B77A4
-  "Redmane Knight Gauntlets": 0x101B7808
-  "Redmane Knight Greaves": 0x101B786C
-  "Redmane Knight Armor (Altered)": 0x101B7B8C
-  "Mausoleum Knight Armor": 0x101B9EB4
-  "Mausoleum Knight Gauntlets": 0x101B9F18
-  "Mausoleum Knight Greaves": 0x101B9F7C
-  "Mausoleum Knight Armor (Altered)": 0x101BA29C
-  "Haligtree Knight Helm": 0x101BC560
-  "Haligtree Knight Armor": 0x101BC5C4
-  "Haligtree Knight Gauntlets": 0x101BC628
-  "Haligtree Knight Greaves": 0x101BC68C
-  "Haligtree Knight Armor (Altered)": 0x101BC9AC
-  "Foot Soldier Cap": 0x101BEC70
-  "Chain-Draped Tabard": 0x101BECD4
-  "Foot Soldier Gauntlets": 0x101BED38
-  "Foot Soldier Greaves": 0x101BED9C
-  "Foot Soldier Helmet": 0x101C1380
-  "Foot Soldier Tabard": 0x101C13E4
-  "Gilded Foot Soldier Cap": 0x101C3A90
-  "Leather-Draped Tabard": 0x101C3AF4
-  "Foot Soldier Helm": 0x101C61A0
-  "Scarlet Tabard": 0x101C6204
-  "Bloodsoaked Tabard": 0x101C8914
-  "Sacred Crown Helm": 0x101CAFC0
-  "Ivory-Draped Tabard": 0x101CB024
-  "Omensmirk Mask": 0x101CD6D0
-  "Omenkiller Robe": 0x101CD734
-  "Omenkiller Long Gloves": 0x101CD798
-  "Omenkiller Boots": 0x101CD7FC
-  "Ash-of-War Scarab": 0x101CFDE0
-  "Incantation Scarab": 0x101D01C8
-  "Glintstone Scarab": 0x101D05B0
-  "Crimson Tear Scarab": 0x101D24F0
-  "Cerulean Tear Scarab": 0x101D4C00
-  "Deathbed Dress": 0x101D7374
-  "Fia's Hood": 0x101D9A20
-  "Fia's Robe": 0x101D9A84
-  "Fia's Robe (Altered)": 0x101D9E6C
-  "Highwayman Hood": 0x101E3660
-  "Highwayman Cloth Armor": 0x101E36C4
-  "Highwayman Gauntlets": 0x101E3728
-  "High Page Hood": 0x101E5D70
-  "High Page Clothes": 0x101E5DD4
-  "High Page Clothes (Altered)": 0x101E61BC
-  "Rotten Duelist Helm": 0x101E8480
-  "Rotten Gravekeeper Cloak": 0x101E84E4
-  "Rotten Duelist Greaves": 0x101E85AC
-  "Rotten Gravekeeper Cloak (Altered)": 0x101E88CC
-  "Mushroom Crown": 0x101EAB90
-  "Black Dumpling": 0x101ED2A0
-  "Lazuli Robe": 0x101EF9B0
+    "Type 1": 0x100003e8
+    "Type 2": 0x1000044c
+    "Type 3": 0x100004b0
+    "Type 4": 0x10000514
+    "Type 5": 0x10000578
+    "Type 6": 0x100005dc
+    "Type 7": 0x10000640
+    "Type 8": 0x100006a4
+    "Type 9": 0x10000708
+    "Type 10": 0x1000076c
+    "Type 11": 0x100007d0
+    "Type 12": 0x10000834
+    "Type 13": 0x10000898
+    "Type 14": 0x100008fc
+    "Type 15": 0x10000960
+    "Type 16": 0x100009c4
+    "Type 17": 0x10000a28
+    "Type 18": 0x10000a8c
+    "Type 19": 0x10000af0
+    "Type 20": 0x10000b54
+    "Type 1": 0x10000bb8
+    "Type 2": 0x10000c1c
+    "Type 3": 0x10000c80
+    "Type 4": 0x10000ce4
+    "Type 5": 0x10000d48
+    "Type 6": 0x10000dac
+    "Type 7": 0x10000e10
+    "Type 8": 0x10000e74
+    "Type 9": 0x10000ed8
+    "Type 10": 0x10000f3c
+    "Type 11": 0x10000fa0
+    "Type 12": 0x10001004
+    "Type 13": 0x10001068
+    "Type 14": 0x100010cc
+    "Type 15": 0x10001130
+    "Type 16": 0x10001194
+    "Type 17": 0x100011f8
+    "Type 18": 0x1000125c
+    "Type 19": 0x100012c0
+    "Type 20": 0x10001324
+    "Travel Hairstyle": 0x10001388
+    "Head": 0x10002710
+    "Body": 0x10002774
+    "Arms": 0x100027d8
+    "Legs": 0x1000283c
+    "Iron Helmet": 0x10009c40
+    "Scale Armor": 0x10009ca4
+    "Iron Gauntlets": 0x10009d08
+    "Leather Trousers": 0x10009d6c
+    "Kaiden Helm": 0x1000c350
+    "Kaiden Armor": 0x1000c3b4
+    "Kaiden Gauntlets": 0x1000c418
+    "Kaiden Trousers": 0x1000c47c
+    "Drake Knight Helm": 0x1000ea60
+    "Drake Knight Armor": 0x1000eac4
+    "Drake Knight Gauntlets": 0x1000eb28
+    "Drake Knight Greaves": 0x1000eb8c
+    "Drake Knight Helm (Altered)": 0x1000ee48
+    "Drake Knight Armor (Altered)": 0x1000eeac
+    "Scaled Helm": 0x10013880
+    "Scaled Armor": 0x100138e4
+    "Scaled Gauntlets": 0x10013948
+    "Scaled Greaves": 0x100139ac
+    "Scaled Armor (Altered)": 0x10013ccc
+    "Perfumer Hood": 0x10015f90
+    "Perfumer Robe": 0x10015ff4
+    "Perfumer Gloves": 0x10016058
+    "Perfumer Sarong": 0x100160bc
+    "Perfumer Robe (Altered)": 0x100163dc
+    "Traveler's Hat": 0x100186a0
+    "Perfumer's Traveling Garb": 0x10018704
+    "Traveler's Gloves": 0x10018768
+    "Traveler's Slops": 0x100187cc
+    "Perfumer's Traveling Garb (Altered)": 0x10018aec
+    "Alberich's Pointed Hat": 0x1001d4c0
+    "Alberich's Robe": 0x1001d524
+    "Alberich's Bracers": 0x1001d588
+    "Alberich's Trousers": 0x1001d5ec
+    "Alberich's Pointed Hat (Altered)": 0x1001d8a8
+    "Alberich's Robe (Altered)": 0x1001d90c
+    "Spellblade's Pointed Hat": 0x1001fbd0
+    "Spellblade's Traveling Attire": 0x1001fc34
+    "Spellblade's Gloves": 0x1001fc98
+    "Spellblade's Trousers": 0x1001fcfc
+    "Spellblade's Traveling Attire (Altered)": 0x1002001c
+    "Bull-Goat Helm": 0x100222e0
+    "Bull-Goat Armor": 0x10022344
+    "Bull-Goat Gauntlets": 0x100223a8
+    "Bull-Goat Greaves": 0x1002240c
+    "Iron Kasa": 0x100249f0
+    "Ronin's Armor": 0x10024a54
+    "Ronin's Gauntlets": 0x10024ab8
+    "Ronin's Greaves": 0x10024b1c
+    "Ronin's Armor (Altered)": 0x10024e3c
+    "Guilty Hood": 0x10027100
+    "Cloth Garb": 0x10027164
+    "Tarnished Wrap": 0x100271c8
+    "Cloth Trousers": 0x1002722c
+    "Black Wolf Mask": 0x10029810
+    "Blaidd's Armor": 0x10029874
+    "Blaidd's Gauntlets": 0x100298d8
+    "Blaidd's Greaves": 0x1002993c
+    "Blaidd's Armor (Altered)": 0x10029c5c
+    "Black Knife Hood": 0x1002bf20
+    "Black Knife Armor": 0x1002bf84
+    "Black Knife Gauntlets": 0x1002bfe8
+    "Black Knife Greaves": 0x1002c04c
+    "Black Knife Armor (Altered)": 0x1002c36c
+    "Exile Hood": 0x1002e630
+    "Exile Armor": 0x1002e694
+    "Exile Gauntlets": 0x1002e6f8
+    "Exile Greaves": 0x1002e75c
+    "Banished Knight Helm": 0x10030d40
+    "Banished Knight Armor": 0x10030da4
+    "Banished Knight Gauntlets": 0x10030e08
+    "Banished Knight Greaves": 0x10030e6c
+    "Banished Knight Helm (Altered)": 0x10031128
+    "Banished Knight Armor (Altered)": 0x1003118c
+    "Briar Helm": 0x10033450
+    "Briar Armor": 0x100334b4
+    "Briar Gauntlets": 0x10033518
+    "Briar Greaves": 0x1003357c
+    "Briar Armor (Altered)": 0x1003389c
+    "Page Hood": 0x10035b60
+    "Page Garb": 0x10035bc4
+    "Page Trousers": 0x10035c8c
+    "Page Garb (Altered)": 0x10035fac
+    "Night's Cavalry Helm": 0x10038270
+    "Night's Cavalry Armor": 0x100382d4
+    "Night's Cavalry Gauntlets": 0x10038338
+    "Night's Cavalry Greaves": 0x1003839c
+    "Night's Cavalry Helm (Altered)": 0x10038658
+    "Night's Cavalry Armor (Altered)": 0x100386bc
+    "Blue Silver Mail Hood": 0x1003a980
+    "Blue Silver Mail Armor": 0x1003a9e4
+    "Blue Silver Bracelets": 0x1003aa48
+    "Blue Silver Mail Skirt": 0x1003aaac
+    "Blue Silver Mail Armor (Altered)": 0x1003adcc
+    "Nomadic Merchant's Chapeau": 0x1003d090
+    "Nomadic Merchant's Finery": 0x1003d0f4
+    "Nomadic Merchant's Trousers": 0x1003d1bc
+    "Nomadic Merchant's Finery (Altered)": 0x1003d4dc
+    "Malformed Dragon Helm": 0x1003f7a0
+    "Malformed Dragon Armor": 0x1003f804
+    "Malformed Dragon Gauntlets": 0x1003f868
+    "Malformed Dragon Greaves": 0x1003f8cc
+    "Tree Sentinel Helm": 0x10041eb0
+    "Tree Sentinel Armor": 0x10041f14
+    "Tree Sentinel Gauntlets": 0x10041f78
+    "Tree Sentinel Greaves": 0x10041fdc
+    "Tree Sentinel Armor (Altered)": 0x100422fc
+    "Royal Knight Helm": 0x100445c0
+    "Royal Knight Armor": 0x10044624
+    "Royal Knight Gauntlets": 0x10044688
+    "Royal Knight Greaves": 0x100446ec
+    "Royal Knight Armor (Altered)": 0x10044a0c
+    "Nox Monk Hood": 0x10046cd0
+    "Nox Monk Armor": 0x10046d34
+    "Nox Monk Bracelets": 0x10046d98
+    "Nox Monk Greaves": 0x10046dfc
+    "Nox Monk Hood (Altered)": 0x100470b8
+    "Nox Monk Armor (Altered)": 0x1004711c
+    "Nox Swordstress Crown": 0x100474a0
+    "Nox Swordstress Armor": 0x10047504
+    "Night Maiden Twin Crown": 0x10047888
+    "Night Maiden Armor": 0x100478ec
+    "Nox Swordstress Crown (Altered)": 0x10047c70
+    "Nox Swordstress Armor (Altered)": 0x10047cd4
+    "Great Horned Headband": 0x100493e0
+    "Fur Raiment": 0x10049444
+    "Fur Leggings": 0x1004950c
+    "Shining Horned Headband": 0x100497c8
+    "Shaman Furs": 0x1004982c
+    "Shaman Leggings": 0x100498f4
+    "Duelist Helm": 0x1004baf0
+    "Gravekeeper Cloak": 0x1004bb54
+    "Duelist Greaves": 0x1004bc1c
+    "Gravekeeper Cloak (Altered)": 0x1004bf3c
+    "Sanguine Noble Hood": 0x1004e200
+    "Sanguine Noble Robe": 0x1004e264
+    "Sanguine Noble Waistcloth": 0x1004e32c
+    "Guardian Mask": 0x10050910
+    "Guardian Garb (Full Bloom)": 0x10050974
+    "Guardian Bracers": 0x100509d8
+    "Guardian Greaves": 0x10050a3c
+    "Guardian Garb": 0x10050d5c
+    "Cleanrot Helm": 0x10053020
+    "Cleanrot Armor": 0x10053084
+    "Cleanrot Gauntlets": 0x100530e8
+    "Cleanrot Greaves": 0x1005314c
+    "Cleanrot Helm (Altered)": 0x10053408
+    "Cleanrot Armor (Altered)": 0x1005346c
+    "Fire Monk Hood": 0x10055730
+    "Fire Monk Armor": 0x10055794
+    "Fire Monk Gauntlets": 0x100557f8
+    "Fire Monk Greaves": 0x1005585c
+    "Blackflame Monk Hood": 0x10055b18
+    "Blackflame Monk Armor": 0x10055b7c
+    "Blackflame Monk Gauntlets": 0x10055be0
+    "Blackflame Monk Greaves": 0x10055c44
+    "Fire Prelate Helm": 0x10057e40
+    "Fire Prelate Armor": 0x10057ea4
+    "Fire Prelate Gauntlets": 0x10057f08
+    "Fire Prelate Greaves": 0x10057f6c
+    "Fire Prelate Armor (Altered)": 0x1005828c
+    "Aristocrat Headband": 0x1005a550
+    "Aristocrat Garb": 0x1005a5b4
+    "Aristocrat Boots": 0x1005a67c
+    "Aristocrat Garb (Altered)": 0x1005a99c
+    "Aristocrat Hat": 0x1005cc60
+    "Aristocrat Coat": 0x1005ccc4
+    "Old Aristocrat Cowl": 0x1005f370
+    "Old Aristocrat Gown": 0x1005f3d4
+    "Old Aristocrat Shoes": 0x1005f49c
+    "Vulgar Militia Helm": 0x100668a0
+    "Vulgar Militia Armor": 0x10066904
+    "Vulgar Militia Gauntlets": 0x10066968
+    "Vulgar Militia Greaves": 0x100669cc
+    "Sage Hood": 0x10068fb0
+    "Sage Robe": 0x10069014
+    "Sage Trousers": 0x100690dc
+    "Pumpkin Helm": 0x1006b6c0
+    "Elden Lord Crown": 0x100704e0
+    "Elden Lord Armor": 0x10070544
+    "Elden Lord Bracers": 0x100705a8
+    "Elden Lord Greaves": 0x1007060c
+    "Elden Lord Armor (Altered)": 0x1007092c
+    "Radahn's Redmane Helm": 0x10072bf0
+    "Radahn's Lion Armor": 0x10072c54
+    "Radahn's Gauntlets": 0x10072cb8
+    "Radahn's Greaves": 0x10072d1c
+    "Radahn's Lion Armor (Altered)": 0x1007303c
+    "Lord of Blood's Robe": 0x10075364
+    "Lord of Blood's Robe (Altered)": 0x1007574c
+    "Queen's Crescent Crown": 0x1007c830
+    "Queen's Robe": 0x1007c894
+    "Queen's Bracelets": 0x1007c8f8
+    "Queen's Leggings": 0x1007c95c
+    "Godskin Apostle Hood": 0x1007ef40
+    "Godskin Apostle Robe": 0x1007efa4
+    "Godskin Apostle Bracelets": 0x1007f008
+    "Godskin Apostle Trousers": 0x1007f06c
+    "Godskin Noble Hood": 0x10081650
+    "Godskin Noble Robe": 0x100816b4
+    "Godskin Noble Bracelets": 0x10081718
+    "Godskin Noble Trousers": 0x1008177c
+    "Depraved Perfumer Headscarf": 0x10083d60
+    "Depraved Perfumer Robe": 0x10083dc4
+    "Depraved Perfumer Gloves": 0x10083e28
+    "Depraved Perfumer Trousers": 0x10083e8c
+    "Depraved Perfumer Robe (Altered)": 0x100841ac
+    "Crucible Axe Helm": 0x1008b290
+    "Crucible Axe Armor": 0x1008b2f4
+    "Crucible Gauntlets": 0x1008b358
+    "Crucible Greaves": 0x1008b3bc
+    "Crucible Tree Helm": 0x1008b678
+    "Crucible Tree Armor": 0x1008b6dc
+    "Crucible Axe Armor (Altered)": 0x1008bac4
+    "Crucible Tree Armor (Altered)": 0x1008beac
+    "Lusat's Glintstone Crown": 0x1008d9a0
+    "Lusat's Robe": 0x1008da04
+    "Lusat's Manchettes": 0x1008da68
+    "Old Sorcerer's Legwraps": 0x1008dacc
+    "Azur's Glintstone Crown": 0x1008dd88
+    "Azur's Glintstone Robe": 0x1008ddec
+    "Azur's Manchettes": 0x1008de50
+    "All-Knowing Helm": 0x100900b0
+    "All-Knowing Armor": 0x10090114
+    "All-Knowing Gauntlets": 0x10090178
+    "All-Knowing Greaves": 0x100901dc
+    "All-Knowing Armor (Altered)": 0x100904fc
+    "Twinned Helm": 0x100927c0
+    "Twinned Armor": 0x10092824
+    "Twinned Gauntlets": 0x10092888
+    "Twinned Greaves": 0x100928ec
+    "Twinned Armor (Altered)": 0x10092c0c
+    "Twinned Greaves (Altered)": 0x10092cd4
+    "Ragged Hat": 0x10094ed0
+    "Ragged Armor": 0x10094f34
+    "Ragged Gloves": 0x10094f98
+    "Ragged Loincloth": 0x10094ffc
+    "Ragged Hat (Altered)": 0x100952b8
+    "Ragged Armor (Altered)": 0x1009531c
+    "Prophet Blindfold": 0x100975e0
+    "Corhyn's Robe": 0x10097644
+    "Prophet Trousers": 0x1009770c
+    "Prophet Robe (Altered)": 0x10097a2c
+    "Prophet Robe": 0x10097e14
+    "Astrologer Hood": 0x10099cf0
+    "Astrologer Robe": 0x10099d54
+    "Astrologer Gloves": 0x10099db8
+    "Astrologer Trousers": 0x10099e1c
+    "Astrologer Robe (Altered)": 0x1009a13c
+    "Lionel's Helm": 0x1009c400
+    "Lionel's Armor": 0x1009c464
+    "Lionel's Gauntlets": 0x1009c4c8
+    "Lionel's Greaves": 0x1009c52c
+    "Lionel's Armor (Altered)": 0x1009c84c
+    "Hoslow's Helm": 0x1009eb10
+    "Hoslow's Armor": 0x1009eb74
+    "Hoslow's Gauntlets": 0x1009ebd8
+    "Hoslow's Greaves": 0x1009ec3c
+    "Diallos's Mask": 0x1009eef8
+    "Hoslow's Armor (Altered)": 0x1009f344
+    "Vagabond Knight Helm": 0x100a1220
+    "Vagabond Knight Armor": 0x100a1284
+    "Vagabond Knight Gauntlets": 0x100a12e8
+    "Vagabond Knight Greaves": 0x100a134c
+    "Vagabond Knight Armor (Altered)": 0x100a166c
+    "Blue Cloth Cowl": 0x100a3930
+    "Blue Cloth Vest": 0x100a3994
+    "Warrior Gauntlets": 0x100a39f8
+    "Warrior Greaves": 0x100a3a5c
+    "White Mask": 0x100a6040
+    "War Surgeon Gown": 0x100a60a4
+    "War Surgeon Gloves": 0x100a6108
+    "War Surgeon Trousers": 0x100a616c
+    "War Surgeon Gown (Altered)": 0x100a648c
+    "Royal Remains Helm": 0x100a8750
+    "Royal Remains Armor": 0x100a87b4
+    "Royal Remains Gauntlets": 0x100a8818
+    "Royal Remains Greaves": 0x100a887c
+    "Brave's Cord Circlet": 0x100aae60
+    "Brave's Battlewear": 0x100aaec4
+    "Brave's Bracer": 0x100aaf28
+    "Brave's Legwraps": 0x100aaf8c
+    "Brave's Leather Helm": 0x100ab248
+    "Brave's Battlewear (Altered)": 0x100ab630
+    "Beast Champion Helm": 0x100afc80
+    "Beast Champion Armor": 0x100afce4
+    "Beast Champion Gauntlets": 0x100afd48
+    "Beast Champion Greaves": 0x100afdac
+    "Beast Champion Armor (Altered)": 0x100b00cc
+    "Champion Headband": 0x100b2390
+    "Champion Pauldron": 0x100b23f4
+    "Champion Bracers": 0x100b2458
+    "Champion Gaiters": 0x100b24bc
+    "Crimson Hood": 0x100b4aa0
+    "Noble's Traveling Garb": 0x100b4b04
+    "Noble's Gloves": 0x100b4b68
+    "Noble's Trousers": 0x100b4bcc
+    "Navy Hood": 0x100b4e88
+    "Maliketh's Helm": 0x100b98c0
+    "Maliketh's Armor": 0x100b9924
+    "Maliketh's Gauntlets": 0x100b9988
+    "Maliketh's Greaves": 0x100b99ec
+    "Maliketh's Armor (Altered)": 0x100b9d0c
+    "Malenia's Winged Helm": 0x100bbfd0
+    "Malenia's Armor": 0x100bc034
+    "Malenia's Gauntlet": 0x100bc098
+    "Malenia's Greaves": 0x100bc0fc
+    "Malenia's Armor (Altered)": 0x100bc41c
+    "Veteran's Helm": 0x100be6e0
+    "Veteran's Armor": 0x100be744
+    "Veteran's Gauntlets": 0x100be7a8
+    "Veteran's Greaves": 0x100be80c
+    "Veteran's Armor (Altered)": 0x100beb2c
+    "Bloodhound Knight Helm": 0x100c0df0
+    "Bloodhound Knight Armor": 0x100c0e54
+    "Bloodhound Knight Gauntlets": 0x100c0eb8
+    "Bloodhound Knight Greaves": 0x100c0f1c
+    "Bloodhound Knight Armor (Altered)": 0x100c123c
+    "Festive Hood": 0x100c3500
+    "Festive Garb": 0x100c3564
+    "Festive Hood (Altered)": 0x100c38e8
+    "Festive Garb (Altered)": 0x100c394c
+    "Blue Festive Hood": 0x100c3cd0
+    "Blue Festive Garb": 0x100c3d34
+    "Commoner's Headband": 0x100c5c10
+    "Commoner's Garb": 0x100c5c74
+    "Commoner's Shoes": 0x100c5d3c
+    "Commoner's Headband (Altered)": 0x100c5ff8
+    "Commoner's Garb (Altered)": 0x100c605c
+    "Commoner's Simple Garb": 0x100c63e0
+    "Commoner's Simple Garb (Altered)": 0x100c6444
+    "Envoy Crown": 0x100c8320
+    "Twinsage Glintstone Crown": 0x100caa30
+    "Raya Lucarian Robe": 0x100caa94
+    "Sorcerer Manchettes": 0x100caaf8
+    "Sorcerer Leggings": 0x100cab5c
+    "Olivinus Glintstone Crown": 0x100cae18
+    "Lazuli Glintstone Crown": 0x100cb200
+    "Karolos Glintstone Crown": 0x100cb5e8
+    "Witch's Glintstone Crown": 0x100cb9d0
+    "??": 0x100cba34
+    "Marionette Soldier Helm": 0x100cd140
+    "Marionette Soldier Armor": 0x100cd1a4
+    "Marionette Soldier Birdhelm": 0x100cf850
+    "Raging Wolf Helm": 0x100d1f60
+    "Raging Wolf Armor": 0x100d1fc4
+    "Raging Wolf Gauntlets": 0x100d2028
+    "Raging Wolf Greaves": 0x100d208c
+    "Raging Wolf Armor (Altered)": 0x100d23ac
+    "Land of Reeds Helm": 0x100d4670
+    "Land of Reeds Armor": 0x100d46d4
+    "Land of Reeds Gauntlets": 0x100d4738
+    "Land of Reeds Greaves": 0x100d479c
+    "Land of Reeds Armor (Altered)": 0x100d4abc
+    "Okina Mask": 0x100d4e40
+    "White Reed Armor": 0x100d4ea4
+    "White Reed Gauntlets": 0x100d4f08
+    "White Reed Greaves": 0x100d4f6c
+    "Confessor Hood": 0x100d6d80
+    "Confessor Armor": 0x100d6de4
+    "Confessor Gloves": 0x100d6e48
+    "Confessor Boots": 0x100d6eac
+    "Confessor Hood (Altered)": 0x100d7168
+    "Confessor Armor (Altered)": 0x100d71cc
+    "Prisoner Iron Mask": 0x100d9490
+    "Prisoner Clothing": 0x100d94f4
+    "Prisoner Trousers": 0x100d95bc
+    "Blackguard's Iron Mask": 0x100d9878
+    "Traveling Maiden Hood": 0x100dbba0
+    "Traveling Maiden Robe": 0x100dbc04
+    "Traveling Maiden Gloves": 0x100dbc68
+    "Traveling Maiden Boots": 0x100dbccc
+    "Traveling Maiden Robe (Altered)": 0x100dbfec
+    "Finger Maiden Fillet": 0x100dc370
+    "Finger Maiden Robe": 0x100dc3d4
+    "Finger Maiden Shoes": 0x100dc49c
+    "Finger Maiden Robe (Altered)": 0x100dc7bc
+    "Preceptor's Big Hat": 0x100de2b0
+    "Preceptor's Long Gown": 0x100de314
+    "Preceptor's Gloves": 0x100de378
+    "Preceptor's Trousers": 0x100de3dc
+    "Mask of Confidence": 0x100de698
+    "Preceptor's Long Gown (Altered)": 0x100de6fc
+    "Grass Hair Ornament": 0x100e09c0
+    "Skeletal Mask": 0x100e30d0
+    "Raptor's Black Feathers": 0x100e3134
+    "Bandit Manchettes": 0x100e3198
+    "Bandit Boots": 0x100e31fc
+    "Bandit Garb": 0x100e351c
+    "Eccentric's Hood": 0x100e57e0
+    "Eccentric's Armor": 0x100e5844
+    "Eccentric's Manchettes": 0x100e58a8
+    "Eccentric's Breeches": 0x100e590c
+    "Eccentric's Hood (Altered)": 0x100e5bc8
+    "Fingerprint Helm": 0x100e7ef0
+    "Fingerprint Armor": 0x100e7f54
+    "Fingerprint Gauntlets": 0x100e7fb8
+    "Fingerprint Greaves": 0x100e801c
+    "Fingerprint Armor (Altered)": 0x100e833c
+    "Consort's Mask": 0x100ea600
+    "Consort's Robe": 0x100ea664
+    "Consort's Trousers": 0x100ea72c
+    "Ruler's Mask": 0x100ea9e8
+    "Ruler's Robe": 0x100eaa4c
+    "Upper-Class Robe": 0x100eae34
+    "Marais Mask": 0x100eb1b8
+    "Marais Robe": 0x100eb21c
+    "Bloodsoaked Manchettes": 0x100eb280
+    "Bloodsoaked Mask": 0x100eb5a0
+    "Official's Attire": 0x100eb604
+    "Omen Helm": 0x100ecd10
+    "Omen Armor": 0x100ecd74
+    "Omen Gauntlets": 0x100ecdd8
+    "Omen Greaves": 0x100ece3c
+    "Carian Knight Helm": 0x100ef420
+    "Carian Knight Armor": 0x100ef484
+    "Carian Knight Gauntlets": 0x100ef4e8
+    "Carian Knight Greaves": 0x100ef54c
+    "Carian Knight Armor (Altered)": 0x100ef86c
+    "Hierodas Glintstone Crown": 0x100f1b30
+    "Errant Sorcerer Robe": 0x100f1b94
+    "Errant Sorcerer Manchettes": 0x100f1bf8
+    "Errant Sorcerer Boots": 0x100f1c5c
+    "Errant Sorcerer Robe (Altered)": 0x100f1f7c
+    "Haima Glintstone Crown": 0x100f4240
+    "Battlemage Robe": 0x100f42a4
+    "Battlemage Manchettes": 0x100f4308
+    "Battlemage Legwraps": 0x100f436c
+    "Snow Witch Hat": 0x100f6950
+    "Snow Witch Robe": 0x100f69b4
+    "Snow Witch Skirt": 0x100f6a7c
+    "Snow Witch Robe (Altered)": 0x100f6d9c
+    "Traveler's Clothes": 0x100f90c4
+    "Traveler's Manchettes": 0x100f9128
+    "Traveler's Boots": 0x100f918c
+    "Juvenile Scholar Cap": 0x100fb770
+    "Juvenile Scholar Robe": 0x100fb7d4
+    "Radiant Gold Mask": 0x100fde80
+    "Goldmask's Rags": 0x100fdee4
+    "Gold Bracelets": 0x100fdf48
+    "Gold Waistwrap": 0x100fdfac
+    "Fell Omen Cloak": 0x101005f4
+    "Albinauric Mask": 0x10102ca0
+    "Dirty Chainmail": 0x10102d04
+    "Zamor Mask": 0x101053b0
+    "Zamor Armor": 0x10105414
+    "Zamor Bracelets": 0x10105478
+    "Zamor Legwraps": 0x101054dc
+    "Imp Head (Cat)": 0x10107ac0
+    "Imp Head (Fanged)": 0x10107ea8
+    "Imp Head (Long-Tongued)": 0x10108290
+    "Imp Head (Corpse)": 0x10108678
+    "Imp Head (Wolf)": 0x10108a60
+    "Imp Head (Elder)": 0x10108e48
+    "Silver Tear Mask": 0x1010a1d0
+    "Chain Coif": 0x1010c8e0
+    "Chain Armor": 0x1010c944
+    "Chain Gauntlets": 0x1010c9a8
+    "Chain Leggings": 0x1010ca0c
+    "Greathelm": 0x1010ccc8
+    "Eye Surcoat": 0x1010cd2c
+    "Tree Surcoat": 0x1010d114
+    "Octopus Head": 0x1010eff0
+    "Jar": 0x10111700
+    "Mushroom Head": 0x10113e10
+    "Mushroom Body": 0x10113e74
+    "Mushroom Arms": 0x10113ed8
+    "Mushroom Legs": 0x10113f3c
+    "Nox Mirrorhelm": 0x1013d620
+    "Iji's Mirrorhelm": 0x1013da08
+    "Black Hood": 0x10155cc0
+    "Leather Armor": 0x10155d24
+    "Leather Gloves": 0x10155d88
+    "Leather Boots": 0x10155dec
+    "Bandit Mask": 0x101560a8
+    "Knight Helm": 0x1016e360
+    "Knight Armor": 0x1016e3c4
+    "Knight Gauntlets": 0x1016e428
+    "Knight Greaves": 0x1016e48c
+    "Greathood": 0x10186a00
+    "Godrick Soldier Helm": 0x1019f0a0
+    "Tree-and-Beast Surcoat": 0x1019f104
+    "Godrick Soldier Gauntlets": 0x1019f168
+    "Godrick Soldier Greaves": 0x1019f1cc
+    "Raya Lucarian Helm": 0x101a17b0
+    "Cuckoo Surcoat": 0x101a1814
+    "Raya Lucarian Gauntlets": 0x101a1878
+    "Raya Lucarian Greaves": 0x101a18dc
+    "Leyndell Soldier Helm": 0x101a3ec0
+    "Erdtree Surcoat": 0x101a3f24
+    "Leyndell Soldier Gauntlets": 0x101a3f88
+    "Leyndell Soldier Greaves": 0x101a3fec
+    "Radahn Soldier Helm": 0x101a65d0
+    "Redmane Surcoat": 0x101a6634
+    "Radahn Soldier Gauntlets": 0x101a6698
+    "Radahn Soldier Greaves": 0x101a66fc
+    "Mausoleum Surcoat": 0x101a8d44
+    "Mausoleum Gauntlets": 0x101a8da8
+    "Mausoleum Greaves": 0x101a8e0c
+    "Haligtree Helm": 0x101ab3f0
+    "Haligtree Crest Surcoat": 0x101ab454
+    "Haligtree Gauntlets": 0x101ab4b8
+    "Haligtree Greaves": 0x101ab51c
+    "Gelmir Knight Helm": 0x101adb00
+    "Gelmir Knight Armor": 0x101adb64
+    "Gelmir Knight Gauntlets": 0x101adbc8
+    "Gelmir Knight Greaves": 0x101adc2c
+    "Gelmir Knight Armor (Altered)": 0x101adf4c
+    "Godrick Knight Helm": 0x101b0210
+    "Godrick Knight Armor": 0x101b0274
+    "Godrick Knight Gauntlets": 0x101b02d8
+    "Godrick Knight Greaves": 0x101b033c
+    "Godrick Knight Armor (Altered)": 0x101b065c
+    "Cuckoo Knight Helm": 0x101b2920
+    "Cuckoo Knight Armor": 0x101b2984
+    "Cuckoo Knight Gauntlets": 0x101b29e8
+    "Cuckoo Knight Greaves": 0x101b2a4c
+    "Cuckoo Knight Armor (Altered)": 0x101b2d6c
+    "Leyndell Knight Helm": 0x101b5030
+    "Leyndell Knight Armor": 0x101b5094
+    "Leyndell Knight Gauntlets": 0x101b50f8
+    "Leyndell Knight Greaves": 0x101b515c
+    "Leyndell Knight Armor (Altered)": 0x101b547c
+    "Redmane Knight Helm": 0x101b7740
+    "Redmane Knight Armor": 0x101b77a4
+    "Redmane Knight Gauntlets": 0x101b7808
+    "Redmane Knight Greaves": 0x101b786c
+    "Redmane Knight Armor (Altered)": 0x101b7b8c
+    "Mausoleum Knight Armor": 0x101b9eb4
+    "Mausoleum Knight Gauntlets": 0x101b9f18
+    "Mausoleum Knight Greaves": 0x101b9f7c
+    "Mausoleum Knight Armor (Altered)": 0x101ba29c
+    "Haligtree Knight Helm": 0x101bc560
+    "Haligtree Knight Armor": 0x101bc5c4
+    "Haligtree Knight Gauntlets": 0x101bc628
+    "Haligtree Knight Greaves": 0x101bc68c
+    "Haligtree Knight Armor (Altered)": 0x101bc9ac
+    "Foot Soldier Cap": 0x101bec70
+    "Chain-Draped Tabard": 0x101becd4
+    "Foot Soldier Gauntlets": 0x101bed38
+    "Foot Soldier Greaves": 0x101bed9c
+    "Foot Soldier Helmet": 0x101c1380
+    "Foot Soldier Tabard": 0x101c13e4
+    "Gilded Foot Soldier Cap": 0x101c3a90
+    "Leather-Draped Tabard": 0x101c3af4
+    "Foot Soldier Helm": 0x101c61a0
+    "Scarlet Tabard": 0x101c6204
+    "Bloodsoaked Tabard": 0x101c8914
+    "Sacred Crown Helm": 0x101cafc0
+    "Ivory-Draped Tabard": 0x101cb024
+    "Omensmirk Mask": 0x101cd6d0
+    "Omenkiller Robe": 0x101cd734
+    "Omenkiller Long Gloves": 0x101cd798
+    "Omenkiller Boots": 0x101cd7fc
+    "Ash-of-War Scarab": 0x101cfde0
+    "Incantation Scarab": 0x101d01c8
+    "Glintstone Scarab": 0x101d05b0
+    "Crimson Tear Scarab": 0x101d24f0
+    "Cerulean Tear Scarab": 0x101d4c00
+    "Deathbed Dress": 0x101d7374
+    "Deathbed Smalls": 0x101d743c
+    "Fia's Hood": 0x101d9a20
+    "Fia's Robe": 0x101d9a84
+    "Fia's Robe (Altered)": 0x101d9e6c
+    "Millicent's Robe": 0x101dc194
+    "Millicent's Gloves": 0x101dc1f8
+    "Millicent's Boots": 0x101dc25c
+    "Millicent's Tunic": 0x101e0fb4
+    "Golden Prosthetic": 0x101e1018
+    "Highwayman Hood": 0x101e3660
+    "Highwayman Cloth Armor": 0x101e36c4
+    "Highwayman Gauntlets": 0x101e3728
+    "High Page Hood": 0x101e5d70
+    "High Page Clothes": 0x101e5dd4
+    "High Page Clothes (Altered)": 0x101e61bc
+    "Rotten Duelist Helm": 0x101e8480
+    "Rotten Gravekeeper Cloak": 0x101e84e4
+    "Rotten Duelist Greaves": 0x101e85ac
+    "Rotten Gravekeeper Cloak (Altered)": 0x101e88cc
+    "Mushroom Crown": 0x101eab90
+    "Black Dumpling": 0x101ed2a0
+    "Lazuli Robe": 0x101ef9b0
 "Talismans":
-  "Crimson Amber Medallion": 0x200003E8
-  "Crimson Amber Medallion +1": 0x200003E9
-  "Crimson Amber Medallion +2": 0x200003EA
-  "Cerulean Amber Medallion": 0x200003F2
-  "Cerulean Amber Medallion +1": 0x200003F3
-  "Cerulean Amber Medallion +2": 0x200003F4
-  "Viridian Amber Medallion": 0x200003FC
-  "Viridian Amber Medallion +1": 0x200003FD
-  "Viridian Amber Medallion +2": 0x200003FE
-  "Arsenal Charm": 0x20000406
-  "Arsenal Charm +1": 0x20000407
-  "Great-Jar's Arsenal": 0x20000408
-  "Erdtree's Favor": 0x20000410
-  "Erdtree's Favor +1": 0x20000411
-  "Erdtree's Favor +2": 0x20000412
-  "Radagon's Scarseal": 0x2000041A
-  "Radagon's Soreseal": 0x2000041B
-  "Starscourge Heirloom": 0x20000424
-  "Prosthesis-Wearer Heirloom": 0x2000042E
-  "Stargazer Heirloom": 0x20000438
-  "Two Fingers Heirloom": 0x20000442
-  "Silver Scarab": 0x2000044C
-  "Gold Scarab": 0x20000456
-  "Moon of Nokstella": 0x20000474
-  "Green Turtle Talisman": 0x2000047E
-  "Stalwart Horn Charm": 0x20000488
-  "Stalwart Horn Charm +1": 0x20000489
-  "Immunizing Horn Charm": 0x20000492
-  "Immunizing Horn Charm +1": 0x20000493
-  "Clarifying Horn Charm": 0x2000049C
-  "Clarifying Horn Charm +1": 0x2000049D
-  "Prince of Death's Pustule": 0x200004A6
-  "Prince of Death's Cyst": 0x200004A7
-  "Mottled Necklace": 0x200004B0
-  "Mottled Necklace +1": 0x200004B1
-  "Bull-Goat's Talisman": 0x200004BA
-  "Marika's Scarseal": 0x200004C4
-  "Marika's Soreseal": 0x200004C5
-  "Warrior Jar Shard": 0x200004CE
-  "Shard of Alexander": 0x200004CF
-  "Millicent's Prosthesis": 0x200004E2
-  "Magic Scorpion Charm": 0x200007D0
-  "Lightning Scorpion Charm": 0x200007DA
-  "Fire Scorpion Charm": 0x200007E4
-  "Sacred Scorpion Charm": 0x200007EE
-  "Red-Feathered Branchsword": 0x200007F8
-  "Ritual Sword Talisman": 0x20000802
-  "Spear Talisman": 0x2000080C
-  "Hammer Talisman": 0x20000816
-  "Winged Sword Insignia": 0x20000820
-  "Rotten Winged Sword Insignia": 0x20000821
-  "Dagger Talisman": 0x2000082A
-  "Arrow's Reach Talisman": 0x20000834
-  "Blue Dancer Charm": 0x2000083E
-  "Twinblade Talisman": 0x20000848
-  "Axe Talisman": 0x20000852
-  "Lance Talisman": 0x2000085C
-  "Arrow's Sting Talisman": 0x20000866
-  "Lord of Blood's Exultation": 0x20000870
-  "Kindred of Rot's Exultation": 0x2000087A
-  "Claw Talisman": 0x20000884
-  "Roar Medallion": 0x2000088E
-  "Curved Sword Talisman": 0x20000898
-  "Companion Jar": 0x200008A2
-  "Perfumer's Talisman": 0x200008AC
-  "Graven-School Talisman": 0x20000BB8
-  "Graven-Mass Talisman": 0x20000BB9
-  "Faithful's Canvas Talisman": 0x20000BE0
-  "Flock's Canvas Talisman": 0x20000BEA
-  "Old Lord's Talisman": 0x20000BF4
-  "Radagon Icon": 0x20000BFE
-  "Primal Glintstone Blade": 0x20000C08
-  "Godfrey Icon": 0x20000C12
-  "Dragoncrest Shield Talisman": 0x20000FA0
-  "Dragoncrest Shield Talisman +1": 0x20000FA1
-  "Dragoncrest Shield Talisman +2": 0x20000FA2
-  "Dragoncrest Greatshield Talisman": 0x20000FA3
-  "Spelldrake Talisman": 0x20000FAA
-  "Spelldrake Talisman +1": 0x20000FAB
-  "Spelldrake Talisman +2": 0x20000FAC
-  "Flamedrake Talisman": 0x20000FB4
-  "Flamedrake Talisman +1": 0x20000FB5
-  "Flamedrake Talisman +2": 0x20000FB6
-  "Boltdrake Talisman": 0x20000FBE
-  "Boltdrake Talisman +1": 0x20000FBF
-  "Boltdrake Talisman +2": 0x20000FC0
-  "Haligdrake Talisman": 0x20000FC8
-  "Haligdrake Talisman +1": 0x20000FC9
-  "Haligdrake Talisman +2": 0x20000FCA
-  "Pearldrake Talisman": 0x20000FD2
-  "Pearldrake Talisman +1": 0x20000FD3
-  "Pearldrake Talisman +2": 0x20000FD4
-  "Crucible Scale Talisman": 0x20000FDC
-  "Crucible Feather Talisman": 0x20000FE6
-  "Blue-Feathered Branchsword": 0x20000FF0
-  "Ritual Shield Talisman": 0x20000FFA
-  "Greatshield Talisman": 0x20001004
-  "Crucible Knot Talisman": 0x2000100E
-  "Crimson Seed Talisman": 0x20001388
-  "Cerulean Seed Talisman": 0x20001392
-  "Blessed Dew Talisman": 0x2000139C
-  "Taker's Cameo": 0x200013A6
-  "Godskin Swaddling Cloth": 0x200013B0
-  "Assassin's Crimson Dagger": 0x200013BA
-  "Assassin's Cerulean Dagger": 0x200013C4
-  "Crepus's Vial": 0x20001770
-  "Concealing Veil": 0x2000177A
-  "Carian Filigreed Crest": 0x20001784
-  "Longtail Cat Talisman": 0x20001798
-  "Shabriri's Woe": 0x200017A2
-  "Daedicar's Woe": 0x200017AC
-  "Sacrificial Twig": 0x200017B6
-  "Furled Finger's Trick-Mirror": 0x200017C0
-  "Host's Trick-Mirror": 0x200017CA
-  "Ancestral Spirit's Horn": 0x200017DE
-"Items":
-  "Rainbow Stone": 0x400007E4
-  "Bloody Finger": 0x40000066
-  "Blue Cipher Ring": 0x40000069
-  "Duelist's Furled Finger": 0x40000065
-  "Festering Bloody Finger": 0x4000006F
-  "Finger Severer": 0x40000067
-  "Furlcalling Finger Remedy": 0x400000B6
-  "Phantom Bloody Finger": 0x40000071
-  "Phantom Great Rune": 0x40000087
-  "Phantom Recusant Finger": 0x40000072
-  "Recusant Finger": 0x400000B8
-  "Small Golden Effigy": 0x400000B3
-  "Small Red Effigy": 0x400000B4
-  "Spectral Steed Whistle": 0x400000B5
-  "Tarnished's Furled Finger": 0x400000AA
-  "Tarnished's Wizened Finger": 0x4000006A
-  "Taunter's Tongue": 0x400000B2
-  "White Cipher Ring": 0x400000AE
-  "Memory of Grace": 0x40000073
-  "Rune Arc": 0x400000BE
-  "Godrick's Great Rune": 0x400000BF
-  "Radahn's Great Rune": 0x400000C0
-  "Morgott's Great Rune": 0x400000C1
-  "Rykard's Great Rune": 0x400000C2
-  "Mohg's Great Rune": 0x400000C3
-  "Malenia's Great Rune": 0x400000C4
-  "Flask of Wondrous Physick": 0x400000FA
-  "Flask of Wondrous Physick": 0x400000FB
-  "Fire Pot": 0x4000012C
-  "Redmane Fire Pot": 0x4000012D
-  "Giantsflame Fire Pot": 0x4000012E
-  "Lightning Pot": 0x40000140
-  "Ancient Dragonbolt Pot": 0x40000141
-  "Fetid Pot": 0x4000014A
-  "Swarm Pot": 0x40000154
-  "Holy Water Pot": 0x4000015E
-  "Sacred Order Pot": 0x4000015F
-  "Freezing Pot": 0x40000168
-  "Poison Pot": 0x40000172
-  "Oil Pot": 0x4000017C
-  "Alluring Pot": 0x40000186
-  "Beastlure Pot": 0x40000187
-  "Roped Fire Pot": 0x40000190
-  "Roped Lightning Pot": 0x400001A4
-  "Roped Fetid Pot": 0x400001AE
-  "Roped Poison Pot": 0x400001B8
-  "Roped Oil Pot": 0x400001C2
-  "Roped Magic Pot": 0x400001CC
-  "Roped Fly Pot": 0x400001D6
-  "Roped Volcano Pot": 0x400001EA
-  "Roped Holy Water Pot": 0x400001FE
-  "Volcano Pot": 0x40000258
-  "Albinauric Pot": 0x40000262
-  "Cursed-Blood Pot": 0x40000276
-  "Sleep Pot": 0x40000280
-  "Rancor Pot": 0x4000028A
-  "Magic Pot": 0x40000294
-  "Academy Magic Pot": 0x40000295
-  "Rot Pot": 0x4000029E
-  "Rowa Raisin": 0x4000032A
-  "Sweet Raisin": 0x4000032B
-  "Frozen Raisin": 0x4000032C
-  "Boiled Crab": 0x40000334
-  "Boiled Prawn": 0x4000033E
-  "Neutralizing Boluses": 0x40000384
-  "Stanching Boluses": 0x4000038E
-  "Thawfrost Boluses": 0x40000398
-  "Stimulating Boluses": 0x400003A2
-  "Preserving Boluses": 0x400003AC
-  "Rejuvenating Boluses": 0x400003B6
-  "Clarifying Boluses": 0x400003C0
-  "Pickled Turtle Neck": 0x4000044C
-  "Immunizing Cured Meat": 0x40000456
-  "Invigorating Cured Meat": 0x40000460
-  "Clarifying Cured Meat": 0x4000046A
-  "Dappled Cured Meat": 0x40000474
-  "Spellproof Dried Liver": 0x4000047E
-  "Fireproof Dried Liver": 0x40000488
-  "Lightningproof Dried Liver": 0x40000492
-  "Holyproof Dried Liver": 0x4000049C
-  "Silver-Pickled Fowl Foot": 0x400004A6
-  "Gold-Pickled Fowl Foot": 0x400004B0
-  "Exalted Flesh": 0x400004BA
-  "Deathsbane Jerky": 0x400004C4
-  "Raw Meat Dumpling": 0x400004D3
-  "Shabriri Grape": 0x400004D8
-  "Starlight Shards": 0x4000050A
-  "Immunizing White Cured Meat": 0x4000051E
-  "Invigorating White Cured Meat": 0x40000528
-  "Clarifying White Cured Meat": 0x40000532
-  "Dappled White Cured Meat": 0x4000053C
-  "Deathsbane White Jerky": 0x40000546
-  "Fire Grease": 0x40000578
-  "Lightning Grease": 0x40000582
-  "Magic Grease": 0x4000058C
-  "Holy Grease": 0x40000596
-  "Blood Grease": 0x400005A0
-  "Soporific Grease": 0x400005AA
-  "Poison Grease": 0x400005B4
-  "Freezing Grease": 0x400005BE
-  "Dragonwound Grease": 0x400005C8
-  "Rot Grease": 0x400005D2
-  "Drawstring Fire Grease": 0x400005DC
-  "Drawstring Lightning Grease": 0x400005E6
-  "Drawstring Magic Grease": 0x400005F0
-  "Drawstring Holy Grease": 0x400005FA
-  "Drawstring Blood Grease": 0x40000604
-  "Drawstring Soporific Grease": 0x4000060E
-  "Drawstring Poison Grease": 0x40000618
-  "Drawstring Freezing Grease": 0x40000622
-  "Drawstring Rot Grease": 0x40000636
-  "Shield Grease": 0x4000069A
-  "Throwing Dagger": 0x400006A4
-  "Bone Dart": 0x400006AE
-  "Poisonbone Dart": 0x400006B8
-  "Kukri": 0x400006C2
-  "Crystal Dart": 0x400006CC
-  "Fan Daggers": 0x400006D6
-  "Ruin Fragment": 0x400006E0
-  "Explosive Stone": 0x40000726
-  "Explosive Stone Clump": 0x40000727
-  "Poisoned Stone": 0x40000730
-  "Poisoned Stone Clump": 0x40000731
-  "Rainbow Stone": 0x400007E4
-  "Glowstone": 0x400007EE
-  "Telescope": 0x400007F8
-  "Grace Mimic": 0x40000802
-  "Lantern": 0x40000816
-  "Blasphemous Claw": 0x40000820
-  "Deathroot": 0x4000082A
-  "Soft Cotton": 0x40000834
-  "Soap": 0x40000848
-  "Celestial Dew": 0x40000852
-  "Margit's Shackle": 0x4000085C
-  "Mohg's Shackle": 0x40000866
-  "Pureblood Knight's Medal": 0x40000870
-  "Miquella's Needle": 0x4000088E
-  "Prattling Pate Hello": 0x40000898
-  "Prattling Pate Thank you": 0x40000899
-  "Prattling Pate Apologies": 0x4000089A
-  "Prattling Pate Wonderful": 0x4000089B
-  "Prattling Pate Please help": 0x4000089C
-  "Prattling Pate My beloved": 0x4000089D
-  "Prattling Pate Let's get to it": 0x4000089E
-  "Prattling Pate You're beautiful": 0x4000089F
-  "Golden Rune [1]": 0x40000B54
-  "Golden Rune [2]": 0x40000B55
-  "Golden Rune [3]": 0x40000B56
-  "Golden Rune [4]": 0x40000B57
-  "Golden Rune [5]": 0x40000B58
-  "Golden Rune [6]": 0x40000B59
-  "Golden Rune [7]": 0x40000B5A
-  "Golden Rune [8]": 0x40000B5B
-  "Golden Rune [9]": 0x40000B5C
-  "Golden Rune [10]": 0x40000B5D
-  "Golden Rune [11]": 0x40000B5E
-  "Golden Rune [12]": 0x40000B5F
-  "Golden Rune [13]": 0x40000B60
-  "Numen's Rune": 0x40000B61
-  "Hero's Rune [1]": 0x40000B62
-  "Hero's Rune [2]": 0x40000B63
-  "Hero's Rune [3]": 0x40000B64
-  "Hero's Rune [4]": 0x40000B65
-  "Hero's Rune [5]": 0x40000B66
-  "Lord's Rune": 0x40000B67
-  "Remembrance of the Grafted": 0x40000B86
-  "Remembrance of the Starscourge": 0x40000B87
-  "Remembrance of the Omen King": 0x40000B88
-  "Remembrance of the Blasphemous": 0x40000B89
-  "Remembrance of the Rot Goddess": 0x40000B8A
-  "Remembrance of the Blood Lord": 0x40000B8B
-  "Remembrance of the Black Blade": 0x40000B8C
-  "Remembrance of Hoarah Loux": 0x40000B8D
-  "Remembrance of the Dragonlord": 0x40000B8E
-  "Remembrance of the Full Moon Queen": 0x40000B8F
-  "Remembrance of the Lichdragon": 0x40000B90
-  "Remembrance of the Fire Giant": 0x40000B91
-  "Remembrance of the Regal Ancestor": 0x40000B92
-  "Elden Remembrance": 0x40000B93
-  "Remembrance of the Naturalborn": 0x40000B94
-  "Lands Between Rune": 0x40000BAE
-  "Ancestral Infant's Head": 0x40000BB8
-  "Omen Bairn": 0x40000BC2
-  "Regal Omen Bairn": 0x40000BC3
-  "Cuckoo Glintstone": 0x40000BD6
-  "Mimic's Veil": 0x40000BE0
-  "Glintstone Scrap": 0x40000BEA
-  "Large Glintstone Scrap": 0x40000BEB
-  "Gravity Stone Fan": 0x40000BF4
-  "Gravity Stone Chunk": 0x40000BFE
-  "Wraith Calling Bell": 0x40000C08
-  "Holy Water Grease": 0x40000CE4
-  "Warming Stone": 0x40000CEE
-  "Frenzyflame Stone": 0x40000CEF
-  "Scriptstone": 0x40000CF8
-  "Bewitching Branch": 0x40000D16
-  "Baldachin's Blessing": 0x40000D20
-  "Radiant Baldachin's Blessing": 0x40000D21
-  "Uplifting Aromatic": 0x40000DAC
-  "Spark Aromatic": 0x40000DB6
-  "Ironjar Aromatic": 0x40000DC0
-  "Bloodboil Aromatic": 0x40000DDE
-  "Poison Spraymist": 0x40000DFC
-  "Acid Spraymist": 0x40000E1A
-"Spells":
-  "Sorceries":
-    "Glintstone Pebble": 0x40000FA0
-    "Great Glintstone Shard": 0x40000FA1
-    "Swift Glintstone Shard": 0x40000FAA
-    "Glintstone Cometshard": 0x40000FB4
-    "Comet": 0x40000FB5
-    "Shard Spiral": 0x40000FBE
-    "Glintstone Stars": 0x40000FC8
-    "Star Shower": 0x40000FD2
-    "Crystal Barrage": 0x40000FDC
-    "Glintstone Arc": 0x40000FE6
-    "Cannon of Haima": 0x40000FF0
-    "Crystal Burst": 0x40000FFA
+    "Crimson Amber Medallion": 0x200003e8
+    "Crimson Amber Medallion +1": 0x200003e9
+    "Crimson Amber Medallion +2": 0x200003ea
+    "Cerulean Amber Medallion": 0x200003f2
+    "Cerulean Amber Medallion +1": 0x200003f3
+    "Cerulean Amber Medallion +2": 0x200003f4
+    "Viridian Amber Medallion": 0x200003fc
+    "Viridian Amber Medallion +1": 0x200003fd
+    "Viridian Amber Medallion +2": 0x200003fe
+    "Arsenal Charm": 0x20000406
+    "Arsenal Charm +1": 0x20000407
+    "Great-Jar's Arsenal": 0x20000408
+    "Erdtree's Favor": 0x20000410
+    "Erdtree's Favor +1": 0x20000411
+    "Erdtree's Favor +2": 0x20000412
+    "Radagon's Scarseal": 0x2000041a
+    "Radagon's Soreseal": 0x2000041b
+    "Starscourge Heirloom": 0x20000424
+    "Prosthesis-Wearer Heirloom": 0x2000042e
+    "Stargazer Heirloom": 0x20000438
+    "Two Fingers Heirloom": 0x20000442
+    "Silver Scarab": 0x2000044c
+    "Gold Scarab": 0x20000456
+    "Moon of Nokstella": 0x20000474
+    "Green Turtle Talisman": 0x2000047e
+    "Stalwart Horn Charm": 0x20000488
+    "Stalwart Horn Charm +1": 0x20000489
+    "Immunizing Horn Charm": 0x20000492
+    "Immunizing Horn Charm +1": 0x20000493
+    "Clarifying Horn Charm": 0x2000049c
+    "Clarifying Horn Charm +1": 0x2000049d
+    "Prince of Death's Pustule": 0x200004a6
+    "Prince of Death's Cyst": 0x200004a7
+    "Mottled Necklace": 0x200004b0
+    "Mottled Necklace +1": 0x200004b1
+    "Bull-Goat's Talisman": 0x200004ba
+    "Marika's Scarseal": 0x200004c4
+    "Marika's Soreseal": 0x200004c5
+    "Warrior Jar Shard": 0x200004ce
+    "Shard of Alexander": 0x200004cf
+    "Millicent's Prosthesis": 0x200004e2
+    "Magic Scorpion Charm": 0x200007d0
+    "Lightning Scorpion Charm": 0x200007da
+    "Fire Scorpion Charm": 0x200007e4
+    "Sacred Scorpion Charm": 0x200007ee
+    "Red-Feathered Branchsword": 0x200007f8
+    "Ritual Sword Talisman": 0x20000802
+    "Spear Talisman": 0x2000080c
+    "Hammer Talisman": 0x20000816
+    "Winged Sword Insignia": 0x20000820
+    "Rotten Winged Sword Insignia": 0x20000821
+    "Dagger Talisman": 0x2000082a
+    "Arrow's Reach Talisman": 0x20000834
+    "Blue Dancer Charm": 0x2000083e
+    "Twinblade Talisman": 0x20000848
+    "Axe Talisman": 0x20000852
+    "Lance Talisman": 0x2000085c
+    "Arrow's Sting Talisman": 0x20000866
+    "Lord of Blood's Exultation": 0x20000870
+    "Kindred of Rot's Exultation": 0x2000087a
+    "Claw Talisman": 0x20000884
+    "Roar Medallion": 0x2000088e
+    "Curved Sword Talisman": 0x20000898
+    "Companion Jar": 0x200008a2
+    "Perfumer's Talisman": 0x200008ac
+    "Graven-School Talisman": 0x20000bb8
+    "Graven-Mass Talisman": 0x20000bb9
+    "Faithful's Canvas Talisman": 0x20000be0
+    "Flock's Canvas Talisman": 0x20000bea
+    "Old Lord's Talisman": 0x20000bf4
+    "Radagon Icon": 0x20000bfe
+    "Primal Glintstone Blade": 0x20000c08
+    "Godfrey Icon": 0x20000c12
+    "Dragoncrest Shield Talisman": 0x20000fa0
+    "Dragoncrest Shield Talisman +1": 0x20000fa1
+    "Dragoncrest Shield Talisman +2": 0x20000fa2
+    "Dragoncrest Greatshield Talisman": 0x20000fa3
+    "Spelldrake Talisman": 0x20000faa
+    "Spelldrake Talisman +1": 0x20000fab
+    "Spelldrake Talisman +2": 0x20000fac
+    "Flamedrake Talisman": 0x20000fb4
+    "Flamedrake Talisman +1": 0x20000fb5
+    "Flamedrake Talisman +2": 0x20000fb6
+    "Boltdrake Talisman": 0x20000fbe
+    "Boltdrake Talisman +1": 0x20000fbf
+    "Boltdrake Talisman +2": 0x20000fc0
+    "Haligdrake Talisman": 0x20000fc8
+    "Haligdrake Talisman +1": 0x20000fc9
+    "Haligdrake Talisman +2": 0x20000fca
+    "Pearldrake Talisman": 0x20000fd2
+    "Pearldrake Talisman +1": 0x20000fd3
+    "Pearldrake Talisman +2": 0x20000fd4
+    "Crucible Scale Talisman": 0x20000fdc
+    "Crucible Feather Talisman": 0x20000fe6
+    "Blue-Feathered Branchsword": 0x20000ff0
+    "Ritual Shield Talisman": 0x20000ffa
+    "Greatshield Talisman": 0x20001004
+    "Crucible Knot Talisman": 0x2000100e
+    "Crimson Seed Talisman": 0x20001388
+    "Cerulean Seed Talisman": 0x20001392
+    "Blessed Dew Talisman": 0x2000139c
+    "Taker's Cameo": 0x200013a6
+    "Godskin Swaddling Cloth": 0x200013b0
+    "Assassin's Crimson Dagger": 0x200013ba
+    "Assassin's Cerulean Dagger": 0x200013c4
+    "Crepus's Vial": 0x20001770
+    "Concealing Veil": 0x2000177a
+    "Carian Filigreed Crest": 0x20001784
+    "Longtail Cat Talisman": 0x20001798
+    "Shabriri's Woe": 0x200017a2
+    "Daedicar's Woe": 0x200017ac
+    "Sacrificial Twig": 0x200017b6
+    "Furled Finger's Trick-Mirror": 0x200017c0
+    "Host's Trick-Mirror": 0x200017ca
+    "Entwining Umbilical Cord": 0x200017d4
+    "Ancestral Spirit's Horn": 0x200017de
+"Goods":
+    "<name unavailable>": 0x4000000c
+    "<name unavailable>": 0x4000000d
+    "<name unavailable>": 0x4000000e
+    "<name unavailable>": 0x4000000f
+    "<name unavailable>": 0x40000010
+    "<name unavailable>": 0x40000014
+    "<name unavailable>": 0x40000015
+    "<name unavailable>": 0x40000016
+    "<name unavailable>": 0x40000017
+    "<name unavailable>": 0x40000018
+    "<name unavailable>": 0x40000019
+    "<name unavailable>": 0x4000001a
+    "<name unavailable>": 0x4000001b
+    "<name unavailable>": 0x4000001c
+    "<name unavailable>": 0x4000001d
+    "<name unavailable>": 0x4000001e
+    "<name unavailable>": 0x4000001f
+    "<name unavailable>": 0x40000023
+    "<name unavailable>": 0x40000028
+    "<name unavailable>": 0x40000029
+    "<name unavailable>": 0x4000002a
+    "<name unavailable>": 0x4000002b
+    "<name unavailable>": 0x4000002c
+    "<name unavailable>": 0x4000003c
+    "<name unavailable>": 0x4000003d
+    "<name unavailable>": 0x4000003e
+    "<name unavailable>": 0x4000003f
+    "<name unavailable>": 0x40000040
+    "<name unavailable>": 0x40000041
+    "<name unavailable>": 0x40000042
+    "<name unavailable>": 0x40000043
+    "<name unavailable>": 0x40000044
+    "<name unavailable>": 0x40000045
+    "<name unavailable>": 0x4000005e
+    "<name unavailable>": 0x40000062
+    "<name unavailable>": 0x40000063
+    "Tarnished's Furled Finger": 0x40000064
+    "Duelist's Furled Finger": 0x40000065
+    "Bloody Finger": 0x40000066
+    "Finger Severer": 0x40000067
+    "White Cipher Ring": 0x40000068
+    "Blue Cipher Ring": 0x40000069
+    "Tarnished's Wizened Finger": 0x4000006a
+    "Phantom Bloody Finger": 0x4000006b
+    "Taunter's Tongue": 0x4000006c
+    "Small Golden Effigy": 0x4000006d
+    "Small Red Effigy": 0x4000006e
+    "Festering Bloody Finger": 0x4000006f
+    "Recusant Finger": 0x40000070
+    "Phantom Bloody Finger": 0x40000071
+    "Phantom Recusant Finger": 0x40000072
+    "Memory of Grace": 0x40000073
+    "Spectral Steed Whistle": 0x40000082
+    "Phantom Great Rune": 0x40000087
+    "Furlcalling Finger Remedy": 0x40000096
+    "Tarnished's Furled Finger": 0x400000aa
+    "Duelist's Furled Finger": 0x400000ab
+    "Bloody Finger": 0x400000ac
+    "White Cipher Ring": 0x400000ae
+    "Blue Cipher Ring": 0x400000af
+    "Taunter's Tongue": 0x400000b2
+    "Small Golden Effigy": 0x400000b3
+    "Small Red Effigy": 0x400000b4
+    "Spectral Steed Whistle": 0x400000b5
+    "Furlcalling Finger Remedy": 0x400000b6
+    "Festering Bloody Finger": 0x400000b7
+    "Recusant Finger": 0x400000b8
+    "Rune Arc": 0x400000be
+    "Godrick's Great Rune": 0x400000bf
+    "Radahn's Great Rune": 0x400000c0
+    "Morgott's Great Rune": 0x400000c1
+    "Rykard's Great Rune": 0x400000c2
+    "Mohg's Great Rune": 0x400000c3
+    "Malenia's Great Rune": 0x400000c4
+    "Flask of Wondrous Physick": 0x400000fa
+    "Flask of Wondrous Physick": 0x400000fb
+    "Fire Pot": 0x4000012c
+    "Redmane Fire Pot": 0x4000012d
+    "Giantsflame Fire Pot": 0x4000012e
+    "Lightning Pot": 0x40000140
+    "Ancient Dragonbolt Pot": 0x40000141
+    "Fetid Pot": 0x4000014a
+    "Swarm Pot": 0x40000154
+    "Holy Water Pot": 0x4000015e
+    "Sacred Order Pot": 0x4000015f
+    "Freezing Pot": 0x40000168
+    "Poison Pot": 0x40000172
+    "Oil Pot": 0x4000017c
+    "Alluring Pot": 0x40000186
+    "Beastlure Pot": 0x40000187
+    "Roped Fire Pot": 0x40000190
+    "Roped Lightning Pot": 0x400001a4
+    "Roped Fetid Pot": 0x400001ae
+    "Roped Poison Pot": 0x400001b8
+    "Roped Oil Pot": 0x400001c2
+    "Roped Magic Pot": 0x400001cc
+    "Roped Fly Pot": 0x400001d6
+    "Roped Freezing Pot": 0x400001e0
+    "Roped Volcano Pot": 0x400001ea
+    "Roped Holy Water Pot": 0x400001fe
+    "Volcano Pot": 0x40000258
+    "Albinauric Pot": 0x40000262
+    "Cursed-Blood Pot": 0x40000276
+    "Sleep Pot": 0x40000280
+    "Rancor Pot": 0x4000028a
+    "Magic Pot": 0x40000294
+    "Academy Magic Pot": 0x40000295
+    "Rot Pot": 0x4000029e
+    "Rowa Raisin": 0x4000032a
+    "Sweet Raisin": 0x4000032b
+    "Frozen Raisin": 0x4000032c
+    "Boiled Crab": 0x40000334
+    "Boiled Prawn": 0x4000033e
+    "Neutralizing Boluses": 0x40000384
+    "Stanching Boluses": 0x4000038e
+    "Thawfrost Boluses": 0x40000398
+    "Stimulating Boluses": 0x400003a2
+    "Preserving Boluses": 0x400003ac
+    "Rejuvenating Boluses": 0x400003b6
+    "Clarifying Boluses": 0x400003c0
+    "Flask of Crimson Tears": 0x400003e8
+    "Flask of Crimson Tears": 0x400003e9
+    "Flask of Crimson Tears +1": 0x400003ea
+    "Flask of Crimson Tears +1": 0x400003eb
+    "Flask of Crimson Tears +2": 0x400003ec
+    "Flask of Crimson Tears +2": 0x400003ed
+    "Flask of Crimson Tears +3": 0x400003ee
+    "Flask of Crimson Tears +3": 0x400003ef
+    "Flask of Crimson Tears +4": 0x400003f0
+    "Flask of Crimson Tears +4": 0x400003f1
+    "Flask of Crimson Tears +5": 0x400003f2
+    "Flask of Crimson Tears +5": 0x400003f3
+    "Flask of Crimson Tears +6": 0x400003f4
+    "Flask of Crimson Tears +6": 0x400003f5
+    "Flask of Crimson Tears +7": 0x400003f6
+    "Flask of Crimson Tears +7": 0x400003f7
+    "Flask of Crimson Tears +8": 0x400003f8
+    "Flask of Crimson Tears +8": 0x400003f9
+    "Flask of Crimson Tears +9": 0x400003fa
+    "Flask of Crimson Tears +9": 0x400003fb
+    "Flask of Crimson Tears +10": 0x400003fc
+    "Flask of Crimson Tears +10": 0x400003fd
+    "Flask of Crimson Tears +11": 0x400003fe
+    "Flask of Crimson Tears +11": 0x400003ff
+    "Flask of Crimson Tears +12": 0x40000400
+    "Flask of Crimson Tears +12": 0x40000401
+    "Flask of Cerulean Tears": 0x4000041a
+    "Flask of Cerulean Tears": 0x4000041b
+    "Flask of Cerulean Tears +1": 0x4000041c
+    "Flask of Cerulean Tears +1": 0x4000041d
+    "Flask of Cerulean Tears +2": 0x4000041e
+    "Flask of Cerulean Tears +2": 0x4000041f
+    "Flask of Cerulean Tears +3": 0x40000420
+    "Flask of Cerulean Tears +3": 0x40000421
+    "Flask of Cerulean Tears +4": 0x40000422
+    "Flask of Cerulean Tears +4": 0x40000423
+    "Flask of Cerulean Tears +5": 0x40000424
+    "Flask of Cerulean Tears +5": 0x40000425
+    "Flask of Cerulean Tears +6": 0x40000426
+    "Flask of Cerulean Tears +6": 0x40000427
+    "Flask of Cerulean Tears +7": 0x40000428
+    "Flask of Cerulean Tears +7": 0x40000429
+    "Flask of Cerulean Tears +8": 0x4000042a
+    "Flask of Cerulean Tears +8": 0x4000042b
+    "Flask of Cerulean Tears +9": 0x4000042c
+    "Flask of Cerulean Tears +9": 0x4000042d
+    "Flask of Cerulean Tears +10": 0x4000042e
+    "Flask of Cerulean Tears +10": 0x4000042f
+    "Flask of Cerulean Tears +11": 0x40000430
+    "Flask of Cerulean Tears +11": 0x40000431
+    "Flask of Cerulean Tears +12": 0x40000432
+    "Flask of Cerulean Tears +12": 0x40000433
+    "Pickled Turtle Neck": 0x4000044c
+    "Immunizing Cured Meat": 0x40000456
+    "Invigorating Cured Meat": 0x40000460
+    "Clarifying Cured Meat": 0x4000046a
+    "Dappled Cured Meat": 0x40000474
+    "Spellproof Dried Liver": 0x4000047e
+    "Fireproof Dried Liver": 0x40000488
+    "Lightningproof Dried Liver": 0x40000492
+    "Holyproof Dried Liver": 0x4000049c
+    "Silver-Pickled Fowl Foot": 0x400004a6
+    "Gold-Pickled Fowl Foot": 0x400004b0
+    "Exalted Flesh": 0x400004ba
+    "Deathsbane Jerky": 0x400004c4
+    "Raw Meat Dumpling": 0x400004d3
+    "Shabriri Grape": 0x400004d8
+    "Starlight Shards": 0x4000050a
+    "Immunizing White Cured Meat": 0x4000051e
+    "Invigorating White Cured Meat": 0x40000528
+    "Clarifying White Cured Meat": 0x40000532
+    "Dappled White Cured Meat": 0x4000053c
+    "Deathsbane White Jerky": 0x40000546
+    "Fire Grease": 0x40000578
+    "Lightning Grease": 0x40000582
+    "Magic Grease": 0x4000058c
+    "Holy Grease": 0x40000596
+    "Blood Grease": 0x400005a0
+    "Soporific Grease": 0x400005aa
+    "Poison Grease": 0x400005b4
+    "Freezing Grease": 0x400005be
+    "Dragonwound Grease": 0x400005c8
+    "Rot Grease": 0x400005d2
+    "Drawstring Fire Grease": 0x400005dc
+    "Drawstring Lightning Grease": 0x400005e6
+    "Drawstring Magic Grease": 0x400005f0
+    "Drawstring Holy Grease": 0x400005fa
+    "Drawstring Blood Grease": 0x40000604
+    "Drawstring Soporific Grease": 0x4000060e
+    "Drawstring Poison Grease": 0x40000618
+    "Drawstring Freezing Grease": 0x40000622
+    "Drawstring Rot Grease": 0x40000636
+    "Shield Grease": 0x4000069a
+    "Throwing Dagger": 0x400006a4
+    "Bone Dart": 0x400006ae
+    "Poisonbone Dart": 0x400006b8
+    "Kukri": 0x400006c2
+    "Crystal Dart": 0x400006cc
+    "Fan Daggers": 0x400006d6
+    "Ruin Fragment": 0x400006e0
+    "Explosive Stone": 0x40000726
+    "Explosive Stone Clump": 0x40000727
+    "Poisoned Stone": 0x40000730
+    "Poisoned Stone Clump": 0x40000731
+    "Rainbow Stone": 0x400007e4
+    "Glowstone": 0x400007ee
+    "Telescope": 0x400007f8
+    "Grace Mimic": 0x40000802
+    "Lantern": 0x40000816
+    "Blasphemous Claw": 0x40000820
+    "Deathroot": 0x4000082a
+    "Soft Cotton": 0x40000834
+    "Soap": 0x40000848
+    "Celestial Dew": 0x40000852
+    "Margit's Shackle": 0x4000085c
+    "Mohg's Shackle": 0x40000866
+    "Pureblood Knight's Medal": 0x40000870
+    "Miquella's Needle": 0x4000088e
+    "Prattling Pate Hello": 0x40000898
+    "Prattling Pate Thank you": 0x40000899
+    "Prattling Pate Apologies": 0x4000089a
+    "Prattling Pate Wonderful": 0x4000089b
+    "Prattling Pate Please help": 0x4000089c
+    "Prattling Pate My beloved": 0x4000089d
+    "Prattling Pate Let's get to it": 0x4000089e
+    "Prattling Pate You're beautiful": 0x4000089f
+    "Golden Rune [1]": 0x40000b54
+    "Golden Rune [2]": 0x40000b55
+    "Golden Rune [3]": 0x40000b56
+    "Golden Rune [4]": 0x40000b57
+    "Golden Rune [5]": 0x40000b58
+    "Golden Rune [6]": 0x40000b59
+    "Golden Rune [7]": 0x40000b5a
+    "Golden Rune [8]": 0x40000b5b
+    "Golden Rune [9]": 0x40000b5c
+    "Golden Rune [10]": 0x40000b5d
+    "Golden Rune [11]": 0x40000b5e
+    "Golden Rune [12]": 0x40000b5f
+    "Golden Rune [13]": 0x40000b60
+    "Numen's Rune": 0x40000b61
+    "Hero's Rune [1]": 0x40000b62
+    "Hero's Rune [2]": 0x40000b63
+    "Hero's Rune [3]": 0x40000b64
+    "Hero's Rune [4]": 0x40000b65
+    "Hero's Rune [5]": 0x40000b66
+    "Lord's Rune": 0x40000b67
+    "Remembrance of the Grafted": 0x40000b86
+    "Remembrance of the Starscourge": 0x40000b87
+    "Remembrance of the Omen King": 0x40000b88
+    "Remembrance of the Blasphemous": 0x40000b89
+    "Remembrance of the Rot Goddess": 0x40000b8a
+    "Remembrance of the Blood Lord": 0x40000b8b
+    "Remembrance of the Black Blade": 0x40000b8c
+    "Remembrance of Hoarah Loux": 0x40000b8d
+    "Remembrance of the Dragonlord": 0x40000b8e
+    "Remembrance of the Full Moon Queen": 0x40000b8f
+    "Remembrance of the Lichdragon": 0x40000b90
+    "Remembrance of the Fire Giant": 0x40000b91
+    "Remembrance of the Regal Ancestor": 0x40000b92
+    "Elden Remembrance": 0x40000b93
+    "Remembrance of the Naturalborn": 0x40000b94
+    "Lands Between Rune": 0x40000bae
+    "Ancestral Infant's Head": 0x40000bb8
+    "Omen Bairn": 0x40000bc2
+    "Regal Omen Bairn": 0x40000bc3
+    "Miranda's Prayer": 0x40000bcc
+    "Cuckoo Glintstone": 0x40000bd6
+    "Mimic's Veil": 0x40000be0
+    "Glintstone Scrap": 0x40000bea
+    "Large Glintstone Scrap": 0x40000beb
+    "Gravity Stone Fan": 0x40000bf4
+    "Gravity Stone Chunk": 0x40000bfe
+    "Wraith Calling Bell": 0x40000c08
+    "Holy Water Grease": 0x40000ce4
+    "Warming Stone": 0x40000cee
+    "Frenzyflame Stone": 0x40000cef
+    "Scriptstone": 0x40000cf8
+    "Bewitching Branch": 0x40000d16
+    "Baldachin's Blessing": 0x40000d20
+    "Radiant Baldachin's Blessing": 0x40000d21
+    "Uplifting Aromatic": 0x40000dac
+    "Spark Aromatic": 0x40000db6
+    "Ironjar Aromatic": 0x40000dc0
+    "Bloodboil Aromatic": 0x40000dde
+    "Poison Spraymist": 0x40000dfc
+    "Acid Spraymist": 0x40000e1a
+    "Glintstone Pebble": 0x40000fa0
+    "Great Glintstone Shard": 0x40000fa1
+    "Swift Glintstone Shard": 0x40000faa
+    "Glintstone Cometshard": 0x40000fb4
+    "Comet": 0x40000fb5
+    "Shard Spiral": 0x40000fbe
+    "Glintstone Stars": 0x40000fc8
+    "Star Shower": 0x40000fd2
+    "Crystal Barrage": 0x40000fdc
+    "Glintstone Arc": 0x40000fe6
+    "Cannon of Haima": 0x40000ff0
+    "Crystal Burst": 0x40000ffa
     "Shatter Earth": 0x40001004
-    "Rock Blaster": 0x4000100E
+    "Rock Blaster": 0x4000100e
     "Gavel of Haima": 0x40001018
     "Terra Magicus": 0x40001022
-    "Starlight": 0x4000102C
+    "Starlight": 0x4000102c
     "Comet Azur": 0x40001068
     "Founding Rain of Stars": 0x40001072
-    "Stars of Ruin": 0x4000107C
-    "Glintblade Phalanx": 0x400010CC
-    "Carian Phalanx": 0x400010CD
-    "Greatblade Phalanx": 0x400010CE
+    "Stars of Ruin": 0x4000107c
+    "Glintblade Phalanx": 0x400010cc
+    "Carian Phalanx": 0x400010cd
+    "Greatblade Phalanx": 0x400010ce
     "Rennala's Full Moon": 0x40001108
     "Ranni's Dark Moon": 0x40001109
     "Magic Downpour": 0x40001112
-    "Loretta's Greatbow": 0x4000111C
-    "Loretta's Mastery": 0x4000111D
+    "Loretta's Greatbow": 0x4000111c
+    "Loretta's Mastery": 0x4000111d
     "Magic Glintblade": 0x40001126
     "Glintstone Icecrag": 0x40001130
-    "Zamor Ice Storm": 0x4000113A
+    "Zamor Ice Storm": 0x4000113a
     "Freezing Mist": 0x40001144
-    "Carian Greatsword": 0x4000114E
-    "Adula's Moonblade": 0x4000114F
+    "Carian Greatsword": 0x4000114e
+    "Adula's Moonblade": 0x4000114f
     "Carian Slicer": 0x40001158
     "Carian Piercer": 0x40001162
-    "Scholar's Armament": 0x4000116C
+    "Scholar's Armament": 0x4000116c
     "Scholar's Shield": 0x40001176
     "Lucidity": 0x40001180
-    "Frozen Armament": 0x4000118A
+    "Frozen Armament": 0x4000118a
     "Shattering Crystal": 0x40001194
-    "Crystal Release": 0x4000119E
-    "Crystal Torrent": 0x400011A8
-    "Ambush Shard": 0x400011F8
+    "Crystal Release": 0x4000119e
+    "Crystal Torrent": 0x400011a8
+    "Ambush Shard": 0x400011f8
     "Night Shard": 0x40001202
-    "Night Comet": 0x4000120C
+    "Night Comet": 0x4000120c
     "Thops's Barrier": 0x40001216
     "Carian Retaliation": 0x40001220
-    "Eternal Darkness": 0x4000122A
+    "Eternal Darkness": 0x4000122a
     "Unseen Blade": 0x40001234
-    "Unseen Form": 0x4000123E
-    "Meteorite": 0x4000125C
-    "Meteorite of Astel": 0x4000125D
+    "Unseen Form": 0x4000123e
+    "Meteorite": 0x4000125c
+    "Meteorite of Astel": 0x4000125d
     "Rock Sling": 0x40001266
     "Gravity Well": 0x40001270
     "Collapsing Stars": 0x40001271
-    "Magma Shot": 0x400012C0
-    "Gelmir's Fury": 0x400012CA
-    "Roiling Magma": 0x400012D4
-    "Rykard's Rancor": 0x400012DE
+    "Magma Shot": 0x400012c0
+    "Gelmir's Fury": 0x400012ca
+    "Roiling Magma": 0x400012d4
+    "Rykard's Rancor": 0x400012de
     "Briars of Sin": 0x40001324
-    "Briars of Punishment": 0x4000132E
+    "Briars of Punishment": 0x4000132e
     "Rancorcall": 0x40001388
     "Ancient Death Rancor": 0x40001389
     "Explosive Ghostflame": 0x40001392
-    "Fia's Mist": 0x4000139C
-    "Tibia's Summons": 0x400013A6
-    "Death Lightning": 0x400013B0
-    "Oracle Bubbles": 0x400013EC
-    "Great Oracular Bubble": 0x400013F6
-  "Incantations":
+    "Fia's Mist": 0x4000139c
+    "Tibia's Summons": 0x400013a6
+    "Death Lightning": 0x400013b0
+    "Oracle Bubbles": 0x400013ec
+    "Great Oracular Bubble": 0x400013f6
     "Catch Flame": 0x40001770
     "O, Flame!": 0x40001771
-    "Flame Sling": 0x4000177A
+    "Flame Sling": 0x4000177a
     "Flame, Fall Upon Them": 0x40001784
-    "Whirl, O Flame!": 0x4000178E
+    "Whirl, O Flame!": 0x4000178e
     "Flame, Cleanse Me": 0x40001798
-    "Flame, Grant Me Strength": 0x400017A2
-    "Flame, Protect Me": 0x400017AC
-    "Giantsflame Take Thee": 0x400017D4
-    "Flame of the Fell God": 0x400017DE
-    "Burn, O Flame!": 0x400017E8
+    "Flame, Grant Me Strength": 0x400017a2
+    "Flame, Protect Me": 0x400017ac
+    "Giantsflame Take Thee": 0x400017d4
+    "Flame of the Fell God": 0x400017de
+    "Burn, O Flame!": 0x400017e8
     "Black Flame": 0x40001842
-    "Surge, O Flame!": 0x4000184C
+    "Surge, O Flame!": 0x4000184c
     "Scouring Black Flame": 0x40001856
     "Black Flame Ritual": 0x40001860
-    "Black Flame Blade": 0x4000186A
+    "Black Flame Blade": 0x4000186a
     "Black Flame's Protection": 0x40001874
-    "Noble Presence": 0x4000187E
-    "Bloodflame Talons": 0x4000189C
-    "Bloodboon": 0x400018A6
-    "Bloodflame Blade": 0x400018B0
-    "Barrier of Gold": 0x400018BA
-    "Protection of the Erdtree": 0x400018C4
+    "Noble Presence": 0x4000187e
+    "Bloodflame Talons": 0x4000189c
+    "Bloodboon": 0x400018a6
+    "Bloodflame Blade": 0x400018b0
+    "Barrier of Gold": 0x400018ba
+    "Protection of the Erdtree": 0x400018c4
     "Rejection": 0x40001900
-    "Wrath of Gold": 0x4000190A
+    "Wrath of Gold": 0x4000190a
     "Urgent Heal": 0x40001914
     "Heal": 0x40001915
     "Great Heal": 0x40001916
     "Lord's Heal": 0x40001917
     "Erdtree Heal": 0x40001918
-    "Blessing's Boon": 0x4000191E
-    "Blessing of the Erdtree": 0x4000191F
+    "Blessing's Boon": 0x4000191e
+    "Blessing of the Erdtree": 0x4000191f
     "Cure Poison": 0x40001928
     "Lord's Aid": 0x40001929
     "Flame Fortification": 0x40001932
-    "Magic Fortification": 0x4000193C
+    "Magic Fortification": 0x4000193c
     "Lightning Fortification": 0x40001946
     "Divine Fortification": 0x40001950
-    "Lord's Divine Fortification": 0x4000195A
+    "Lord's Divine Fortification": 0x4000195a
     "Night Maiden's Mist": 0x40001964
-    "Assassin's Approach": 0x4000196E
+    "Assassin's Approach": 0x4000196e
     "Shadow Bait": 0x40001978
     "Darkness": 0x40001982
-    "Golden Vow": 0x400019C8
-    "Discus of Light": 0x40001A2C
-    "Triple Rings of Light": 0x40001A2D
-    "Radagon's Rings of Light": 0x40001A36
-    "Elden Stars": 0x40001A40
-    "Law of Regression": 0x40001A4A
-    "Immutable Shield": 0x40001A54
-    "Litany of Proper Death": 0x40001A5E
-    "Law of Causality": 0x40001A68
-    "Order's Blade": 0x40001A72
-    "Order Healing": 0x40001A7C
-    "Bestial Sling": 0x40001A90
-    "Stone of Gurranq": 0x40001A9A
-    "Beast Claw": 0x40001AA4
-    "Gurranq's Beast Claw": 0x40001AAE
-    "Bestial Vitality": 0x40001AB8
-    "Bestial Constitution": 0x40001AC2
-    "Lightning Spear": 0x40001AF4
-    "Ancient Dragons' Lightning Strike": 0x40001AFE
-    "Lightning Strike": 0x40001B08
-    "Frozen Lightning Spear": 0x40001B09
-    "Honed Bolt": 0x40001B12
-    "Ancient Dragons' Lightning Spear": 0x40001B1C
-    "Fortissax's Lightning Spear": 0x40001B1D
-    "Lansseax's Glaive": 0x40001B26
-    "Electrify Armament": 0x40001B30
-    "Vyke's Dragonbolt": 0x40001B3A
-    "Dragonbolt Blessing": 0x40001B3B
-    "Dragonfire": 0x40001B58
-    "Agheel's Flame": 0x40001B59
-    "Magma Breath": 0x40001B62
-    "Theodorix's Magma": 0x40001B63
-    "Dragonice": 0x40001B6C
-    "Borealis's Mist": 0x40001B6D
-    "Rotten Breath": 0x40001B76
-    "Ekzykes's Decay": 0x40001B77
-    "Glintstone Breath": 0x40001B80
-    "Smarag's Glintstone Breath": 0x40001B81
-    "Placidusax's Ruin": 0x40001B8A
-    "Dragonclaw": 0x40001B94
-    "Dragonmaw": 0x40001BA8
-    "Greyoll's Roar": 0x40001BB2
-    "Pest Threads": 0x40001C20
-    "Swarm of Flies": 0x40001C2A
-    "Poison Mist": 0x40001C34
-    "Poison Armament": 0x40001C3E
-    "Scarlet Aeonia": 0x40001C48
-    "Inescapable Frenzy": 0x40001C84
-    "The Flame of Frenzy": 0x40001C8E
-    "Unendurable Frenzy": 0x40001C8F
-    "Frenzied Burst": 0x40001C98
-    "Howl of Shabriri": 0x40001CA2
-    "Aspects of the Crucible": 0x40001D4C
-    "Aspects of the Crucible": 0x40001D56
-    "Aspects of the Crucible": 0x40001D60
-    "Black Blade": 0x40001D6A
-    "Fire's Deadly Sin": 0x40001EDC
-    "Golden Lightning Fortification": 0x40001EDF
-"Key items":
-  "General":
-    "Stonesword Key": 0x40001F40
-    "Rusty Key": 0x40001F4A
-    "Lucent Baldachin's Blessing": 0x40001FA6
-    "Dectus Medallion (Left)": 0x40001FA9
-    "Dectus Medallion (Right)": 0x40001FAA
-    "Rold Medallion": 0x40001FAB
-    "Academy Glintstone Key": 0x40001FAD
-    "Carian Inverted Statue": 0x40001FAF
-    "Dark Moon Ring": 0x40001FB9
-    "Fingerprint Grape": 0x40001FBE
-    "Letter from Volcano Manor": 0x40001FBF
-    "Tonic of Forgetfulness": 0x40001FC0
-    "Serpent's Amnion": 0x40001FC1
-    "Rya's Necklace": 0x40001FC2
-    "Irina's Letter": 0x40001FC3
-    "Letter from Volcano Manor": 0x40001FC4
-    "Red Letter": 0x40001FC5
-    "Drawing-Room Key": 0x40001FC6
-    "Rya's Necklace": 0x40001FC8
-    "Volcano Manor Invitation": 0x40001FC9
-    "Amber Starlight": 0x40001FCE
-    "Seluvis's Introduction": 0x40001FCF
-    "Sellen's Primal Glintstone": 0x40001FD0
-    "Miniature Ranni": 0x40001FD2
-    "Asimi, Silver Tear": 0x40001FD3
-    "Godrick's Great Rune": 0x40001FD4
-    "Radahn's Great Rune": 0x40001FD5
-    "Morgott's Great Rune": 0x40001FD6
-    "Rykard's Great Rune": 0x40001FD7
-    "Mohg's Great Rune": 0x40001FD8
-    "Malenia's Great Rune": 0x40001FD9
-    "Lord of Blood's Favor": 0x40001FDA
-    "Lord of Blood's Favor": 0x40001FDB
-    "Burial Crow's Letter": 0x40001FDC
-    "Spirit Calling Bell": 0x40001FDE
-    "Fingerslayer Blade": 0x40001FDF
-    "Sewing Needle": 0x40001FE1
-    "Gold Sewing Needle": 0x40001FE2
-    "Tailoring Tools": 0x40001FE3
-    "Seluvis's Potion": 0x40001FE4
-    "Amber Draught": 0x40001FE6
-    "Letter to Patches": 0x40001FE7
-    "Dancer's Castanets": 0x40001FE8
-    "Sellian Sealbreaker": 0x40001FE9
-    "Chrysalids' Memento": 0x40001FEB
-    "Black Knifeprint": 0x40001FEC
-    "Letter to Bernahl": 0x40001FED
-    "Academy Glintstone Key": 0x40001FEE
-    "Haligtree Secret Medallion (Left)": 0x40001FEF
-    "Haligtree Secret Medallion (Right)": 0x40001FF0
-    "Burial Crow's Letter": 0x40001FF5
-    "Mending Rune of Perfect Order": 0x40001FF6
-    "Mending Rune of the Death-Prince": 0x40001FF7
-    "Mending Rune of the Fell Curse": 0x40001FF8
-    "Larval Tear": 0x40001FF9
-    "Imbued Sword Key": 0x40001FFA
-    "Miniature Ranni": 0x40001FFB
-    "Golden Tailoring Tools": 0x40001FFC
-    "Iji's Confession": 0x40001FFD
-    "Knifeprint Clue": 0x40001FFE
-    "Cursemark of Death": 0x40001FFF
+    "Golden Vow": 0x400019c8
+    "Discus of Light": 0x40001a2c
+    "Triple Rings of Light": 0x40001a2d
+    "Radagon's Rings of Light": 0x40001a36
+    "Elden Stars": 0x40001a40
+    "Law of Regression": 0x40001a4a
+    "Immutable Shield": 0x40001a54
+    "Litany of Proper Death": 0x40001a5e
+    "Law of Causality": 0x40001a68
+    "Order's Blade": 0x40001a72
+    "Order Healing": 0x40001a7c
+    "Bestial Sling": 0x40001a90
+    "Stone of Gurranq": 0x40001a9a
+    "Beast Claw": 0x40001aa4
+    "Gurranq's Beast Claw": 0x40001aae
+    "Bestial Vitality": 0x40001ab8
+    "Bestial Constitution": 0x40001ac2
+    "Lightning Spear": 0x40001af4
+    "Ancient Dragons' Lightning Strike": 0x40001afe
+    "Lightning Strike": 0x40001b08
+    "Frozen Lightning Spear": 0x40001b09
+    "Honed Bolt": 0x40001b12
+    "Ancient Dragons' Lightning Spear": 0x40001b1c
+    "Fortissax's Lightning Spear": 0x40001b1d
+    "Lansseax's Glaive": 0x40001b26
+    "Electrify Armament": 0x40001b30
+    "Vyke's Dragonbolt": 0x40001b3a
+    "Dragonbolt Blessing": 0x40001b3b
+    "Dragonfire": 0x40001b58
+    "Agheel's Flame": 0x40001b59
+    "Magma Breath": 0x40001b62
+    "Theodorix's Magma": 0x40001b63
+    "Dragonice": 0x40001b6c
+    "Borealis's Mist": 0x40001b6d
+    "Rotten Breath": 0x40001b76
+    "Ekzykes's Decay": 0x40001b77
+    "Glintstone Breath": 0x40001b80
+    "Smarag's Glintstone Breath": 0x40001b81
+    "Placidusax's Ruin": 0x40001b8a
+    "Dragonclaw": 0x40001b94
+    "Dragonmaw": 0x40001ba8
+    "Greyoll's Roar": 0x40001bb2
+    "Pest Threads": 0x40001c20
+    "Swarm of Flies": 0x40001c2a
+    "Poison Mist": 0x40001c34
+    "Poison Armament": 0x40001c3e
+    "Scarlet Aeonia": 0x40001c48
+    "Inescapable Frenzy": 0x40001c84
+    "The Flame of Frenzy": 0x40001c8e
+    "Unendurable Frenzy": 0x40001c8f
+    "Frenzied Burst": 0x40001c98
+    "Howl of Shabriri": 0x40001ca2
+    "Aspects of the Crucible: Tail": 0x40001d4c
+    "Aspects of the Crucible: Horns": 0x40001d56
+    "Aspects of the Crucible: Breath": 0x40001d60
+    "Black Blade": 0x40001d6a
+    "Fire's Deadly Sin": 0x40001edc
+    "Golden Lightning Fortification": 0x40001edf
+    "Stonesword Key": 0x40001f40
+    "Rusty Key": 0x40001f4a
+    "Lucent Baldachin's Blessing": 0x40001fa6
+    "Dectus Medallion (Left)": 0x40001fa9
+    "Dectus Medallion (Right)": 0x40001faa
+    "Rold Medallion": 0x40001fab
+    "Academy Glintstone Key": 0x40001fad
+    "Carian Inverted Statue": 0x40001faf
+    "Dark Moon Ring": 0x40001fb9
+    "Fingerprint Grape": 0x40001fbe
+    "Letter from Volcano Manor": 0x40001fbf
+    "Tonic of Forgetfulness": 0x40001fc0
+    "Serpent's Amnion": 0x40001fc1
+    "Rya's Necklace": 0x40001fc2
+    "Irina's Letter": 0x40001fc3
+    "Letter from Volcano Manor": 0x40001fc4
+    "Red Letter": 0x40001fc5
+    "Drawing-Room Key": 0x40001fc6
+    "Rya's Necklace": 0x40001fc8
+    "Volcano Manor Invitation": 0x40001fc9
+    "Amber Starlight": 0x40001fce
+    "Seluvis's Introduction": 0x40001fcf
+    "Sellen's Primal Glintstone": 0x40001fd0
+    "Miniature Ranni": 0x40001fd2
+    "Asimi, Silver Tear": 0x40001fd3
+    "Godrick's Great Rune": 0x40001fd4
+    "Radahn's Great Rune": 0x40001fd5
+    "Morgott's Great Rune": 0x40001fd6
+    "Rykard's Great Rune": 0x40001fd7
+    "Mohg's Great Rune": 0x40001fd8
+    "Malenia's Great Rune": 0x40001fd9
+    "Lord of Blood's Favor": 0x40001fda
+    "Lord of Blood's Favor": 0x40001fdb
+    "Burial Crow's Letter": 0x40001fdc
+    "Spirit Calling Bell": 0x40001fde
+    "Fingerslayer Blade": 0x40001fdf
+    "Sewing Needle": 0x40001fe1
+    "Gold Sewing Needle": 0x40001fe2
+    "Tailoring Tools": 0x40001fe3
+    "Seluvis's Potion": 0x40001fe4
+    "Amber Draught": 0x40001fe6
+    "Letter to Patches": 0x40001fe7
+    "Dancer's Castanets": 0x40001fe8
+    "Sellian Sealbreaker": 0x40001fe9
+    "Chrysalids' Memento": 0x40001feb
+    "Black Knifeprint": 0x40001fec
+    "Letter to Bernahl": 0x40001fed
+    "Academy Glintstone Key": 0x40001fee
+    "Haligtree Secret Medallion (Left)": 0x40001fef
+    "Haligtree Secret Medallion (Right)": 0x40001ff0
+    "Burial Crow's Letter": 0x40001ff5
+    "Mending Rune of Perfect Order": 0x40001ff6
+    "Mending Rune of the Death-Prince": 0x40001ff7
+    "Mending Rune of the Fell Curse": 0x40001ff8
+    "Larval Tear": 0x40001ff9
+    "Imbued Sword Key": 0x40001ffa
+    "Miniature Ranni": 0x40001ffb
+    "Golden Tailoring Tools": 0x40001ffc
+    "Iji's Confession": 0x40001ffd
+    "Knifeprint Clue": 0x40001ffe
+    "Cursemark of Death": 0x40001fff
     "Asimi's Husk": 0x40002000
     "Seedbed Curse": 0x40002001
     "The Stormhawk King": 0x40002002
@@ -1601,28 +1782,40 @@
     "Discarded Palace Key": 0x40002007
     "Homing Instinct Painting": 0x40002008
     "Resurrection Painting": 0x40002009
-    "Champion's Song Painting": 0x4000200A
-    "Sorcerer Painting": 0x4000200B
-    "Prophecy Painting": 0x4000200C
-    "Flightless Bird Painting": 0x4000200D
-    "Redmane Painting": 0x4000200E
-    "Zorayas's Letter": 0x4000201D
-    "Alexander's Innards": 0x4000201E
-    "Rogier's Letter": 0x4000201F
+    "Champion's Song Painting": 0x4000200a
+    "Sorcerer Painting": 0x4000200b
+    "Prophecy Painting": 0x4000200c
+    "Flightless Bird Painting": 0x4000200d
+    "Redmane Painting": 0x4000200e
+    "Zorayas's Letter": 0x4000201d
+    "Alexander's Innards": 0x4000201e
+    "Rogier's Letter": 0x4000201f
     "Crafting Kit": 0x40002134
-    "Whetstone Knife": 0x4000218E
-    "Mirage Riddle": 0x400021D4
-    "Unalloyed Gold Needle": 0x4000230F
-    "Unalloyed Gold Needle": 0x40002310
-    "Valkyrie's Prosthesis": 0x40002311
-    "Sellia's Secret": 0x40002312
-    "Beast Eye": 0x40002313
-    "Weathered Dagger": 0x40002314
-  "Notes":
-    "Note: Hidden Cave": 0x400021FC
-    "Note: Imp Shades": 0x400021FD
-    "Note: Flask of Wondrous Physick": 0x400021FE
-    "Note: Stonedigger Trolls": 0x400021FF
+    "Whetstone Knife": 0x4000218e
+    "Map: Limgrave, West": 0x40002198
+    "Map: Weeping Peninsula": 0x40002199
+    "Map: Limgrave, East": 0x4000219a
+    "Map: Liurnia, East": 0x4000219b
+    "Map: Liurnia, North": 0x4000219c
+    "Map: Liurnia, West": 0x4000219d
+    "Map: Altus Plateau": 0x4000219e
+    "Map: Leyndell, Royal Capital": 0x4000219f
+    "Map: Mt. Gelmir": 0x400021a0
+    "Map: Caelid": 0x400021a1
+    "Map: Dragonbarrow": 0x400021a2
+    "Map: Mountaintops of the Giants, West": 0x400021a3
+    "Map: Mountaintops of the Giants, East": 0x400021a4
+    "Map: Ainsel River": 0x400021a5
+    "Map: Lake of Rot": 0x400021a6
+    "Map: Siofra River": 0x400021a7
+    "Map: Mohgwyn Palace": 0x400021a8
+    "Map: Deeproot Depths": 0x400021a9
+    "Map: Consecrated Snowfield": 0x400021aa
+    "Mirage Riddle": 0x400021d4
+    "Note: Hidden Cave": 0x400021fc
+    "Note: Imp Shades": 0x400021fd
+    "Note: Flask of Wondrous Physick": 0x400021fe
+    "Note: Stonedigger Trolls": 0x400021ff
     "Note: Walking Mausoleum": 0x40002200
     "Note: Unseen Assassins": 0x40002201
     "Note: Great Coffins": 0x40002202
@@ -1633,11 +1826,11 @@
     "Note: Revenants": 0x40002207
     "Note: Waypoint Ruins": 0x40002208
     "Note: Gateway": 0x40002209
-    "Note: Miquella's Needle": 0x4000220A
-    "Note: Frenzied Flame Village": 0x4000220B
-    "Note: The Lord of Frenzied Flame": 0x4000220C
-    "Note: Hidden Cave": 0x4000222E
-    "Note: Imp Shades": 0x4000222F
+    "Note: Miquella's Needle": 0x4000220a
+    "Note: Frenzied Flame Village": 0x4000220b
+    "Note: The Lord of Frenzied Flame": 0x4000220c
+    "Note: Hidden Cave": 0x4000222e
+    "Note: Imp Shades": 0x4000222f
     "Note: Flask of Wondrous Physick": 0x40002230
     "Note: Stonedigger Trolls": 0x40002231
     "Note: Walking Mausoleum": 0x40002232
@@ -1648,83 +1841,139 @@
     "Note: Land Squirts": 0x40002237
     "Note: Gravity's Advantage": 0x40002238
     "Note: Revenants": 0x40002239
-    "Note: Waypoint Ruins": 0x4000223A
-    "Note: Gateway": 0x4000223B
-    "Note: Frenzied Flame Village": 0x4000223D
-  "Scrolls / prayerbooks":
+    "Note: Waypoint Ruins": 0x4000223a
+    "Note: Gateway": 0x4000223b
+    "Note: Frenzied Flame Village": 0x4000223d
     "Conspectus Scroll": 0x40002292
     "Royal House Scroll": 0x40002293
     "Fire Monks' Prayerbook": 0x40002297
     "Giant's Prayerbook": 0x40002298
     "Godskin Prayerbook": 0x40002299
-    "Two Fingers' Prayerbook": 0x4000229A
-    "Assassin's Prayerbook": 0x4000229B
-    "Erdtree Prayerbook": 0x4000229C
-    "Erdtree Codex": 0x4000229D
-    "Golden Order Principia": 0x4000229E
-    "Golden Order Principles": 0x4000229F
-    "Dragon Cult Prayerbook": 0x400022A0
-    "Ancient Dragon Prayerbook": 0x400022A1
-    "Academy Scroll": 0x400022A2
-  "Bell bearings":
-    "Pidia's Bell Bearing": 0x400022CE
-    "Seluvis's Bell Bearing": 0x400022CF
-    "Patches' Bell Bearing": 0x400022D0
-    "Sellen's Bell Bearing": 0x400022D1
-    "D's Bell Bearing": 0x400022D3
-    "Bernahl's Bell Bearing": 0x400022D4
-    "Miriel's Bell Bearing": 0x400022D5
-    "Gostoc's Bell Bearing": 0x400022D6
-    "Thops's Bell Bearing": 0x400022D7
-    "Kalé's Bell Bearing": 0x400022D8
-    "Nomadic Merchant's Bell Bearing [1]": 0x400022D9
-    "Nomadic Merchant's Bell Bearing [2]": 0x400022DA
-    "Nomadic Merchant's Bell Bearing [3]": 0x400022DB
-    "Nomadic Merchant's Bell Bearing [4]": 0x400022DC
-    "Nomadic Merchant's Bell Bearing [5]": 0x400022DD
-    "Isolated Merchant's Bell Bearing [1]": 0x400022DE
-    "Isolated Merchant's Bell Bearing [2]": 0x400022DF
-    "Nomadic Merchant's Bell Bearing [6]": 0x400022E0
-    "Hermit Merchant's Bell Bearing [1]": 0x400022E1
-    "Nomadic Merchant's Bell Bearing [7]": 0x400022E2
-    "Nomadic Merchant's Bell Bearing [8]": 0x400022E3
-    "Nomadic Merchant's Bell Bearing [9]": 0x400022E4
-    "Nomadic Merchant's Bell Bearing [10]": 0x400022E5
-    "Nomadic Merchant's Bell Bearing [11]": 0x400022E6
-    "Isolated Merchant's Bell Bearing [3]": 0x400022E7
-    "Hermit Merchant's Bell Bearing [2]": 0x400022E8
-    "Abandoned Merchant's Bell Bearing": 0x400022E9
-    "Hermit Merchant's Bell Bearing [3]": 0x400022EA
-    "Imprisoned Merchant's Bell Bearing": 0x400022EB
-    "Iji's Bell Bearing": 0x400022EC
-    "Rogier's Bell Bearing": 0x400022ED
-    "Blackguard's Bell Bearing": 0x400022EE
-    "Corhyn's Bell Bearing": 0x400022EF
-    "Gowry's Bell Bearing": 0x400022F0
-    "Bone Peddler's Bell Bearing": 0x400022F1
-    "Meat Peddler's Bell Bearing": 0x400022F2
-    "Medicine Peddler's Bell Bearing": 0x400022F3
-    "Gravity Stone Peddler's Bell Bearing": 0x400022F4
-    "Smithing-Stone Miner's Bell Bearing [1]": 0x400022F7
-    "Smithing-Stone Miner's Bell Bearing [2]": 0x400022F8
-    "Smithing-Stone Miner's Bell Bearing [3]": 0x400022F9
-    "Smithing-Stone Miner's Bell Bearing [4]": 0x400022FA
-    "Somberstone Miner's Bell Bearing [1]": 0x400022FB
-    "Somberstone Miner's Bell Bearing [2]": 0x400022FC
-    "Somberstone Miner's Bell Bearing [3]": 0x400022FD
-    "Somberstone Miner's Bell Bearing [4]": 0x400022FE
-    "Somberstone Miner's Bell Bearing [5]": 0x400022FF
+    "Two Fingers' Prayerbook": 0x4000229a
+    "Assassin's Prayerbook": 0x4000229b
+    "Erdtree Prayerbook": 0x4000229c
+    "Erdtree Codex": 0x4000229d
+    "Golden Order Principia": 0x4000229e
+    "Golden Order Principles": 0x4000229f
+    "Dragon Cult Prayerbook": 0x400022a0
+    "Ancient Dragon Prayerbook": 0x400022a1
+    "Academy Scroll": 0x400022a2
+    "Pidia's Bell Bearing": 0x400022ce
+    "Seluvis's Bell Bearing": 0x400022cf
+    "Patches' Bell Bearing": 0x400022d0
+    "Sellen's Bell Bearing": 0x400022d1
+    "D's Bell Bearing": 0x400022d3
+    "Bernahl's Bell Bearing": 0x400022d4
+    "Miriel's Bell Bearing": 0x400022d5
+    "Gostoc's Bell Bearing": 0x400022d6
+    "Thops's Bell Bearing": 0x400022d7
+    "Kal's Bell Bearing": 0x400022d8
+    "Nomadic Merchant's Bell Bearing [1]": 0x400022d9
+    "Nomadic Merchant's Bell Bearing [2]": 0x400022da
+    "Nomadic Merchant's Bell Bearing [3]": 0x400022db
+    "Nomadic Merchant's Bell Bearing [4]": 0x400022dc
+    "Nomadic Merchant's Bell Bearing [5]": 0x400022dd
+    "Isolated Merchant's Bell Bearing [1]": 0x400022de
+    "Isolated Merchant's Bell Bearing [2]": 0x400022df
+    "Nomadic Merchant's Bell Bearing [6]": 0x400022e0
+    "Hermit Merchant's Bell Bearing [1]": 0x400022e1
+    "Nomadic Merchant's Bell Bearing [7]": 0x400022e2
+    "Nomadic Merchant's Bell Bearing [8]": 0x400022e3
+    "Nomadic Merchant's Bell Bearing [9]": 0x400022e4
+    "Nomadic Merchant's Bell Bearing [10]": 0x400022e5
+    "Nomadic Merchant's Bell Bearing [11]": 0x400022e6
+    "Isolated Merchant's Bell Bearing [3]": 0x400022e7
+    "Hermit Merchant's Bell Bearing [2]": 0x400022e8
+    "Abandoned Merchant's Bell Bearing": 0x400022e9
+    "Hermit Merchant's Bell Bearing [3]": 0x400022ea
+    "Imprisoned Merchant's Bell Bearing": 0x400022eb
+    "Iji's Bell Bearing": 0x400022ec
+    "Rogier's Bell Bearing": 0x400022ed
+    "Blackguard's Bell Bearing": 0x400022ee
+    "Corhyn's Bell Bearing": 0x400022ef
+    "Gowry's Bell Bearing": 0x400022f0
+    "Bone Peddler's Bell Bearing": 0x400022f1
+    "Meat Peddler's Bell Bearing": 0x400022f2
+    "Medicine Peddler's Bell Bearing": 0x400022f3
+    "Gravity Stone Peddler's Bell Bearing": 0x400022f4
+    "Smithing-Stone Miner's Bell Bearing [1]": 0x400022f7
+    "Smithing-Stone Miner's Bell Bearing [2]": 0x400022f8
+    "Smithing-Stone Miner's Bell Bearing [3]": 0x400022f9
+    "Smithing-Stone Miner's Bell Bearing [4]": 0x400022fa
+    "Somberstone Miner's Bell Bearing [1]": 0x400022fb
+    "Somberstone Miner's Bell Bearing [2]": 0x400022fc
+    "Somberstone Miner's Bell Bearing [3]": 0x400022fd
+    "Somberstone Miner's Bell Bearing [4]": 0x400022fe
+    "Somberstone Miner's Bell Bearing [5]": 0x400022ff
     "Glovewort Picker's Bell Bearing [1]": 0x40002300
     "Glovewort Picker's Bell Bearing [2]": 0x40002301
     "Glovewort Picker's Bell Bearing [3]": 0x40002302
     "Ghost-Glovewort Picker's Bell Bearing [1]": 0x40002303
     "Ghost-Glovewort Picker's Bell Bearing [2]": 0x40002304
     "Ghost-Glovewort Picker's Bell Bearing [3]": 0x40002305
-  "Tutorials":
-    "About Sites of Grace": 0x4000238C
-    "About Sorceries and Incantations": 0x4000238D
-    "About Bows": 0x4000238E
-    "About Crouching": 0x4000238F
+    "Iron Whetblade": 0x4000230a
+    "Red-Hot Whetblade": 0x4000230b
+    "Sanctified Whetblade": 0x4000230c
+    "Glintstone Whetblade": 0x4000230d
+    "Black Whetblade": 0x4000230e
+    "Unalloyed Gold Needle": 0x4000230f
+    "Unalloyed Gold Needle": 0x40002310
+    "Valkyrie's Prosthesis": 0x40002311
+    "Sellia's Secret": 0x40002312
+    "Beast Eye": 0x40002313
+    "Weathered Dagger": 0x40002314
+    "Bow": 0x40002328
+    "Polite Bow": 0x40002329
+    "My Thanks": 0x4000232a
+    "Curtsy": 0x4000232b
+    "Reverential Bow": 0x4000232c
+    "My Lord": 0x4000232d
+    "Warm Welcome": 0x4000232e
+    "Wave": 0x4000232f
+    "Casual Greeting": 0x40002330
+    "Strength!": 0x40002331
+    "As You Wish": 0x40002332
+    "Point Forwards": 0x40002333
+    "Point Upwards": 0x40002334
+    "Point Downwards": 0x40002335
+    "Beckon": 0x40002336
+    "Wait!": 0x40002337
+    "Calm Down!": 0x40002338
+    "Nod In Thought": 0x40002339
+    "Extreme Repentance": 0x4000233a
+    "Grovel For Mercy": 0x4000233b
+    "Rallying Cry": 0x4000233c
+    "Heartening Cry": 0x4000233d
+    "By My Sword": 0x4000233e
+    "Hoslow's Oath": 0x4000233f
+    "Fire Spur Me": 0x40002340
+    "Bravo!": 0x40002342
+    "Jump for Joy": 0x40002343
+    "Triumphant Delight": 0x40002344
+    "Fancy Spin": 0x40002345
+    "Finger Snap": 0x40002346
+    "Dejection": 0x40002347
+    "Patches' Crouch": 0x40002348
+    "Crossed Legs": 0x40002349
+    "Rest": 0x4000234a
+    "Sitting Sideways": 0x4000234b
+    "Dozing Cross-Legged": 0x4000234c
+    "Spread Out": 0x4000234d
+    "Balled Up": 0x4000234f
+    "What Do You Want?": 0x40002350
+    "Prayer": 0x40002351
+    "Desperate Prayer": 0x40002352
+    "Rapture": 0x40002353
+    "Erudition": 0x40002355
+    "Outer Order": 0x40002356
+    "Inner Order": 0x40002357
+    "Golden Order Totality": 0x40002358
+    "The Ring": 0x40002359
+    "The Ring": 0x4000235a
+    "About Sites of Grace": 0x4000238c
+    "About Sorceries and Incantations": 0x4000238d
+    "About Bows": 0x4000238e
+    "About Crouching": 0x4000238f
     "About Stance-Breaking": 0x40002390
     "About Stakes of Marika": 0x40002391
     "About Guard Counters": 0x40002392
@@ -1735,41 +1984,105 @@
     "About Summoning Spirits": 0x40002397
     "About Guarding": 0x40002398
     "About Item Crafting": 0x40002399
-    "About Flask of Wondrous Physick": 0x4000239B
-    "About Adding Skills": 0x4000239C
-    "About Birdseye Telescopes": 0x4000239D
-    "About Spiritspring Jumping": 0x4000239E
-    "About Vanquishing Enemy Groups": 0x4000239F
-    "About Teardrop Scarabs": 0x400023A0
-    "About Summoning Other Players": 0x400023A1
-    "About Cooperative Multiplayer": 0x400023A2
-    "About Competitive Multiplayer": 0x400023A3
-    "About Invasion Multiplayer": 0x400023A4
-    "About Hunter Multiplayer": 0x400023A5
-    "About Summoning Pools": 0x400023A6
-    "About Monument Icon": 0x400023A7
-    "About Requesting Help from Hunters": 0x400023A8
-    "About Skills": 0x400023A9
-    "About Fast Travel to Sites of Grace": 0x400023AA
-    "About Strengthening Armaments": 0x400023AB
-    "About Roundtable Hold": 0x400023AC
-    "About Materials": 0x400023AE
-    "About Containers": 0x400023AF
-    "About Adding Affinities": 0x400023B0
-    "About Pouches": 0x400023B1
-    "About Dodging": 0x400023B2
-    "About Wielding Armaments": 0x400023B4
-    "About Multiplayer": 0x400023EB
-  "Upgrades":
-    "Cracked Pot": 0x4000251C
-    "Ritual Pot": 0x4000251D
+    "About Flask of Wondrous Physick": 0x4000239b
+    "About Adding Skills": 0x4000239c
+    "About Birdseye Telescopes": 0x4000239d
+    "About Spiritspring Jumping": 0x4000239e
+    "About Vanquishing Enemy Groups": 0x4000239f
+    "About Teardrop Scarabs": 0x400023a0
+    "About Summoning Other Players": 0x400023a1
+    "About Cooperative Multiplayer": 0x400023a2
+    "About Competitive Multiplayer": 0x400023a3
+    "About Invasion Multiplayer": 0x400023a4
+    "About Hunter Multiplayer": 0x400023a5
+    "About Summoning Pools": 0x400023a6
+    "About Monument Icon": 0x400023a7
+    "About Requesting Help from Hunters": 0x400023a8
+    "About Skills": 0x400023a9
+    "About Fast Travel to Sites of Grace": 0x400023aa
+    "About Strengthening Armaments": 0x400023ab
+    "About Roundtable Hold": 0x400023ac
+    "About Materials": 0x400023ae
+    "About Containers": 0x400023af
+    "About Adding Affinities": 0x400023b0
+    "About Pouches": 0x400023b1
+    "About Dodging": 0x400023b2
+    "About Wielding Armaments": 0x400023b4
+    "About Multiplayer": 0x400023eb
+    "Nomadic Warrior's Cookbook [1]": 0x40002454
+    "Nomadic Warrior's Cookbook [3]": 0x40002455
+    "Nomadic Warrior's Cookbook [6]": 0x40002456
+    "Nomadic Warrior's Cookbook [10]": 0x40002457
+    "Fugitive Warrior's Recipe [5]": 0x40002458
+    "Nomadic Warrior's Cookbook [7]": 0x40002459
+    "Nomadic Warrior's Cookbook [12]": 0x4000245a
+    "Nomadic Warrior's Cookbook [19]": 0x4000245b
+    "Nomadic Warrior's Cookbook [13]": 0x4000245c
+    "Nomadic Warrior's Cookbook [23]": 0x4000245d
+    "Nomadic Warrior's Cookbook [17]": 0x4000245e
+    "Nomadic Warrior's Cookbook [2]": 0x4000245f
+    "Nomadic Warrior's Cookbook [21]": 0x40002460
+    "Missionary's Cookbook [6]": 0x40002461
+    "Armorer's Cookbook [1]": 0x40002468
+    "Armorer's Cookbook [2]": 0x40002469
+    "Nomadic Warrior's Cookbook [11]": 0x4000246a
+    "Nomadic Warrior's Cookbook [20]": 0x4000246b
+    "Armorer's Cookbook (5)": 0x4000246c
+    "Armorer's Cookbook [7]": 0x4000246d
+    "Armorer's Cookbook [4]": 0x4000246e
+    "Nomadic Warrior's Cookbook [18]": 0x4000246f
+    "Armorer's Cookbook [3]": 0x40002470
+    "Nomadic Warrior's Cookbook [16]": 0x40002471
+    "Armorer's Cookbook [6]": 0x40002472
+    "Armorer's Cookbook [5]": 0x40002473
+    "Glintstone Craftsman's Cookbook [4]": 0x4000247c
+    "Glintstone Craftsman's Cookbook [1]": 0x4000247d
+    "Glintstone Craftsman's Cookbook [5]": 0x4000247e
+    "Nomadic Warrior's Cookbook [9]": 0x4000247f
+    "Glintstone Craftsman's Cookbook [8]": 0x40002480
+    "Glintstone Craftsman's Cookbook [2]": 0x40002481
+    "Glintstone Craftsman's Cookbook [6]": 0x40002482
+    "Glintstone Craftsman's Cookbook [7]": 0x40002483
+    "Glintstone Craftsman's Cookbook [3]": 0x40002484
+    "Missionary's Cookbook [2]": 0x40002490
+    "Missionary's Cookbook [1]": 0x40002491
+    "Missionary's Cookbook (3)": 0x40002492
+    "Missionary's Cookbook [5]": 0x40002493
+    "Missionary's Cookbook [4]": 0x40002494
+    "Missionary's Cookbook [3]": 0x40002495
+    "Nomadic Warrior's Cookbook [4]": 0x400024a4
+    "Perfumer's Cookbook (1)": 0x400024a5
+    "Perfumer's Cookbook (2)": 0x400024a6
+    "Nomadic Warrior's Cookbook [5]": 0x400024a7
+    "Perfumer's Cookbook [1]": 0x400024a8
+    "Perfumer's Cookbook [2]": 0x400024a9
+    "Perfumer's Cookbook [3]": 0x400024aa
+    "Nomadic Warrior's Cookbook [14]": 0x400024ab
+    "Nomadic Warrior's Cookbook [8]": 0x400024ac
+    "Nomadic Warrior's Cookbook [22]": 0x400024ad
+    "Nomadic Warrior's Cookbook [15]": 0x400024ae
+    "Nomadic Warrior's Cookbook [24]": 0x400024af
+    "Perfumer's Cookbook [4]": 0x400024b0
+    "Perfumer's Cookbook (13)": 0x400024b1
+    "Ancient Dragon Apostle's Cookbook [1]": 0x400024b8
+    "Ancient Dragon Apostle's Cookbook [2]": 0x400024b9
+    "Ancient Dragon Apostle's Cookbook [4]": 0x400024ba
+    "Ancient Dragon Apostle's Cookbook [3]": 0x400024bb
+    "Fevor's Cookbook [1]": 0x400024cc
+    "Fevor's Cookbook [3]": 0x400024cd
+    "Fevor's Cookbook [2]": 0x400024ce
+    "Missionary's Cookbook [7]": 0x400024cf
+    "Frenzied's Cookbook [1]": 0x400024e0
+    "Frenzied's Cookbook [2]": 0x400024e1
+    "Cracked Pot": 0x4000251c
+    "Ritual Pot": 0x4000251d
     "Perfume Bottle": 0x40002526
     "Glass Shard": 0x40002710
-    "Golden Seed": 0x4000271A
+    "Golden Seed": 0x4000271a
     "Sacred Tear": 0x40002724
-    "Memory Stone": 0x4000272E
+    "Memory Stone": 0x4000272e
     "Talisman Pouch": 0x40002738
-    "Dragon Heart": 0x4000274C
+    "Dragon Heart": 0x4000274c
     "Lost Ashes of War": 0x40002756
     "Great Rune of the Unborn": 0x40002760
     "Smithing Stone [1]": 0x40002774
@@ -1778,294 +2091,1223 @@
     "Smithing Stone [4]": 0x40002777
     "Smithing Stone [5]": 0x40002778
     "Smithing Stone [6]": 0x40002779
-    "Smithing Stone [7]": 0x4000277A
-    "Smithing Stone [8]": 0x4000277B
-    "Ancient Dragon Smithing Stone": 0x4000279C
-    "Somber Smithing Stone [1]": 0x400027B0
-    "Somber Smithing Stone [2]": 0x400027B1
-    "Somber Smithing Stone [3]": 0x400027B2
-    "Somber Smithing Stone [4]": 0x400027B3
-    "Somber Smithing Stone [5]": 0x400027B4
-    "Somber Smithing Stone [6]": 0x400027B5
-    "Somber Smithing Stone [7]": 0x400027B6
-    "Somber Smithing Stone [8]": 0x400027B7
-    "Somber Ancient Dragon Smithing Stone": 0x400027B8
-    "Somber Smithing Stone [9]": 0x400027D8
-    "Grave Glovewort [1]": 0x40002A94
-    "Grave Glovewort [2]": 0x40002A95
-    "Grave Glovewort [3]": 0x40002A96
-    "Grave Glovewort [4]": 0x40002A97
-    "Grave Glovewort [5]": 0x40002A98
-    "Grave Glovewort [6]": 0x40002A99
-    "Grave Glovewort [7]": 0x40002A9A
-    "Grave Glovewort [8]": 0x40002A9B
-    "Grave Glovewort [9]": 0x40002A9C
-    "Great Grave Glovewort": 0x40002A9D
-    "Ghost Glovewort [1]": 0x40002A9E
-    "Ghost Glovewort [2]": 0x40002A9F
-    "Ghost Glovewort [3]": 0x40002AA0
-    "Ghost Glovewort [4]": 0x40002AA1
-    "Ghost Glovewort [5]": 0x40002AA2
-    "Ghost Glovewort [6]": 0x40002AA3
-    "Ghost Glovewort [7]": 0x40002AA4
-    "Ghost Glovewort [8]": 0x40002AA5
-    "Ghost Glovewort [9]": 0x40002AA6
-    "Great Ghost Glovewort": 0x40002AA7
-  "Physick tears":
-    "Crimsonspill Crystal Tear": 0x40002AF8
-    "Greenspill Crystal Tear": 0x40002AF9
-    "Crimson Crystal Tear": 0x40002AFA
-    "Crimson Crystal Tear": 0x40002AFB
-    "Cerulean Crystal Tear": 0x40002AFC
-    "Cerulean Crystal Tear": 0x40002AFD
-    "Speckled Hardtear": 0x40002AFE
-    "Crimson Bubbletear": 0x40002AFF
-    "Opaline Bubbletear": 0x40002B00
-    "Crimsonburst Crystal Tear": 0x40002B01
-    "Greenburst Crystal Tear": 0x40002B02
-    "Opaline Hardtear": 0x40002B03
-    "Winged Crystal Tear": 0x40002B04
-    "Thorny Cracked Tear": 0x40002B05
-    "Spiked Cracked Tear": 0x40002B06
-    "Windy Crystal Tear": 0x40002B07
-    "Ruptured Crystal Tear": 0x40002B08
-    "Ruptured Crystal Tear": 0x40002B09
-    "Leaden Hardtear": 0x40002B0A
-    "Twiggy Cracked Tear": 0x40002B0B
-    "Crimsonwhorl Bubbletear": 0x40002B0C
-    "Strength-knot Crystal Tear": 0x40002B0D
-    "Dexterity-knot Crystal Tear": 0x40002B0E
-    "Intelligence-knot Crystal Tear": 0x40002B0F
-    "Faith-knot Crystal Tear": 0x40002B10
-    "Cerulean Hidden Tear": 0x40002B11
-    "Stonebarb Cracked Tear": 0x40002B12
-    "Purifying Crystal Tear": 0x40002B13
-    "Flame-Shrouding Cracked Tear": 0x40002B14
-    "Magic-Shrouding Cracked Tear": 0x40002B15
-    "Lightning-Shrouding Cracked Tear": 0x40002B16
-    "Holy-Shrouding Cracked Tear": 0x40002B17
-  "Crafting":
-    "Sliver of Meat": 0x40003A98
-    "Beast Liver": 0x40003AA2
-    "Lump of Flesh": 0x40003AAC
-    "Beast Blood": 0x40003AB6
-    "Old Fang": 0x40003AC0
-    "Budding Horn": 0x40003ACA
-    "Flight Pinion": 0x40003AD4
-    "Four-Toed Fowl Foot": 0x40003AE8
-    "Turtle Neck Meat": 0x40003AF2
-    "Human Bone Shard": 0x40003AFC
-    "Great Dragonfly Head": 0x40003B06
-    "Slumbering Egg": 0x40003B10
-    "Crab Eggs": 0x40003B1A
-    "Land Octopus Ovary": 0x40003B24
-    "Miranda Powder": 0x40003B2E
-    "Strip of White Flesh": 0x40003B38
-    "Thin Beast Bones": 0x40003BEC
-    "Hefty Beast Bone": 0x40003BED
-    "String": 0x40003C28
-    "Living Jar Shard": 0x40003C32
-    "Albinauric Bloodclot": 0x40003C3C
-    "Stormhawk Feather": 0x40003C46
-    "Poisonbloom": 0x400050AA
-    "Trina's Lily": 0x400050AB
-    "Fulgurbloom": 0x400050AC
-    "Miquella's Lily": 0x400050AD
-    "Grave Violet": 0x400050AE
-    "Faded Erdleaf Flower": 0x400050B4
-    "Erdleaf Flower": 0x400050C8
-    "Altus Bloom": 0x400050C9
-    "Fire Blossom": 0x400050CA
-    "Golden Sunflower": 0x400050CB
-    "Tarnished Golden Sunflower": 0x400050CD
-    "Herba": 0x400050D2
-    "Arteria Leaf": 0x400050D3
-    "Dewkissed Herba": 0x400050E6
-    "Rowa Fruit": 0x400050F0
-    "Golden Rowa": 0x400050F1
-    "Rimed Rowa": 0x400050F2
-    "Bloodrose": 0x400050F3
+    "Smithing Stone [7]": 0x4000277a
+    "Smithing Stone [8]": 0x4000277b
+    "Ancient Dragon Smithing Stone": 0x4000279c
+    "Somber Smithing Stone [1]": 0x400027b0
+    "Somber Smithing Stone [2]": 0x400027b1
+    "Somber Smithing Stone [3]": 0x400027b2
+    "Somber Smithing Stone [4]": 0x400027b3
+    "Somber Smithing Stone [5]": 0x400027b4
+    "Somber Smithing Stone [6]": 0x400027b5
+    "Somber Smithing Stone [7]": 0x400027b6
+    "Somber Smithing Stone [8]": 0x400027b7
+    "Somber Ancient Dragon Smithing Stone": 0x400027b8
+    "Somber Smithing Stone [9]": 0x400027d8
+    "Grave Glovewort [1]": 0x40002a94
+    "Grave Glovewort [2]": 0x40002a95
+    "Grave Glovewort [3]": 0x40002a96
+    "Grave Glovewort [4]": 0x40002a97
+    "Grave Glovewort [5]": 0x40002a98
+    "Grave Glovewort [6]": 0x40002a99
+    "Grave Glovewort [7]": 0x40002a9a
+    "Grave Glovewort [8]": 0x40002a9b
+    "Grave Glovewort [9]": 0x40002a9c
+    "Great Grave Glovewort": 0x40002a9d
+    "Ghost Glovewort [1]": 0x40002a9e
+    "Ghost Glovewort [2]": 0x40002a9f
+    "Ghost Glovewort [3]": 0x40002aa0
+    "Ghost Glovewort [4]": 0x40002aa1
+    "Ghost Glovewort [5]": 0x40002aa2
+    "Ghost Glovewort [6]": 0x40002aa3
+    "Ghost Glovewort [7]": 0x40002aa4
+    "Ghost Glovewort [8]": 0x40002aa5
+    "Ghost Glovewort [9]": 0x40002aa6
+    "Great Ghost Glovewort": 0x40002aa7
+    "Crimsonspill Crystal Tear": 0x40002af8
+    "Greenspill Crystal Tear": 0x40002af9
+    "Crimson Crystal Tear": 0x40002afa
+    "Crimson Crystal Tear": 0x40002afb
+    "Cerulean Crystal Tear": 0x40002afc
+    "Cerulean Crystal Tear": 0x40002afd
+    "Speckled Hardtear": 0x40002afe
+    "Crimson Bubbletear": 0x40002aff
+    "Opaline Bubbletear": 0x40002b00
+    "Crimsonburst Crystal Tear": 0x40002b01
+    "Greenburst Crystal Tear": 0x40002b02
+    "Opaline Hardtear": 0x40002b03
+    "Winged Crystal Tear": 0x40002b04
+    "Thorny Cracked Tear": 0x40002b05
+    "Spiked Cracked Tear": 0x40002b06
+    "Windy Crystal Tear": 0x40002b07
+    "Ruptured Crystal Tear": 0x40002b08
+    "Ruptured Crystal Tear": 0x40002b09
+    "Leaden Hardtear": 0x40002b0a
+    "Twiggy Cracked Tear": 0x40002b0b
+    "Crimsonwhorl Bubbletear": 0x40002b0c
+    "Strength-knot Crystal Tear": 0x40002b0d
+    "Dexterity-knot Crystal Tear": 0x40002b0e
+    "Intelligence-knot Crystal Tear": 0x40002b0f
+    "Faith-knot Crystal Tear": 0x40002b10
+    "Cerulean Hidden Tear": 0x40002b11
+    "Stonebarb Cracked Tear": 0x40002b12
+    "Purifying Crystal Tear": 0x40002b13
+    "Flame-Shrouding Cracked Tear": 0x40002b14
+    "Magic-Shrouding Cracked Tear": 0x40002b15
+    "Lightning-Shrouding Cracked Tear": 0x40002b16
+    "Holy-Shrouding Cracked Tear": 0x40002b17
+    "Sliver of Meat": 0x40003a98
+    "Beast Liver": 0x40003aa2
+    "Lump of Flesh": 0x40003aac
+    "Beast Blood": 0x40003ab6
+    "Old Fang": 0x40003ac0
+    "Budding Horn": 0x40003aca
+    "Flight Pinion": 0x40003ad4
+    "Four-Toed Fowl Foot": 0x40003ae8
+    "Turtle Neck Meat": 0x40003af2
+    "Human Bone Shard": 0x40003afc
+    "Great Dragonfly Head": 0x40003b06
+    "Slumbering Egg": 0x40003b10
+    "Crab Eggs": 0x40003b1a
+    "Land Octopus Ovary": 0x40003b24
+    "Miranda Powder": 0x40003b2e
+    "Strip of White Flesh": 0x40003b38
+    "Thin Beast Bones": 0x40003bec
+    "Hefty Beast Bone": 0x40003bed
+    "String": 0x40003c28
+    "Living Jar Shard": 0x40003c32
+    "Albinauric Bloodclot": 0x40003c3c
+    "Stormhawk Feather": 0x40003c46
+    "Poisonbloom": 0x400050aa
+    "Trina's Lily": 0x400050ab
+    "Fulgurbloom": 0x400050ac
+    "Miquella's Lily": 0x400050ad
+    "Grave Violet": 0x400050ae
+    "Faded Erdleaf Flower": 0x400050b4
+    "Erdleaf Flower": 0x400050c8
+    "Altus Bloom": 0x400050c9
+    "Fire Blossom": 0x400050ca
+    "Golden Sunflower": 0x400050cb
+    "Tarnished Golden Sunflower": 0x400050cd
+    "Herba": 0x400050d2
+    "Arteria Leaf": 0x400050d3
+    "Dewkissed Herba": 0x400050e6
+    "Rowa Fruit": 0x400050f0
+    "Golden Rowa": 0x400050f1
+    "Rimed Rowa": 0x400050f2
+    "Bloodrose": 0x400050f3
     "Eye of Yelough": 0x40005104
-    "Crystal Bud": 0x4000510E
-    "Rimed Crystal Bud": 0x4000510F
+    "Crystal Bud": 0x4000510e
+    "Rimed Crystal Bud": 0x4000510f
     "Sacramental Bud": 0x40005111
     "Mushroom": 0x40005118
     "Melted Mushroom": 0x40005119
     "Toxic Mushroom": 0x40005122
     "Root Resin": 0x40005127
-    "Cracked Crystal": 0x4000512C
-    "Sanctuary Stone": 0x4000513B
+    "Cracked Crystal": 0x4000512c
+    "Sanctuary Stone": 0x4000513b
     "Nascent Butterfly": 0x40005140
     "Aeonian Butterfly": 0x40005141
     "Smoldering Butterfly": 0x40005142
-    "Silver Firefly": 0x4000514A
-    "Gold Firefly": 0x4000514B
-    "Glintstone Firefly": 0x4000514C
+    "Silver Firefly": 0x4000514a
+    "Gold Firefly": 0x4000514b
+    "Glintstone Firefly": 0x4000514c
     "Golden Centipede": 0x40005154
     "Silver Tear Husk": 0x40005159
-    "Gold-Tinged Excrement": 0x4000515E
-    "Blood-Tainted Excrement": 0x4000515F
+    "Gold-Tinged Excrement": 0x4000515e
+    "Blood-Tainted Excrement": 0x4000515f
     "Cave Moss": 0x40005168
     "Budding Cave Moss": 0x40005169
-    "Crystal Cave Moss": 0x4000516A
-    "Yellow Ember": 0x4000516D
+    "Crystal Cave Moss": 0x4000516a
+    "Yellow Ember": 0x4000516d
     "Volcanic Stone": 0x40005172
     "Formic Rock": 0x40005174
     "Gravel Stone": 0x40005177
-"Spirit Summons":
-  "Black Knife Tiche": 0x40030D40
-  "Banished Knight Oleg": 0x40031128
-  "Banished Knight Engvall": 0x40031510
-  "Fanged Imp Ashes": 0x400318F8
-  "Latenna the Albinauric": 0x40031CE0
-  "Nomad Ashes": 0x400320C8
-  "Nightmaiden & Swordstress Puppets": 0x400324B0
-  "Mimic Tear Ashes": 0x40032898
-  "Crystalian Ashes": 0x40032C80
-  "Ancestral Follower Ashes": 0x40033068
-  "Winged Misbegotten Ashes": 0x40033450
-  "Albinauric Ashes": 0x40033838
-  "Skeletal Militiaman Ashes": 0x40033C20
-  "Skeletal Bandit Ashes": 0x40034008
-  "Oracle Envoy Ashes": 0x400343F0
-  "Putrid Corpse Ashes": 0x400347D8
-  "Depraved Perfumer Carmaan": 0x40034BC0
-  "Perfumer Tricia": 0x40034FA8
-  "Glintstone Sorcerer Ashes": 0x40035390
-  "Twinsage Sorcerer Ashes": 0x40035778
-  "Page Ashes": 0x40035B60
-  "Battlemage Hugues": 0x40035F48
-  "Clayman Ashes": 0x40036330
-  "Cleanrot Knight Finlay": 0x40036718
-  "Kindred of Rot Ashes": 0x40036B00
-  "Marionette Soldier Ashes": 0x40036EE8
-  "Avionette Soldier Ashes": 0x400372D0
-  "Fire Monk Ashes": 0x400376B8
-  "Blackflame Monk Amon": 0x40037AA0
-  "Man-Serpent Ashes": 0x40037E88
-  "Azula Beastman Ashes": 0x40038270
-  "Kaiden Sellsword Ashes": 0x40038658
-  "Lone Wolf Ashes": 0x40038A40
-  "Giant Rat Ashes": 0x40038E28
-  "Demi-Human Ashes": 0x40039210
-  "Rotten Stray Ashes": 0x400395F8
-  "Spirit Jellyfish Ashes": 0x400399E0
-  "Warhawk Ashes": 0x40039DC8
-  "Stormhawk Deenh": 0x4003A1B0
-  "Bloodhound Knight Floh": 0x4003A598
-  "Wandering Noble Ashes": 0x4003A980
-  "Noble Sorcerer Ashes": 0x4003AD68
-  "Vulgar Militia Ashes": 0x4003B150
-  "Mad Pumpkin Head Ashes": 0x4003B538
-  "Land Squirt Ashes": 0x4003B920
-  "Miranda Sprout Ashes": 0x4003BD08
-  "Soldjars of Fortune Ashes": 0x4003C0F0
-  "Omenkiller Rollo": 0x4003C4D8
-  "Greatshield Soldier Ashes": 0x4003C8C0
-  "Archer Ashes": 0x4003CCA8
-  "Godrick Soldier Ashes": 0x4003D090
-  "Raya Lucaria Soldier Ashes": 0x4003D478
-  "Leyndell Soldier Ashes": 0x4003D860
-  "Radahn Soldier Ashes": 0x4003DC48
-  "Mausoleum Soldier Ashes": 0x4003E030
-  "Haligtree Soldier Ashes": 0x4003E418
-  "Ancient Dragon Knight Kristoff": 0x4003E800
-  "Redmane Knight Ogha": 0x4003EBE8
-  "Lhutel the Headless": 0x4003EFD0
-  "Nepheli Loux Puppet": 0x4003F3B8
-  "Dung Eater Puppet": 0x4003F7A0
-  "Finger Maiden Therolina Puppet": 0x4003FB88
-  "Dolores the Sleeping Arrow Puppet": 0x4003FF70
-  "Jarwight Puppet": 0x40040358
+    "Black Knife Tiche": 0x40030d40
+    "Black Knife Tiche +1": 0x40030d41
+    "Black Knife Tiche +2": 0x40030d42
+    "Black Knife Tiche +3": 0x40030d43
+    "Black Knife Tiche +4": 0x40030d44
+    "Black Knife Tiche +5": 0x40030d45
+    "Black Knife Tiche +6": 0x40030d46
+    "Black Knife Tiche +7": 0x40030d47
+    "Black Knife Tiche +8": 0x40030d48
+    "Black Knife Tiche +9": 0x40030d49
+    "Black Knife Tiche +10": 0x40030d4a
+    "Banished Knight Oleg": 0x40031128
+    "Banished Knight Oleg +1": 0x40031129
+    "Banished Knight Oleg +2": 0x4003112a
+    "Banished Knight Oleg +3": 0x4003112b
+    "Banished Knight Oleg +4": 0x4003112c
+    "Banished Knight Oleg +5": 0x4003112d
+    "Banished Knight Oleg +6": 0x4003112e
+    "Banished Knight Oleg +7": 0x4003112f
+    "Banished Knight Oleg +8": 0x40031130
+    "Banished Knight Oleg +9": 0x40031131
+    "Banished Knight Oleg +10": 0x40031132
+    "Banished Knight Engvall": 0x40031510
+    "Banished Knight Engvall +1": 0x40031511
+    "Banished Knight Engvall +2": 0x40031512
+    "Banished Knight Engvall +3": 0x40031513
+    "Banished Knight Engvall +4": 0x40031514
+    "Banished Knight Engvall +5": 0x40031515
+    "Banished Knight Engvall +6": 0x40031516
+    "Banished Knight Engvall +7": 0x40031517
+    "Banished Knight Engvall +8": 0x40031518
+    "Banished Knight Engvall +9": 0x40031519
+    "Banished Knight Engvall +10": 0x4003151a
+    "Fanged Imp Ashes": 0x400318f8
+    "Fanged Imp Ashes +1": 0x400318f9
+    "Fanged Imp Ashes +2": 0x400318fa
+    "Fanged Imp Ashes +3": 0x400318fb
+    "Fanged Imp Ashes +4": 0x400318fc
+    "Fanged Imp Ashes +5": 0x400318fd
+    "Fanged Imp Ashes +6": 0x400318fe
+    "Fanged Imp Ashes +7": 0x400318ff
+    "Fanged Imp Ashes +8": 0x40031900
+    "Fanged Imp Ashes +9": 0x40031901
+    "Fanged Imp Ashes +10": 0x40031902
+    "Latenna the Albinauric": 0x40031ce0
+    "Latenna the Albinauric +1": 0x40031ce1
+    "Latenna the Albinauric +2": 0x40031ce2
+    "Latenna the Albinauric +3": 0x40031ce3
+    "Latenna the Albinauric +4": 0x40031ce4
+    "Latenna the Albinauric +5": 0x40031ce5
+    "Latenna the Albinauric +6": 0x40031ce6
+    "Latenna the Albinauric +7": 0x40031ce7
+    "Latenna the Albinauric +8": 0x40031ce8
+    "Latenna the Albinauric +9": 0x40031ce9
+    "Latenna the Albinauric +10": 0x40031cea
+    "Nomad Ashes": 0x400320c8
+    "Nomad Ashes +1": 0x400320c9
+    "Nomad Ashes +2": 0x400320ca
+    "Nomad Ashes +3": 0x400320cb
+    "Nomad Ashes +4": 0x400320cc
+    "Nomad Ashes +5": 0x400320cd
+    "Nomad Ashes +6": 0x400320ce
+    "Nomad Ashes +7": 0x400320cf
+    "Nomad Ashes +8": 0x400320d0
+    "Nomad Ashes +9": 0x400320d1
+    "Nomad Ashes +10": 0x400320d2
+    "Nightmaiden & Swordstress Puppets": 0x400324b0
+    "Nightmaiden & Swordstress Puppets +1": 0x400324b1
+    "Nightmaiden & Swordstress Puppets +2": 0x400324b2
+    "Nightmaiden & Swordstress Puppets +3": 0x400324b3
+    "Nightmaiden & Swordstress Puppets +4": 0x400324b4
+    "Nightmaiden & Swordstress Puppets +5": 0x400324b5
+    "Nightmaiden & Swordstress Puppets +6": 0x400324b6
+    "Nightmaiden & Swordstress Puppets +7": 0x400324b7
+    "Nightmaiden & Swordstress Puppets +8": 0x400324b8
+    "Nightmaiden & Swordstress Puppets +9": 0x400324b9
+    "Nightmaiden & Swordstress Puppets +10": 0x400324ba
+    "Mimic Tear Ashes": 0x40032898
+    "Mimic Tear Ashes +1": 0x40032899
+    "Mimic Tear Ashes +2": 0x4003289a
+    "Mimic Tear Ashes +3": 0x4003289b
+    "Mimic Tear Ashes +4": 0x4003289c
+    "Mimic Tear Ashes +5": 0x4003289d
+    "Mimic Tear Ashes +6": 0x4003289e
+    "Mimic Tear Ashes +7": 0x4003289f
+    "Mimic Tear Ashes +8": 0x400328a0
+    "Mimic Tear Ashes +9": 0x400328a1
+    "Mimic Tear Ashes +10": 0x400328a2
+    "Crystalian Ashes": 0x40032c80
+    "Crystalian Ashes +1": 0x40032c81
+    "Crystalian Ashes +2": 0x40032c82
+    "Crystalian Ashes +3": 0x40032c83
+    "Crystalian Ashes +4": 0x40032c84
+    "Crystalian Ashes +5": 0x40032c85
+    "Crystalian Ashes +6": 0x40032c86
+    "Crystalian Ashes +7": 0x40032c87
+    "Crystalian Ashes +8": 0x40032c88
+    "Crystalian Ashes +9": 0x40032c89
+    "Crystalian Ashes +10": 0x40032c8a
+    "Ancestral Follower Ashes": 0x40033068
+    "Ancestral Follower Ashes +1": 0x40033069
+    "Ancestral Follower Ashes +2": 0x4003306a
+    "Ancestral Follower Ashes +3": 0x4003306b
+    "Ancestral Follower Ashes +4": 0x4003306c
+    "Ancestral Follower Ashes +5": 0x4003306d
+    "Ancestral Follower Ashes +6": 0x4003306e
+    "Ancestral Follower Ashes +7": 0x4003306f
+    "Ancestral Follower Ashes +8": 0x40033070
+    "Ancestral Follower Ashes +9": 0x40033071
+    "Ancestral Follower Ashes +10": 0x40033072
+    "Winged Misbegotten Ashes": 0x40033450
+    "Winged Misbegotten Ashes + 1": 0x40033451
+    "Winged Misbegotten Ashes + 2": 0x40033452
+    "Winged Misbegotten Ashes + 3": 0x40033453
+    "Winged Misbegotten Ashes + 4": 0x40033454
+    "Winged Misbegotten Ashes + 5": 0x40033455
+    "Winged Misbegotten Ashes + 6": 0x40033456
+    "Winged Misbegotten Ashes + 7": 0x40033457
+    "Winged Misbegotten Ashes + 8": 0x40033458
+    "Winged Misbegotten Ashes + 9": 0x40033459
+    "Winged Misbegotten Ashes + 10": 0x4003345a
+    "Albinauric Ashes": 0x40033838
+    "Albinauric Ashes +1": 0x40033839
+    "Albinauric Ashes +2": 0x4003383a
+    "Albinauric Ashes +3": 0x4003383b
+    "Albinauric Ashes +4": 0x4003383c
+    "Albinauric Ashes +5": 0x4003383d
+    "Albinauric Ashes +6": 0x4003383e
+    "Albinauric Ashes +7": 0x4003383f
+    "Albinauric Ashes +8": 0x40033840
+    "Albinauric Ashes +9": 0x40033841
+    "Albinauric Ashes +10": 0x40033842
+    "Skeletal Militiaman Ashes": 0x40033c20
+    "Skeletal Militiaman Ashes +1": 0x40033c21
+    "Skeletal Militiaman Ashes +2": 0x40033c22
+    "Skeletal Militiaman Ashes +3": 0x40033c23
+    "Skeletal Militiaman Ashes +4": 0x40033c24
+    "Skeletal Militiaman Ashes +5": 0x40033c25
+    "Skeletal Militiaman Ashes +6": 0x40033c26
+    "Skeletal Militiaman Ashes +7": 0x40033c27
+    "Skeletal Militiaman Ashes +8": 0x40033c28
+    "Skeletal Militiaman Ashes +9": 0x40033c29
+    "Skeletal Militiaman Ashes +10": 0x40033c2a
+    "Skeletal Bandit Ashes": 0x40034008
+    "Skeletal Bandit Ashes +1": 0x40034009
+    "Skeletal Bandit Ashes +2": 0x4003400a
+    "Skeletal Bandit Ashes +3": 0x4003400b
+    "Skeletal Bandit Ashes +4": 0x4003400c
+    "Skeletal Bandit Ashes +5": 0x4003400d
+    "Skeletal Bandit Ashes +6": 0x4003400e
+    "Skeletal Bandit Ashes +7": 0x4003400f
+    "Skeletal Bandit Ashes +8": 0x40034010
+    "Skeletal Bandit Ashes +9": 0x40034011
+    "Skeletal Bandit Ashes +10": 0x40034012
+    "Oracle Envoy Ashes": 0x400343f0
+    "Oracle Envoy Ashes +1": 0x400343f1
+    "Oracle Envoy Ashes +2": 0x400343f2
+    "Oracle Envoy Ashes +3": 0x400343f3
+    "Oracle Envoy Ashes +4": 0x400343f4
+    "Oracle Envoy Ashes +5": 0x400343f5
+    "Oracle Envoy Ashes +6": 0x400343f6
+    "Oracle Envoy Ashes +7": 0x400343f7
+    "Oracle Envoy Ashes +8": 0x400343f8
+    "Oracle Envoy Ashes +9": 0x400343f9
+    "Oracle Envoy Ashes +10": 0x400343fa
+    "Putrid Corpse Ashes": 0x400347d8
+    "Putrid Corpse Ashes +1": 0x400347d9
+    "Putrid Corpse Ashes +2": 0x400347da
+    "Putrid Corpse Ashes +3": 0x400347db
+    "Putrid Corpse Ashes +4": 0x400347dc
+    "Putrid Corpse Ashes +5": 0x400347dd
+    "Putrid Corpse Ashes +6": 0x400347de
+    "Putrid Corpse Ashes +7": 0x400347df
+    "Putrid Corpse Ashes +8": 0x400347e0
+    "Putrid Corpse Ashes +9": 0x400347e1
+    "Putrid Corpse Ashes +10": 0x400347e2
+    "Depraved Perfumer Carmaan": 0x40034bc0
+    "Depraved Perfumer Carmaan +1": 0x40034bc1
+    "Depraved Perfumer Carmaan +2": 0x40034bc2
+    "Depraved Perfumer Carmaan +3": 0x40034bc3
+    "Depraved Perfumer Carmaan +4": 0x40034bc4
+    "Depraved Perfumer Carmaan +5": 0x40034bc5
+    "Depraved Perfumer Carmaan +6": 0x40034bc6
+    "Depraved Perfumer Carmaan +7": 0x40034bc7
+    "Depraved Perfumer Carmaan +8": 0x40034bc8
+    "Depraved Perfumer Carmaan +9": 0x40034bc9
+    "Depraved Perfumer Carmaan +10": 0x40034bca
+    "Perfumer Tricia": 0x40034fa8
+    "Perfumer Tricia +1": 0x40034fa9
+    "Perfumer Tricia +2": 0x40034faa
+    "Perfumer Tricia +3": 0x40034fab
+    "Perfumer Tricia +4": 0x40034fac
+    "Perfumer Tricia +5": 0x40034fad
+    "Perfumer Tricia +6": 0x40034fae
+    "Perfumer Tricia +7": 0x40034faf
+    "Perfumer Tricia +8": 0x40034fb0
+    "Perfumer Tricia +9": 0x40034fb1
+    "Perfumer Tricia +10": 0x40034fb2
+    "Glintstone Sorcerer Ashes": 0x40035390
+    "Glintstone Sorcerer Ashes +1": 0x40035391
+    "Glintstone Sorcerer Ashes +2": 0x40035392
+    "Glintstone Sorcerer Ashes +3": 0x40035393
+    "Glintstone Sorcerer Ashes +4": 0x40035394
+    "Glintstone Sorcerer Ashes +5": 0x40035395
+    "Glintstone Sorcerer Ashes +6": 0x40035396
+    "Glintstone Sorcerer Ashes +7": 0x40035397
+    "Glintstone Sorcerer Ashes +8": 0x40035398
+    "Glintstone Sorcerer Ashes +9": 0x40035399
+    "Glintstone Sorcerer Ashes +10": 0x4003539a
+    "Twinsage Sorcerer Ashes": 0x40035778
+    "Twinsage Sorcerer Ashes +1": 0x40035779
+    "Twinsage Sorcerer Ashes +2": 0x4003577a
+    "Twinsage Sorcerer Ashes +3": 0x4003577b
+    "Twinsage Sorcerer Ashes +4": 0x4003577c
+    "Twinsage Sorcerer Ashes +5": 0x4003577d
+    "Twinsage Sorcerer Ashes +6": 0x4003577e
+    "Twinsage Sorcerer Ashes +7": 0x4003577f
+    "Twinsage Sorcerer Ashes +8": 0x40035780
+    "Twinsage Sorcerer Ashes +9": 0x40035781
+    "Twinsage Sorcerer Ashes +10": 0x40035782
+    "Page Ashes": 0x40035b60
+    "Page Ashes +1": 0x40035b61
+    "Page Ashes +2": 0x40035b62
+    "Page Ashes +3": 0x40035b63
+    "Page Ashes +4": 0x40035b64
+    "Page Ashes +5": 0x40035b65
+    "Page Ashes +6": 0x40035b66
+    "Page Ashes +7": 0x40035b67
+    "Page Ashes +8": 0x40035b68
+    "Page Ashes +9": 0x40035b69
+    "Page Ashes +10": 0x40035b6a
+    "Battlemage Hugues": 0x40035f48
+    "Battlemage Hugues +1": 0x40035f49
+    "Battlemage Hugues +2": 0x40035f4a
+    "Battlemage Hugues +3": 0x40035f4b
+    "Battlemage Hugues +4": 0x40035f4c
+    "Battlemage Hugues +5": 0x40035f4d
+    "Battlemage Hugues +6": 0x40035f4e
+    "Battlemage Hugues +7": 0x40035f4f
+    "Battlemage Hugues +8": 0x40035f50
+    "Battlemage Hugues +9": 0x40035f51
+    "Battlemage Hugues +10": 0x40035f52
+    "Clayman Ashes": 0x40036330
+    "Clayman Ashes +1": 0x40036331
+    "Clayman Ashes +2": 0x40036332
+    "Clayman Ashes +3": 0x40036333
+    "Clayman Ashes +4": 0x40036334
+    "Clayman Ashes +5": 0x40036335
+    "Clayman Ashes +6": 0x40036336
+    "Clayman Ashes +7": 0x40036337
+    "Clayman Ashes +8": 0x40036338
+    "Clayman Ashes +9": 0x40036339
+    "Clayman Ashes +10": 0x4003633a
+    "Cleanrot Knight Finlay": 0x40036718
+    "Cleanrot Knight Finlay +1": 0x40036719
+    "Cleanrot Knight Finlay +2": 0x4003671a
+    "Cleanrot Knight Finlay +3": 0x4003671b
+    "Cleanrot Knight Finlay +4": 0x4003671c
+    "Cleanrot Knight Finlay +5": 0x4003671d
+    "Cleanrot Knight Finlay +6": 0x4003671e
+    "Cleanrot Knight Finlay +7": 0x4003671f
+    "Cleanrot Knight Finlay +8": 0x40036720
+    "Cleanrot Knight Finlay +9": 0x40036721
+    "Cleanrot Knight Finlay +10": 0x40036722
+    "Kindred of Rot Ashes": 0x40036b00
+    "Kindred of Rot Ashes +1": 0x40036b01
+    "Kindred of Rot Ashes +2": 0x40036b02
+    "Kindred of Rot Ashes +3": 0x40036b03
+    "Kindred of Rot Ashes +4": 0x40036b04
+    "Kindred of Rot Ashes +5": 0x40036b05
+    "Kindred of Rot Ashes +6": 0x40036b06
+    "Kindred of Rot Ashes +7": 0x40036b07
+    "Kindred of Rot Ashes +8": 0x40036b08
+    "Kindred of Rot Ashes +9": 0x40036b09
+    "Kindred of Rot Ashes +10": 0x40036b0a
+    "Marionette Soldier Ashes": 0x40036ee8
+    "Marionette Soldier Ashes +1": 0x40036ee9
+    "Marionette Soldier Ashes +2": 0x40036eea
+    "Marionette Soldier Ashes +3": 0x40036eeb
+    "Marionette Soldier Ashes +4": 0x40036eec
+    "Marionette Soldier Ashes +5": 0x40036eed
+    "Marionette Soldier Ashes +6": 0x40036eee
+    "Marionette Soldier Ashes +7": 0x40036eef
+    "Marionette Soldier Ashes +8": 0x40036ef0
+    "Marionette Soldier Ashes +9": 0x40036ef1
+    "Marionette Soldier Ashes +10": 0x40036ef2
+    "Avionette Soldier Ashes": 0x400372d0
+    "Avionette Soldier Ashes +1": 0x400372d1
+    "Avionette Soldier Ashes +2": 0x400372d2
+    "Avionette Soldier Ashes +3": 0x400372d3
+    "Avionette Soldier Ashes +4": 0x400372d4
+    "Avionette Soldier Ashes +5": 0x400372d5
+    "Avionette Soldier Ashes +6": 0x400372d6
+    "Avionette Soldier Ashes +7": 0x400372d7
+    "Avionette Soldier Ashes +8": 0x400372d8
+    "Avionette Soldier Ashes +9": 0x400372d9
+    "Avionette Soldier Ashes +10": 0x400372da
+    "Fire Monk Ashes": 0x400376b8
+    "Fire Monk Ashes +1": 0x400376b9
+    "Fire Monk Ashes +2": 0x400376ba
+    "Fire Monk Ashes +3": 0x400376bb
+    "Fire Monk Ashes +4": 0x400376bc
+    "Fire Monk Ashes +5": 0x400376bd
+    "Fire Monk Ashes +6": 0x400376be
+    "Fire Monk Ashes +7": 0x400376bf
+    "Fire Monk Ashes +8": 0x400376c0
+    "Fire Monk Ashes +9": 0x400376c1
+    "Fire Monk Ashes +10": 0x400376c2
+    "Blackflame Monk Amon": 0x40037aa0
+    "Blackflame Monk Amon +1": 0x40037aa1
+    "Blackflame Monk Amon +2": 0x40037aa2
+    "Blackflame Monk Amon +3": 0x40037aa3
+    "Blackflame Monk Amon +4": 0x40037aa4
+    "Blackflame Monk Amon +5": 0x40037aa5
+    "Blackflame Monk Amon +6": 0x40037aa6
+    "Blackflame Monk Amon +7": 0x40037aa7
+    "Blackflame Monk Amon +8": 0x40037aa8
+    "Blackflame Monk Amon +9": 0x40037aa9
+    "Blackflame Monk Amon +10": 0x40037aaa
+    "Man-Serpent Ashes": 0x40037e88
+    "Man-Serpent Ashes +1": 0x40037e89
+    "Man-Serpent Ashes +2": 0x40037e8a
+    "Man-Serpent Ashes +3": 0x40037e8b
+    "Man-Serpent Ashes +4": 0x40037e8c
+    "Man-Serpent Ashes +5": 0x40037e8d
+    "Man-Serpent Ashes +6": 0x40037e8e
+    "Man-Serpent Ashes +7": 0x40037e8f
+    "Man-Serpent Ashes +8": 0x40037e90
+    "Man-Serpent Ashes +9": 0x40037e91
+    "Man-Serpent Ashes +10": 0x40037e92
+    "Azula Beastman Ashes": 0x40038270
+    "Azula Beastman Ashes +1": 0x40038271
+    "Azula Beastman Ashes +2": 0x40038272
+    "Azula Beastman Ashes +3": 0x40038273
+    "Azula Beastman Ashes +4": 0x40038274
+    "Azula Beastman Ashes +5": 0x40038275
+    "Azula Beastman Ashes +6": 0x40038276
+    "Azula Beastman Ashes +7": 0x40038277
+    "Azula Beastman Ashes +8": 0x40038278
+    "Azula Beastman Ashes +9": 0x40038279
+    "Azula Beastman Ashes +10": 0x4003827a
+    "Kaiden Sellsword Ashes": 0x40038658
+    "Kaiden Sellsword Ashes +1": 0x40038659
+    "Kaiden Sellsword Ashes +2": 0x4003865a
+    "Kaiden Sellsword Ashes +3": 0x4003865b
+    "Kaiden Sellsword Ashes +4": 0x4003865c
+    "Kaiden Sellsword Ashes +5": 0x4003865d
+    "Kaiden Sellsword Ashes +6": 0x4003865e
+    "Kaiden Sellsword Ashes +7": 0x4003865f
+    "Kaiden Sellsword Ashes +8": 0x40038660
+    "Kaiden Sellsword Ashes +9": 0x40038661
+    "Kaiden Sellsword Ashes +10": 0x40038662
+    "Lone Wolf Ashes": 0x40038a40
+    "Lone Wolf Ashes +1": 0x40038a41
+    "Lone Wolf Ashes +2": 0x40038a42
+    "Lone Wolf Ashes +3": 0x40038a43
+    "Lone Wolf Ashes +4": 0x40038a44
+    "Lone Wolf Ashes +5": 0x40038a45
+    "Lone Wolf Ashes +6": 0x40038a46
+    "Lone Wolf Ashes +7": 0x40038a47
+    "Lone Wolf Ashes +8": 0x40038a48
+    "Lone Wolf Ashes +9": 0x40038a49
+    "Lone Wolf Ashes +10": 0x40038a4a
+    "Giant Rat Ashes": 0x40038e28
+    "Giant Rat Ashes +1": 0x40038e29
+    "Giant Rat Ashes +2": 0x40038e2a
+    "Giant Rat Ashes +3": 0x40038e2b
+    "Giant Rat Ashes +4": 0x40038e2c
+    "Giant Rat Ashes +5": 0x40038e2d
+    "Giant Rat Ashes +6": 0x40038e2e
+    "Giant Rat Ashes +7": 0x40038e2f
+    "Giant Rat Ashes +8": 0x40038e30
+    "Giant Rat Ashes +9": 0x40038e31
+    "Giant Rat Ashes +10": 0x40038e32
+    "Demi-Human Ashes": 0x40039210
+    "Demi-Human Ashes +1": 0x40039211
+    "Demi-Human Ashes +2": 0x40039212
+    "Demi-Human Ashes +3": 0x40039213
+    "Demi-Human Ashes +4": 0x40039214
+    "Demi-Human Ashes +5": 0x40039215
+    "Demi-Human Ashes +6": 0x40039216
+    "Demi-Human Ashes +7": 0x40039217
+    "Demi-Human Ashes +8": 0x40039218
+    "Demi-Human Ashes +9": 0x40039219
+    "Demi-Human Ashes +10": 0x4003921a
+    "Rotten Stray Ashes": 0x400395f8
+    "Rotten Stray Ashes +1": 0x400395f9
+    "Rotten Stray Ashes +2": 0x400395fa
+    "Rotten Stray Ashes +3": 0x400395fb
+    "Rotten Stray Ashes +4": 0x400395fc
+    "Rotten Stray Ashes +5": 0x400395fd
+    "Rotten Stray Ashes +6": 0x400395fe
+    "Rotten Stray Ashes +7": 0x400395ff
+    "Rotten Stray Ashes +8": 0x40039600
+    "Rotten Stray Ashes +9": 0x40039601
+    "Rotten Stray Ashes +10": 0x40039602
+    "Spirit Jellyfish Ashes": 0x400399e0
+    "Spirit Jellyfish Ashes +1": 0x400399e1
+    "Spirit Jellyfish Ashes +2": 0x400399e2
+    "Spirit Jellyfish Ashes +3": 0x400399e3
+    "Spirit Jellyfish Ashes +4": 0x400399e4
+    "Spirit Jellyfish Ashes +5": 0x400399e5
+    "Spirit Jellyfish Ashes +6": 0x400399e6
+    "Spirit Jellyfish Ashes +7": 0x400399e7
+    "Spirit Jellyfish Ashes +8": 0x400399e8
+    "Spirit Jellyfish Ashes +9": 0x400399e9
+    "Spirit Jellyfish Ashes +10": 0x400399ea
+    "Warhawk Ashes": 0x40039dc8
+    "Warhawk Ashes +1": 0x40039dc9
+    "Warhawk Ashes +2": 0x40039dca
+    "Warhawk Ashes +3": 0x40039dcb
+    "Warhawk Ashes +4": 0x40039dcc
+    "Warhawk Ashes +5": 0x40039dcd
+    "Warhawk Ashes +6": 0x40039dce
+    "Warhawk Ashes +7": 0x40039dcf
+    "Warhawk Ashes +8": 0x40039dd0
+    "Warhawk Ashes +9": 0x40039dd1
+    "Warhawk Ashes +10": 0x40039dd2
+    "Stormhawk Deenh": 0x4003a1b0
+    "Stormhawk Deenh +1": 0x4003a1b1
+    "Stormhawk Deenh +2": 0x4003a1b2
+    "Stormhawk Deenh +3": 0x4003a1b3
+    "Stormhawk Deenh +4": 0x4003a1b4
+    "Stormhawk Deenh +5": 0x4003a1b5
+    "Stormhawk Deenh +6": 0x4003a1b6
+    "Stormhawk Deenh +7": 0x4003a1b7
+    "Stormhawk Deenh +8": 0x4003a1b8
+    "Stormhawk Deenh +9": 0x4003a1b9
+    "Stormhawk Deenh +10": 0x4003a1ba
+    "Bloodhound Knight Floh": 0x4003a598
+    "Bloodhound Knight Floh +1": 0x4003a599
+    "Bloodhound Knight Floh +2": 0x4003a59a
+    "Bloodhound Knight Floh +3": 0x4003a59b
+    "Bloodhound Knight Floh +4": 0x4003a59c
+    "Bloodhound Knight Floh +5": 0x4003a59d
+    "Bloodhound Knight Floh +6": 0x4003a59e
+    "Bloodhound Knight Floh +7": 0x4003a59f
+    "Bloodhound Knight Floh +8": 0x4003a5a0
+    "Bloodhound Knight Floh +9": 0x4003a5a1
+    "Bloodhound Knight Floh +10": 0x4003a5a2
+    "Wandering Noble Ashes": 0x4003a980
+    "Wandering Noble Ashes +1": 0x4003a981
+    "Wandering Noble Ashes +2": 0x4003a982
+    "Wandering Noble Ashes +3": 0x4003a983
+    "Wandering Noble Ashes +4": 0x4003a984
+    "Wandering Noble Ashes +5": 0x4003a985
+    "Wandering Noble Ashes +6": 0x4003a986
+    "Wandering Noble Ashes +7": 0x4003a987
+    "Wandering Noble Ashes +8": 0x4003a988
+    "Wandering Noble Ashes +9": 0x4003a989
+    "Wandering Noble Ashes +10": 0x4003a98a
+    "Noble Sorcerer Ashes": 0x4003ad68
+    "Noble Sorcerer Ashes +1": 0x4003ad69
+    "Noble Sorcerer Ashes +2": 0x4003ad6a
+    "Noble Sorcerer Ashes +3": 0x4003ad6b
+    "Noble Sorcerer Ashes +4": 0x4003ad6c
+    "Noble Sorcerer Ashes +5": 0x4003ad6d
+    "Noble Sorcerer Ashes +6": 0x4003ad6e
+    "Noble Sorcerer Ashes +7": 0x4003ad6f
+    "Noble Sorcerer Ashes +8": 0x4003ad70
+    "Noble Sorcerer Ashes +9": 0x4003ad71
+    "Noble Sorcerer Ashes +10": 0x4003ad72
+    "Vulgar Militia Ashes": 0x4003b150
+    "Vulgar Militia Ashes +1": 0x4003b151
+    "Vulgar Militia Ashes +2": 0x4003b152
+    "Vulgar Militia Ashes +3": 0x4003b153
+    "Vulgar Militia Ashes +4": 0x4003b154
+    "Vulgar Militia Ashes +5": 0x4003b155
+    "Vulgar Militia Ashes +6": 0x4003b156
+    "Vulgar Militia Ashes +7": 0x4003b157
+    "Vulgar Militia Ashes +8": 0x4003b158
+    "Vulgar Militia Ashes +9": 0x4003b159
+    "Vulgar Militia Ashes +10": 0x4003b15a
+    "Mad Pumpkin Head Ashes": 0x4003b538
+    "Mad Pumpkin Head Ashes +1": 0x4003b539
+    "Mad Pumpkin Head Ashes +2": 0x4003b53a
+    "Mad Pumpkin Head Ashes +3": 0x4003b53b
+    "Mad Pumpkin Head Ashes +4": 0x4003b53c
+    "Mad Pumpkin Head Ashes +5": 0x4003b53d
+    "Mad Pumpkin Head Ashes +6": 0x4003b53e
+    "Mad Pumpkin Head Ashes +7": 0x4003b53f
+    "Mad Pumpkin Head Ashes +8": 0x4003b540
+    "Mad Pumpkin Head Ashes +9": 0x4003b541
+    "Mad Pumpkin Head Ashes +10": 0x4003b542
+    "Land Squirt Ashes": 0x4003b920
+    "Land Squirt Ashes +1": 0x4003b921
+    "Land Squirt Ashes +2": 0x4003b922
+    "Land Squirt Ashes +3": 0x4003b923
+    "Land Squirt Ashes +4": 0x4003b924
+    "Land Squirt Ashes +5": 0x4003b925
+    "Land Squirt Ashes +6": 0x4003b926
+    "Land Squirt Ashes +7": 0x4003b927
+    "Land Squirt Ashes +8": 0x4003b928
+    "Land Squirt Ashes +9": 0x4003b929
+    "Land Squirt Ashes +10": 0x4003b92a
+    "Miranda Sprout Ashes": 0x4003bd08
+    "Miranda Sprout Ashes +1": 0x4003bd09
+    "Miranda Sprout Ashes +2": 0x4003bd0a
+    "Miranda Sprout Ashes +3": 0x4003bd0b
+    "Miranda Sprout Ashes +4": 0x4003bd0c
+    "Miranda Sprout Ashes +5": 0x4003bd0d
+    "Miranda Sprout Ashes +6": 0x4003bd0e
+    "Miranda Sprout Ashes +7": 0x4003bd0f
+    "Miranda Sprout Ashes +8": 0x4003bd10
+    "Miranda Sprout Ashes +9": 0x4003bd11
+    "Miranda Sprout Ashes +10": 0x4003bd12
+    "Soldjars of Fortune Ashes": 0x4003c0f0
+    "Soldjars of Fortune Ashes +1": 0x4003c0f1
+    "Soldjars of Fortune Ashes +2": 0x4003c0f2
+    "Soldjars of Fortune Ashes +3": 0x4003c0f3
+    "Soldjars of Fortune Ashes +4": 0x4003c0f4
+    "Soldjars of Fortune Ashes +5": 0x4003c0f5
+    "Soldjars of Fortune Ashes +6": 0x4003c0f6
+    "Soldjars of Fortune Ashes +7": 0x4003c0f7
+    "Soldjars of Fortune Ashes +8": 0x4003c0f8
+    "Soldjars of Fortune Ashes +9": 0x4003c0f9
+    "Soldjars of Fortune Ashes +10": 0x4003c0fa
+    "Omenkiller Rollo": 0x4003c4d8
+    "Omenkiller Rollo +1": 0x4003c4d9
+    "Omenkiller Rollo +2": 0x4003c4da
+    "Omenkiller Rollo +3": 0x4003c4db
+    "Omenkiller Rollo +4": 0x4003c4dc
+    "Omenkiller Rollo +5": 0x4003c4dd
+    "Omenkiller Rollo +6": 0x4003c4de
+    "Omenkiller Rollo +7": 0x4003c4df
+    "Omenkiller Rollo +8": 0x4003c4e0
+    "Omenkiller Rollo +9": 0x4003c4e1
+    "Omenkiller Rollo +10": 0x4003c4e2
+    "Greatshield Soldier Ashes": 0x4003c8c0
+    "Greatshield Soldier Ashes +1": 0x4003c8c1
+    "Greatshield Soldier Ashes +2": 0x4003c8c2
+    "Greatshield Soldier Ashes +3": 0x4003c8c3
+    "Greatshield Soldier Ashes +4": 0x4003c8c4
+    "Greatshield Soldier Ashes +5": 0x4003c8c5
+    "Greatshield Soldier Ashes +6": 0x4003c8c6
+    "Greatshield Soldier Ashes +7": 0x4003c8c7
+    "Greatshield Soldier Ashes +8": 0x4003c8c8
+    "Greatshield Soldier Ashes +9": 0x4003c8c9
+    "Greatshield Soldier Ashes +10": 0x4003c8ca
+    "Archer Ashes": 0x4003cca8
+    "Archer Ashes +1": 0x4003cca9
+    "Archer Ashes +2": 0x4003ccaa
+    "Archer Ashes +3": 0x4003ccab
+    "Archer Ashes +4": 0x4003ccac
+    "Archer Ashes +5": 0x4003ccad
+    "Archer Ashes +6": 0x4003ccae
+    "Archer Ashes +7": 0x4003ccaf
+    "Archer Ashes +8": 0x4003ccb0
+    "Archer Ashes +9": 0x4003ccb1
+    "Archer Ashes +10": 0x4003ccb2
+    "Godrick Soldier Ashes": 0x4003d090
+    "Godrick Soldier Ashes +1": 0x4003d091
+    "Godrick Soldier Ashes +2": 0x4003d092
+    "Godrick Soldier Ashes +3": 0x4003d093
+    "Godrick Soldier Ashes +4": 0x4003d094
+    "Godrick Soldier Ashes +5": 0x4003d095
+    "Godrick Soldier Ashes +6": 0x4003d096
+    "Godrick Soldier Ashes +7": 0x4003d097
+    "Godrick Soldier Ashes +8": 0x4003d098
+    "Godrick Soldier Ashes +9": 0x4003d099
+    "Godrick Soldier Ashes +10": 0x4003d09a
+    "Raya Lucaria Soldier Ashes": 0x4003d478
+    "Raya Lucaria Soldier Ashes +1": 0x4003d479
+    "Raya Lucaria Soldier Ashes +2": 0x4003d47a
+    "Raya Lucaria Soldier Ashes +3": 0x4003d47b
+    "Raya Lucaria Soldier Ashes +4": 0x4003d47c
+    "Raya Lucaria Soldier Ashes +5": 0x4003d47d
+    "Raya Lucaria Soldier Ashes +6": 0x4003d47e
+    "Raya Lucaria Soldier Ashes +7": 0x4003d47f
+    "Raya Lucaria Soldier Ashes +8": 0x4003d480
+    "Raya Lucaria Soldier Ashes +9": 0x4003d481
+    "Raya Lucaria Soldier Ashes +10": 0x4003d482
+    "Leyndell Soldier Ashes": 0x4003d860
+    "Leyndell Soldier Ashes +1": 0x4003d861
+    "Leyndell Soldier Ashes +2": 0x4003d862
+    "Leyndell Soldier Ashes +3": 0x4003d863
+    "Leyndell Soldier Ashes +4": 0x4003d864
+    "Leyndell Soldier Ashes +5": 0x4003d865
+    "Leyndell Soldier Ashes +6": 0x4003d866
+    "Leyndell Soldier Ashes +7": 0x4003d867
+    "Leyndell Soldier Ashes +8": 0x4003d868
+    "Leyndell Soldier Ashes +9": 0x4003d869
+    "Leyndell Soldier Ashes +10": 0x4003d86a
+    "Radahn Soldier Ashes": 0x4003dc48
+    "Radahn Soldier Ashes +1": 0x4003dc49
+    "Radahn Soldier Ashes +2": 0x4003dc4a
+    "Radahn Soldier Ashes +3": 0x4003dc4b
+    "Radahn Soldier Ashes +4": 0x4003dc4c
+    "Radahn Soldier Ashes +5": 0x4003dc4d
+    "Radahn Soldier Ashes +6": 0x4003dc4e
+    "Radahn Soldier Ashes +7": 0x4003dc4f
+    "Radahn Soldier Ashes +8": 0x4003dc50
+    "Radahn Soldier Ashes +9": 0x4003dc51
+    "Radahn Soldier Ashes +10": 0x4003dc52
+    "Mausoleum Soldier Ashes": 0x4003e030
+    "Mausoleum Soldier Ashes +1": 0x4003e031
+    "Mausoleum Soldier Ashes +2": 0x4003e032
+    "Mausoleum Soldier Ashes +3": 0x4003e033
+    "Mausoleum Soldier Ashes +4": 0x4003e034
+    "Mausoleum Soldier Ashes +5": 0x4003e035
+    "Mausoleum Soldier Ashes +6": 0x4003e036
+    "Mausoleum Soldier Ashes +7": 0x4003e037
+    "Mausoleum Soldier Ashes +8": 0x4003e038
+    "Mausoleum Soldier Ashes +9": 0x4003e039
+    "Mausoleum Soldier Ashes +10": 0x4003e03a
+    "Haligtree Soldier Ashes": 0x4003e418
+    "Haligtree Soldier Ashes +1": 0x4003e419
+    "Haligtree Soldier Ashes +2": 0x4003e41a
+    "Haligtree Soldier Ashes +3": 0x4003e41b
+    "Haligtree Soldier Ashes +4": 0x4003e41c
+    "Haligtree Soldier Ashes +5": 0x4003e41d
+    "Haligtree Soldier Ashes +6": 0x4003e41e
+    "Haligtree Soldier Ashes +7": 0x4003e41f
+    "Haligtree Soldier Ashes +8": 0x4003e420
+    "Haligtree Soldier Ashes +9": 0x4003e421
+    "Haligtree Soldier Ashes +10": 0x4003e422
+    "Ancient Dragon Knight Kristoff": 0x4003e800
+    "Ancient Dragon Knight Kristoff +1": 0x4003e801
+    "Ancient Dragon Knight Kristoff +2": 0x4003e802
+    "Ancient Dragon Knight Kristoff +3": 0x4003e803
+    "Ancient Dragon Knight Kristoff +4": 0x4003e804
+    "Ancient Dragon Knight Kristoff +5": 0x4003e805
+    "Ancient Dragon Knight Kristoff +6": 0x4003e806
+    "Ancient Dragon Knight Kristoff +7": 0x4003e807
+    "Ancient Dragon Knight Kristoff +8": 0x4003e808
+    "Ancient Dragon Knight Kristoff +9": 0x4003e809
+    "Ancient Dragon Knight Kristoff +10": 0x4003e80a
+    "Redmane Knight Ogha": 0x4003ebe8
+    "Redmane Knight Ogha +1": 0x4003ebe9
+    "Redmane Knight Ogha +2": 0x4003ebea
+    "Redmane Knight Ogha +3": 0x4003ebeb
+    "Redmane Knight Ogha +4": 0x4003ebec
+    "Redmane Knight Ogha +5": 0x4003ebed
+    "Redmane Knight Ogha +6": 0x4003ebee
+    "Redmane Knight Ogha +7": 0x4003ebef
+    "Redmane Knight Ogha +8": 0x4003ebf0
+    "Redmane Knight Ogha +9": 0x4003ebf1
+    "Redmane Knight Ogha +10": 0x4003ebf2
+    "Lhutel the Headless": 0x4003efd0
+    "Lhutel the Headless +1": 0x4003efd1
+    "Lhutel the Headless +2": 0x4003efd2
+    "Lhutel the Headless +3": 0x4003efd3
+    "Lhutel the Headless +4": 0x4003efd4
+    "Lhutel the Headless +5": 0x4003efd5
+    "Lhutel the Headless +6": 0x4003efd6
+    "Lhutel the Headless +7": 0x4003efd7
+    "Lhutel the Headless +8": 0x4003efd8
+    "Lhutel the Headless +9": 0x4003efd9
+    "Lhutel the Headless +10": 0x4003efda
+    "Nepheli Loux Puppet": 0x4003f3b8
+    "Nepheli Loux Puppet +1": 0x4003f3b9
+    "Nepheli Loux Puppet +2": 0x4003f3ba
+    "Nepheli Loux Puppet +3": 0x4003f3bb
+    "Nepheli Loux Puppet +4": 0x4003f3bc
+    "Nepheli Loux Puppet +5": 0x4003f3bd
+    "Nepheli Loux Puppet +6": 0x4003f3be
+    "Nepheli Loux Puppet +7": 0x4003f3bf
+    "Nepheli Loux Puppet +8": 0x4003f3c0
+    "Nepheli Loux Puppet +9": 0x4003f3c1
+    "Nepheli Loux Puppet +10": 0x4003f3c2
+    "Dung Eater Puppet": 0x4003f7a0
+    "Dung Eater Puppet +1": 0x4003f7a1
+    "Dung Eater Puppet +2": 0x4003f7a2
+    "Dung Eater Puppet +3": 0x4003f7a3
+    "Dung Eater Puppet +4": 0x4003f7a4
+    "Dung Eater Puppet +5": 0x4003f7a5
+    "Dung Eater Puppet +6": 0x4003f7a6
+    "Dung Eater Puppet +7": 0x4003f7a7
+    "Dung Eater Puppet +8": 0x4003f7a8
+    "Dung Eater Puppet +9": 0x4003f7a9
+    "Dung Eater Puppet +10": 0x4003f7aa
+    "Finger Maiden Therolina Puppet": 0x4003fb88
+    "Finger Maiden Therolina Puppet +1": 0x4003fb89
+    "Finger Maiden Therolina Puppet +2": 0x4003fb8a
+    "Finger Maiden Therolina Puppet +3": 0x4003fb8b
+    "Finger Maiden Therolina Puppet +4": 0x4003fb8c
+    "Finger Maiden Therolina Puppet +5": 0x4003fb8d
+    "Finger Maiden Therolina Puppet +6": 0x4003fb8e
+    "Finger Maiden Therolina Puppet +7": 0x4003fb8f
+    "Finger Maiden Therolina Puppet +8": 0x4003fb90
+    "Finger Maiden Therolina Puppet +9": 0x4003fb91
+    "Finger Maiden Therolina Puppet +10": 0x4003fb92
+    "Dolores the Sleeping Arrow Puppet": 0x4003ff70
+    "Dolores the Sleeping Arrow Puppet +1": 0x4003ff71
+    "Dolores the Sleeping Arrow Puppet +2": 0x4003ff72
+    "Dolores the Sleeping Arrow Puppet +3": 0x4003ff73
+    "Dolores the Sleeping Arrow Puppet +4": 0x4003ff74
+    "Dolores the Sleeping Arrow Puppet +5": 0x4003ff75
+    "Dolores the Sleeping Arrow Puppet +6": 0x4003ff76
+    "Dolores the Sleeping Arrow Puppet +7": 0x4003ff77
+    "Dolores the Sleeping Arrow Puppet +8": 0x4003ff78
+    "Dolores the Sleeping Arrow Puppet +9": 0x4003ff79
+    "Dolores the Sleeping Arrow Puppet +10": 0x4003ff7a
+    "Jarwight Puppet": 0x40040358
+    "Jarwight Puppet +1": 0x40040359
+    "Jarwight Puppet +2": 0x4004035a
+    "Jarwight Puppet +3": 0x4004035b
+    "Jarwight Puppet +4": 0x4004035c
+    "Jarwight Puppet +5": 0x4004035d
+    "Jarwight Puppet +6": 0x4004035e
+    "Jarwight Puppet +7": 0x4004035f
+    "Jarwight Puppet +8": 0x40040360
+    "Jarwight Puppet +9": 0x40040361
+    "Jarwight Puppet +10": 0x40040362
+"Magic":
+    "Glintstone Pebble": 0x40000fa0
+    "Great Glintstone Shard": 0x40000fa1
+    "Swift Glintstone Shard": 0x40000faa
+    "Glintstone Cometshard": 0x40000fb4
+    "Comet": 0x40000fb5
+    "Shard Spiral": 0x40000fbe
+    "Glintstone Stars": 0x40000fc8
+    "Star Shower": 0x40000fd2
+    "Crystal Barrage": 0x40000fdc
+    "Glintstone Arc": 0x40000fe6
+    "Cannon of Haima": 0x40000ff0
+    "Crystal Burst": 0x40000ffa
+    "Shatter Earth": 0x40001004
+    "Rock Blaster": 0x4000100e
+    "Gavel of Haima": 0x40001018
+    "Terra Magicus": 0x40001022
+    "Starlight": 0x4000102c
+    "Comet Azur": 0x40001068
+    "Founding Rain of Stars": 0x40001072
+    "Stars of Ruin": 0x4000107c
+    "Glintblade Phalanx": 0x400010cc
+    "Carian Phalanx": 0x400010cd
+    "Greatblade Phalanx": 0x400010ce
+    "Rennala's Full Moon": 0x40001108
+    "Ranni's Dark Moon": 0x40001109
+    "Magic Downpour": 0x40001112
+    "Loretta's Greatbow": 0x4000111c
+    "Loretta's Mastery": 0x4000111d
+    "Magic Glintblade": 0x40001126
+    "Glintstone Icecrag": 0x40001130
+    "Zamor Ice Storm": 0x4000113a
+    "Freezing Mist": 0x40001144
+    "Carian Greatsword": 0x4000114e
+    "Adula's Moonblade": 0x4000114f
+    "Carian Slicer": 0x40001158
+    "Carian Piercer": 0x40001162
+    "Scholar's Armament": 0x4000116c
+    "Scholar's Shield": 0x40001176
+    "Lucidity": 0x40001180
+    "Frozen Armament": 0x4000118a
+    "Shattering Crystal": 0x40001194
+    "Crystal Release": 0x4000119e
+    "Crystal Torrent": 0x400011a8
+    "Ambush Shard": 0x400011f8
+    "Night Shard": 0x40001202
+    "Night Comet": 0x4000120c
+    "Thops's Barrier": 0x40001216
+    "Carian Retaliation": 0x40001220
+    "Eternal Darkness": 0x4000122a
+    "Unseen Blade": 0x40001234
+    "Unseen Form": 0x4000123e
+    "Meteorite": 0x4000125c
+    "Meteorite of Astel": 0x4000125d
+    "Rock Sling": 0x40001266
+    "Gravity Well": 0x40001270
+    "Collapsing Stars": 0x40001271
+    "Magma Shot": 0x400012c0
+    "Gelmir's Fury": 0x400012ca
+    "Roiling Magma": 0x400012d4
+    "Rykard's Rancor": 0x400012de
+    "Briars of Sin": 0x40001324
+    "Briars of Punishment": 0x4000132e
+    "Rancorcall": 0x40001388
+    "Ancient Death Rancor": 0x40001389
+    "Explosive Ghostflame": 0x40001392
+    "Fia's Mist": 0x4000139c
+    "Tibia's Summons": 0x400013a6
+    "Death Lightning": 0x400013b0
+    "Oracle Bubbles": 0x400013ec
+    "Great Oracular Bubble": 0x400013f6
+    "Catch Flame": 0x40001770
+    "O, Flame!": 0x40001771
+    "Flame Sling": 0x4000177a
+    "Flame, Fall Upon Them": 0x40001784
+    "Whirl, O Flame!": 0x4000178e
+    "Flame, Cleanse Me": 0x40001798
+    "Flame, Grant Me Strength": 0x400017a2
+    "Flame, Protect Me": 0x400017ac
+    "Giantsflame Take Thee": 0x400017d4
+    "Flame of the Fell God": 0x400017de
+    "Burn, O Flame!": 0x400017e8
+    "Black Flame": 0x40001842
+    "Surge, O Flame!": 0x4000184c
+    "Scouring Black Flame": 0x40001856
+    "Black Flame Ritual": 0x40001860
+    "Black Flame Blade": 0x4000186a
+    "Black Flame's Protection": 0x40001874
+    "Noble Presence": 0x4000187e
+    "Bloodflame Talons": 0x4000189c
+    "Bloodboon": 0x400018a6
+    "Bloodflame Blade": 0x400018b0
+    "Barrier of Gold": 0x400018ba
+    "Protection of the Erdtree": 0x400018c4
+    "Rejection": 0x40001900
+    "Wrath of Gold": 0x4000190a
+    "Urgent Heal": 0x40001914
+    "Heal": 0x40001915
+    "Great Heal": 0x40001916
+    "Lord's Heal": 0x40001917
+    "Erdtree Heal": 0x40001918
+    "Blessing's Boon": 0x4000191e
+    "Blessing of the Erdtree": 0x4000191f
+    "Cure Poison": 0x40001928
+    "Lord's Aid": 0x40001929
+    "Flame Fortification": 0x40001932
+    "Magic Fortification": 0x4000193c
+    "Lightning Fortification": 0x40001946
+    "Divine Fortification": 0x40001950
+    "Lord's Divine Fortification": 0x4000195a
+    "Night Maiden's Mist": 0x40001964
+    "Assassin's Approach": 0x4000196e
+    "Shadow Bait": 0x40001978
+    "Darkness": 0x40001982
+    "Golden Vow": 0x400019c8
+    "Discus of Light": 0x40001a2c
+    "Triple Rings of Light": 0x40001a2d
+    "Radagon's Rings of Light": 0x40001a36
+    "Elden Stars": 0x40001a40
+    "Law of Regression": 0x40001a4a
+    "Immutable Shield": 0x40001a54
+    "Litany of Proper Death": 0x40001a5e
+    "Law of Causality": 0x40001a68
+    "Order's Blade": 0x40001a72
+    "Order Healing": 0x40001a7c
+    "Bestial Sling": 0x40001a90
+    "Stone of Gurranq": 0x40001a9a
+    "Beast Claw": 0x40001aa4
+    "Gurranq's Beast Claw": 0x40001aae
+    "Bestial Vitality": 0x40001ab8
+    "Bestial Constitution": 0x40001ac2
+    "Lightning Spear": 0x40001af4
+    "Ancient Dragons' Lightning Strike": 0x40001afe
+    "Lightning Strike": 0x40001b08
+    "Frozen Lightning Spear": 0x40001b09
+    "Honed Bolt": 0x40001b12
+    "Ancient Dragons' Lightning Spear": 0x40001b1c
+    "Fortissax's Lightning Spear": 0x40001b1d
+    "Lansseax's Glaive": 0x40001b26
+    "Electrify Armament": 0x40001b30
+    "Vyke's Dragonbolt": 0x40001b3a
+    "Dragonbolt Blessing": 0x40001b3b
+    "Dragonfire": 0x40001b58
+    "Agheel's Flame": 0x40001b59
+    "Magma Breath": 0x40001b62
+    "Theodorix's Magma": 0x40001b63
+    "Dragonice": 0x40001b6c
+    "Borealis's Mist": 0x40001b6d
+    "Rotten Breath": 0x40001b76
+    "Ekzykes's Decay": 0x40001b77
+    "Glintstone Breath": 0x40001b80
+    "Smarag's Glintstone Breath": 0x40001b81
+    "Placidusax's Ruin": 0x40001b8a
+    "Dragonclaw": 0x40001b94
+    "Dragonmaw": 0x40001ba8
+    "Greyoll's Roar": 0x40001bb2
+    "Pest Threads": 0x40001c20
+    "Swarm of Flies": 0x40001c2a
+    "Poison Mist": 0x40001c34
+    "Poison Armament": 0x40001c3e
+    "Scarlet Aeonia": 0x40001c48
+    "Inescapable Frenzy": 0x40001c84
+    "The Flame of Frenzy": 0x40001c8e
+    "Unendurable Frenzy": 0x40001c8f
+    "Frenzied Burst": 0x40001c98
+    "Howl of Shabriri": 0x40001ca2
+    "Aspects of the Crucible: Tail": 0x40001d4c
+    "Aspects of the Crucible: Horns": 0x40001d56
+    "Aspects of the Crucible: Breath": 0x40001d60
+    "Black Blade": 0x40001d6a
+    "Fire's Deadly Sin": 0x40001edc
+    "Golden Lightning Fortification": 0x40001edf
+    "Stonesword Key": 0x40001f40
 "Ashes of War":
-  "Ash of War: Lion's Claw": 0x80002710
-  "Ash of War: Impaling Thrust": 0x80002774
-  "Ash of War: Piercing Fang": 0x800027D8
-  "Ash of War: Spinning Slash": 0x8000283C
-  "Ash of War: Charge Forth": 0x80002904
-  "Ash of War: Stamp (Upward Cut)": 0x80002968
-  "Ash of War: Stamp (Sweep)": 0x800029CC
-  "Ash of War: Blood Tax": 0x80002A30
-  "Ash of War: Repeating Thrust": 0x80002A94
-  "Ash of War: Wild Strikes": 0x80002AF8
-  "Ash of War: Spinning Strikes": 0x80002B5C
-  "Ash of War: Double Slash": 0x80002BC0
-  "Ash of War: Prelate's Charge": 0x80002C24
-  "Ash of War: Unsheathe": 0x80002C88
-  "Ash of War: Square Off": 0x80002CEC
-  "Ash of War: Giant Hunt": 0x80002D50
-  "Ash of War: Loretta's Slash": 0x80002E18
-  "Ash of War: Poison Moth Flight": 0x80002E7C
-  "Ash of War: Spinning Weapon": 0x80002EE0
-  "Ash of War: Storm Assault": 0x80002FA8
-  "Ash of War: Stormcaller": 0x8000300C
-  "Ash of War: Sword Dance": 0x80003070
-  "Ash of War: Glintblade Phalanx": 0x80004E20
-  "Ash of War: Sacred Blade": 0x80004E84
-  "Ash of War: Ice Spear": 0x80004EE8
-  "Ash of War: Glintstone Pebble": 0x80004F4C
-  "Ash of War: Bloody Slash": 0x80004FB0
-  "Ash of War: Lifesteal Fist": 0x80005014
-  "Ash of War: Eruption": 0x800050DC
-  "Ash of War: Prayerful Strike": 0x80005140
-  "Ash of War: Gravitas": 0x800051A4
-  "Ash of War: Storm Blade": 0x80005208
-  "Ash of War: Earthshaker": 0x800052D0
-  "Ash of War: Golden Land": 0x80005334
-  "Ash of War: Flaming Strike": 0x80005398
-  "Ash of War: Thunderbolt": 0x80005460
-  "Ash of War: Lightning Slash": 0x800054C4
-  "Ash of War: Carian Grandeur": 0x80005528
-  "Ash of War: Carian Greatsword": 0x8000558C
-  "Ash of War: Vacuum Slice": 0x800055F0
-  "Ash of War: Black Flame Tornado": 0x80005654
-  "Ash of War: Sacred Ring of Light": 0x800056B8
-  "Ash of War: Blood Blade": 0x80005780
-  "Ash of War: Phantom Slash": 0x800057E4
-  "Ash of War: Spectral Lance": 0x80005848
-  "Ash of War: Chilling Mist": 0x800058AC
-  "Ash of War: Poisonous Mist": 0x80005910
-  "Ash of War: Shield Bash": 0x80007530
-  "Ash of War: Barricade Shield": 0x80007594
-  "Ash of War: Parry": 0x800075F8
-  "Ash of War: Carian Retaliation": 0x80007724
-  "Ash of War: Storm Wall": 0x80007788
-  "Ash of War: Golden Parry": 0x800077EC
-  "Ash of War: Shield Crash": 0x80007850
-  "Ash of War: No Skill": 0x800078B4
-  "Ash of War: Thops's Barrier": 0x80007918
-  "Ash of War: Through and Through": 0x80009C40
-  "Ash of War: Barrage": 0x80009CA4
-  "Ash of War: Mighty Shot": 0x80009D08
-  "Ash of War: Enchanted Shot": 0x80009DD0
-  "Ash of War: Sky Shot": 0x80009E34
-  "Ash of War: Rain of Arrows": 0x80009E98
-  "Ash of War: Hoarfrost Stomp": 0x8000C3B4
-  "Ash of War: Storm Stomp": 0x8000C418
-  "Ash of War: Kick": 0x8000C47C
-  "Ash of War: Lightning Ram": 0x8000C4E0
-  "Ash of War: Flame of the Redmanes": 0x8000C544
-  "Ash of War: Ground Slam": 0x8000C5A8
-  "Ash of War: Golden Slam": 0x8000C60C
-  "Ash of War: Waves of Darkness": 0x8000C670
-  "Ash of War: Hoarah Loux's Earthshaker": 0x8000C6D4
-  "Ash of War: Determination": 0x8000EA60
-  "Ash of War: Royal Knight's Resolve": 0x8000EAC4
-  "Ash of War: Assassin's Gambit": 0x8000EB28
-  "Ash of War: Golden Vow": 0x8000EB8C
-  "Ash of War: Sacred Order": 0x8000EBF0
-  "Ash of War: Shared Order": 0x8000EC54
-  "Ash of War: Seppuku": 0x8000ECB8
-  "Ash of War: Cragblade": 0x8000ED1C
-  "Ash of War: Barbaric Roar": 0x8000FDE8
-  "Ash of War: War Cry": 0x8000FE4C
-  "Ash of War: Beast's Roar": 0x8000FEB0
-  "Ash of War: Troll's Roar": 0x8000FF14
-  "Ash of War: Braggart's Roar": 0x8000FF78
-  "Ash of War: Endure": 0x80011170
-  "Ash of War: Vow of the Indomitable": 0x800111D4
-  "Ash of War: Holy Ground": 0x80011238
-  "Ash of War: Quickstep": 0x80013880
-  "Ash of War: Bloodhound's Step": 0x800138E4
-  "Ash of War: Raptor of the Mists": 0x80013948
-  "Ash of War: White Shadow's Lure": 0x80014C08
+    "test gem 1": 0x8000000a
+    "test gem 2": 0x80000014
+    "test gem 3": 0x8000001e
+    "": 0x80000028
+    "": 0x80000029
+    "": 0x80000050
+    "": 0x80000051
+    "": 0x80000052
+    "": 0x80000053
+    "": 0x80000054
+    "": 0x80000055
+    "": 0x80000056
+    "": 0x80000057
+    "": 0x80000058
+    "": 0x80000059
+    "": 0x8000005a
+    "": 0x80000064
+    "": 0x80000065
+    "": 0x80000066
+    "": 0x80000067
+    "": 0x80000068
+    "": 0x80000069
+    "": 0x8000006a
+    "": 0x8000006b
+    "": 0x8000006c
+    "": 0x8000006d
+    "": 0x8000006e
+    "": 0x8000006f
+    "": 0x80000070
+    "": 0x80000071
+    "": 0x80000072
+    "": 0x80000073
+    "": 0x80000074
+    "": 0x80000075
+    "": 0x80000076
+    "": 0x80000077
+    "": 0x80000078
+    "": 0x80000079
+    "": 0x8000007a
+    "": 0x8000007b
+    "": 0x8000007c
+    "": 0x8000007d
+    "": 0x8000007e
+    "": 0x8000007f
+    "": 0x80000080
+    "": 0x80000081
+    "": 0x80000082
+    "": 0x80000083
+    "": 0x80000084
+    "": 0x80000085
+    "": 0x80000086
+    "": 0x80000087
+    "": 0x80000088
+    "": 0x80000089
+    "": 0x8000008a
+    "": 0x8000008b
+    "": 0x8000008c
+    "": 0x8000008d
+    "": 0x8000008e
+    "": 0x8000008f
+    "": 0x80000090
+    "": 0x80000092
+    "": 0x80000093
+    "": 0x80000094
+    "": 0x80000095
+    "": 0x80000097
+    "": 0x80000098
+    "": 0x80000099
+    "": 0x8000009b
+    "": 0x8000009c
+    "": 0x8000009d
+    "": 0x8000009e
+    "": 0x8000009f
+    "": 0x800000a0
+    "": 0x800000a1
+    "": 0x800000a3
+    "": 0x800000a4
+    "": 0x800000a5
+    "": 0x800000a6
+    "": 0x800000a7
+    "": 0x800000a8
+    "": 0x800000a9
+    "": 0x800000aa
+    "": 0x800000ab
+    "": 0x800000ad
+    "": 0x800000ae
+    "": 0x800000af
+    "": 0x800000b0
+    "": 0x800000b1
+    "": 0x800000b2
+    "": 0x800000b4
+    "": 0x800000b5
+    "": 0x800000b6
+    "": 0x800000b7
+    "": 0x800000b9
+    "": 0x800000ba
+    "": 0x800000bb
+    "": 0x800000be
+    "": 0x800000bf
+    "": 0x800000c0
+    "": 0x800000c2
+    "": 0x800003e8
+    "": 0x800003e9
+    "": 0x800003ea
+    "": 0x800003eb
+    "": 0x800003ec
+    "": 0x800003ed
+    "": 0x800003ee
+    "": 0x800003ef
+    "": 0x800003f0
+    "": 0x800003f1
+    "": 0x800003f2
+    "": 0x800003f3
+    "": 0x800003f4
+    "": 0x800003f5
+    "": 0x800003f6
+    "": 0x800003f7
+    "": 0x800003f8
+    "": 0x800003f9
+    "Ash of War: Lion's Claw": 0x80002710
+    "Ash of War: Impaling Thrust": 0x80002774
+    "Ash of War: Piercing Fang": 0x800027d8
+    "Ash of War: Spinning Slash": 0x8000283c
+    "Ash of War: Charge Forth": 0x80002904
+    "Ash of War: Stamp (Upward Cut)": 0x80002968
+    "Ash of War: Stamp (Sweep)": 0x800029cc
+    "Ash of War: Blood Tax": 0x80002a30
+    "Ash of War: Repeating Thrust": 0x80002a94
+    "Ash of War: Wild Strikes": 0x80002af8
+    "Ash of War: Spinning Strikes": 0x80002b5c
+    "Ash of War: Double Slash": 0x80002bc0
+    "Ash of War: Prelate's Charge": 0x80002c24
+    "Ash of War: Unsheathe": 0x80002c88
+    "Ash of War: Square Off": 0x80002cec
+    "Ash of War: Giant Hunt": 0x80002d50
+    "Ash of War: Loretta's Slash": 0x80002e18
+    "Ash of War: Poison Moth Flight": 0x80002e7c
+    "Ash of War: Spinning Weapon": 0x80002ee0
+    "Ash of War: Storm Assault": 0x80002fa8
+    "Ash of War: Stormcaller": 0x8000300c
+    "Ash of War: Sword Dance": 0x80003070
+    "Ash of War: Glintblade Phalanx": 0x80004e20
+    "Ash of War: Sacred Blade": 0x80004e84
+    "Ash of War: Ice Spear": 0x80004ee8
+    "Ash of War: Glintstone Pebble": 0x80004f4c
+    "Ash of War: Bloody Slash": 0x80004fb0
+    "Ash of War: Lifesteal Fist": 0x80005014
+    "Ash of War: Eruption": 0x800050dc
+    "Ash of War: Prayerful Strike": 0x80005140
+    "Ash of War: Gravitas": 0x800051a4
+    "Ash of War: Storm Blade": 0x80005208
+    "Ash of War: Earthshaker": 0x800052d0
+    "Ash of War: Golden Land": 0x80005334
+    "Ash of War: Flaming Strike": 0x80005398
+    "Ash of War: Thunderbolt": 0x80005460
+    "Ash of War: Lightning Slash": 0x800054c4
+    "Ash of War: Carian Grandeur": 0x80005528
+    "Ash of War: Carian Greatsword": 0x8000558c
+    "Ash of War: Vacuum Slice": 0x800055f0
+    "Ash of War: Black Flame Tornado": 0x80005654
+    "Ash of War: Sacred Ring of Light": 0x800056b8
+    "Ash of War: Blood Blade": 0x80005780
+    "Ash of War: Phantom Slash": 0x800057e4
+    "Ash of War: Spectral Lance": 0x80005848
+    "Ash of War: Chilling Mist": 0x800058ac
+    "Ash of War: Poisonous Mist": 0x80005910
+    "Ash of War: Shield Bash": 0x80007530
+    "Ash of War: Barricade Shield": 0x80007594
+    "Ash of War: Parry": 0x800075f8
+    "Ash of War: Carian Retaliation": 0x80007724
+    "Ash of War: Storm Wall": 0x80007788
+    "Ash of War: Golden Parry": 0x800077ec
+    "Ash of War: Shield Crash": 0x80007850
+    "Ash of War: No Skill": 0x800078b4
+    "Ash of War: Thops's Barrier": 0x80007918
+    "Ash of War: Through and Through": 0x80009c40
+    "Ash of War: Barrage": 0x80009ca4
+    "Ash of War: Mighty Shot": 0x80009d08
+    "Ash of War: Enchanted Shot": 0x80009dd0
+    "Ash of War: Sky Shot": 0x80009e34
+    "Ash of War: Rain of Arrows": 0x80009e98
+    "Ash of War: Hoarfrost Stomp": 0x8000c3b4
+    "Ash of War: Storm Stomp": 0x8000c418
+    "Ash of War: Kick": 0x8000c47c
+    "Ash of War: Lightning Ram": 0x8000c4e0
+    "Ash of War: Flame of the Redmanes": 0x8000c544
+    "Ash of War: Ground Slam": 0x8000c5a8
+    "Ash of War: Golden Slam": 0x8000c60c
+    "Ash of War: Waves of Darkness": 0x8000c670
+    "Ash of War: Hoarah Loux's Earthshaker": 0x8000c6d4
+    "Ash of War: Determination": 0x8000ea60
+    "Ash of War: Royal Knight's Resolve": 0x8000eac4
+    "Ash of War: Assassin's Gambit": 0x8000eb28
+    "Ash of War: Golden Vow": 0x8000eb8c
+    "Ash of War: Sacred Order": 0x8000ebf0
+    "Ash of War: Shared Order": 0x8000ec54
+    "Ash of War: Seppuku": 0x8000ecb8
+    "Ash of War: Cragblade": 0x8000ed1c
+    "Ash of War: Barbaric Roar": 0x8000fde8
+    "Ash of War: War Cry": 0x8000fe4c
+    "Ash of War: Beast's Roar": 0x8000feb0
+    "Ash of War: Troll's Roar": 0x8000ff14
+    "Ash of War: Braggart's Roar": 0x8000ff78
+    "Ash of War: Endure": 0x80011170
+    "Ash of War: Vow of the Indomitable": 0x800111d4
+    "Ash of War: Holy Ground": 0x80011238
+    "Ash of War: Quickstep": 0x80013880
+    "Ash of War: Bloodhound's Step": 0x800138e4
+    "Ash of War: Raptor of the Mists": 0x80013948
+    "Ash of War: White Shadow's Lure": 0x80014c08
