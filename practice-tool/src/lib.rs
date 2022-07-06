@@ -186,6 +186,7 @@ impl PracticeTool {
                 ]) {
                     self.is_shown = false;
                     self.pointers.cursor_show.set(false);
+                    hudhook::lifecycle::eject();
                 }
             });
     }
