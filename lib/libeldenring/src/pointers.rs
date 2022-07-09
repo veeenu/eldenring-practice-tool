@@ -90,6 +90,7 @@ pub struct Position {
     pub z: PointerChain<f32>,
     pub angle1: PointerChain<f32>,
     pub angle2: PointerChain<f32>,
+    pub map_id: Option<PointerChain<u32>>,
 }
 
 impl Position {
@@ -101,12 +102,22 @@ impl Position {
         }
     }
 
+    pub fn read_map_id(&self) -> Option<u32> {
+        self.map_id.as_ref().and_then(|m| m.read())
+    }
+
     pub fn write(&self, [x, y, z, r1, r2]: [f32; 5]) {
         self.x.write(x);
         self.y.write(y);
         self.z.write(z);
         self.angle1.write(r1);
         self.angle2.write(r2);
+    }
+
+    pub fn write_map_id(&self, map_id: u32) {
+        if let Some(m) = self.map_id.as_ref() {
+            m.write(map_id);
+        }
     }
 }
 
@@ -160,6 +171,13 @@ impl Pointers {
 
         let version = *crate::version::VERSION;
         use Version::*;
+
+        let map_id_offset = {
+            match version {
+                V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6c8,
+                V1_04_0 | V1_04_1 | V1_05_0 => 0x6c0,
+            }
+        };
 
         let global_position_offset = {
             match version {
@@ -261,6 +279,7 @@ impl Pointers {
                 z: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x8),
                 angle1: pointer_chain!(world_chr_man, 0x18468, 0x6bc),
                 angle2: pointer_chain!(world_chr_man, 0x18468, 0x6cc),
+                map_id: Some(pointer_chain!(world_chr_man, 0x18468, map_id_offset)),
             },
             stable_position: Position {
                 x: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x14),
@@ -268,6 +287,7 @@ impl Pointers {
                 z: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x1C),
                 angle1: pointer_chain!(world_chr_man, 0x18468, 0x6d8),
                 angle2: pointer_chain!(world_chr_man, 0x18468, 0x6e8),
+                map_id: None,
             },
             chunk_position: Position {
                 x: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x70),
@@ -275,6 +295,7 @@ impl Pointers {
                 z: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x78),
                 angle1: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x54),
                 angle2: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x64),
+                map_id: Some(pointer_chain!(world_chr_man, 0x18468, map_id_offset)),
             },
             torrent_chunk_position: Position {
                 x: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x70),
@@ -282,6 +303,7 @@ impl Pointers {
                 z: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x78),
                 angle1: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x54),
                 angle2: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x64),
+                map_id: Some(pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, map_id_offset)),
             },
             animation_speed: pointer_chain!(world_chr_man, 0xB658, 0, 0x190, 0x28, 0x17C8),
             torrent_animation_speed: pointer_chain!(

@@ -11,6 +11,7 @@ pub(crate) struct SavePosition {
     hotkey: KeyState,
     modifier: KeyState,
     saved_position: [f32; 5],
+    saved_map_id: u32,
 }
 
 impl SavePosition {
@@ -28,19 +29,27 @@ impl SavePosition {
             hotkey,
             modifier,
             saved_position: [0f32; 5],
+            saved_map_id: 0u32,
         }
     }
 
     fn save_position(&mut self) {
-        if let (Some([x, y, z, _, _]), Some([_, _, _, r1, r2])) =
-            (self.global_position.read(), self.chunk_position.read())
-        {
+        if let (Some([x, y, z, _, _]), Some([_, _, _, r1, r2]), Some(m)) = (
+            self.global_position.read(),
+            self.chunk_position.read(),
+            self.global_position.read_map_id(),
+        ) {
             self.saved_position = [x, y, z, r1, r2];
+            self.saved_map_id = m;
         }
     }
 
     fn load_position(&mut self) {
-        if let (Some([gx, gy, gz, _, _]), Some([cx, cy, cz, _, _]), Some([tcx, tcy, tcz, _, _])) = (
+        if let (
+            Some([gx, gy, gz, _, _]),
+            Some([cx, cy, cz, _, _]),
+            Some([tcx, tcy, tcz, _, _]),
+        ) = (
             self.global_position.read(),
             self.chunk_position.read(),
             self.torrent_chunk_position.read(),
@@ -48,6 +57,7 @@ impl SavePosition {
             let [sx, sy, sz, sr1, sr2] = self.saved_position;
 
             self.chunk_position.write([sx - gx + cx, sy - gy + cy, sz - gz + cz, sr1, sr2]);
+            self.chunk_position.write_map_id(self.saved_map_id);
 
             self.torrent_chunk_position.write([
                 sx - gx + tcx,

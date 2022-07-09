@@ -268,6 +268,21 @@ impl PracticeTool {
                         }
                     });
 
+                if let (Some([x, y, z, _a1, _a2]), Some(m)) = (
+                    self.pointers.global_position.read(),
+                    self.pointers.global_position.read_map_id(),
+                ) {
+                    let (a, b, r, s) =
+                        ((m >> 24) & 0xff, (m >> 16) & 0xff, (m >> 8) & 0xff, m & 0xff);
+                    ui.text(format!("m{a:02x}_{b:02x}_{r:02x}_{s:02x}"));
+                    ui.same_line();
+                    ui.text_colored([0.7048, 0.1228, 0.1734, 1.], format!("{x:.2}"));
+                    ui.same_line();
+                    ui.text_colored([0.1161, 0.5327, 0.3512, 1.], format!("{y:.2}"));
+                    ui.same_line();
+                    ui.text_colored([0.1445, 0.2852, 0.5703, 1.], format!("{z:.2}"));
+                }
+
                 if let Some(igt) = self.pointers.igt.read() {
                     let millis = (igt % 1000) / 10;
                     let total_seconds = igt / 1000;
