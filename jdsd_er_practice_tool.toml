@@ -11,7 +11,8 @@ commands = [
   { flags = ["no_fp_consume", "no_ashes_of_war_fp_consume"], label = "Inf Focus" },
   { flag = "action_freeze", hotkey = "home" },
 
-  { flags = ["gravity", "torrent_gravity"], hotkey = "5", label = "No Gravity" },
+  { flag = "gravity", hotkey = "5" },
+  { flag = "torrent_gravity", hotkey = "5" },
   { flags = ["collision", "torrent_collision"], label = "No Collision" },
 
   { flag = "deathcam", hotkey = "L" },
