@@ -6,7 +6,7 @@ use std::process::Command;
 use imgui::*;
 use log::error;
 
-use super::Widget;
+use super::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 use crate::util::{get_key_code, KeyState};
 
 const SFM_TAG: &str = "##savefile-manager";
@@ -136,8 +136,10 @@ impl SavefileManager {
 
 impl Widget for SavefileManager {
     fn render(&mut self, ui: &imgui::Ui) {
-        let scale = super::scaling_factor(ui);
-        if ui.button_with_size(&self.label, [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT]) {
+        let scale = scaling_factor(ui);
+        let button_width = BUTTON_WIDTH * scale;
+
+        if ui.button_with_size(&self.label, [button_width, BUTTON_HEIGHT]) {
             ui.open_popup(SFM_TAG);
             self.dir_stack.refresh();
         }
@@ -155,10 +157,12 @@ impl Widget for SavefileManager {
             )
             .begin_popup(ui)
         {
-            ChildWindow::new("##savefile-manager-breadcrumbs").size([240., 14.]).build(ui, || {
-                ui.text(&self.breadcrumbs);
-                ui.set_scroll_x(ui.scroll_max_x());
-            });
+            ChildWindow::new("##savefile-manager-breadcrumbs")
+                .size([button_width, 20. * scale])
+                .build(ui, || {
+                    ui.text(&self.breadcrumbs);
+                    ui.set_scroll_x(ui.scroll_max_x());
+                });
 
             let center_scroll_y = if self.key_down.keyup() {
                 self.dir_stack.next();
@@ -174,7 +178,7 @@ impl Widget for SavefileManager {
                 self.dir_stack.enter();
             }
 
-            ListBox::new(SFM_TAG).size([240., 100.]).build(ui, || {
+            ListBox::new(SFM_TAG).size([button_width, 200. * scale]).build(ui, || {
                 if Selectable::new(format!(".. Up one dir ({})", self.key_back)).build(ui) {
                     self.dir_stack.exit();
                     self.breadcrumbs = self.dir_stack.breadcrumbs();
@@ -199,36 +203,46 @@ impl Widget for SavefileManager {
                 }
             });
 
-            if ui.button_with_size(format!("Load savefile ({})", self.key_load), [240., 20.]) {
+            if ui.button_with_size(format!("Load savefile ({})", self.key_load), [
+                button_width,
+                BUTTON_HEIGHT,
+            ]) {
                 self.load_savefile();
             }
 
             ui.separator();
 
             {
-                let _tok = ui.push_item_width(174.);
+                let _tok = ui.push_item_width(button_width * 174. / 240.);
                 ui.input_text("##savefile_name", &mut self.savefile_name).hint("file name").build();
                 self.input_edited = ui.is_item_active();
             }
 
             ui.same_line();
 
-            if ui.button_with_size("Import", [58., 20.]) {
+            if ui.button_with_size("Import", [button_width * 58. / 240., BUTTON_HEIGHT]) {
                 self.import_savefile();
             }
 
             ui.separator();
 
-            if ui.button_with_size("Show folder", [240., 20.]) {
+            if ui.button_with_size("Show folder", [button_width, BUTTON_HEIGHT]) {
+                let path = self.dir_stack.path().to_owned();
+                let path = if path.is_file() {
+                    path.parent().unwrap()
+                } else {
+                    &path
+                };
+
                 if let Err(e) = Command::new("explorer.exe")
-                    .arg(OsStr::new(self.dir_stack.path().to_str().unwrap()))
+                    .arg(OsStr::new(path.to_str().unwrap()))
                     .spawn()
                 {
                     self.log = Some(format!("Couldn't show folder: {}", e));
                 };
             }
 
-            if ui.button_with_size(format!("Close ({})", self.key_close), [240., 20.])
+            if ui.button_with_size(format!("Close ({})", self.key_close), [button_width, BUTTON_HEIGHT])
                 || self.key_close.keyup()
             {
                 ui.close_current_popup();

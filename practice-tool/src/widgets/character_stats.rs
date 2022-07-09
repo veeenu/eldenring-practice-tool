@@ -89,7 +89,9 @@ impl Widget for CharacterStatsEdit {
                 }
             }
 
-            if self.hotkey_close.keyup() || ui.button_with_size(&self.label_close, [240., 20.]) {
+            if self.hotkey_close.keyup()
+                || ui.button_with_size(&self.label_close, [button_width, super::BUTTON_HEIGHT])
+            {
                 ui.close_current_popup();
                 self.stats.take();
             }

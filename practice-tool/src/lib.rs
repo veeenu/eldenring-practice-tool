@@ -28,7 +28,7 @@ use imgui::*;
 use libeldenring::prelude::*;
 use pkg_version::*;
 
-use crate::widgets::Widget;
+use crate::widgets::{Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 
 struct FontIDs {
     small: FontId,
@@ -181,12 +181,14 @@ impl PracticeTool {
                 }
 
                 if ui.button_with_size("Close", [
-                    widgets::BUTTON_WIDTH * widgets::scaling_factor(ui),
-                    widgets::BUTTON_HEIGHT,
+                    BUTTON_WIDTH * widgets::scaling_factor(ui),
+                    BUTTON_HEIGHT,
                 ]) {
                     self.is_shown = false;
                     self.pointers.cursor_show.set(false);
-                    hudhook::lifecycle::eject();
+                    if option_env!("CARGO_XTASK_DIST").is_none() {
+                        hudhook::lifecycle::eject();
+                    }
                 }
             });
     }

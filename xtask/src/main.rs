@@ -58,6 +58,7 @@ fn dist() -> Result<()> {
 
     let status = Command::new(&cargo)
         .current_dir(project_root())
+        .env("CARGO_XTASK_DIST", "true")
         .args(&["build", "--release", "--package", "eldenring-practice-tool"])
         .status()
         .map_err(|e| format!("cargo: {}", e))?;
@@ -76,7 +77,6 @@ fn dist() -> Result<()> {
     std::fs::create_dir_all(dist_dir())?;
 
     // Create distribution zip file(s)
-    //
 
     struct DistZipFile {
         zip: ZipWriter<File>,
