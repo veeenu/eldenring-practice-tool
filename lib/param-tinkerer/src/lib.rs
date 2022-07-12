@@ -5,7 +5,8 @@ use std::fmt::Write;
 use std::os::windows::prelude::OsStringExt;
 use std::path::PathBuf;
 
-use hudhook::hooks::dx12::{ImguiRenderLoop, ImguiRenderLoopFlags};
+use hudhook::hooks::dx12::ImguiDX12Hooks;
+use hudhook::hooks::{ImguiRenderLoop, ImguiRenderLoopFlags};
 use imgui::*;
 use libeldenring::params::{PARAMS, PARAM_NAMES};
 use libeldenring::prelude::*;
@@ -250,4 +251,4 @@ impl ParamTinkerer {
     }
 }
 
-hudhook::hudhook!(ParamTinkerer::new().into_hook());
+hudhook::hudhook!(ParamTinkerer::new().into_hook::<ImguiDX12Hooks>());

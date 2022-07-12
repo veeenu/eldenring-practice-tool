@@ -23,7 +23,8 @@ mod widgets;
 use std::time::Instant;
 
 use const_format::formatcp;
-use hudhook::hooks::dx12::{ImguiRenderLoop, ImguiRenderLoopFlags};
+use hudhook::hooks::dx12::ImguiDX12Hooks;
+use hudhook::hooks::{ImguiRenderLoop, ImguiRenderLoopFlags};
 use imgui::*;
 use libeldenring::prelude::*;
 use pkg_version::*;
@@ -418,4 +419,4 @@ impl ImguiRenderLoop for PracticeTool {
     }
 }
 
-hudhook::hudhook!(PracticeTool::new().into_hook());
+hudhook::hudhook!(PracticeTool::new().into_hook::<ImguiDX12Hooks>());
