@@ -28,6 +28,7 @@ use hudhook::hooks::{ImguiRenderLoop, ImguiRenderLoopFlags};
 use imgui::*;
 use libeldenring::prelude::*;
 use pkg_version::*;
+use windows::Win32::UI::Input::KeyboardAndMouse::{GetAsyncKeyState, VIRTUAL_KEY, VK_RSHIFT};
 
 use crate::widgets::{Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 
@@ -40,12 +41,18 @@ struct FontIDs {
 unsafe impl Send for FontIDs {}
 unsafe impl Sync for FontIDs {}
 
+enum UiState {
+    MenuOpen,
+    Closed,
+    Hidden,
+}
+
 struct PracticeTool {
     pointers: Pointers,
     widgets: Vec<Box<dyn Widget>>,
     config: config::Config,
     log: Vec<(Instant, String)>,
-    is_shown: bool,
+    ui_state: UiState,
     fonts: Option<FontIDs>,
     config_err: Option<String>,
 }
@@ -148,7 +155,7 @@ impl PracticeTool {
             pointers,
             widgets,
             config,
-            is_shown: false,
+            ui_state: UiState::Closed,
             log: Default::default(),
             fonts: None,
             config_err,
@@ -185,7 +192,7 @@ impl PracticeTool {
                     BUTTON_WIDTH * widgets::scaling_factor(ui),
                     BUTTON_HEIGHT,
                 ]) {
-                    self.is_shown = false;
+                    self.ui_state = UiState::Closed;
                     self.pointers.cursor_show.set(false);
                     if option_env!("CARGO_XTASK_DIST").is_none() {
                         hudhook::lifecycle::eject();
@@ -218,7 +225,7 @@ impl PracticeTool {
                 ui.same_line();
 
                 if ui.small_button("Open") {
-                    self.is_shown = true;
+                    self.ui_state = UiState::MenuOpen;
                 }
 
                 ui.same_line();
@@ -308,6 +315,14 @@ impl PracticeTool {
         }
     }
 
+    fn render_hidden(&mut self, ui: &imgui::Ui, flags: &ImguiRenderLoopFlags) {
+        if flags.focused && !ui.io().want_capture_keyboard {
+            for w in self.widgets.iter_mut() {
+                w.interact();
+            }
+        }
+    }
+
     fn render_logs(&mut self, ui: &imgui::Ui, _flags: &ImguiRenderLoopFlags) {
         let io = ui.io();
 
@@ -372,18 +387,41 @@ impl ImguiRenderLoop for PracticeTool {
         let font_token = self.set_font(ui);
 
         if flags.focused && !ui.io().want_capture_keyboard && self.config.settings.display.keyup() {
-            self.is_shown = !self.is_shown;
-            if !self.is_shown {
-                self.pointers.cursor_show.set(false);
+            let rshift = unsafe { GetAsyncKeyState(VK_RSHIFT.0 as _) < 0 };
+
+            self.ui_state = match (&self.ui_state, rshift) {
+                (UiState::Hidden, _) => UiState::Closed,
+                (_, true) => UiState::Hidden,
+                (UiState::MenuOpen, _) => UiState::Closed,
+                (UiState::Closed, _) => UiState::MenuOpen,
+            };
+
+            match &self.ui_state {
+                UiState::MenuOpen => {},
+                UiState::Closed => self.pointers.cursor_show.set(false),
+                UiState::Hidden => self.pointers.cursor_show.set(false),
             }
         }
 
-        if self.is_shown {
-            self.pointers.cursor_show.set(true);
-            self.render_visible(ui, flags);
-        } else {
-            self.render_closed(ui, flags);
+        match &self.ui_state {
+            UiState::MenuOpen => {
+                self.pointers.cursor_show.set(true);
+                self.render_visible(ui, flags);
+            },
+            UiState::Closed => {
+                self.render_closed(ui, flags);
+            },
+            UiState::Hidden => {
+                self.render_hidden(ui, flags);
+            },
         }
+
+        // if self.is_shown {
+        //     self.pointers.cursor_show.set(true);
+        //     self.render_visible(ui, flags);
+        // } else {
+        //     self.render_closed(ui, flags);
+        // }
 
         for w in &mut self.widgets {
             if let Some(logs) = w.log() {
