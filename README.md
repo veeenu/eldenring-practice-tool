@@ -24,7 +24,7 @@ solutions, or ways to get in touch.
 ## My game crashes
 
 - Always start with a clean zip of the latest release.
-- EAC needs to be [bypassed](https://wiki.speedsouls.com/eldenring:EAC_Bypass). Do [this](#i-can-t-bypass-eac).
+- EAC needs to be [bypassed](https://wiki.speedsouls.com/eldenring:EAC_Bypass). Do [this](#i-cant-bypass-eac).
 - Wait for the main menu of the game to appear before launching the tool.
 - If you are running in [fullscreen](https://github.com/veeenu/eldenring-practice-tool/issues/23), try borderless or windowed mode.
 - Make sure you have the latest version of your GPU drivers.
@@ -35,7 +35,7 @@ solutions, or ways to get in touch.
 
 ## "Inaccessible target process", "Could not find process"
 
-- You have not disabled EAC correctly. Do [this](#i-can-t-bypass-eac).
+- You have not disabled EAC correctly. Do [this](#i-cant-bypass-eac).
 - You have not closed your antivirus. Close it.
 
 ## I can't bypass EAC
