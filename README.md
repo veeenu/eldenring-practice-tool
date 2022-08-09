@@ -21,17 +21,38 @@ solutions, or ways to get in touch.
 
 # Troubleshooting / FAQ
 
-## My game crashes / the tool doesn't start
+## My game crashes
 
 - Always start with a clean zip of the latest release.
-- EAC needs to be [bypassed](https://wiki.speedsouls.com/eldenring:EAC_Bypass) via the `steam_appid.txt` method.
-- When in doubt, wait for the main menu of the game to appear before launching the tool.
+- EAC needs to be [bypassed](https://wiki.speedsouls.com/eldenring:EAC_Bypass). Do [this](#i-can-t-bypass-eac).
+- Wait for the main menu of the game to appear before launching the tool.
 - If you are running in [fullscreen](https://github.com/veeenu/eldenring-practice-tool/issues/23), try borderless or windowed mode.
 - Make sure you have the latest version of your GPU drivers.
 - Antivirus software and old Windows versions will interact poorly with the tool, as it
   employs some techniques that are usually typical of malware. Don't worry, the tool is
   safe! The source code is fully available and auditable in this repository.
 - If all else fails, [submit an issue](#i-found-an-issue-what-do-i-do).
+
+## "Inaccessible target process", "Could not find process"
+
+- You have not disabled EAC correctly. Do [this](#i-can-t-bypass-eac).
+- You have not closed your antivirus. Close it.
+
+## I can't bypass EAC
+
+Follow these steps:
+
+- Make [Windows extensions visible](extensions).
+- Make sure that `steam_appid.txt` has the correct name.
+- Make sure that `steam_appid.txt` contains _only_ the value:
+  ```
+  1245620
+  ```
+- Make sure that you are launching `eldenring.exe` by double clicking it directly.
+
+This method is the only one officially supported.
+
+[extensions]: https://www.howtogeek.com/205086/beginner-how-to-make-windows-show-file-extensions/
 
 ## I found an issue. What do I do?
 
