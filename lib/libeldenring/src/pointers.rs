@@ -187,13 +187,15 @@ impl Pointers {
         };
 
         let group_mask = match version {
+            V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
+            | V1_04_1 => group_mask,
             V1_05_0 => group_mask - 8,
-            _ => group_mask,
+            V1_06_0 => group_mask,
         };
 
         let show_geom = match version {
             V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
-            | V1_04_1 => vec![
+            | V1_04_1 | V1_06_0 => vec![
                 bitflag!(0b1; group_mask + 2),
                 bitflag!(0b1; group_mask + 3),
                 bitflag!(0b1; group_mask + 4),
@@ -211,7 +213,7 @@ impl Pointers {
                 bitflag!(0b1; group_mask + 0x11),
                 bitflag!(0b1; group_mask + 0x12),
             ],
-            V1_05_0 | V1_06_0 => vec![
+            V1_05_0 => vec![
                 bitflag!(0b1; group_mask),
                 bitflag!(0b1; group_mask + 1),
                 bitflag!(0b1; group_mask + 2),
@@ -230,8 +232,14 @@ impl Pointers {
 
         let show_chr = match version {
             V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
-            | V1_04_1 => bitflag!(0b1; group_mask + 0xe),
-            V1_05_0 | V1_06_0 => bitflag!(0b1; group_mask + 4),
+            | V1_04_1 | V1_06_0 => bitflag!(0b1; group_mask + 0xe),
+            V1_05_0 => bitflag!(0b1; group_mask + 4),
+        };
+
+        let torrent_offset = match version {
+            V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
+            | V1_04_1 | V1_05_0 => 0x18390,
+            V1_06_0 => 0x18378
         };
 
         Self {
@@ -251,14 +259,13 @@ impl Pointers {
             all_no_dead: bitflag!(0b1; chr_dbg_flags + 0xB),
 
             torrent_no_dead: bitflag!(0b1; chr_dbg_flags + 0x2),
-            torrent_gravity: bitflag!(0b1; world_chr_man, 0x18390, 0x18, 0, 0x190, 0x68, 0x1d3),
+            torrent_gravity: bitflag!(0b1; world_chr_man, torrent_offset, 0x18, 0, 0x190, 0x68, 0x1d3),
 
             // WorldChrMan -> Player
             collision: bitflag!(0b1000; world_chr_man, 0x18468, 0x58, 0xf0),
 
             // WorldChrMan -> Torrent
-            // Torrent ptr: world_chr_man, 0x18390, 0x18, 0
-            torrent_collision: bitflag!(0b1000; world_chr_man, 0x18390, 0x18, 0, 0x58, 0xf0),
+            torrent_collision: bitflag!(0b1000; world_chr_man, torrent_offset, 0x18, 0, 0x58, 0xf0),
 
             character_stats: pointer_chain!(game_data_man, 0x8, 0x3c),
             runes: pointer_chain!(game_data_man, 0x8, 0x6C),
@@ -298,17 +305,17 @@ impl Pointers {
                 map_id: Some(pointer_chain!(world_chr_man, 0x18468, map_id_offset)),
             },
             torrent_chunk_position: Position {
-                x: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x70),
-                y: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x74),
-                z: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x78),
-                angle1: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x54),
-                angle2: pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, 0x190, 0x68, 0x64),
-                map_id: Some(pointer_chain!(world_chr_man, 0x18390, 0x18, 0x0, map_id_offset)),
+                x: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x70),
+                y: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x74),
+                z: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x78),
+                angle1: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x54),
+                angle2: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x64),
+                map_id: Some(pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, map_id_offset)),
             },
             animation_speed: pointer_chain!(world_chr_man, 0xB658, 0, 0x190, 0x28, 0x17C8),
             torrent_animation_speed: pointer_chain!(
                 world_chr_man,
-                0x18390,
+                torrent_offset,
                 0x18,
                 0,
                 0x190,
