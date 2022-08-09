@@ -43,7 +43,7 @@ solutions, or ways to get in touch.
 Follow these steps:
 
 - Make [Windows extensions visible](https://www.howtogeek.com/205086/beginner-how-to-make-windows-show-file-extensions/).
-- Make sure that `steam_appid.txt` has the correct name.
+- Make sure that `steam_appid.txt` has the correct name (it could be called `steam_appid.txt.txt`).
 - Make sure that `steam_appid.txt` contains _only_ the value:
   ```
   1245620
