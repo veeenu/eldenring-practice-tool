@@ -42,7 +42,7 @@ solutions, or ways to get in touch.
 
 Follow these steps:
 
-- Make [Windows extensions visible](extensions).
+- Make [Windows extensions visible](https://www.howtogeek.com/205086/beginner-how-to-make-windows-show-file-extensions/).
 - Make sure that `steam_appid.txt` has the correct name.
 - Make sure that `steam_appid.txt` contains _only_ the value:
   ```
@@ -51,8 +51,6 @@ Follow these steps:
 - Make sure that you are launching `eldenring.exe` by double clicking it directly.
 
 This method is the only one officially supported.
-
-[extensions]: https://www.howtogeek.com/205086/beginner-how-to-make-windows-show-file-extensions/
 
 ## I found an issue. What do I do?
 
@@ -72,7 +70,7 @@ This method is the only one officially supported.
     ![Force debug layer on](lib/data/dxcpl2.png)
   - (Once you're done troubleshooting, you can revert these steps by selecting `Application Controlled` again and
     then removing `eldenring.exe` from the list).
-- Reproduce the steps that cause your bug.
+- Reproduce the steps tha cause your bug.
 - Go [here](https://github.com/veeenu/eldenring-practice-tool/issues/new) and submit a new issue:
   explain the problem, compress the `jdsd_er_practice_tool.log` file, and attach it.
 
