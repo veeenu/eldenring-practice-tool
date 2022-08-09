@@ -14,6 +14,24 @@ pub use crate::prelude::base_addresses::Version;
 
 pub static VERSION: LazyLock<Version> = LazyLock::new(get_version);
 
+impl Version {
+    pub fn tuple(&self) -> (u8, u8, u8) {
+        match self {
+            Version::V1_02_0 => (1, 2, 0),
+            Version::V1_02_1 => (1, 2, 1),
+            Version::V1_02_2 => (1, 2, 2),
+            Version::V1_02_3 => (1, 2, 3),
+            Version::V1_03_0 => (1, 3, 0),
+            Version::V1_03_1 => (1, 3, 1),
+            Version::V1_03_2 => (1, 3, 2),
+            Version::V1_04_0 => (1, 4, 0),
+            Version::V1_04_1 => (1, 4, 1),
+            Version::V1_05_0 => (1, 5, 0),
+            Version::V1_06_0 => (1, 6, 0),
+        }
+    }
+}
+
 fn get_version() -> Version {
     let file_path = {
         let mut buf = vec![0u16; MAX_PATH as usize];

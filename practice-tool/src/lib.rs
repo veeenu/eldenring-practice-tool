@@ -49,6 +49,7 @@ enum UiState {
 
 struct PracticeTool {
     pointers: Pointers,
+    version_label: String,
     widgets: Vec<Box<dyn Widget>>,
     config: config::Config,
     log: Vec<(Instant, String)>,
@@ -148,11 +149,16 @@ impl PracticeTool {
         );
 
         let pointers = Pointers::new();
+        let version_label = {
+            let (maj, min, patch) = (*VERSION).tuple();
+            format!("Ver {}.{:02}.{}", maj, min, patch)
+        };
         let widgets = config.make_commands(&pointers);
         info!("Practice tool initialized");
 
         PracticeTool {
             pointers,
+            version_label,
             widgets,
             config,
             ui_state: UiState::Closed,
@@ -275,6 +281,8 @@ impl PracticeTool {
                             .ok();
                         }
                     });
+
+                ui.text(&self.version_label);
 
                 if let (Some([x, y, z, _a1, _a2]), Some(m)) = (
                     self.pointers.global_position.read(),
