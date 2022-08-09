@@ -19,7 +19,7 @@ fn perform_injection() -> Result<(), String> {
     let dll_path = dll_path.canonicalize().map_err(err_to_string)?;
     log::trace!("Injecting {:?}", dll_path);
 
-    inject::inject("ELDEN RING™", dll_path);
+    inject::inject("ELDEN RING™", dll_path).map_err(|e| e.to_string())?;
 
     Ok(())
 }

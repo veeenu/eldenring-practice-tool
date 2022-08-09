@@ -28,7 +28,7 @@ use hudhook::hooks::{ImguiRenderLoop, ImguiRenderLoopFlags};
 use imgui::*;
 use libeldenring::prelude::*;
 use pkg_version::*;
-use windows::Win32::UI::Input::KeyboardAndMouse::{GetAsyncKeyState, VIRTUAL_KEY, VK_RSHIFT};
+use windows::Win32::UI::Input::KeyboardAndMouse::{GetAsyncKeyState, VK_RSHIFT};
 
 use crate::widgets::{Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 

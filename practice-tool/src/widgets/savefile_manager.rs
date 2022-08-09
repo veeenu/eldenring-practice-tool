@@ -228,22 +228,19 @@ impl Widget for SavefileManager {
 
             if ui.button_with_size("Show folder", [button_width, BUTTON_HEIGHT]) {
                 let path = self.dir_stack.path().to_owned();
-                let path = if path.is_file() {
-                    path.parent().unwrap()
-                } else {
-                    &path
-                };
+                let path = if path.is_file() { path.parent().unwrap() } else { &path };
 
-                if let Err(e) = Command::new("explorer.exe")
-                    .arg(OsStr::new(path.to_str().unwrap()))
-                    .spawn()
+                if let Err(e) =
+                    Command::new("explorer.exe").arg(OsStr::new(path.to_str().unwrap())).spawn()
                 {
                     self.log = Some(format!("Couldn't show folder: {}", e));
                 };
             }
 
-            if ui.button_with_size(format!("Close ({})", self.key_close), [button_width, BUTTON_HEIGHT])
-                || self.key_close.keyup()
+            if ui.button_with_size(format!("Close ({})", self.key_close), [
+                button_width,
+                BUTTON_HEIGHT,
+            ]) || self.key_close.keyup()
             {
                 ui.close_current_popup();
                 self.dir_stack.refresh();

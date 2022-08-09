@@ -45,11 +45,7 @@ impl SavePosition {
     }
 
     fn load_position(&mut self) {
-        if let (
-            Some([gx, gy, gz, _, _]),
-            Some([cx, cy, cz, _, _]),
-            Some([tcx, tcy, tcz, _, _]),
-        ) = (
+        if let (Some([gx, gy, gz, _, _]), Some([cx, cy, cz, _, _]), Some([tcx, tcy, tcz, _, _])) = (
             self.global_position.read(),
             self.chunk_position.read(),
             self.torrent_chunk_position.read(),
