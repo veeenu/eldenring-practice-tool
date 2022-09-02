@@ -13,7 +13,7 @@ crate-type = ["cdylib", "rlib"]
 name = "libjdsd_er_practice_tool"
 
 [dependencies]
-hudhook = { path = "../lib/hudhook/hudhook" }
+hudhook = { path = "../lib/hudhook" }
 libeldenring = { path = "../lib/libeldenring" }
 imgui = "0.8.0"
 imgui-sys = "0.8.0"

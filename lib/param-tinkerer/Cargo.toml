@@ -11,7 +11,6 @@ name = "jdsd_er_param_tinkerer"
 imgui = "0.8.0"
 imgui-sys = "0.8.0"
 libeldenring = { path = "../libeldenring" }
-hudhook = { path = "../hudhook/hudhook" }
-imgui-dx12 = { path = "../hudhook/imgui-dx12" }
+hudhook = { path = "../hudhook" }
 windows = { version = "0.39.0", features = ["Win32_System_LibraryLoader", "Win32_Foundation"] }
 simplelog = "0.12.0"
