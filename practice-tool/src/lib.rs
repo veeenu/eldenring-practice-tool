@@ -424,13 +424,6 @@ impl ImguiRenderLoop for PracticeTool {
             },
         }
 
-        // if self.is_shown {
-        //     self.pointers.cursor_show.set(true);
-        //     self.render_visible(ui, flags);
-        // } else {
-        //     self.render_closed(ui, flags);
-        // }
-
         for w in &mut self.widgets {
             if let Some(logs) = w.log() {
                 let now = Instant::now();

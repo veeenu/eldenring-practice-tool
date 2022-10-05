@@ -1,5 +1,5 @@
 [build]
-rustflags = ["-C", "target-cpu=native", "-C", "link-args=-Wl,--subsystem,windows"]
+rustflags = ["-C", "link-args=-Wl,--subsystem,windows"]
 
 [alias]
 xtask = "run --package xtask --release --"

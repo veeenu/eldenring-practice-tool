@@ -101,7 +101,9 @@ By using the tool, you agree that I will not be held liable for any bans or unin
 
 ## I want to talk to you!
 
-You can contact me on Discord at `johndisandonato#4484` or on [Twitter](https://twitter.com/johndisandonato).
+You can contact me on [my Discord server](https://discord.gg/jCVjxjHZ).
+Please use the [Practice Tool help channel](https://discord.com/channels/267623298647457802/996101875214585867)
+if you have questions about the Practice Tool.
 
 ## I want to watch your speedruns!
 
