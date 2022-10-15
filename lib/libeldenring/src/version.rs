@@ -28,6 +28,7 @@ impl Version {
             Version::V1_04_1 => (1, 4, 1),
             Version::V1_05_0 => (1, 5, 0),
             Version::V1_06_0 => (1, 6, 0),
+            Version::V1_07_0 => (1, 7, 0),
         }
     }
 }

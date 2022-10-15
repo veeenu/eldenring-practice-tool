@@ -1,5 +1,5 @@
 #![feature(once_cell)]
-use std::ffi::c_void;
+use std::ffi::{c_void, CString};
 use std::ptr::null_mut;
 use std::sync::LazyLock;
 
@@ -12,7 +12,8 @@ use windows::Win32::System::LibraryLoader::{GetModuleHandleW, GetProcAddress, Lo
 use windows::Win32::System::Memory::{
     VirtualProtect, PAGE_EXECUTE_READWRITE, PAGE_PROTECTION_FLAGS,
 };
-use windows::Win32::System::SystemInformation::GetSystemDirectoryW;
+use windows::Win32::System::SystemInformation::GetSystemDirectoryA;
+use windows::Win32::System::SystemServices::DLL_PROCESS_ATTACH;
 
 type FnDirectInput8Create = unsafe extern "stdcall" fn(
     _: HINSTANCE,
@@ -34,14 +35,17 @@ static SYMBOLS: LazyLock<(
     FnHResult,
 )> = LazyLock::new(|| unsafe {
     apply_patch();
-    let mut sys_path = vec![0u16; 320];
-    let len = GetSystemDirectoryW(&mut sys_path) as u32;
+    let mut sys_path = vec![0u8; 320];
+    let len = GetSystemDirectoryA(Some(&mut sys_path)) as u32 as usize;
 
-    let sys_path = format!(
-        "{}\\dinput8.dll",
-        U16CString::from_ptr_truncate(sys_path.as_ptr(), len as usize).to_string_lossy()
-    );
-    let sys_path = U16CString::from_str(&sys_path).unwrap();
+    let sys_path = CString::from_vec_with_nul(sys_path).unwrap().into_string().unwrap();
+    let sys_path = format!("{sys_path}\\dinput8.dll\0");
+
+    // let sys_path = format!(
+    //     "{}\\dinput8.dll",
+    //     U16CString::from_ptr_truncate(sys_path.as_ptr(), len as
+    // usize).to_string_lossy() );
+    // let sys_path = U16CString::from_str(&sys_path).unwrap();
 
     let module = LoadLibraryW(PCWSTR(sys_path.as_ptr() as _));
 
@@ -82,39 +86,15 @@ pub unsafe extern "stdcall" fn DirectInput8Create(
     (SYMBOLS.0)(a, b, c, d, e)
 }
 
-// #[no_mangle]
-// pub unsafe extern "stdcall" fn DllCanUnloadNow() -> HRESULT {
-//     (SYMBOLS.1)()
-// }
-//
-// #[no_mangle]
-// pub unsafe extern "stdcall" fn DllGetClassObject(
-//     a: *const c_void,
-//     b: *const c_void,
-//     c: *const c_void,
-// ) -> HRESULT {
-//     (SYMBOLS.2)(a, b, c)
-// }
-//
-// #[no_mangle]
-// pub unsafe extern "stdcall" fn DllRegisterServer() -> HRESULT {
-//     (SYMBOLS.3)()
-// }
-//
-// #[no_mangle]
-// pub unsafe extern "stdcall" fn DllUnregisterServer() -> HRESULT {
-//     (SYMBOLS.4)()
-// }
+#[no_mangle]
+unsafe extern "C" fn DllMain(
+    _hmodule: windows::Win32::Foundation::HINSTANCE,
+    reason: u32,
+    _: *mut std::ffi::c_void,
+) -> BOOL {
+    if reason == DLL_PROCESS_ATTACH {
+        apply_patch();
+    }
 
-// #[no_mangle]
-// unsafe extern "C" fn DllMain(
-//     _hmodule: windows::Win32::Foundation::HINSTANCE,
-//     reason: u32,
-//     _: *mut std::ffi::c_void,
-// ) -> BOOL {
-//     if reason == DLL_PROCESS_ATTACH {
-//         apply_patch();
-//     }
-//
-//     BOOL(1)
-// }
+    BOOL(1)
+}

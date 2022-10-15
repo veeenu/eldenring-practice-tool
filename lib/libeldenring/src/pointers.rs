@@ -175,14 +175,14 @@ impl Pointers {
         let map_id_offset = {
             match version {
                 V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6c8,
-                V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0 => 0x6c0,
+                V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 => 0x6c0,
             }
         };
 
         let global_position_offset = {
             match version {
                 V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6b8,
-                V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0 => 0x6b0,
+                V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 => 0x6b0,
             }
         };
 
@@ -190,12 +190,12 @@ impl Pointers {
             V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
             | V1_04_1 => group_mask,
             V1_05_0 => group_mask - 8,
-            V1_06_0 => group_mask,
+            V1_06_0 | V1_07_0 => group_mask,
         };
 
         let show_geom = match version {
             V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
-            | V1_04_1 | V1_06_0 => vec![
+            | V1_04_1 | V1_06_0 | V1_07_0 => vec![
                 bitflag!(0b1; group_mask + 2),
                 bitflag!(0b1; group_mask + 3),
                 bitflag!(0b1; group_mask + 4),
@@ -232,14 +232,21 @@ impl Pointers {
 
         let show_chr = match version {
             V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
-            | V1_04_1 | V1_06_0 => bitflag!(0b1; group_mask + 0xe),
+            | V1_04_1 | V1_06_0 | V1_07_0 => bitflag!(0b1; group_mask + 0xe),
             V1_05_0 => bitflag!(0b1; group_mask + 4),
+        };
+
+        let chr_offset = match version {
+            V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
+            | V1_04_1 | V1_05_0 | V1_06_0 => 0x18468,
+            V1_07_0 => 0x1E508,
         };
 
         let torrent_offset = match version {
             V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
             | V1_04_1 | V1_05_0 => 0x18390,
-            V1_06_0 => 0x18378
+            V1_06_0 => 0x18378,
+            V1_07_0 => 0x1E1A0,
         };
 
         Self {
@@ -277,32 +284,32 @@ impl Pointers {
             display_stable_pos: bitflag!(0b1; world_chr_man, 0x18468,
                 match version {
                     V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6FD,
-                    V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0 => 0x6F5,
+                    V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 => 0x6F5,
                 }
             ),
-            global_position: Position {
-                x: pointer_chain!(world_chr_man, 0x18468, global_position_offset),
-                y: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x4),
-                z: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x8),
-                angle1: pointer_chain!(world_chr_man, 0x18468, 0x6bc),
-                angle2: pointer_chain!(world_chr_man, 0x18468, 0x6cc),
-                map_id: Some(pointer_chain!(world_chr_man, 0x18468, map_id_offset)),
+            global_position: Position { 
+                x: pointer_chain!(world_chr_man, chr_offset, global_position_offset),
+                y: pointer_chain!(world_chr_man, chr_offset, global_position_offset + 0x4),
+                z: pointer_chain!(world_chr_man, chr_offset, global_position_offset + 0x8),
+                angle1: pointer_chain!(world_chr_man, chr_offset, 0x6bc),
+                angle2: pointer_chain!(world_chr_man, chr_offset, 0x6cc),
+                map_id: Some(pointer_chain!(world_chr_man, chr_offset, map_id_offset)),
             },
             stable_position: Position {
-                x: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x14),
-                y: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x18),
-                z: pointer_chain!(world_chr_man, 0x18468, global_position_offset + 0x1C),
-                angle1: pointer_chain!(world_chr_man, 0x18468, 0x6d8),
-                angle2: pointer_chain!(world_chr_man, 0x18468, 0x6e8),
+                x: pointer_chain!(world_chr_man, chr_offset, global_position_offset + 0x14),
+                y: pointer_chain!(world_chr_man, chr_offset, global_position_offset + 0x18),
+                z: pointer_chain!(world_chr_man, chr_offset, global_position_offset + 0x1C),
+                angle1: pointer_chain!(world_chr_man, chr_offset, 0x6d8),
+                angle2: pointer_chain!(world_chr_man, chr_offset, 0x6e8),
                 map_id: None,
             },
             chunk_position: Position {
-                x: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x70),
-                y: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x74),
-                z: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x78),
-                angle1: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x54),
-                angle2: pointer_chain!(world_chr_man, 0x18468, 0x190, 0x68, 0x64),
-                map_id: Some(pointer_chain!(world_chr_man, 0x18468, map_id_offset)),
+                x: pointer_chain!(world_chr_man, chr_offset, 0x190, 0x68, 0x70),
+                y: pointer_chain!(world_chr_man, chr_offset, 0x190, 0x68, 0x74),
+                z: pointer_chain!(world_chr_man, chr_offset, 0x190, 0x68, 0x78),
+                angle1: pointer_chain!(world_chr_man, chr_offset, 0x190, 0x68, 0x54),
+                angle2: pointer_chain!(world_chr_man, chr_offset, 0x190, 0x68, 0x64),
+                map_id: Some(pointer_chain!(world_chr_man, chr_offset, map_id_offset)),
             },
             torrent_chunk_position: Position {
                 x: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x70),
@@ -310,7 +317,13 @@ impl Pointers {
                 z: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x78),
                 angle1: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x54),
                 angle2: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x64),
-                map_id: Some(pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, map_id_offset)),
+                map_id: Some(pointer_chain!(
+                    world_chr_man,
+                    torrent_offset,
+                    0x18,
+                    0x0,
+                    map_id_offset
+                )),
             },
             animation_speed: pointer_chain!(world_chr_man, 0xB658, 0, 0x190, 0x28, 0x17C8),
             torrent_animation_speed: pointer_chain!(
