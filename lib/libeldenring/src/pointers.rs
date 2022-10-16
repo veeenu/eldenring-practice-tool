@@ -236,13 +236,13 @@ impl Pointers {
             V1_05_0 => bitflag!(0b1; group_mask + 4),
         };
 
-        let chr_offset = match version {
+        let player_ins = match version {
             V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
             | V1_04_1 | V1_05_0 | V1_06_0 => 0x18468,
             V1_07_0 => 0x1E508,
         };
 
-        let torrent_offset = match version {
+        let torrent_enemy_ins = match version {
             V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
             | V1_04_1 | V1_05_0 => 0x18390,
             V1_06_0 => 0x18378,
@@ -266,13 +266,13 @@ impl Pointers {
             all_no_dead: bitflag!(0b1; chr_dbg_flags + 0xB),
 
             torrent_no_dead: bitflag!(0b1; chr_dbg_flags + 0x2),
-            torrent_gravity: bitflag!(0b1; world_chr_man, torrent_offset, 0x18, 0, 0x190, 0x68, 0x1d3),
+            torrent_gravity: bitflag!(0b1; world_chr_man, torrent_enemy_ins, 0x18, 0, 0x190, 0x68, 0x1d3),
 
             // WorldChrMan -> Player
-            collision: bitflag!(0b1000; world_chr_man, 0x18468, 0x58, 0xf0),
+            collision: bitflag!(0b1000; world_chr_man, player_ins, 0x58, 0xf0),
 
             // WorldChrMan -> Torrent
-            torrent_collision: bitflag!(0b1000; world_chr_man, torrent_offset, 0x18, 0, 0x58, 0xf0),
+            torrent_collision: bitflag!(0b1000; world_chr_man, torrent_enemy_ins, 0x18, 0, 0x58, 0xf0),
 
             character_stats: pointer_chain!(game_data_man, 0x8, 0x3c),
             runes: pointer_chain!(game_data_man, 0x8, 0x6C),
@@ -280,55 +280,55 @@ impl Pointers {
 
             quitout: pointer_chain!(cs_menu_man_imp, 0x8, 0x5d),
             cursor_show: bitflag!(0b1; cs_menu_man_imp, 0xAC),
-            gravity: bitflag!(0b1; world_chr_man, 0x18468, 0x190, 0x68, 0x1d3),
-            display_stable_pos: bitflag!(0b1; world_chr_man, 0x18468,
+            gravity: bitflag!(0b1; world_chr_man, player_ins, 0x190, 0x68, 0x1d3),
+            display_stable_pos: bitflag!(0b1; world_chr_man, player_ins,
                 match version {
                     V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6FD,
                     V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 => 0x6F5,
                 }
             ),
             global_position: Position { 
-                x: pointer_chain!(world_chr_man, chr_offset, global_position_offset),
-                y: pointer_chain!(world_chr_man, chr_offset, global_position_offset + 0x4),
-                z: pointer_chain!(world_chr_man, chr_offset, global_position_offset + 0x8),
-                angle1: pointer_chain!(world_chr_man, chr_offset, 0x6bc),
-                angle2: pointer_chain!(world_chr_man, chr_offset, 0x6cc),
-                map_id: Some(pointer_chain!(world_chr_man, chr_offset, map_id_offset)),
+                x: pointer_chain!(world_chr_man, player_ins, global_position_offset),
+                y: pointer_chain!(world_chr_man, player_ins, global_position_offset + 0x4),
+                z: pointer_chain!(world_chr_man, player_ins, global_position_offset + 0x8),
+                angle1: pointer_chain!(world_chr_man, player_ins, 0x6bc),
+                angle2: pointer_chain!(world_chr_man, player_ins, 0x6cc),
+                map_id: Some(pointer_chain!(world_chr_man, player_ins, map_id_offset)),
             },
             stable_position: Position {
-                x: pointer_chain!(world_chr_man, chr_offset, global_position_offset + 0x14),
-                y: pointer_chain!(world_chr_man, chr_offset, global_position_offset + 0x18),
-                z: pointer_chain!(world_chr_man, chr_offset, global_position_offset + 0x1C),
-                angle1: pointer_chain!(world_chr_man, chr_offset, 0x6d8),
-                angle2: pointer_chain!(world_chr_man, chr_offset, 0x6e8),
+                x: pointer_chain!(world_chr_man, player_ins, global_position_offset + 0x14),
+                y: pointer_chain!(world_chr_man, player_ins, global_position_offset + 0x18),
+                z: pointer_chain!(world_chr_man, player_ins, global_position_offset + 0x1C),
+                angle1: pointer_chain!(world_chr_man, player_ins, 0x6d8),
+                angle2: pointer_chain!(world_chr_man, player_ins, 0x6e8),
                 map_id: None,
             },
             chunk_position: Position {
-                x: pointer_chain!(world_chr_man, chr_offset, 0x190, 0x68, 0x70),
-                y: pointer_chain!(world_chr_man, chr_offset, 0x190, 0x68, 0x74),
-                z: pointer_chain!(world_chr_man, chr_offset, 0x190, 0x68, 0x78),
-                angle1: pointer_chain!(world_chr_man, chr_offset, 0x190, 0x68, 0x54),
-                angle2: pointer_chain!(world_chr_man, chr_offset, 0x190, 0x68, 0x64),
-                map_id: Some(pointer_chain!(world_chr_man, chr_offset, map_id_offset)),
+                x: pointer_chain!(world_chr_man, player_ins, 0x190, 0x68, 0x70),
+                y: pointer_chain!(world_chr_man, player_ins, 0x190, 0x68, 0x74),
+                z: pointer_chain!(world_chr_man, player_ins, 0x190, 0x68, 0x78),
+                angle1: pointer_chain!(world_chr_man, player_ins, 0x190, 0x68, 0x54),
+                angle2: pointer_chain!(world_chr_man, player_ins, 0x190, 0x68, 0x64),
+                map_id: Some(pointer_chain!(world_chr_man, player_ins, map_id_offset)),
             },
             torrent_chunk_position: Position {
-                x: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x70),
-                y: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x74),
-                z: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x78),
-                angle1: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x54),
-                angle2: pointer_chain!(world_chr_man, torrent_offset, 0x18, 0x0, 0x190, 0x68, 0x64),
+                x: pointer_chain!(world_chr_man, torrent_enemy_ins, 0x18, 0x0, 0x190, 0x68, 0x70),
+                y: pointer_chain!(world_chr_man, torrent_enemy_ins, 0x18, 0x0, 0x190, 0x68, 0x74),
+                z: pointer_chain!(world_chr_man, torrent_enemy_ins, 0x18, 0x0, 0x190, 0x68, 0x78),
+                angle1: pointer_chain!(world_chr_man, torrent_enemy_ins, 0x18, 0x0, 0x190, 0x68, 0x54),
+                angle2: pointer_chain!(world_chr_man, torrent_enemy_ins, 0x18, 0x0, 0x190, 0x68, 0x64),
                 map_id: Some(pointer_chain!(
                     world_chr_man,
-                    torrent_offset,
+                    torrent_enemy_ins,
                     0x18,
                     0x0,
                     map_id_offset
                 )),
             },
-            animation_speed: pointer_chain!(world_chr_man, 0xB658, 0, 0x190, 0x28, 0x17C8),
+            animation_speed: pointer_chain!(world_chr_man, player_ins, 0x190, 0x28, 0x17C8),
             torrent_animation_speed: pointer_chain!(
                 world_chr_man,
-                torrent_offset,
+                torrent_enemy_ins,
                 0x18,
                 0,
                 0x190,
@@ -337,7 +337,7 @@ impl Pointers {
             ),
 
             deathcam: (
-                bitflag!(0b100; world_chr_man, 0x18468, 0x1c8),
+                bitflag!(0b100; world_chr_man, player_ins, 0x1c8),
                 pointer_chain!(field_area, 0x98, 0x7c),
             ),
 
