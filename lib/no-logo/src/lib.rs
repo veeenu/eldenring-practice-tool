@@ -1,18 +1,18 @@
 #![feature(once_cell)]
-use std::ffi::{c_void, CString};
+use std::ffi::c_void;
 use std::ptr::null_mut;
 use std::sync::LazyLock;
 
 use libeldenring::prelude::*;
-use u16cstr::*;
-use widestring::*;
+use u16cstr::u16str;
+use widestring::U16CString;
 use windows::core::*;
 use windows::Win32::Foundation::*;
 use windows::Win32::System::LibraryLoader::{GetModuleHandleW, GetProcAddress, LoadLibraryW};
 use windows::Win32::System::Memory::{
     VirtualProtect, PAGE_EXECUTE_READWRITE, PAGE_PROTECTION_FLAGS,
 };
-use windows::Win32::System::SystemInformation::GetSystemDirectoryA;
+use windows::Win32::System::SystemInformation::GetSystemDirectoryW;
 use windows::Win32::System::SystemServices::DLL_PROCESS_ATTACH;
 
 type FnDirectInput8Create = unsafe extern "stdcall" fn(
@@ -35,19 +35,8 @@ static SYMBOLS: LazyLock<(
     FnHResult,
 )> = LazyLock::new(|| unsafe {
     apply_patch();
-    let mut sys_path = vec![0u8; 320];
-    let len = GetSystemDirectoryA(Some(&mut sys_path)) as u32 as usize;
 
-    let sys_path = CString::from_vec_with_nul(sys_path).unwrap().into_string().unwrap();
-    let sys_path = format!("{sys_path}\\dinput8.dll\0");
-
-    // let sys_path = format!(
-    //     "{}\\dinput8.dll",
-    //     U16CString::from_ptr_truncate(sys_path.as_ptr(), len as
-    // usize).to_string_lossy() );
-    // let sys_path = U16CString::from_str(&sys_path).unwrap();
-
-    let module = LoadLibraryW(PCWSTR(sys_path.as_ptr() as _));
+    let module = LoadLibraryW(PCWSTR(dinput8_path().as_ptr() as _)).unwrap();
 
     (
         std::mem::transmute(
@@ -62,8 +51,21 @@ static SYMBOLS: LazyLock<(
     )
 });
 
+fn dinput8_path() -> U16CString {
+    let mut sys_path = vec![0u16; 320];
+    let len = unsafe { GetSystemDirectoryW(Some(&mut sys_path)) as u32 as usize };
+
+    widestring::U16CString::from_vec_truncate(
+        sys_path[..len]
+            .iter()
+            .chain(u16str!("\\dinput8.dll\0").as_slice().iter())
+            .copied()
+            .collect::<Vec<_>>(),
+    )
+}
+
 unsafe fn apply_patch() {
-    let module_base = GetModuleHandleW(PCWSTR(null_mut()));
+    let module_base = GetModuleHandleW(PCWSTR(null_mut())).unwrap();
     let offset = base_addresses::BaseAddresses::from(*VERSION).func_remove_intro_screens;
 
     let ptr = (module_base.0 as usize + offset) as *mut [u8; 2];
@@ -75,6 +77,7 @@ unsafe fn apply_patch() {
     }
 }
 
+/// # Safety
 #[no_mangle]
 pub unsafe extern "stdcall" fn DirectInput8Create(
     a: HINSTANCE,
