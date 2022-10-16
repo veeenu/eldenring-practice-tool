@@ -287,7 +287,7 @@ impl Pointers {
                     V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 => 0x6F5,
                 }
             ),
-            global_position: Position { 
+            global_position: Position {
                 x: pointer_chain!(world_chr_man, player_ins, global_position_offset),
                 y: pointer_chain!(world_chr_man, player_ins, global_position_offset + 0x4),
                 z: pointer_chain!(world_chr_man, player_ins, global_position_offset + 0x8),
@@ -315,8 +315,24 @@ impl Pointers {
                 x: pointer_chain!(world_chr_man, torrent_enemy_ins, 0x18, 0x0, 0x190, 0x68, 0x70),
                 y: pointer_chain!(world_chr_man, torrent_enemy_ins, 0x18, 0x0, 0x190, 0x68, 0x74),
                 z: pointer_chain!(world_chr_man, torrent_enemy_ins, 0x18, 0x0, 0x190, 0x68, 0x78),
-                angle1: pointer_chain!(world_chr_man, torrent_enemy_ins, 0x18, 0x0, 0x190, 0x68, 0x54),
-                angle2: pointer_chain!(world_chr_man, torrent_enemy_ins, 0x18, 0x0, 0x190, 0x68, 0x64),
+                angle1: pointer_chain!(
+                    world_chr_man,
+                    torrent_enemy_ins,
+                    0x18,
+                    0x0,
+                    0x190,
+                    0x68,
+                    0x54
+                ),
+                angle2: pointer_chain!(
+                    world_chr_man,
+                    torrent_enemy_ins,
+                    0x18,
+                    0x0,
+                    0x190,
+                    0x68,
+                    0x64
+                ),
                 map_id: Some(pointer_chain!(
                     world_chr_man,
                     torrent_enemy_ins,

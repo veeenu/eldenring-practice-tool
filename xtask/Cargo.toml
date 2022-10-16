@@ -17,7 +17,7 @@ serde_yaml = "0.8.23"
 serde = { version = "1.0.136", features = ["derive"] }
 # hudhook = { path = "../lib/hudhook/hudhook" }
 simplelog = "0.12.0"
-dll-syringe = "0.13.1"
+dll-syringe = { git = "https://github.com/OpenByteDev/dll-syringe" }
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
