@@ -67,6 +67,17 @@ fn dist() -> Result<()> {
         return Err("cargo build failed".into());
     }
 
+    let status = Command::new(&cargo)
+        .current_dir(project_root())
+        .env("CARGO_XTASK_DIST", "true")
+        .args(["build", "--release", "--package", "no-logo"])
+        .status()
+        .map_err(|e| format!("cargo: {}", e))?;
+
+    if !status.success() {
+        return Err("cargo build failed".into());
+    }
+
     update_icon(
         project_root().join("target/release/jdsd_er_practice_tool.exe"),
         project_root().join("practice-tool/src/icon.ico"),
@@ -125,6 +136,14 @@ fn dist() -> Result<()> {
     dist.add(
         project_root().join("target/release/libjdsd_er_practice_tool.dll"),
         "jdsd_er_practice_tool.dll",
+    )?;
+    dist.add(
+        project_root().join("target/release/dinput8.dll"),
+        "dinput8.dll",
+    )?;
+    dist.add(
+        project_root().join("lib/data/RELEASE-README.txt"),
+        "README.txt",
     )?;
     dist.add(project_root().join("jdsd_er_practice_tool.toml"), "jdsd_er_practice_tool.toml")?;
 
