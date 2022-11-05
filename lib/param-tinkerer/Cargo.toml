@@ -15,6 +15,6 @@ hudhook = { path = "../hudhook" }
 simplelog = "0.12.0"
 
 [dependencies.windows]
-version = "0.42.0"
+version = "0.39.0"
 features = ["Win32_System_LibraryLoader", "Win32_Foundation"]
 

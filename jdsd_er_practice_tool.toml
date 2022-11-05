@@ -40,6 +40,6 @@ commands = [
 ]
 
 [settings]
-log_level = "INFO"
+log_level = "TRACE"
 display = "0"
 dxgi_debug = false
