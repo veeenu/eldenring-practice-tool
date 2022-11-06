@@ -103,7 +103,7 @@ impl PracticeTool {
 
         let log_level = config.settings.log_level.inner();
 
-        if log_level < LevelFilter::Debug {
+        if log_level < LevelFilter::Debug || !config.settings.show_console {
             hudhook::utils::free_console();
         }
 
