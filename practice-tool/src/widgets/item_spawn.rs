@@ -73,7 +73,7 @@ impl<'a> ItemIDNodeRef<'a> {
         match self {
             ItemIDNodeRef::Leaf { node, value } => {
                 unsafe { imgui_sys::igUnindent(imgui_sys::igGetTreeNodeToLabelSpacing()) };
-                TreeNode::<&str>::new(*node)
+                ui.tree_node_config(*node)
                     .label::<&str, &str>(node)
                     .flags(if current == value {
                         TreeNodeFlags::LEAF
@@ -82,18 +82,18 @@ impl<'a> ItemIDNodeRef<'a> {
                     } else {
                         TreeNodeFlags::LEAF | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
                     })
-                    .build(ui, || {});
+                    .build(|| {});
                 unsafe { imgui_sys::igIndent(imgui_sys::igGetTreeNodeToLabelSpacing()) };
                 if ui.is_item_clicked() {
                     *current = *value;
                 }
             },
             ItemIDNodeRef::Node { node, children } => {
-                let n = TreeNode::<&str>::new(*node).label::<&str, &str>(node);
+                let n = ui.tree_node_config(*node).label::<&str, &str>(node);
 
                 let n = if filtered { n.opened(filtered, Condition::Always) } else { n };
 
-                n.flags(TreeNodeFlags::SPAN_AVAIL_WIDTH).build(ui, || {
+                n.flags(TreeNodeFlags::SPAN_AVAIL_WIDTH).build(|| {
                     for node in children {
                         node.render(ui, current, filtered);
                     }
@@ -262,14 +262,15 @@ impl Widget for ItemSpawner<'_> {
         let style_tokens =
             [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, super::MODAL_BACKGROUND)];
 
-        if let Some(_token) = PopupModal::new(ISP_TAG)
+        if let Some(_token) = ui
+            .modal_popup_config(ISP_TAG)
             .flags(
                 WindowFlags::NO_TITLE_BAR
                     | WindowFlags::NO_RESIZE
                     | WindowFlags::NO_MOVE
                     | WindowFlags::NO_SCROLLBAR,
             )
-            .begin_popup(ui)
+            .begin_popup()
         {
             let button_height = super::BUTTON_HEIGHT * super::scaling_factor(ui);
 
@@ -283,7 +284,7 @@ impl Widget for ItemSpawner<'_> {
                         ITEM_ID_TREE.iter().filter_map(|n| n.filter(&self.filter_string)).collect();
                 }
             }
-            ChildWindow::new("##item-spawn-list").size([400., 200.]).build(ui, || {
+            ui.child_window("##item-spawn-list").size([400., 200.]).build(|| {
                 for node in &self.item_id_tree {
                     node.render(ui, &mut self.item_id, !self.filter_string.is_empty());
                 }
@@ -300,7 +301,7 @@ impl Widget for ItemSpawner<'_> {
                 Cow::Borrowed(label)
             });
 
-            Slider::new("Qty", 1, 99).build(ui, &mut self.qty);
+            ui.slider_config("Qty", 1, 99).build(&mut self.qty);
             if self.hotkey_load.keyup()
                 || ui.button_with_size(&self.label_load, [400., button_height])
             {

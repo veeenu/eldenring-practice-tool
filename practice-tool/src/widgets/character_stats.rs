@@ -42,14 +42,14 @@ impl Widget for CharacterStatsEdit {
         let style_tokens =
             [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, super::MODAL_BACKGROUND)];
 
-        if let Some(_token) = PopupModal::new("##character_stats_edit")
+        if let Some(_token) = ui.modal_popup_config("##character_stats_edit")
             .flags(
                 WindowFlags::NO_TITLE_BAR
                     | WindowFlags::NO_RESIZE
                     | WindowFlags::NO_MOVE
                     | WindowFlags::NO_SCROLLBAR,
             )
-            .begin_popup(ui)
+            .begin_popup()
         {
             let _tok = ui.push_item_width(150.);
             if let Some(stats) = self.stats.as_mut() {

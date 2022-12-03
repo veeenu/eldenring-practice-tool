@@ -147,7 +147,8 @@ impl Widget for SavefileManager {
         let style_tokens =
             [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, super::MODAL_BACKGROUND)];
 
-        if let Some(_token) = PopupModal::new(SFM_TAG)
+        if let Some(_token) = ui
+            .modal_popup_config(SFM_TAG)
             .flags(
                 WindowFlags::NO_TITLE_BAR
                     | WindowFlags::NO_RESIZE
@@ -155,11 +156,11 @@ impl Widget for SavefileManager {
                     | WindowFlags::NO_SCROLLBAR
                     | WindowFlags::ALWAYS_AUTO_RESIZE,
             )
-            .begin_popup(ui)
+            .begin_popup()
         {
-            ChildWindow::new("##savefile-manager-breadcrumbs")
+            ui.child_window("##savefile-manager-breadcrumbs")
                 .size([button_width, 20. * scale])
-                .build(ui, || {
+                .build(|| {
                     ui.text(&self.breadcrumbs);
                     ui.set_scroll_x(ui.scroll_max_x());
                 });
@@ -179,7 +180,7 @@ impl Widget for SavefileManager {
             }
 
             ListBox::new(SFM_TAG).size([button_width, 200. * scale]).build(ui, || {
-                if Selectable::new(format!(".. Up one dir ({})", self.key_back)).build(ui) {
+                if ui.selectable_config(format!(".. Up one dir ({})", self.key_back)).build() {
                     self.dir_stack.exit();
                     self.breadcrumbs = self.dir_stack.breadcrumbs();
                     self.dir_stack.refresh();
@@ -187,7 +188,7 @@ impl Widget for SavefileManager {
 
                 let mut goto: Option<usize> = None;
                 for (idx, is_selected, i) in self.dir_stack.values() {
-                    if Selectable::new(i).selected(is_selected).build(ui) {
+                    if ui.selectable_config(i).selected(is_selected).build() {
                         goto = Some(idx);
                     }
 

@@ -170,7 +170,7 @@ impl PracticeTool {
 
     fn render_visible(&mut self, ui: &imgui::Ui, flags: &ImguiRenderLoopFlags) {
         let [dw, dh] = { ui.io().display_size };
-        imgui::Window::new("##tool_window")
+        ui.window("##tool_window")
             .position([16., 16.], Condition::Always)
             .size_constraints([240., 0.], [dw - 70., dh - 70.])
             .bg_alpha(0.8)
@@ -180,7 +180,7 @@ impl PracticeTool {
                     | WindowFlags::NO_MOVE
                     | WindowFlags::ALWAYS_AUTO_RESIZE
             })
-            .build(ui, || {
+            .build(|| {
                 if let Some(e) = self.config_err.as_ref() {
                     ui.text(e);
                 }
@@ -215,7 +215,7 @@ impl PracticeTool {
             ui.push_style_var(StyleVar::FrameBorderSize(0.)),
             ui.push_style_var(StyleVar::WindowBorderSize(0.)),
         ];
-        imgui::Window::new("##msg_window")
+        ui.window("##msg_window")
             .position([w * 35. / 1920., h * 112. / 1080.], Condition::Always)
             .bg_alpha(0.0)
             .flags({
@@ -225,7 +225,7 @@ impl PracticeTool {
                     | WindowFlags::NO_SCROLLBAR
                     | WindowFlags::ALWAYS_AUTO_RESIZE
             })
-            .build(ui, || {
+            .build(|| {
                 ui.text("johndisandonato's Practice Tool");
 
                 ui.same_line();
@@ -240,11 +240,11 @@ impl PracticeTool {
                     ui.open_popup("##help_window");
                 }
 
-                PopupModal::new("##help_window")
+                ui.modal_popup_config("##help_window")
                     .resizable(false)
                     .movable(false)
                     .title_bar(false)
-                    .build(ui, || {
+                    .build(|| {
                         self.pointers.cursor_show.set(true);
                         ui.text(formatcp!(
                             "Elden Ring Practice Tool v{}.{}.{}",
@@ -343,7 +343,7 @@ impl PracticeTool {
             ui.push_style_var(StyleVar::WindowBorderSize(0.)),
         ];
 
-        Window::new("##logs")
+        ui.window("##logs")
             .position_pivot([1., 1.])
             .position([dw * 0.95, dh * 0.8], Condition::Always)
             .flags({
@@ -355,7 +355,7 @@ impl PracticeTool {
             })
             .size([ww, wh], Condition::Always)
             .bg_alpha(0.0)
-            .build(ui, || {
+            .build(|| {
                 for _ in 0..20 {
                     ui.text("");
                 }
@@ -437,7 +437,7 @@ impl ImguiRenderLoop for PracticeTool {
     }
 
     fn initialize(&mut self, ctx: &mut imgui::Context) {
-        let mut fonts = ctx.fonts();
+        let fonts = ctx.fonts();
         self.fonts = Some(FontIDs {
             small: fonts.add_font(&[FontSource::TtfData {
                 data: include_bytes!("../../lib/data/ComicMono.ttf"),
