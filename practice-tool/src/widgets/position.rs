@@ -45,23 +45,22 @@ impl SavePosition {
     }
 
     fn load_position(&mut self) {
-        if let (Some([gx, gy, gz, _, _]), Some([cx, cy, cz, _, _]), Some([tcx, tcy, tcz, _, _])) = (
-            self.global_position.read(),
-            self.chunk_position.read(),
-            self.torrent_chunk_position.read(),
-        ) {
+        if let (Some([gx, gy, gz, _, _]), Some([cx, cy, cz, _, _])) =
+            (self.global_position.read(), self.chunk_position.read())
+        {
             let [sx, sy, sz, sr1, sr2] = self.saved_position;
-
             self.chunk_position.write([sx - gx + cx, sy - gy + cy, sz - gz + cz, sr1, sr2]);
             self.chunk_position.write_map_id(self.saved_map_id);
 
-            self.torrent_chunk_position.write([
-                sx - gx + tcx,
-                sy - gy + tcy,
-                sz - gz + tcz,
-                sr1,
-                sr2,
-            ]);
+            if let Some([tcx, tcy, tcz, _, _]) = self.torrent_chunk_position.read() {
+                self.torrent_chunk_position.write([
+                    sx - gx + tcx,
+                    sy - gy + tcy,
+                    sz - gz + tcz,
+                    sr1,
+                    sr2,
+                ]);
+            }
         }
     }
 }

@@ -82,6 +82,8 @@ pub enum Version {
     V1_05_0,
     V1_06_0,
     V1_07_0,
+    V1_08_0,
+    V1_08_1,
 }
 
 impl From<(u32, u32, u32)> for Version {
@@ -99,10 +101,12 @@ impl From<(u32, u32, u32)> for Version {
             (1, 5, 0) => Version::V1_05_0,
             (1, 6, 0) => Version::V1_06_0,
             (1, 7, 0) => Version::V1_07_0,
+            (1, 8, 0) => Version::V1_08_0,
+            (1, 8, 1) => Version::V1_08_1,
             (maj, min, patch) => {
                 log::error!("Unrecognized version {maj}.{min:02}.{patch}");
                 panic!()
-            },
+            }
         }
     }
 }
@@ -122,6 +126,8 @@ impl From<Version> for BaseAddresses {
             Version::V1_05_0 => BASE_ADDRESSES_1_05_0,
             Version::V1_06_0 => BASE_ADDRESSES_1_06_0,
             Version::V1_07_0 => BASE_ADDRESSES_1_07_0,
+            Version::V1_08_0 => BASE_ADDRESSES_1_08_0,
+            Version::V1_08_1 => BASE_ADDRESSES_1_08_1,
         }
     }
 }
@@ -497,3 +503,66 @@ pub const BASE_ADDRESSES_1_07_0: BaseAddresses = BaseAddresses {
     func_item_spawn: 0x54ee40,
     func_remove_intro_screens: 0xa9972d,
 };
+
+pub const BASE_ADDRESSES_1_08_0: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3cd6158,
+    csfd4_virtual_memory_flag: 0x3cdbdf8,
+    cs_flipper: 0x44fd2c8,
+    cs_menu_man: 0x8ba74bc4,
+    cs_menu_man_imp: 0x3cdf140,
+    cs_net_man: 0x3cce860,
+    cs_regulation_manager: 0x3cfa478,
+    cs_session_manager: 0x3ceddb0,
+    chr_dbg_flags: 0x3cd9b96,
+    damage_ctrl: 0x3cd9d68,
+    field_area: 0x3cdcb80,
+    game_data_man: 0x3cd1948,
+    game_man: 0x3cdd2c8,
+    global_pos: 0x3cd9998,
+    group_mask: 0x3abfae7,
+    hit_ins: 0x3cdda70,
+    hit_ins_hitbox_offset: 0x3cdda7c,
+    map_item_man: 0x3cdb400,
+    menu_man_ins: 0x3cdf140,
+    msg_repository: 0x3cf0dd8,
+    solo_param_repository: 0x3cf5788,
+    world_chr_man: 0x3cd9998,
+    world_chr_man_dbg: 0x3cd9bd0,
+    world_chr_man_imp: 0x3cd9998,
+    func_dbg_action_force: 0x575772e,
+    func_item_inject: 0x55c1a0,
+    func_item_spawn: 0x556790,
+    func_remove_intro_screens: 0xadb0fd,
+};
+
+pub const BASE_ADDRESSES_1_08_1: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3cd6158,
+    csfd4_virtual_memory_flag: 0x3cdbdf8,
+    cs_flipper: 0x44fd2c8,
+    cs_menu_man: 0x8ba74bc4,
+    cs_menu_man_imp: 0x3cdf140,
+    cs_net_man: 0x3cce860,
+    cs_regulation_manager: 0x3cfa478,
+    cs_session_manager: 0x3ceddb0,
+    chr_dbg_flags: 0x3cd9b96,
+    damage_ctrl: 0x3cd9d68,
+    field_area: 0x3cdcb80,
+    game_data_man: 0x3cd1948,
+    game_man: 0x3cdd2c8,
+    global_pos: 0x3cd9998,
+    group_mask: 0x3abfae7,
+    hit_ins: 0x3cdda70,
+    hit_ins_hitbox_offset: 0x3cdda7c,
+    map_item_man: 0x3cdb400,
+    menu_man_ins: 0x3cdf140,
+    msg_repository: 0x3cf0dd8,
+    solo_param_repository: 0x3cf5788,
+    world_chr_man: 0x3cd9998,
+    world_chr_man_dbg: 0x3cd9bd0,
+    world_chr_man_imp: 0x3cd9998,
+    func_dbg_action_force: 0x56ba77a,
+    func_item_inject: 0x55c1a0,
+    func_item_spawn: 0x556790,
+    func_remove_intro_screens: 0xadb0fd,
+};
+

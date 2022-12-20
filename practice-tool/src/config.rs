@@ -160,6 +160,7 @@ impl Config {
                     CfgCommand::SpecialFlag { flag, hotkey } if flag == "action_freeze" => {
                         Box::new(ActionFreeze::new(
                             chains.func_dbg_action_force.clone(),
+                            chains.func_dbg_action_force_state_values,
                             hotkey.clone(),
                         ))
                     },
