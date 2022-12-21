@@ -255,7 +255,6 @@ impl Pointers {
 
         // TODO 1.08.x 
         // - show stable position is broken
-        // - torrent pointer is flimsy and becomes invalid every now and then
         Self {
             one_shot: bitflag!(0b1; chr_dbg_flags + 0x3),
             no_damage: bitflag!(0b1; chr_dbg_flags + 0xC),
