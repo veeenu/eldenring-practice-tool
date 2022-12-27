@@ -89,7 +89,7 @@ impl Widget for CharacterStatsEdit {
                 }
             }
 
-            if self.hotkey_close.keyup()
+            if self.hotkey_close.keyup(ui)
                 || ui.button_with_size(&self.label_close, [button_width, super::BUTTON_HEIGHT])
             {
                 ui.close_current_popup();
@@ -100,8 +100,8 @@ impl Widget for CharacterStatsEdit {
         style_tokens.into_iter().rev().for_each(|t| t.pop());
     }
 
-    fn interact(&mut self) {
-        if self.hotkey_open.keyup() {
+    fn interact(&mut self, ui: &imgui::Ui) {
+        if self.hotkey_open.keyup(ui) {
             self.stats = self.ptr.read();
         }
     }

@@ -190,7 +190,7 @@ impl PracticeTool {
                 }
                 if flags.focused && !ui.io().want_capture_keyboard {
                     for w in self.widgets.iter_mut() {
-                        w.interact();
+                        w.interact(ui);
                     }
                 }
 
@@ -313,7 +313,7 @@ impl PracticeTool {
 
                 if flags.focused && !ui.io().want_capture_keyboard {
                     for w in self.widgets.iter_mut() {
-                        w.interact();
+                        w.interact(ui);
                     }
                 }
             });
@@ -326,7 +326,7 @@ impl PracticeTool {
     fn render_hidden(&mut self, ui: &imgui::Ui, flags: &ImguiRenderLoopFlags) {
         if flags.focused && !ui.io().want_capture_keyboard {
             for w in self.widgets.iter_mut() {
-                w.interact();
+                w.interact(ui);
             }
         }
     }
@@ -394,7 +394,7 @@ impl ImguiRenderLoop for PracticeTool {
     fn render(&mut self, ui: &mut imgui::Ui, flags: &ImguiRenderLoopFlags) {
         let font_token = self.set_font(ui);
 
-        if flags.focused && !ui.io().want_capture_keyboard && self.config.settings.display.keyup() {
+        if flags.focused && !ui.io().want_capture_keyboard && self.config.settings.display.keyup(ui) {
             let rshift = unsafe { GetAsyncKeyState(VK_RSHIFT.0 as _) < 0 };
 
             self.ui_state = match (&self.ui_state, rshift) {

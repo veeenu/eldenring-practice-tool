@@ -103,9 +103,9 @@ impl Widget for SavePosition {
         ));
     }
 
-    fn interact(&mut self) {
-        let key_up = self.hotkey.keyup();
-        let mod_down = self.modifier.is_key_down();
+    fn interact(&mut self, ui: &imgui::Ui) {
+        let key_up = self.hotkey.keyup(ui);
+        let mod_down = self.modifier.is_key_down(ui);
 
         if key_up && mod_down {
             self.save_position();

@@ -25,8 +25,8 @@ impl Widget for Quitout {
         }
     }
 
-    fn interact(&mut self) {
-        if self.hotkey.keyup() {
+    fn interact(&mut self, ui: &imgui::Ui) {
+        if self.hotkey.keyup(ui) {
             self.ptr.write(1);
         }
     }

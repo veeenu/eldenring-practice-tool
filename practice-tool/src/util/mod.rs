@@ -4,7 +4,6 @@ use std::ffi::OsString;
 use std::fmt::Display;
 use std::os::windows::prelude::OsStringExt;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicBool, Ordering};
 
 use log::*;
 use serde::Deserialize;
@@ -15,7 +14,6 @@ use windows::Win32::System::LibraryLoader::{
     GetModuleFileNameW, GetModuleHandleExA, GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
     GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
 };
-use windows::Win32::UI::Input::KeyboardAndMouse::GetAsyncKeyState;
 
 /// Returns the path of the implementor's DLL.
 pub fn get_dll_path() -> Option<PathBuf> {
@@ -44,15 +42,9 @@ pub fn get_dll_path() -> Option<PathBuf> {
     Some(OsString::from_wide(&sz_filename[..len]).into())
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone, Copy)]
 #[serde(try_from = "String")]
-pub(crate) struct KeyState(i32, AtomicBool);
-
-impl Clone for KeyState {
-    fn clone(&self) -> Self {
-        KeyState(self.0, AtomicBool::new(self.1.load(Ordering::Relaxed)))
-    }
-}
+pub(crate) struct KeyState(i32);
 
 impl Display for KeyState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -62,27 +54,19 @@ impl Display for KeyState {
 
 impl KeyState {
     pub(crate) fn new(vkey: i32) -> Self {
-        KeyState(vkey, AtomicBool::new(unsafe { GetAsyncKeyState(vkey) < 0 }))
+        KeyState(vkey)
     }
 
-    pub(crate) fn keyup(&self) -> bool {
-        let (prev_state, state) = self.update();
-        prev_state && !state
+    pub(crate) fn keyup(&self, ui: &imgui::Ui) -> bool {
+        !ui.io().want_capture_keyboard && ui.is_key_index_released(self.0)
     }
 
-    pub(crate) fn keydown(&self) -> bool {
-        let (prev_state, state) = self.update();
-        !prev_state && state
+    pub(crate) fn keydown(&self, ui: &imgui::Ui) -> bool {
+        !ui.io().want_capture_keyboard && ui.is_key_index_pressed(self.0)
     }
 
-    pub(crate) fn is_key_down(&self) -> bool {
-        unsafe { GetAsyncKeyState(self.0) < 0 }
-    }
-
-    fn update(&self) -> (bool, bool) {
-        let state = self.is_key_down();
-        let prev_state = self.1.swap(state, Ordering::SeqCst);
-        (prev_state, state)
+    pub(crate) fn is_key_down(&self, ui: &imgui::Ui) -> bool {
+        !ui.io().want_capture_keyboard && ui.is_key_index_down(self.0)
     }
 }
 

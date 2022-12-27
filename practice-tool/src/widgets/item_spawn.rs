@@ -302,13 +302,13 @@ impl Widget for ItemSpawner<'_> {
             });
 
             ui.slider_config("Qty", 1, 99).build(&mut self.qty);
-            if self.hotkey_load.keyup()
+            if self.hotkey_load.keyup(ui)
                 || ui.button_with_size(&self.label_load, [400., button_height])
             {
                 self.spawn();
             }
 
-            if self.hotkey_close.keyup()
+            if self.hotkey_close.keyup(ui)
                 || ui.button_with_size(&self.label_close, [400., button_height])
             {
                 ui.close_current_popup();
@@ -322,8 +322,8 @@ impl Widget for ItemSpawner<'_> {
         self.log.take()
     }
 
-    fn interact(&mut self) {
-        if self.hotkey_load.keyup() {
+    fn interact(&mut self, ui: &imgui::Ui) {
+        if self.hotkey_load.keyup(ui) {
             self.spawn();
         }
     }

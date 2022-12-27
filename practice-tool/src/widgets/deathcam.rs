@@ -36,8 +36,8 @@ impl Widget for Deathcam {
         }
     }
 
-    fn interact(&mut self) {
-        if let Some(true) = self.hotkey.as_ref().map(KeyState::keyup) {
+    fn interact(&mut self, ui: &imgui::Ui) {
+        if let Some(true) = self.hotkey.as_ref().map(|k| k.keyup(ui)) {
             if let Some(false) = self.flag.toggle() {
                 self.seven.write(0x0);
             }

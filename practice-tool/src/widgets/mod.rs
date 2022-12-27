@@ -20,9 +20,9 @@ pub(crate) mod runes;
 pub(crate) mod savefile_manager;
 
 pub(crate) trait Widget: Send + Sync + std::fmt::Debug {
-    fn render(&mut self, ui: &imgui::Ui);
-    fn interact(&mut self) {}
-    fn interact_ui(&mut self) {}
+    fn render(&mut self, _ui: &imgui::Ui);
+    fn interact(&mut self, _ui: &imgui::Ui) {}
+    fn interact_ui(&mut self, _ui: &imgui::Ui) {}
 
     fn enter(&self, _ui: &imgui::Ui) -> Option<Arc<Mutex<Box<dyn Widget>>>> {
         None
