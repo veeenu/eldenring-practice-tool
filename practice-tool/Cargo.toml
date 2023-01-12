@@ -1,6 +1,6 @@
 [package]
 name = "eldenring-practice-tool"
-version = "1.0.7"
+version = "1.0.8"
 edition = "2021"
 authors = ["Andrea Venuta <andrea@johndisandonato.stream>"]
 
