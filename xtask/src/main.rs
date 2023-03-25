@@ -137,14 +137,8 @@ fn dist() -> Result<()> {
         project_root().join("target/release/libjdsd_er_practice_tool.dll"),
         "jdsd_er_practice_tool.dll",
     )?;
-    dist.add(
-        project_root().join("target/release/dinput8.dll"),
-        "dinput8.dll",
-    )?;
-    dist.add(
-        project_root().join("lib/data/RELEASE-README.txt"),
-        "README.txt",
-    )?;
+    dist.add(project_root().join("target/release/dinput8.dll"), "dinput8.dll")?;
+    dist.add(project_root().join("lib/data/RELEASE-README.txt"), "README.txt")?;
     dist.add(project_root().join("jdsd_er_practice_tool.toml"), "jdsd_er_practice_tool.toml")?;
 
     Ok(())

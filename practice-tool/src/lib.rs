@@ -394,7 +394,8 @@ impl ImguiRenderLoop for PracticeTool {
     fn render(&mut self, ui: &mut imgui::Ui, flags: &ImguiRenderLoopFlags) {
         let font_token = self.set_font(ui);
 
-        if flags.focused && !ui.io().want_capture_keyboard && self.config.settings.display.keyup(ui) {
+        if flags.focused && !ui.io().want_capture_keyboard && self.config.settings.display.keyup(ui)
+        {
             let rshift = unsafe { GetAsyncKeyState(VK_RSHIFT.0 as _) < 0 };
 
             self.ui_state = match (&self.ui_state, rshift) {

@@ -150,10 +150,7 @@ impl ParamTinkerer {
                     let _ = ui.push_item_width(-1.);
                     ListBox::new("##param_names").size([COLUMN1, 220.]).build(ui, || {
                         for (idx, k) in params.keys().enumerate() {
-                            if ui
-                                .selectable_config(k)
-                                .selected(idx == self.selected_param)
-                                .build()
+                            if ui.selectable_config(k).selected(idx == self.selected_param).build()
                             {
                                 self.selected_param = idx;
                             }
@@ -182,7 +179,8 @@ impl ParamTinkerer {
                                     write!(buf, "{}", id).ok();
                                     &buf
                                 });
-                            if ui.selectable_config(param_repr)
+                            if ui
+                                .selectable_config(param_repr)
                                 .selected(idx == self.selected_param_id)
                                 .build()
                             {

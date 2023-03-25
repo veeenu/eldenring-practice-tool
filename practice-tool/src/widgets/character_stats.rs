@@ -42,7 +42,8 @@ impl Widget for CharacterStatsEdit {
         let style_tokens =
             [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, super::MODAL_BACKGROUND)];
 
-        if let Some(_token) = ui.modal_popup_config("##character_stats_edit")
+        if let Some(_token) = ui
+            .modal_popup_config("##character_stats_edit")
             .flags(
                 WindowFlags::NO_TITLE_BAR
                     | WindowFlags::NO_RESIZE
