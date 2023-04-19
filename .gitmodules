@@ -1,3 +1,0 @@
-[submodule "lib/hudhook"]
-	path = lib/hudhook
-	url = git@github.com:veeenu/hudhook.git

@@ -1,4 +1,4 @@
-#![feature(once_cell)]
+#![feature(lazy_cell)]
 use std::ffi::c_void;
 use std::ptr::null_mut;
 use std::sync::LazyLock;
@@ -53,7 +53,7 @@ static SYMBOLS: LazyLock<(
 
 fn dinput8_path() -> U16CString {
     let mut sys_path = vec![0u16; 320];
-    let len = unsafe { GetSystemDirectoryW(&mut sys_path) as u32 as usize };
+    let len = unsafe { GetSystemDirectoryW(&mut sys_path) as usize };
 
     widestring::U16CString::from_vec_truncate(
         sys_path[..len]

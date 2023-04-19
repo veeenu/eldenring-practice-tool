@@ -16,16 +16,16 @@
 
 use dll_syringe::process::OwnedProcess;
 use dll_syringe::Syringe;
+use hudhook::tracing::trace;
 use pkg_version::*;
 use semver::*;
-use simplelog::*;
+use tracing_subscriber::filter::LevelFilter;
+use tracing_subscriber::prelude::*;
 use windows::core::PCSTR;
 use windows::Win32::Foundation::HWND;
 use windows::Win32::UI::WindowsAndMessaging::{
     MessageBoxA, IDYES, MB_ICONERROR, MB_ICONINFORMATION, MB_OK, MB_YESNO,
 };
-// use winapi::shared::windef::*;
-// use winapi::um::winuser::*;
 
 fn err_to_string<T: std::fmt::Display>(e: T) -> String {
     format!("Error: {}", e)
@@ -73,7 +73,7 @@ fn perform_injection() -> Result<(), String> {
     }
 
     let dll_path = dll_path.canonicalize().map_err(err_to_string)?;
-    log::trace!("Injecting {:?}", dll_path);
+    trace!("Injecting {:?}", dll_path);
 
     let process = OwnedProcess::find_first_by_name("eldenring.exe")
         .ok_or_else(|| "Could not find process".to_string())?;
@@ -84,13 +84,18 @@ fn perform_injection() -> Result<(), String> {
 }
 
 fn main() {
-    CombinedLogger::init(vec![TermLogger::new(
-        LevelFilter::Trace,
-        ConfigBuilder::new().add_filter_allow("jdsd_er_practice_tool".to_string()).build(),
-        TerminalMode::Mixed,
-        ColorChoice::Auto,
-    )])
-    .ok();
+    {
+        let stdout_layer = tracing_subscriber::fmt::layer()
+            .with_thread_ids(true)
+            .with_file(true)
+            .with_line_number(true)
+            .with_thread_names(true)
+            .with_ansi(true)
+            .boxed();
+
+        tracing_subscriber::registry().with(LevelFilter::DEBUG).with(stdout_layer).init();
+    }
+
     let current_version = get_current_version();
 
     match get_latest_version() {

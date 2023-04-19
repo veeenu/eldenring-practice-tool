@@ -1,6 +1,6 @@
+use hudhook::tracing::debug;
 use imgui::*;
 use libeldenring::prelude::*;
-use log::*;
 
 use super::Widget;
 use crate::util::KeyState;

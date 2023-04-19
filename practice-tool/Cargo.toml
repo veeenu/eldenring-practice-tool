@@ -13,16 +13,14 @@ crate-type = ["cdylib", "rlib"]
 name = "libjdsd_er_practice_tool"
 
 [dependencies]
-hudhook = { path = "../lib/hudhook" }
+hudhook = { workspace = true }
 libeldenring = { path = "../lib/libeldenring" }
 imgui = "0.9.0"
 imgui-sys = "0.9.0"
-simplelog = "0.12.0"
 log-panics = { version = "2.0.0", features = ["with-backtrace"] }
 serde = { version = "1.0.136", features = ["derive"] }
 open = "2.1.1"
 semver = "1.0.7"
-log = "0.4.16"
 ureq = { version = "2.4.0", features = ["json"] }
 pkg-version = "1.0.0"
 toml = "0.5.8"
@@ -34,6 +32,7 @@ serde_yaml = "0.8.23"
 fuzzy_match = "0.2.1"
 const_format = "0.2.23"
 dll-syringe = { git = "https://github.com/OpenByteDev/dll-syringe" }
+tracing-subscriber = "0.3.16"
 
 [dependencies.windows]
 version = "0.39.0"

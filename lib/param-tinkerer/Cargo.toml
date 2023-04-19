@@ -11,8 +11,8 @@ name = "jdsd_er_param_tinkerer"
 imgui = "0.9.0"
 imgui-sys = "0.9.0"
 libeldenring = { path = "../libeldenring" }
-hudhook = { path = "../hudhook" }
-simplelog = "0.12.0"
+hudhook = { workspace = true }
+tracing-subscriber = "0.3.16"
 
 [dependencies.windows]
 version = "0.39.0"

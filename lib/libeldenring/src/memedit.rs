@@ -38,7 +38,7 @@ impl<T> PointerChain<T> {
     /// Creates a new pointer chain given an array of addresses.
     pub fn new(chain: &[usize]) -> PointerChain<T> {
         let mut it = chain.iter();
-        let base = *it.next().unwrap() as usize as *mut T;
+        let base = *it.next().unwrap() as *mut T;
         PointerChain {
             proc: unsafe { GetCurrentProcess() },
             base,
@@ -61,7 +61,7 @@ impl<T> PointerChain<T> {
 
         match result {
             0 => None,
-            _ => Some(value + offs as usize),
+            _ => Some(value + offs),
         }
     }
 

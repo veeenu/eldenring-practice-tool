@@ -1,7 +1,8 @@
 use std::str::FromStr;
 
+use hudhook::tracing::error;
+use hudhook::tracing::metadata::LevelFilter;
 use libeldenring::prelude::*;
-use log::{error, LevelFilter};
 use serde::Deserialize;
 
 use crate::util;
@@ -102,10 +103,10 @@ enum CfgCommand {
 
 #[derive(Deserialize, Debug)]
 #[serde(try_from = "String")]
-pub(crate) struct LevelFilterSerde(log::LevelFilter);
+pub(crate) struct LevelFilterSerde(LevelFilter);
 
 impl LevelFilterSerde {
-    pub(crate) fn inner(&self) -> log::LevelFilter {
+    pub(crate) fn inner(&self) -> LevelFilter {
         self.0
     }
 }
@@ -115,7 +116,7 @@ impl TryFrom<String> for LevelFilterSerde {
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
         Ok(LevelFilterSerde(
-            log::LevelFilter::from_str(&value)
+            LevelFilter::from_str(&value)
                 .map_err(|e| format!("Couldn't parse log level filter: {}", e))?,
         ))
     }
@@ -133,35 +134,34 @@ impl Config {
             .iter()
             .filter_map(|cmd| {
                 Some(match cmd {
-                    CfgCommand::Flag { flag, hotkey } => Box::new(Flag::new(
-                        &flag.label,
-                        (flag.getter)(chains).clone(),
-                        hotkey.clone(),
-                    )) as Box<dyn Widget>,
+                    CfgCommand::Flag { flag, hotkey } => {
+                        Box::new(Flag::new(&flag.label, (flag.getter)(chains).clone(), *hotkey))
+                            as Box<dyn Widget>
+                    },
                     CfgCommand::MultiFlag { flag, hotkey } => Box::new(MultiFlag::new(
                         &flag.label,
                         flag.items.iter().map(|flag| flag(chains).clone()).collect(),
-                        hotkey.clone(),
+                        *hotkey,
                     ))
                         as Box<dyn Widget>,
                     CfgCommand::MultiFlagUser { flags, hotkey, label } => Box::new(MultiFlag::new(
                         label,
                         flags.iter().map(|flag| (flag.getter)(chains).clone()).collect(),
-                        hotkey.clone(),
+                        *hotkey,
                     ))
                         as Box<dyn Widget>,
                     CfgCommand::SpecialFlag { flag, hotkey } if flag == "deathcam" => {
                         Box::new(Deathcam::new(
                             chains.deathcam.0.clone(),
                             chains.deathcam.1.clone(),
-                            hotkey.clone(),
+                            *hotkey,
                         ))
                     },
                     CfgCommand::SpecialFlag { flag, hotkey } if flag == "action_freeze" => {
                         Box::new(ActionFreeze::new(
                             chains.func_dbg_action_force.clone(),
                             chains.func_dbg_action_force_state_values,
-                            hotkey.clone(),
+                            *hotkey,
                         ))
                     },
                     CfgCommand::SpecialFlag { flag, hotkey: _ } => {
@@ -169,54 +169,50 @@ impl Config {
                         return None;
                     },
                     CfgCommand::SavefileManager { hotkey_load, hotkey_back, hotkey_close } => {
-                        SavefileManager::new_widget(
-                            hotkey_load.clone(),
-                            hotkey_back.clone(),
-                            hotkey_close.clone(),
-                        )
+                        SavefileManager::new_widget(*hotkey_load, *hotkey_back, *hotkey_close)
                     },
                     CfgCommand::ItemSpawner { hotkey_load, hotkey_close } => {
                         Box::new(ItemSpawner::new(
                             chains.func_item_inject,
                             chains.base_addresses.map_item_man,
                             chains.gravity.clone(),
-                            hotkey_load.clone(),
-                            hotkey_close.clone(),
+                            *hotkey_load,
+                            *hotkey_close,
                         ))
                     },
                     CfgCommand::Position { hotkey, modifier } => Box::new(SavePosition::new(
                         chains.global_position.clone(),
                         chains.chunk_position.clone(),
                         chains.torrent_chunk_position.clone(),
-                        hotkey.clone(),
-                        modifier.clone(),
+                        *hotkey,
+                        *modifier,
                     )),
                     CfgCommand::NudgePosition { nudge, nudge_up, nudge_down } => {
                         Box::new(NudgePosition::new(
                             chains.chunk_position.clone(),
                             chains.torrent_chunk_position.clone(),
                             *nudge,
-                            nudge_up.clone(),
-                            nudge_down.clone(),
+                            *nudge_up,
+                            *nudge_down,
                         ))
                     },
                     CfgCommand::CycleSpeed { cycle_speed, hotkey } => Box::new(CycleSpeed::new(
                         cycle_speed,
                         [chains.animation_speed.clone(), chains.torrent_animation_speed.clone()],
-                        hotkey.clone(),
+                        *hotkey,
                     )),
                     CfgCommand::CharacterStats { hotkey_open, hotkey_close } => {
                         Box::new(CharacterStatsEdit::new(
-                            hotkey_open.clone(),
-                            hotkey_close.clone(),
+                            *hotkey_open,
+                            *hotkey_close,
                             chains.character_stats.clone(),
                         ))
                     },
                     CfgCommand::Runes { amount, hotkey } => {
-                        Box::new(Runes::new(*amount, chains.runes.clone(), hotkey.clone()))
+                        Box::new(Runes::new(*amount, chains.runes.clone(), *hotkey))
                     },
                     CfgCommand::Quitout { hotkey } => {
-                        Box::new(Quitout::new(chains.quitout.clone(), hotkey.clone()))
+                        Box::new(Quitout::new(chains.quitout.clone(), *hotkey))
                     },
                 })
             })
@@ -228,7 +224,7 @@ impl Default for Config {
     fn default() -> Self {
         Config {
             settings: Settings {
-                log_level: LevelFilterSerde(LevelFilter::Debug),
+                log_level: LevelFilterSerde(LevelFilter::DEBUG),
                 display: KeyState::new(util::get_key_code("0").unwrap()),
                 dxgi_debug: false,
                 show_console: false,

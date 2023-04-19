@@ -1,4 +1,4 @@
-#![feature(once_cell)]
+#![feature(lazy_cell)]
 #![feature(array_chunks)]
 
 mod codegen;
@@ -11,8 +11,7 @@ use std::process::Command;
 
 use dll_syringe::process::OwnedProcess;
 use dll_syringe::Syringe;
-use log::*;
-use simplelog::*;
+use tracing_subscriber::filter::LevelFilter;
 use widestring::U16CString;
 use winapi::ctypes::c_void;
 use winapi::shared::minwindef::FALSE;
@@ -31,13 +30,14 @@ type Result<T> = std::result::Result<T, DynError>;
 fn main() -> Result<()> {
     dotenv::dotenv().ok();
 
-    CombinedLogger::init(vec![TermLogger::new(
-        LevelFilter::Trace,
-        ConfigBuilder::new().build(),
-        TerminalMode::Mixed,
-        ColorChoice::Auto,
-    )])
-    .ok();
+    tracing_subscriber::fmt()
+        .with_max_level(LevelFilter::TRACE)
+        .with_thread_ids(true)
+        .with_file(true)
+        .with_line_number(true)
+        .with_thread_names(true)
+        .with_ansi(true)
+        .init();
 
     let task = env::args().nth(1);
     match task.as_deref() {
@@ -112,7 +112,7 @@ fn dist() -> Result<()> {
             F: Fn(Vec<u8>) -> Vec<u8>,
         {
             let mut buf = Vec::new();
-            File::open(&src)
+            File::open(src)
                 .map_err(|e| format!("{}: Couldn't open file: {}", dst, e))?
                 .read_to_end(&mut buf)
                 .map_err(|e| format!("{}: Couldn't read file: {}", dst, e))?;
@@ -146,7 +146,7 @@ fn dist() -> Result<()> {
 
 fn run() -> Result<()> {
     let cargo = env::var("CARGO").unwrap_or_else(|_| "cargo".to_string());
-    let status = Command::new(&cargo)
+    let status = Command::new(cargo)
         .current_dir(project_root())
         .args(["build", "--release", "--lib", "--package", "eldenring-practice-tool"])
         .status()
