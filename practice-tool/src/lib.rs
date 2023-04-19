@@ -14,20 +14,23 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#![feature(once_cell)]
+#![feature(lazy_cell)]
 
 mod config;
 mod util;
 mod widgets;
 
+use std::sync::Mutex;
 use std::time::Instant;
 
 use const_format::formatcp;
 use hudhook::hooks::dx12::ImguiDx12Hooks;
 use hudhook::hooks::{ImguiRenderLoop, ImguiRenderLoopFlags};
+use hudhook::tracing::metadata::LevelFilter;
 use imgui::*;
 use libeldenring::prelude::*;
 use pkg_version::*;
+use tracing_subscriber::prelude::*;
 use windows::Win32::UI::Input::KeyboardAndMouse::{GetAsyncKeyState, VK_RSHIFT};
 
 use crate::widgets::{Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
@@ -60,8 +63,6 @@ struct PracticeTool {
 
 impl PracticeTool {
     fn new() -> Self {
-        use simplelog::*;
-
         hudhook::utils::alloc_console();
         log_panics::init();
 
@@ -103,22 +104,33 @@ impl PracticeTool {
 
         let log_level = config.settings.log_level.inner();
 
-        if log_level < LevelFilter::Debug || !config.settings.show_console {
+        if log_level < LevelFilter::DEBUG || !config.settings.show_console {
             hudhook::utils::free_console();
         }
 
         match log_file {
             Some(Ok(log_file)) => {
-                CombinedLogger::init(vec![
-                    TermLogger::new(
-                        log_level,
-                        Config::default(),
-                        TerminalMode::Mixed,
-                        ColorChoice::Auto,
-                    ),
-                    WriteLogger::new(log_level, Config::default(), log_file),
-                ])
-                .ok();
+                let file_layer = tracing_subscriber::fmt::layer()
+                    .with_thread_ids(true)
+                    .with_file(true)
+                    .with_line_number(true)
+                    .with_thread_names(true)
+                    .with_writer(Mutex::new(log_file))
+                    .with_ansi(false)
+                    .boxed();
+                let stdout_layer = tracing_subscriber::fmt::layer()
+                    .with_thread_ids(true)
+                    .with_file(true)
+                    .with_line_number(true)
+                    .with_thread_names(true)
+                    .with_ansi(true)
+                    .boxed();
+
+                tracing_subscriber::registry()
+                    .with(config.settings.log_level.inner())
+                    .with(file_layer)
+                    .with(stdout_layer)
+                    .init();
             },
             e => match e {
                 None => error!("Could not construct log file path"),

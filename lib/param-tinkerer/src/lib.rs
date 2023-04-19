@@ -1,16 +1,18 @@
-#![feature(once_cell)]
+#![feature(lazy_cell)]
 
 use std::ffi::OsString;
 use std::fmt::Write;
 use std::os::windows::prelude::OsStringExt;
 use std::path::PathBuf;
+use std::sync::Mutex;
 
 use hudhook::hooks::dx12::ImguiDx12Hooks;
 use hudhook::hooks::{ImguiRenderLoop, ImguiRenderLoopFlags};
 use imgui::*;
 use libeldenring::params::{PARAMS, PARAM_NAMES};
 use libeldenring::prelude::*;
-use simplelog::*;
+use tracing_subscriber::filter::LevelFilter;
+use tracing_subscriber::prelude::*;
 use windows::core::PCSTR;
 use windows::Win32::Foundation::{GetLastError, HINSTANCE, MAX_PATH};
 use windows::Win32::System::LibraryLoader::{
@@ -64,26 +66,46 @@ impl ParamTinkerer {
             })
             .map(std::fs::File::create);
 
-        if let Some(Ok(log_file)) = log_file {
-            CombinedLogger::init(vec![
-                TermLogger::new(
-                    LevelFilter::Debug,
-                    Config::default(),
-                    TerminalMode::Mixed,
-                    ColorChoice::Auto,
-                ),
-                WriteLogger::new(LevelFilter::Debug, Config::default(), log_file),
-            ])
-            .ok();
-        } else {
-            // hudhook::utils::simplelog();
-            CombinedLogger::init(vec![TermLogger::new(
-                LevelFilter::Debug,
-                Config::default(),
-                TerminalMode::Mixed,
-                ColorChoice::Auto,
-            )])
-            .ok();
+        match log_file {
+            Some(Ok(log_file)) => {
+                let file_layer = tracing_subscriber::fmt::layer()
+                    .with_thread_ids(true)
+                    .with_file(true)
+                    .with_line_number(true)
+                    .with_thread_names(true)
+                    .with_writer(Mutex::new(log_file))
+                    .with_ansi(false)
+                    .boxed();
+                let stdout_layer = tracing_subscriber::fmt::layer()
+                    .with_thread_ids(true)
+                    .with_file(true)
+                    .with_line_number(true)
+                    .with_thread_names(true)
+                    .with_ansi(true)
+                    .boxed();
+
+                tracing_subscriber::registry()
+                    .with(LevelFilter::DEBUG)
+                    .with(file_layer)
+                    .with(stdout_layer)
+                    .init();
+            },
+            e => {
+                tracing_subscriber::fmt()
+                    .with_max_level(LevelFilter::DEBUG)
+                    .with_thread_ids(true)
+                    .with_file(true)
+                    .with_line_number(true)
+                    .with_thread_names(true)
+                    .with_ansi(true)
+                    .init();
+
+                match e {
+                    None => error!("Could not construct log file path"),
+                    Some(Err(e)) => error!("Could not initialize log file: {:?}", e),
+                    _ => unreachable!(),
+                }
+            },
         }
 
         ParamTinkerer {

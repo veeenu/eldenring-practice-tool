@@ -9,15 +9,14 @@ zip = "0.5.13"
 regex = "1.5.4"
 serde_json = "1.0.73"
 rayon = "1.5.1"
-log = "0.4.16"
 dotenv = "0.15.0"
 textwrap = "0.15.0"
 heck = "0.4.0"
 serde_yaml = "0.8.23"
 serde = { version = "1.0.136", features = ["derive"] }
-# hudhook = { path = "../lib/hudhook/hudhook" }
-simplelog = "0.12.0"
 dll-syringe = { git = "https://github.com/OpenByteDev/dll-syringe" }
+tracing-subscriber = "0.3.16"
+tracing = "0.1.37"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

@@ -1,6 +1,6 @@
 use hudhook::inject::Process;
-use hudhook::log;
-use simplelog::*;
+use hudhook::tracing::trace;
+use tracing_subscriber::filter::LevelFilter;
 
 fn err_to_string<T: std::fmt::Display>(e: T) -> String {
     format!("Error: {}", e)
@@ -18,7 +18,7 @@ fn perform_injection() -> Result<(), String> {
     }
 
     let dll_path = dll_path.canonicalize().map_err(err_to_string)?;
-    log::trace!("Injecting {:?}", dll_path);
+    trace!("Injecting {:?}", dll_path);
 
     Process::by_title("ELDEN RING™")
         .map_err(|e| e.to_string())?
@@ -29,13 +29,13 @@ fn perform_injection() -> Result<(), String> {
 }
 
 fn main() {
-    CombinedLogger::init(vec![TermLogger::new(
-        LevelFilter::Trace,
-        ConfigBuilder::new().build(),
-        TerminalMode::Mixed,
-        ColorChoice::Auto,
-    )])
-    .ok();
-    log::info!("test");
+    tracing_subscriber::fmt()
+        .with_max_level(LevelFilter::TRACE)
+        .with_thread_ids(true)
+        .with_file(true)
+        .with_line_number(true)
+        .with_thread_names(true)
+        .with_ansi(true)
+        .init();
     perform_injection().unwrap();
 }

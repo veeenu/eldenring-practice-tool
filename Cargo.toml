@@ -13,3 +13,6 @@ exclude = [
 [profile.release]
 strip = "symbols"
 lto = true
+
+[workspace.dependencies]
+hudhook = { git = "https://github.com/veeenu/hudhook" }

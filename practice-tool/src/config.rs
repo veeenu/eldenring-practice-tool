@@ -1,7 +1,8 @@
 use std::str::FromStr;
 
+use hudhook::tracing::error;
+use hudhook::tracing::metadata::LevelFilter;
 use libeldenring::prelude::*;
-use log::{error, LevelFilter};
 use serde::Deserialize;
 
 use crate::util;
@@ -102,10 +103,10 @@ enum CfgCommand {
 
 #[derive(Deserialize, Debug)]
 #[serde(try_from = "String")]
-pub(crate) struct LevelFilterSerde(log::LevelFilter);
+pub(crate) struct LevelFilterSerde(LevelFilter);
 
 impl LevelFilterSerde {
-    pub(crate) fn inner(&self) -> log::LevelFilter {
+    pub(crate) fn inner(&self) -> LevelFilter {
         self.0
     }
 }
@@ -115,7 +116,7 @@ impl TryFrom<String> for LevelFilterSerde {
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
         Ok(LevelFilterSerde(
-            log::LevelFilter::from_str(&value)
+            LevelFilter::from_str(&value)
                 .map_err(|e| format!("Couldn't parse log level filter: {}", e))?,
         ))
     }
@@ -228,7 +229,7 @@ impl Default for Config {
     fn default() -> Self {
         Config {
             settings: Settings {
-                log_level: LevelFilterSerde(LevelFilter::Debug),
+                log_level: LevelFilterSerde(LevelFilter::DEBUG),
                 display: KeyState::new(util::get_key_code("0").unwrap()),
                 dxgi_debug: false,
                 show_console: false,

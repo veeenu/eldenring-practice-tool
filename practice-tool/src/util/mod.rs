@@ -5,7 +5,7 @@ use std::fmt::Display;
 use std::os::windows::prelude::OsStringExt;
 use std::path::PathBuf;
 
-use log::*;
+use hudhook::tracing::*;
 use serde::Deserialize;
 pub(crate) use vk::*;
 use windows::core::PCSTR;
