@@ -35,6 +35,10 @@ use windows::Win32::UI::Input::KeyboardAndMouse::{GetAsyncKeyState, VK_RSHIFT};
 
 use crate::widgets::{Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 
+const MAJOR: usize = pkg_version_major!();
+const MINOR: usize = pkg_version_minor!();
+const PATCH: usize = pkg_version_patch!();
+
 struct FontIDs {
     small: FontId,
     normal: FontId,
@@ -260,9 +264,9 @@ impl PracticeTool {
                         self.pointers.cursor_show.set(true);
                         ui.text(formatcp!(
                             "Elden Ring Practice Tool v{}.{}.{}",
-                            pkg_version_major!() as usize,
-                            pkg_version_minor!() as usize,
-                            pkg_version_patch!() as usize,
+                            MAJOR,
+                            MINOR,
+                            PATCH
                         ));
                         ui.separator();
                         ui.text(format!(

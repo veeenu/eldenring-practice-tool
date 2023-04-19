@@ -441,7 +441,7 @@ fn get_savefile_path() -> Result<PathBuf, String> {
         [std::env::var("APPDATA").map_err(|e| format!("{}", e))?.as_str(), "EldenRing"]
             .iter()
             .collect();
-    std::fs::read_dir(&savefile_path)
+    std::fs::read_dir(savefile_path)
         .map_err(|e| format!("{}", e))?
         .filter_map(|e| e.ok())
         .find(|e| re.is_match(&e.file_name().to_string_lossy()) && e.path().is_dir())
@@ -452,12 +452,12 @@ fn get_savefile_path() -> Result<PathBuf, String> {
 
 fn load_savefile(src: &Path, dest: &Path) -> Result<(), std::io::Error> {
     let buf = std::fs::read(src)?;
-    std::fs::write(dest, &buf)?;
+    std::fs::write(dest, buf)?;
     Ok(())
 }
 
 fn import_savefile(src: &Path, dest: &Path) -> Result<(), std::io::Error> {
     let buf = std::fs::read(dest)?;
-    std::fs::write(src, &buf)?;
+    std::fs::write(src, buf)?;
     Ok(())
 }
