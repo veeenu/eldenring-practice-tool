@@ -58,15 +58,15 @@ impl KeyState {
     }
 
     pub(crate) fn keyup(&self, ui: &imgui::Ui) -> bool {
-        !ui.io().want_capture_keyboard && ui.is_key_index_released(self.0)
+        !ui.io().want_capture_keyboard && ui.is_key_index_released(self.0 as _)
     }
 
     pub(crate) fn keydown(&self, ui: &imgui::Ui) -> bool {
-        !ui.io().want_capture_keyboard && ui.is_key_index_pressed(self.0)
+        !ui.io().want_capture_keyboard && ui.is_key_index_pressed(self.0 as _)
     }
 
     pub(crate) fn is_key_down(&self, ui: &imgui::Ui) -> bool {
-        !ui.io().want_capture_keyboard && ui.is_key_index_down(self.0)
+        !ui.io().want_capture_keyboard && ui.is_key_index_down(self.0 as _)
     }
 }
 

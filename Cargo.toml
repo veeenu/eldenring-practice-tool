@@ -15,4 +15,6 @@ strip = "symbols"
 lto = true
 
 [workspace.dependencies]
-hudhook = { git = "https://github.com/veeenu/hudhook" }
+hudhook = { git = "https://github.com/veeenu/hudhook", branch = "bumps" }
+imgui = "0.11.0"
+imgui-sys = "0.11.0"
