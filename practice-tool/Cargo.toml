@@ -15,8 +15,8 @@ name = "libjdsd_er_practice_tool"
 [dependencies]
 hudhook = { workspace = true }
 libeldenring = { path = "../lib/libeldenring" }
-imgui = "0.9.0"
-imgui-sys = "0.9.0"
+imgui = { workspace = true }
+imgui-sys = { workspace = true }
 log-panics = { version = "2.0.0", features = ["with-backtrace"] }
 serde = { version = "1.0.136", features = ["derive"] }
 open = "2.1.1"
