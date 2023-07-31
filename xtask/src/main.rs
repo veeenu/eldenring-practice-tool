@@ -217,7 +217,7 @@ fn update_icon(path: PathBuf, icon: PathBuf) -> Result<()> {
     let mut buf: Vec<u8> = Vec::new();
     File::open(icon)?.read_to_end(&mut buf)?;
 
-    let mut group_header: &mut GroupHeader =
+    let group_header: &mut GroupHeader =
         unsafe { (buf.as_ptr() as *mut GroupHeader).as_mut().ok_or("Invalid pointer")? };
 
     let start: usize = group_header.offset as usize;
