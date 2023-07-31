@@ -272,7 +272,7 @@ fn find_aobs(bytes: Vec<u8>) -> Vec<(&'static str, usize)> {
 
     aob_offsets_direct.sort_by(|a, b| a.0.cmp(b.0));
 
-    aob_offsets.extend(aob_offsets_direct.into_iter());
+    aob_offsets.extend(aob_offsets_direct);
 
     aob_offsets
 }

@@ -20,7 +20,7 @@ pub fn macro_param(t: TokenStream) -> TokenStream {
                 field
                     .attrs
                     .iter()
-                    .filter_map(|attr| {
+                    .map(|attr| {
                         let meta_list = match attr.parse_meta() {
                             Ok(Meta::List(meta_list)) if meta_list.path.is_ident("bitflag") => {
                                 meta_list
@@ -42,12 +42,12 @@ pub fn macro_param(t: TokenStream) -> TokenStream {
                                     "{}",
                                     AsSnakeCase(bitfield_name.to_string()).to_string()
                                 );
-                                Some((
+                                (
                                     bitfield_name,
                                     fieldno.base10_parse::<u8>().unwrap(),
                                     set_ident,
                                     get_ident,
-                                ))
+                                )
                             },
                             other => panic!("Wrong attribute parameters: {:#?}", other),
                         }
