@@ -109,9 +109,7 @@ impl Params {
         let m = param_entries
             .iter()
             .map(|&param_ptr| {
-                let e = (param_ptr as *const ParamEntry)
-                    .as_ref()
-                    .ok_or_else(|| format!("Wrong ptr {:p}", param_ptr))?;
+                let e = param_ptr.as_ref().ok_or_else(|| format!("Wrong ptr {:p}", param_ptr))?;
                 let ustr = U16CStr::from_slice_truncate(if e.param_length <= 7 {
                     &e.param_name.direct
                 } else {
@@ -214,7 +212,7 @@ impl Params {
         let vec_ptr = param_ptr.offset(0x40) as *const ParamEntryOffset;
         let param_entries = std::slice::from_raw_parts(vec_ptr, count as usize);
 
-        Some(param_ptr.offset(param_entries[i].param_offset) as *const c_void)
+        Some(param_ptr.offset(param_entries[i].param_offset))
     }
 
     /// # Safety

@@ -9,6 +9,6 @@ proc_macro = true
 
 [dependencies]
 heck = "0.4.0"
-proc-macro2 = "1.0.34"
+proc-macro2 = "1"
 quote = "1.0.10"
-syn = { version = "1.0.82", features = ["full", "extra-traits"] }
+syn = { version = "1", features = ["full", "extra-traits"] }

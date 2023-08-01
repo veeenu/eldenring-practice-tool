@@ -156,7 +156,7 @@ impl PracticeTool {
                 params.get_equip_param_goods()
             },
             |mut epg| {
-                if let Some(mut spectral_steed_whistle) =
+                if let Some(spectral_steed_whistle) =
                     epg.find(|i| i.id == 130).and_then(|p| p.param)
                 {
                     spectral_steed_whistle.icon_id = 12;

@@ -177,7 +177,7 @@ impl Pointers {
             match version {
                 V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6c8,
                 V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 => 0x6c0,
-                V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 => 0x6d0,
+                V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 => 0x6d0,
             }
         };
 
@@ -185,7 +185,7 @@ impl Pointers {
             match version {
                 V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6b8,
                 V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 => 0x6b0,
-                V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 => 0x6c0,
+                V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 => 0x6c0,
             }
         };
 
@@ -193,29 +193,31 @@ impl Pointers {
             V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
             | V1_04_1 => group_mask,
             V1_05_0 => group_mask - 8,
-            V1_06_0 | V1_07_0 | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 => group_mask,
+            V1_06_0 | V1_07_0 | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 => group_mask,
         };
 
         let show_geom = match version {
             V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
-            | V1_04_1 | V1_06_0 | V1_07_0 | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 => vec![
-                bitflag!(0b1; group_mask + 2),
-                bitflag!(0b1; group_mask + 3),
-                bitflag!(0b1; group_mask + 4),
-                bitflag!(0b1; group_mask + 5),
-                bitflag!(0b1; group_mask + 6),
-                bitflag!(0b1; group_mask + 7),
-                bitflag!(0b1; group_mask + 8),
-                bitflag!(0b1; group_mask),
-                bitflag!(0b1; group_mask + 0xa),
-                bitflag!(0b1; group_mask + 0xb),
-                bitflag!(0b1; group_mask + 0xc),
-                bitflag!(0b1; group_mask + 0xd),
-                bitflag!(0b1; group_mask + 0xf),
-                bitflag!(0b1; group_mask + 0x10),
-                bitflag!(0b1; group_mask + 0x11),
-                bitflag!(0b1; group_mask + 0x12),
-            ],
+            | V1_04_1 | V1_06_0 | V1_07_0 | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 => {
+                vec![
+                    bitflag!(0b1; group_mask + 2),
+                    bitflag!(0b1; group_mask + 3),
+                    bitflag!(0b1; group_mask + 4),
+                    bitflag!(0b1; group_mask + 5),
+                    bitflag!(0b1; group_mask + 6),
+                    bitflag!(0b1; group_mask + 7),
+                    bitflag!(0b1; group_mask + 8),
+                    bitflag!(0b1; group_mask),
+                    bitflag!(0b1; group_mask + 0xa),
+                    bitflag!(0b1; group_mask + 0xb),
+                    bitflag!(0b1; group_mask + 0xc),
+                    bitflag!(0b1; group_mask + 0xd),
+                    bitflag!(0b1; group_mask + 0xf),
+                    bitflag!(0b1; group_mask + 0x10),
+                    bitflag!(0b1; group_mask + 0x11),
+                    bitflag!(0b1; group_mask + 0x12),
+                ]
+            },
             V1_05_0 => vec![
                 bitflag!(0b1; group_mask),
                 bitflag!(0b1; group_mask + 1),
@@ -235,7 +237,7 @@ impl Pointers {
 
         let show_chr = match version {
             V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
-            | V1_04_1 | V1_06_0 | V1_07_0 | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 => {
+            | V1_04_1 | V1_06_0 | V1_07_0 | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 => {
                 bitflag!(0b1; group_mask + 0xe)
             },
             V1_05_0 => bitflag!(0b1; group_mask + 4),
@@ -244,7 +246,7 @@ impl Pointers {
         let player_ins = match version {
             V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
             | V1_04_1 | V1_05_0 | V1_06_0 => 0x18468,
-            V1_07_0 | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 => 0x1E508,
+            V1_07_0 | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 => 0x1E508,
         };
 
         let torrent_enemy_ins = match version {
@@ -252,7 +254,7 @@ impl Pointers {
             | V1_04_1 | V1_05_0 => 0x18390,
             V1_06_0 => 0x18378,
             V1_07_0 => 0x1E1A0,
-            V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 => 0x1e1b8,
+            V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 => 0x1e1b8,
         };
 
         // TODO 1.08.x
@@ -293,7 +295,7 @@ impl Pointers {
                 match version {
                     V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6FD,
                     V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0  => 0x6F5,
-                    V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 => 0x735
+                    V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1  | V2_00_0=> 0x735
                 }
             ),
             global_position: Position {
@@ -385,7 +387,7 @@ impl Pointers {
             func_dbg_action_force_state_values: match version {
                 V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
                 | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 => (0xB1, 0xB2),
-                V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 => (0xC1, 0xC2),
+                V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 => (0xC1, 0xC2),
             },
             base_addresses,
         }

@@ -71,9 +71,7 @@ impl<T> PointerChain<T> {
     pub fn eval(&self) -> Option<*mut T> {
         self.offsets
             .iter()
-            .fold(Some(self.base as usize), |addr, &offs| {
-                addr.and_then(|addr| self.safe_read(addr, offs))
-            })
+            .try_fold(self.base as usize, |addr, &offs| self.safe_read(addr, offs))
             .map(|addr| addr as *mut T)
     }
 

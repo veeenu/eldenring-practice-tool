@@ -23,14 +23,12 @@ impl TryFrom<(Value, Value)> for ItemIDNode {
             },
             (Value::String(s), Value::Mapping(m)) => Ok(ItemIDNode::Node {
                 node: s,
-                children: m.into_iter().map(|(k, v)| ItemIDNode::try_from((k, v))).fold(
-                    Ok(Vec::new()),
-                    |o: Result<Vec<_>>, i| {
+                children: m.into_iter().map(|(k, v)| ItemIDNode::try_from((k, v))).try_fold(
+                    Vec::new(),
+                    |mut o: Vec<_>, i: Result<ItemIDNode>| {
                         let i = i?;
-                        o.map(|mut o| {
-                            o.push(i);
-                            o
-                        })
+                        o.push(i);
+                        Result::Ok(o)
                     },
                 )?,
             }),
