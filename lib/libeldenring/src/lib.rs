@@ -1,5 +1,8 @@
 #![feature(lazy_cell)]
 
+use std::thread;
+use std::time::Duration;
+
 pub mod codegen;
 pub mod memedit;
 pub mod params;
@@ -22,7 +25,7 @@ pub fn wait_option<T, F: FnMut() -> Option<T>>(mut f: F) -> T {
         if let Some(t) = f() {
             return t;
         }
-        std::thread::sleep(std::time::Duration::from_millis(500));
+        thread::sleep(Duration::from_millis(500));
     }
 }
 
@@ -37,12 +40,12 @@ pub fn wait_option_thread<
     mut f: F,
     mut g: G,
 ) {
-    std::thread::spawn(move || loop {
+    thread::spawn(move || loop {
         if let Some(t) = f() {
             g(t);
             break;
         }
-        std::thread::sleep(std::time::Duration::from_millis(500));
+        thread::sleep(std::time::Duration::from_millis(500));
     });
 }
 

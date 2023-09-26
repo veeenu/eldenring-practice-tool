@@ -21,12 +21,15 @@ mod util;
 mod widgets;
 
 use std::sync::Mutex;
+use std::thread;
 use std::time::Instant;
 
 use const_format::formatcp;
 use hudhook::hooks::dx12::ImguiDx12Hooks;
-use hudhook::hooks::{ImguiRenderLoop, ImguiRenderLoopFlags};
+use hudhook::hooks::ImguiRenderLoop;
 use hudhook::tracing::metadata::LevelFilter;
+use hudhook::tracing::*;
+use hudhook::*;
 use imgui::*;
 use libeldenring::prelude::*;
 use pkg_version::*;
@@ -67,7 +70,7 @@ struct PracticeTool {
 
 impl PracticeTool {
     fn new() -> Self {
-        hudhook::utils::alloc_console();
+        hudhook::alloc_console().ok();
         log_panics::init();
 
         fn load_config() -> Result<config::Config, String> {
@@ -109,7 +112,7 @@ impl PracticeTool {
         let log_level = config.settings.log_level.inner();
 
         if log_level < LevelFilter::DEBUG || !config.settings.show_console {
-            hudhook::utils::free_console();
+            hudhook::free_console().ok();
         }
 
         match log_file {
@@ -184,7 +187,7 @@ impl PracticeTool {
         }
     }
 
-    fn render_visible(&mut self, ui: &imgui::Ui, flags: &ImguiRenderLoopFlags) {
+    fn render_visible(&mut self, ui: &imgui::Ui) {
         let [dw, dh] = { ui.io().display_size };
         ui.window("##tool_window")
             .position([16., 16.], Condition::Always)
@@ -204,7 +207,7 @@ impl PracticeTool {
                 for w in self.widgets.iter_mut() {
                     w.render(ui);
                 }
-                if flags.focused && !ui.io().want_capture_keyboard {
+                if !ui.io().want_capture_keyboard {
                     for w in self.widgets.iter_mut() {
                         w.interact(ui);
                     }
@@ -217,13 +220,13 @@ impl PracticeTool {
                     self.ui_state = UiState::Closed;
                     self.pointers.cursor_show.set(false);
                     if option_env!("CARGO_XTASK_DIST").is_none() {
-                        hudhook::lifecycle::eject();
+                        hudhook::eject();
                     }
                 }
             });
     }
 
-    fn render_closed(&mut self, ui: &imgui::Ui, flags: &ImguiRenderLoopFlags) {
+    fn render_closed(&mut self, ui: &imgui::Ui) {
         let [w, h] = ui.io().display_size;
 
         let stack_tokens = vec![
@@ -327,7 +330,7 @@ impl PracticeTool {
                     ));
                 }
 
-                if flags.focused && !ui.io().want_capture_keyboard {
+                if !ui.io().want_capture_keyboard {
                     for w in self.widgets.iter_mut() {
                         w.interact(ui);
                     }
@@ -339,15 +342,15 @@ impl PracticeTool {
         }
     }
 
-    fn render_hidden(&mut self, ui: &imgui::Ui, flags: &ImguiRenderLoopFlags) {
-        if flags.focused && !ui.io().want_capture_keyboard {
+    fn render_hidden(&mut self, ui: &imgui::Ui) {
+        if !ui.io().want_capture_keyboard {
             for w in self.widgets.iter_mut() {
                 w.interact(ui);
             }
         }
     }
 
-    fn render_logs(&mut self, ui: &imgui::Ui, _flags: &ImguiRenderLoopFlags) {
+    fn render_logs(&mut self, ui: &imgui::Ui) {
         let io = ui.io();
 
         let [dw, dh] = io.display_size;
@@ -407,11 +410,10 @@ impl PracticeTool {
 }
 
 impl ImguiRenderLoop for PracticeTool {
-    fn render(&mut self, ui: &mut imgui::Ui, flags: &ImguiRenderLoopFlags) {
+    fn render(&mut self, ui: &mut imgui::Ui) {
         let font_token = self.set_font(ui);
 
-        if flags.focused && !ui.io().want_capture_keyboard && self.config.settings.display.keyup(ui)
-        {
+        if !ui.io().want_capture_keyboard && self.config.settings.display.keyup(ui) {
             let rshift = unsafe { GetAsyncKeyState(VK_RSHIFT.0 as _) < 0 };
 
             self.ui_state = match (&self.ui_state, rshift) {
@@ -431,13 +433,13 @@ impl ImguiRenderLoop for PracticeTool {
         match &self.ui_state {
             UiState::MenuOpen => {
                 self.pointers.cursor_show.set(true);
-                self.render_visible(ui, flags);
+                self.render_visible(ui);
             },
             UiState::Closed => {
-                self.render_closed(ui, flags);
+                self.render_closed(ui);
             },
             UiState::Hidden => {
-                self.render_hidden(ui, flags);
+                self.render_hidden(ui);
             },
         }
 
@@ -449,7 +451,7 @@ impl ImguiRenderLoop for PracticeTool {
             self.log.retain(|(tm, _)| tm.elapsed() < std::time::Duration::from_secs(5));
         }
 
-        self.render_logs(ui, flags);
+        self.render_logs(ui);
         drop(font_token);
     }
 
@@ -475,4 +477,25 @@ impl ImguiRenderLoop for PracticeTool {
     }
 }
 
-hudhook::hudhook!(PracticeTool::new().into_hook::<ImguiDx12Hooks>());
+#[no_mangle]
+#[allow(clippy::missing_safety_doc)]
+pub unsafe extern "stdcall" fn DllMain(
+    hmodule: ::hudhook::HINSTANCE,
+    reason: u32,
+    _: *mut ::std::ffi::c_void,
+) {
+    if reason == DLL_PROCESS_ATTACH {
+        trace!("DllMain()");
+        thread::spawn(move || {
+            if let Err(e) = Hudhook::builder()
+                .with(PracticeTool::new().into_hook::<ImguiDx12Hooks>())
+                .with_hmodule(hmodule)
+                .build()
+                .apply()
+            {
+                error!("Couldn't apply hooks: {e:?}");
+                eject();
+            }
+        });
+    }
+}

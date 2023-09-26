@@ -9,7 +9,7 @@ use hudhook::tracing::*;
 use serde::Deserialize;
 pub(crate) use vk::*;
 use windows::core::PCSTR;
-use windows::Win32::Foundation::{GetLastError, HINSTANCE, MAX_PATH};
+use windows::Win32::Foundation::{HMODULE, MAX_PATH};
 use windows::Win32::System::LibraryLoader::{
     GetModuleFileNameW, GetModuleHandleExA, GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
     GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
@@ -17,7 +17,7 @@ use windows::Win32::System::LibraryLoader::{
 
 /// Returns the path of the implementor's DLL.
 pub fn get_dll_path() -> Option<PathBuf> {
-    let mut hmodule: HINSTANCE = Default::default();
+    let mut hmodule: HMODULE = Default::default();
     // SAFETY
     // This is reckless, but it should never fail, and if it does, it's ok to crash
     // and burn.
@@ -29,8 +29,8 @@ pub fn get_dll_path() -> Option<PathBuf> {
         )
     };
 
-    if gmh_result.0 == 0 {
-        error!("get_dll_path: GetModuleHandleExA error: {:x}", unsafe { GetLastError().0 },);
+    if let Err(e) = gmh_result {
+        error!("get_dll_path: GetModuleHandleExA error: {e:?}");
         return None;
     }
 

@@ -2,6 +2,8 @@ use std::collections::{BTreeMap, HashMap};
 use std::ffi::c_void;
 use std::ptr::null_mut;
 use std::sync::LazyLock;
+use std::thread;
+use std::time::Duration;
 
 use log::*;
 use parking_lot::RwLock;
@@ -11,17 +13,20 @@ use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 
 pub use crate::codegen::param_data::*;
 use crate::prelude::base_addresses::BaseAddresses;
+use crate::prelude::*;
 use crate::version::VERSION;
-use crate::{wait_option, ParamVisitor};
+use crate::{pointer_chain, wait_option, ParamVisitor};
 
 pub static PARAMS: LazyLock<RwLock<Params>> = LazyLock::new(|| unsafe {
-    wait_option(|| match Params::new() {
-        Ok(p) => Some(RwLock::new(p)),
+    let mut params = Params::new();
+    wait_option(|| match params.refresh() {
+        Ok(()) => Some(()),
         Err(e) => {
             info!("Waiting on memory: {}", e);
             None
         },
-    })
+    });
+    RwLock::new(params)
 });
 
 pub static PARAM_NAMES: LazyLock<HashMap<String, HashMap<usize, String>>> =
@@ -41,6 +46,14 @@ union ParamName {
     direct: [u16; 8],
 }
 
+impl std::fmt::Debug for ParamName {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let (indirect, direct) = unsafe { (self.indirect, self.direct) };
+        write!(f, "ParamName {{ indirect: {indirect:p}, direct: {direct:?} }}")
+    }
+}
+
+#[derive(Debug)]
 #[repr(C)]
 struct ParamEntry {
     address: *const c_void,
@@ -48,6 +61,20 @@ struct ParamEntry {
     _unk2: u64,
     param_name: ParamName,
     param_length: u64,
+}
+
+impl ParamEntry {
+    unsafe fn name(&self) -> Result<&U16CStr, String> {
+        U16CStr::from_slice_truncate(if self.param_length <= 7 {
+            &self.param_name.direct
+        } else {
+            self.param_name
+                .indirect
+                .as_ref()
+                .ok_or_else(|| format!("Wrong string ptr: {:p}", self.param_name.indirect))?
+        })
+        .map_err(|_| "Missing NUL terminator".to_string())
+    }
 }
 
 #[derive(Debug)]
@@ -69,11 +96,8 @@ unsafe impl Send for Params {}
 unsafe impl Sync for Params {}
 
 impl Params {
-    unsafe fn new() -> Result<Params, String> {
-        let mut p = Params(BTreeMap::new());
-        p.refresh()?;
-
-        Ok(p)
+    fn new() -> Self {
+        Params(BTreeMap::new())
     }
 
     /// # Safety
@@ -83,15 +107,18 @@ impl Params {
     pub unsafe fn refresh(&mut self) -> Result<(), String> {
         let addresses: BaseAddresses = (*VERSION).into();
         let module_base_addr = GetModuleHandleA(PCSTR(null_mut())).0 as usize;
-        let base_ptr = addresses.cs_regulation_manager + module_base_addr;
 
-        let base_ptr = *(base_ptr as *const *const c_void);
-        let base_ptr = base_ptr.offset(0x18);
-        let base_ptr = base_ptr as usize;
+        let base_ptr = pointer_chain!(addresses.cs_regulation_manager + module_base_addr, 0x18);
 
-        let base: &ParamMaster = (base_ptr as *const ParamMaster) // std::ptr::read(base_ptr as *const *const ParamMaster)
-            .as_ref()
-            .ok_or_else(|| "Invalid param base address".to_string())?;
+        let base_ptr: *const ParamMaster = loop {
+            if let Some(base_ptr) = base_ptr.eval() {
+                break base_ptr;
+            }
+            thread::sleep(Duration::from_millis(50));
+        };
+
+        let base: &ParamMaster =
+            base_ptr.as_ref().ok_or_else(|| "Invalid param base address".to_string())?;
 
         let m = Params::param_entries_from_master(base)?;
         self.0 = m;
@@ -103,25 +130,20 @@ impl Params {
     ) -> Result<BTreeMap<String, (*const c_void, isize)>, String> {
         let count = base.end.offset_from(base.start);
 
+        if count < 100 {
+            return Err("Invalid entries count".to_string());
+        }
+
         let param_entries: &[*const ParamEntry] =
             std::slice::from_raw_parts(base.start, count as usize);
+
+        info!("{:#?}", param_entries[0].as_ref());
 
         let m = param_entries
             .iter()
             .map(|&param_ptr| {
                 let e = param_ptr.as_ref().ok_or_else(|| format!("Wrong ptr {:p}", param_ptr))?;
-                let ustr = U16CStr::from_slice_truncate(if e.param_length <= 7 {
-                    &e.param_name.direct
-                } else {
-                    e.param_name
-                        .indirect
-                        .as_ref()
-                        .ok_or_else(|| format!("Wrong string ptr: {:p}", e.param_name.indirect))?
-                });
-                let name = ustr
-                    .map_err(|e| format!("{}", e))?
-                    .to_string()
-                    .map_err(|e| format!("{}", e))?;
+                let name = e.name()?.to_string().map_err(|e| format!("{}", e))?;
 
                 let ptr = param_ptr as *const c_void;
                 let ptr = *(ptr.offset(0x80) as *const *const c_void);

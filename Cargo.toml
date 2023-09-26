@@ -15,7 +15,13 @@ exclude = [
 strip = "symbols"
 lto = true
 
+[profile.fastdev]
+inherits = "release"
+debug = true
+strip = "none"
+
 [workspace.dependencies]
-hudhook = { git = "https://github.com/veeenu/hudhook" }
+# hudhook = { git = "https://github.com/veeenu/hudhook" }
+hudhook = { path = "../hudhook" }
 imgui = "0.11.0"
 imgui-sys = "0.11.0"

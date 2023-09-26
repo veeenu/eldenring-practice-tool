@@ -148,7 +148,7 @@ fn run() -> Result<()> {
     let cargo = env::var("CARGO").unwrap_or_else(|_| "cargo".to_string());
     let status = Command::new(cargo)
         .current_dir(project_root())
-        .args(["build", "--release", "--lib", "--package", "eldenring-practice-tool"])
+        .args(["build", "--profile", "fastdev", "--lib", "--package", "eldenring-practice-tool"])
         .status()
         .map_err(|e| format!("cargo: {}", e))?;
 
@@ -158,17 +158,18 @@ fn run() -> Result<()> {
 
     let mut buf = String::new();
     File::open(project_root().join("jdsd_er_practice_tool.toml"))?.read_to_string(&mut buf)?;
-    File::create(project_root().join("target").join("release").join("jdsd_er_practice_tool.toml"))?
+    File::create(project_root().join("target").join("fastdev").join("jdsd_er_practice_tool.toml"))?
         .write_all(buf.as_bytes())?;
 
     let dll_path = project_root()
         .join("target")
-        .join("release")
+        .join("fastdev")
         .join("libjdsd_er_practice_tool.dll")
         .canonicalize()?;
 
     let process = OwnedProcess::find_first_by_name("eldenring.exe")
         .ok_or_else(|| "Could not find process".to_string())?;
+
     let syringe = Syringe::for_process(process);
     syringe.inject(dll_path)?;
 
