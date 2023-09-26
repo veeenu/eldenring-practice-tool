@@ -77,7 +77,7 @@ fn check_eac(handle: HANDLE) -> Result<bool, String> {
     unsafe { QueryFullProcessImageNameW(handle, PROCESS_NAME_FORMAT(0), exe_path, &mut len) }
         .map_err(|e| format!("{e}"))?;
     let exe_path = PathBuf::from(unsafe { exe_path.to_string() }.map_err(|e| format!("{e}"))?);
-    let exe_cwd = exe_path.parent().unwrap();
+    let exe_cwd = exe_path.parent().unwrap(); // Unwrap ok: must be in a Game directory anyway
 
     let steam_appid_path = exe_cwd.join("steam_appid.txt");
     debug!("{steam_appid_path:?} {}", steam_appid_path.exists());
@@ -107,6 +107,7 @@ fn check_eac(handle: HANDLE) -> Result<bool, String> {
 
             if GetOpenFileNameW(&mut open_file_name).as_bool() {
                 let exe_path = PathBuf::from(OsString::from_wide(&file_path));
+                // Unwrap ok: must be in a Game directory anyway
                 let steam_appid_path = exe_path.parent().unwrap().join("steam_appid.txt");
                 let mut file = OpenOptions::new()
                     .create(true)
