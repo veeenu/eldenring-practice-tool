@@ -32,7 +32,7 @@ commands = [
 
   { cycle_speed = [1.0, 3.0, 6.0], hotkey = "6" },
   { runes = 10000, hotkey = "7" },
-
+  { warp = "K" },
   { quitout = "P" },
 
   # These flags are currently broken for some reason. TODO investigate.

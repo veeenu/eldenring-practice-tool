@@ -36,6 +36,9 @@ static AOBS: LazyLock<Vec<(&str, Vec<&str>)>> = LazyLock::new(|| {
         ("CSFlipper", vec![
             "48 8B 0D ?? ?? ?? ?? 80 BB D7 00 00 00 00 0F 84 CE 00 00 00 48 85 C9 75 2E",
         ]),
+        ("CSLuaEventManager", vec![
+            "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 ?? 41 BE 01 00 00 00 44 89 75",
+        ]),
         ("CSMenuMan", vec!["E8 ?? ?? ?? ?? 4C 8B F8 48 85 C0 0F 84 ?? ?? ?? ?? 48 8B 0D"]),
         ("CSMenuManImp", vec![
             "48 8B 0D ?? ?? ?? ?? 48 8B 49 08 E8 ?? ?? ?? ?? 48 8B D0 48 8B CE E8 ?? ?? ?? ??",
@@ -107,6 +110,7 @@ static AOBS_DIRECT: LazyLock<Vec<(&str, Vec<&str>)>> = LazyLock::new(|| {
              C8",
         ]),
         ("FuncDbgActionForce", vec!["48 8B 41 08 0F BE 80 ?? E9 00 00 48 8D 64"]),
+        ("LuaWarp", vec!["C3 ?? ?? ?? ?? ?? ?? 57 48 83 EC ?? 48 8B FA 44"]),
     ]
 });
 
