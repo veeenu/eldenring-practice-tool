@@ -123,7 +123,7 @@ fn check_eac(handle: HANDLE) -> Result<bool, String> {
             } else {
                 let text = w!("EAC bypass was not applied. Please either re-run the tool to \
                                automatically apply the bypass, or apply it manually.\n\
-                               Read more at:\nhttps://wiki.speedsouls.com/eldenring:Downpatching.");
+                               Read more at:\nhttps://wiki.speedsouls.com/eldenring:EAC_Bypass");
                 let caption = w!("EAC was not bypassed");
                 MessageBoxW(HWND(0), text, caption, MB_ICONERROR);
             }
