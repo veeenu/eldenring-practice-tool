@@ -7,7 +7,7 @@ use std::path::PathBuf;
 use std::sync::Mutex;
 
 use hudhook::hooks::dx12::ImguiDx12Hooks;
-use hudhook::hooks::{ImguiRenderLoop, ImguiRenderLoopFlags};
+use hudhook::hooks::ImguiRenderLoop;
 use imgui::*;
 use libeldenring::params::{PARAMS, PARAM_NAMES};
 use libeldenring::prelude::*;
@@ -56,7 +56,7 @@ struct ParamTinkerer {
 impl ParamTinkerer {
     fn new() -> Self {
         println!("Initializing");
-        hudhook::utils::alloc_console();
+        hudhook::alloc_console().ok();
 
         let log_file = get_dll_path()
             .map(|mut path| {
@@ -118,7 +118,7 @@ impl ParamTinkerer {
 }
 
 impl ImguiRenderLoop for ParamTinkerer {
-    fn render(&mut self, ui: &mut imgui::Ui, _: &ImguiRenderLoopFlags) {
+    fn render(&mut self, ui: &mut imgui::Ui) {
         if ui.is_key_index_released(0x50) {
             // P key
             self.shown = !self.shown;
