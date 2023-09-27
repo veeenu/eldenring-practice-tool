@@ -7,7 +7,7 @@ use imgui::*;
 use libeldenring::prelude::*;
 use serde::Deserialize;
 
-use super::Widget;
+use super::{string_match, Widget};
 use crate::util::KeyState;
 
 static AFFINITIES: [(u32, &str); 13] = [
@@ -142,21 +142,6 @@ impl ItemIDNode {
             }
         }
     }
-}
-
-fn string_match(needle: &str, haystack: &str) -> bool {
-    let needle = needle.chars().flat_map(char::to_lowercase);
-    let mut haystack = haystack.chars().flat_map(char::to_lowercase);
-
-    'o: for c in needle {
-        for d in &mut haystack {
-            if c == d {
-                continue 'o;
-            }
-        }
-        return false;
-    }
-    true
 }
 
 const ISP_TAG: &str = "##item-spawn";

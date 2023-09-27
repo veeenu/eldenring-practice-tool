@@ -53,3 +53,18 @@ pub(crate) fn scaling_factor(ui: &imgui::Ui) -> f32 {
         2. / 3.
     }
 }
+
+pub(crate) fn string_match(needle: &str, haystack: &str) -> bool {
+    let needle = needle.chars().flat_map(char::to_lowercase);
+    let mut haystack = haystack.chars().flat_map(char::to_lowercase);
+
+    'o: for c in needle {
+        for d in &mut haystack {
+            if c == d {
+                continue 'o;
+            }
+        }
+        return false;
+    }
+    true
+}
