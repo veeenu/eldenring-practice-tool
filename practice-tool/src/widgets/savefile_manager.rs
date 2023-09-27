@@ -31,8 +31,6 @@ impl Widget for ErroredSavefileManagerInner {
 #[derive(Debug)]
 pub(crate) struct SavefileManager {
     label: String,
-    key_back: KeyState,
-    key_close: KeyState,
     key_load: KeyState,
     key_down: KeyState,
     key_up: KeyState,
@@ -47,22 +45,14 @@ pub(crate) struct SavefileManager {
 }
 
 impl SavefileManager {
-    pub(crate) fn new_widget(
-        key_load: KeyState,
-        key_back: KeyState,
-        key_close: KeyState,
-    ) -> Box<dyn Widget> {
-        match SavefileManager::new_inner(key_load, key_back, key_close) {
+    pub(crate) fn new_widget(key_load: KeyState) -> Box<dyn Widget> {
+        match SavefileManager::new_inner(key_load) {
             Ok(i) => Box::new(i) as _,
             Err(i) => Box::new(i) as _,
         }
     }
 
-    fn new_inner(
-        key_load: KeyState,
-        key_back: KeyState,
-        key_close: KeyState,
-    ) -> Result<Self, ErroredSavefileManagerInner> {
+    fn new_inner(key_load: KeyState) -> Result<Self, ErroredSavefileManagerInner> {
         let label = format!("Savefiles (load with {})", key_load);
         let mut savefile_path = get_savefile_path().map_err(|e| {
             ErroredSavefileManagerInner::new(format!("Could not find savefile path: {}", e))
@@ -76,8 +66,6 @@ impl SavefileManager {
 
         Ok(SavefileManager {
             label,
-            key_back,
-            key_close,
             key_load,
             key_down: KeyState::new(get_key_code("down").unwrap()),
             key_up: KeyState::new(get_key_code("up").unwrap()),
@@ -180,7 +168,7 @@ impl Widget for SavefileManager {
             }
 
             ListBox::new(SFM_TAG).size([button_width, 200. * scale]).build(ui, || {
-                if ui.selectable_config(format!(".. Up one dir ({})", self.key_back)).build() {
+                if ui.selectable_config(".. Up one dir").build() {
                     self.dir_stack.exit();
                     self.breadcrumbs = self.dir_stack.breadcrumbs();
                     self.dir_stack.refresh();
@@ -238,10 +226,8 @@ impl Widget for SavefileManager {
                 };
             }
 
-            if ui.button_with_size(format!("Close ({})", self.key_close), [
-                button_width,
-                BUTTON_HEIGHT,
-            ]) || self.key_close.keyup(ui)
+            if ui.button_with_size("Close", [button_width, BUTTON_HEIGHT])
+                || ui.is_key_released(Key::Escape)
             {
                 ui.close_current_popup();
                 self.dir_stack.refresh();
@@ -255,10 +241,7 @@ impl Widget for SavefileManager {
         if self.input_edited {
             return;
         }
-        if self.key_back.keydown(ui) {
-            self.dir_stack.exit();
-            self.breadcrumbs = self.dir_stack.breadcrumbs();
-        } else if self.key_load.keydown(ui) {
+        if self.key_load.keydown(ui) {
             self.load_savefile();
         }
     }

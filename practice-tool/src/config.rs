@@ -46,13 +46,10 @@ enum CfgCommand {
     SavefileManager {
         #[serde(rename = "savefile_manager")]
         hotkey_load: KeyState,
-        hotkey_back: KeyState,
-        hotkey_close: KeyState,
     },
     ItemSpawner {
         #[serde(rename = "item_spawner")]
         hotkey_load: KeyState,
-        hotkey_close: KeyState,
     },
     Flag {
         flag: FlagSpec,
@@ -88,8 +85,7 @@ enum CfgCommand {
     },
     CharacterStats {
         #[serde(rename = "character_stats")]
-        hotkey_open: KeyState,
-        hotkey_close: KeyState,
+        _character_stats: String,
     },
     Runes {
         #[serde(rename = "runes")]
@@ -98,7 +94,7 @@ enum CfgCommand {
     },
     Warp {
         #[serde(rename = "warp")]
-        hotkey: KeyState,
+        _warp: String,
     },
     Quitout {
         #[serde(rename = "quitout")]
@@ -173,18 +169,15 @@ impl Config {
                         error!("Invalid flag {}", flag);
                         return None;
                     },
-                    CfgCommand::SavefileManager { hotkey_load, hotkey_back, hotkey_close } => {
-                        SavefileManager::new_widget(*hotkey_load, *hotkey_back, *hotkey_close)
+                    CfgCommand::SavefileManager { hotkey_load } => {
+                        SavefileManager::new_widget(*hotkey_load)
                     },
-                    CfgCommand::ItemSpawner { hotkey_load, hotkey_close } => {
-                        Box::new(ItemSpawner::new(
-                            chains.func_item_inject,
-                            chains.base_addresses.map_item_man,
-                            chains.gravity.clone(),
-                            *hotkey_load,
-                            *hotkey_close,
-                        ))
-                    },
+                    CfgCommand::ItemSpawner { hotkey_load } => Box::new(ItemSpawner::new(
+                        chains.func_item_inject,
+                        chains.base_addresses.map_item_man,
+                        chains.gravity.clone(),
+                        *hotkey_load,
+                    )),
                     CfgCommand::Position { hotkey, modifier } => Box::new(SavePosition::new(
                         chains.global_position.clone(),
                         chains.chunk_position.clone(),
@@ -206,21 +199,16 @@ impl Config {
                         [chains.animation_speed.clone(), chains.torrent_animation_speed.clone()],
                         *hotkey,
                     )),
-                    CfgCommand::CharacterStats { hotkey_open, hotkey_close } => {
-                        Box::new(CharacterStatsEdit::new(
-                            *hotkey_open,
-                            *hotkey_close,
-                            chains.character_stats.clone(),
-                        ))
+                    CfgCommand::CharacterStats { .. } => {
+                        Box::new(CharacterStatsEdit::new(chains.character_stats.clone()))
                     },
                     CfgCommand::Runes { amount, hotkey } => {
                         Box::new(Runes::new(*amount, chains.runes.clone(), *hotkey))
                     },
-                    CfgCommand::Warp { hotkey } => Box::new(Warp::new(
+                    CfgCommand::Warp { .. } => Box::new(Warp::new(
                         chains.func_warp,
                         chains.warp1.clone(),
                         chains.warp2.clone(),
-                        *hotkey,
                     )),
                     CfgCommand::Quitout { hotkey } => {
                         Box::new(Quitout::new(chains.quitout.clone(), *hotkey))

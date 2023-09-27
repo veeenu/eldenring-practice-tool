@@ -5,7 +5,6 @@ use imgui::{InputText, Key, WindowFlags};
 use libeldenring::prelude::*;
 
 use super::{string_match, Widget};
-use crate::util::KeyState;
 
 type WarpFunc = extern "system" fn(u64, u64, u32);
 
@@ -17,25 +16,18 @@ pub(crate) struct Warp {
     warp_ptr: usize,
     arg1: PointerChain<u64>,
     arg2: PointerChain<u64>,
-    hotkey: KeyState,
     current_grace: usize,
     filter_string: String,
     filter_list: [bool; GRACES.len()],
 }
 
 impl Warp {
-    pub(crate) fn new(
-        warp_ptr: usize,
-        arg1: PointerChain<u64>,
-        arg2: PointerChain<u64>,
-        hotkey: KeyState,
-    ) -> Self {
+    pub(crate) fn new(warp_ptr: usize, arg1: PointerChain<u64>, arg2: PointerChain<u64>) -> Self {
         Warp {
             label: "Warp".to_string(),
             warp_ptr,
             arg1,
             arg2,
-            hotkey,
             current_grace: 0,
             filter_string: String::new(),
             filter_list: [true; GRACES.len()],
@@ -121,12 +113,6 @@ impl Widget for Warp {
             {
                 ui.close_current_popup();
             }
-        }
-    }
-
-    fn interact(&mut self, ui: &imgui::Ui) {
-        if self.hotkey.keyup(ui) {
-            self.warp();
         }
     }
 }
