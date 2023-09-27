@@ -53,7 +53,12 @@ pub struct Pointers {
     pub animation_speed: PointerChain<f32>,
     pub torrent_animation_speed: PointerChain<f32>,
 
-    pub deathcam: (Bitflag<u8>, PointerChain<u8>),
+    // CSLuaEventManager
+    pub func_warp: usize,
+    pub warp1: PointerChain<u64>,
+    pub warp2: PointerChain<u64>,
+
+    pub deathcam: (Bitflag<u8>, Bitflag<u8>, PointerChain<u8>),
 
     // HitIns
     pub hitbox_high: Bitflag<u8>,
@@ -165,6 +170,8 @@ impl Pointers {
             world_chr_man,
             func_item_spawn,
             func_item_inject,
+            lua_warp,
+            cs_lua_event_manager,
             ..
         } = base_addresses;
 
@@ -365,6 +372,7 @@ impl Pointers {
 
             deathcam: (
                 bitflag!(0b100; world_chr_man, player_ins, 0x1c8),
+                bitflag!(0b100; world_chr_man, torrent_enemy_ins, 0x18, 0, 0x1c8),
                 pointer_chain!(field_area, 0x98, 0x7c),
             ),
 
@@ -380,6 +388,10 @@ impl Pointers {
             hitbox_character: bitflag!(0b1; hit_ins_hitbox_offset + 0x3),
             show_geom,
             show_chr,
+
+            func_warp: lua_warp + 2,
+            warp1: pointer_chain!(cs_lua_event_manager, 0x18),
+            warp2: pointer_chain!(cs_lua_event_manager, 0x08),
 
             func_item_spawn,
             func_item_inject,

@@ -18,6 +18,7 @@ pub(crate) mod position;
 pub(crate) mod quitout;
 pub(crate) mod runes;
 pub(crate) mod savefile_manager;
+pub(crate) mod warp;
 
 pub(crate) trait Widget: Send + Sync + std::fmt::Debug {
     fn render(&mut self, _ui: &imgui::Ui);
@@ -51,4 +52,19 @@ pub(crate) fn scaling_factor(ui: &imgui::Ui) -> f32 {
     } else {
         2. / 3.
     }
+}
+
+pub(crate) fn string_match(needle: &str, haystack: &str) -> bool {
+    let needle = needle.chars().flat_map(char::to_lowercase);
+    let mut haystack = haystack.chars().flat_map(char::to_lowercase);
+
+    'o: for c in needle {
+        for d in &mut haystack {
+            if c == d {
+                continue 'o;
+            }
+        }
+        return false;
+    }
+    true
 }

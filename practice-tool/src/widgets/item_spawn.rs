@@ -7,7 +7,7 @@ use imgui::*;
 use libeldenring::prelude::*;
 use serde::Deserialize;
 
-use super::Widget;
+use super::{string_match, Widget};
 use crate::util::KeyState;
 
 static AFFINITIES: [(u32, &str); 13] = [
@@ -144,21 +144,6 @@ impl ItemIDNode {
     }
 }
 
-fn string_match(needle: &str, haystack: &str) -> bool {
-    let needle = needle.chars().flat_map(char::to_lowercase);
-    let mut haystack = haystack.chars().flat_map(char::to_lowercase);
-
-    'o: for c in needle {
-        for d in &mut haystack {
-            if c == d {
-                continue 'o;
-            }
-        }
-        return false;
-    }
-    true
-}
-
 const ISP_TAG: &str = "##item-spawn";
 static ITEM_ID_TREE: LazyLock<Vec<ItemIDNode>> =
     LazyLock::new(|| serde_json::from_str(include_str!("item_ids.json")).unwrap());
@@ -168,11 +153,9 @@ pub(crate) struct ItemSpawner<'a> {
     func_ptr: usize,
     map_item_man: usize,
     hotkey_load: KeyState,
-    hotkey_close: KeyState,
     sentinel: Bitflag<u8>,
 
     label_load: String,
-    label_close: String,
 
     qty: u32,
     item_id: u32,
@@ -190,17 +173,13 @@ impl ItemSpawner<'_> {
         map_item_man: usize,
         sentinel: Bitflag<u8>,
         hotkey_load: KeyState,
-        hotkey_close: KeyState,
     ) -> Self {
         let label_load = format!("Spawn item ({})", hotkey_load);
-        let label_close = format!("Close ({})", hotkey_close);
         ItemSpawner {
             func_ptr,
             map_item_man,
             hotkey_load,
-            hotkey_close,
             label_load,
-            label_close,
             sentinel,
             qty: 1,
             item_id: 0x40000000 + 2919,
@@ -308,8 +287,8 @@ impl Widget for ItemSpawner<'_> {
                 self.spawn();
             }
 
-            if self.hotkey_close.keyup(ui)
-                || ui.button_with_size(&self.label_close, [400., button_height])
+            if ui.button_with_size("Close", [400., button_height])
+                || ui.is_key_released(Key::Escape)
             {
                 ui.close_current_popup();
             }

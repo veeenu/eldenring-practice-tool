@@ -7,6 +7,7 @@ pub struct BaseAddresses {
     pub chr_dbg_flags: usize,
     pub csfd4_virtual_memory_flag: usize,
     pub cs_flipper: usize,
+    pub cs_lua_event_manager: usize,
     pub cs_menu_man: usize,
     pub cs_menu_man_imp: usize,
     pub cs_net_man: usize,
@@ -31,6 +32,7 @@ pub struct BaseAddresses {
     pub func_item_inject: usize,
     pub func_remove_intro_screens: usize,
     pub func_dbg_action_force: usize,
+    pub lua_warp: usize,
 }
 
 impl BaseAddresses {
@@ -40,6 +42,7 @@ impl BaseAddresses {
             chr_dbg_flags: self.chr_dbg_flags + base,
             csfd4_virtual_memory_flag: self.csfd4_virtual_memory_flag + base,
             cs_flipper: self.cs_flipper + base,
+            cs_lua_event_manager: self.cs_lua_event_manager + base,
             cs_menu_man: self.cs_menu_man + base,
             cs_menu_man_imp: self.cs_menu_man_imp + base,
             cs_net_man: self.cs_net_man + base,
@@ -64,6 +67,7 @@ impl BaseAddresses {
             func_item_inject: self.func_item_inject + base,
             func_remove_intro_screens: self.func_remove_intro_screens + base,
             func_dbg_action_force: self.func_dbg_action_force + base,
+            lua_warp: self.lua_warp + base,
         }
     }
 }
@@ -145,6 +149,7 @@ pub const BASE_ADDRESSES_1_02_0: BaseAddresses = BaseAddresses {
     bullet_man: 0x3c4c9c8,
     csfd4_virtual_memory_flag: 0x3c526e8,
     cs_flipper: 0x4473138,
+    cs_lua_event_manager: 0x3c452a8,
     cs_menu_man: 0x8ba62b94,
     cs_menu_man_imp: 0x3c55b30,
     cs_net_man: 0x3c45160,
@@ -170,12 +175,14 @@ pub const BASE_ADDRESSES_1_02_0: BaseAddresses = BaseAddresses {
     func_item_inject: 0x54e570,
     func_item_spawn: 0x548c20,
     func_remove_intro_screens: 0xaaad4a,
+    lua_warp: 0x5855ae,
 };
 
 pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
     bullet_man: 0x3c4c9e8,
     csfd4_virtual_memory_flag: 0x3c52708,
     cs_flipper: 0x4472d58,
+    cs_lua_event_manager: 0x3c452c8,
     cs_menu_man: 0x8ba62c04,
     cs_menu_man_imp: 0x3c55b50,
     cs_net_man: 0x3c45180,
@@ -201,12 +208,14 @@ pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
     func_item_inject: 0x54e5e0,
     func_item_spawn: 0x548c90,
     func_remove_intro_screens: 0xaaadca,
+    lua_warp: 0x58561e,
 };
 
 pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
     bullet_man: 0x3c4ca08,
     csfd4_virtual_memory_flag: 0x3c52728,
     cs_flipper: 0x4472d78,
+    cs_lua_event_manager: 0x3c452e8,
     cs_menu_man: 0x8ba62c04,
     cs_menu_man_imp: 0x3c55b70,
     cs_net_man: 0x3c451a0,
@@ -232,12 +241,14 @@ pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
     func_item_inject: 0x54e5e0,
     func_item_spawn: 0x548c90,
     func_remove_intro_screens: 0xaaae3a,
+    lua_warp: 0x58561e,
 };
 
 pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
     bullet_man: 0x3c4fa28,
     csfd4_virtual_memory_flag: 0x3c55748,
     cs_flipper: 0x4475d98,
+    cs_lua_event_manager: 0x3c48308,
     cs_menu_man: 0x8ba62d24,
     cs_menu_man_imp: 0x3c58b90,
     cs_net_man: 0x3c481c0,
@@ -263,12 +274,14 @@ pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
     func_item_inject: 0x54e700,
     func_item_spawn: 0x548db0,
     func_remove_intro_screens: 0xaaaf1a,
+    lua_warp: 0x58573e,
 };
 
 pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
     bullet_man: 0x3c61588,
     csfd4_virtual_memory_flag: 0x3c672a8,
     cs_flipper: 0x4487918,
+    cs_lua_event_manager: 0x3c59e68,
     cs_menu_man: 0x8ba63d24,
     cs_menu_man_imp: 0x3c6a700,
     cs_net_man: 0x3c59d20,
@@ -294,12 +307,14 @@ pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
     func_item_inject: 0x54f640,
     func_item_spawn: 0x549c70,
     func_remove_intro_screens: 0xab021d,
+    lua_warp: 0x58671e,
 };
 
 pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
     bullet_man: 0x3c61588,
     csfd4_virtual_memory_flag: 0x3c672a8,
     cs_flipper: 0x4487908,
+    cs_lua_event_manager: 0x3c59e68,
     cs_menu_man: 0x8ba63d24,
     cs_menu_man_imp: 0x3c6a700,
     cs_net_man: 0x3c59d20,
@@ -325,12 +340,14 @@ pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
     func_item_inject: 0x54f640,
     func_item_spawn: 0x549c70,
     func_remove_intro_screens: 0xab022d,
+    lua_warp: 0x58671e,
 };
 
 pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
     bullet_man: 0x3c61588,
     csfd4_virtual_memory_flag: 0x3c672a8,
     cs_flipper: 0x4487908,
+    cs_lua_event_manager: 0x3c59e68,
     cs_menu_man: 0x8ba63d14,
     cs_menu_man_imp: 0x3c6a700,
     cs_net_man: 0x3c59d20,
@@ -356,12 +373,14 @@ pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
     func_item_inject: 0x54f640,
     func_item_spawn: 0x549c70,
     func_remove_intro_screens: 0xab020d,
+    lua_warp: 0x58670e,
 };
 
 pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
     bullet_man: 0x3c04828,
     csfd4_virtual_memory_flag: 0x3c0a538,
     cs_flipper: 0x442ab08,
+    cs_lua_event_manager: 0x3c09f48,
     cs_menu_man: 0x8ba66a14,
     cs_menu_man_imp: 0x3c0d9d0,
     cs_net_man: 0x3bfcf40,
@@ -387,12 +406,14 @@ pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
     func_item_inject: 0x552330,
     func_item_spawn: 0x54c950,
     func_remove_intro_screens: 0xa8fb6d,
+    lua_warp: 0x58940e,
 };
 
 pub const BASE_ADDRESSES_1_04_1: BaseAddresses = BaseAddresses {
     bullet_man: 0x3c04828,
     csfd4_virtual_memory_flag: 0x3c0a538,
     cs_flipper: 0x442ab08,
+    cs_lua_event_manager: 0x3c09f48,
     cs_menu_man: 0x8ba66924,
     cs_menu_man_imp: 0x3c0d9d0,
     cs_net_man: 0x3bfcf40,
@@ -418,12 +439,14 @@ pub const BASE_ADDRESSES_1_04_1: BaseAddresses = BaseAddresses {
     func_item_inject: 0x552240,
     func_item_spawn: 0x54c860,
     func_remove_intro_screens: 0xa8fa7d,
+    lua_warp: 0x58931e,
 };
 
 pub const BASE_ADDRESSES_1_05_0: BaseAddresses = BaseAddresses {
     bullet_man: 0x3c1c6e8,
     csfd4_virtual_memory_flag: 0x3c222e8,
     cs_flipper: 0x4442c18,
+    cs_lua_event_manager: 0x3c21cf8,
     cs_menu_man: 0x8ba67044,
     cs_menu_man_imp: 0x3c25780,
     cs_net_man: 0x3c14e00,
@@ -449,12 +472,14 @@ pub const BASE_ADDRESSES_1_05_0: BaseAddresses = BaseAddresses {
     func_item_inject: 0x552840,
     func_item_spawn: 0x54ce60,
     func_remove_intro_screens: 0xa9417d,
+    lua_warp: 0x58992e,
 };
 
 pub const BASE_ADDRESSES_1_06_0: BaseAddresses = BaseAddresses {
     bullet_man: 0x3c2d918,
     csfd4_virtual_memory_flag: 0x3c33508,
     cs_flipper: 0x4453e98,
+    cs_lua_event_manager: 0x3c32f18,
     cs_menu_man: 0x8ba68604,
     cs_menu_man_imp: 0x3c369a0,
     cs_net_man: 0x3c26020,
@@ -480,12 +505,14 @@ pub const BASE_ADDRESSES_1_06_0: BaseAddresses = BaseAddresses {
     func_item_inject: 0x5539e0,
     func_item_spawn: 0x54dfd0,
     func_remove_intro_screens: 0xa9807d,
+    lua_warp: 0x58abfe,
 };
 
 pub const BASE_ADDRESSES_1_07_0: BaseAddresses = BaseAddresses {
     bullet_man: 0x3c482c8,
     csfd4_virtual_memory_flag: 0x3c4dec8,
     cs_flipper: 0x446e858,
+    cs_lua_event_manager: 0x3c4d8d8,
     cs_menu_man: 0x8ba69484,
     cs_menu_man_imp: 0x3c51360,
     cs_net_man: 0x3c409e0,
@@ -511,12 +538,14 @@ pub const BASE_ADDRESSES_1_07_0: BaseAddresses = BaseAddresses {
     func_item_inject: 0x554850,
     func_item_spawn: 0x54ee40,
     func_remove_intro_screens: 0xa9972d,
+    lua_warp: 0x58ba6e,
 };
 
 pub const BASE_ADDRESSES_1_08_0: BaseAddresses = BaseAddresses {
     bullet_man: 0x3cd6158,
     csfd4_virtual_memory_flag: 0x3cdbdf8,
     cs_flipper: 0x44fd2c8,
+    cs_lua_event_manager: 0x3cdb7f8,
     cs_menu_man: 0x8ba74bc4,
     cs_menu_man_imp: 0x3cdf140,
     cs_net_man: 0x3cce860,
@@ -542,12 +571,14 @@ pub const BASE_ADDRESSES_1_08_0: BaseAddresses = BaseAddresses {
     func_item_inject: 0x55c1a0,
     func_item_spawn: 0x556790,
     func_remove_intro_screens: 0xadb0fd,
+    lua_warp: 0x5951de,
 };
 
 pub const BASE_ADDRESSES_1_08_1: BaseAddresses = BaseAddresses {
     bullet_man: 0x3cd6158,
     csfd4_virtual_memory_flag: 0x3cdbdf8,
     cs_flipper: 0x44fd2c8,
+    cs_lua_event_manager: 0x3cdb7f8,
     cs_menu_man: 0x8ba74bc4,
     cs_menu_man_imp: 0x3cdf140,
     cs_net_man: 0x3cce860,
@@ -573,12 +604,14 @@ pub const BASE_ADDRESSES_1_08_1: BaseAddresses = BaseAddresses {
     func_item_inject: 0x55c1a0,
     func_item_spawn: 0x556790,
     func_remove_intro_screens: 0xadb0fd,
+    lua_warp: 0x5951de,
 };
 
 pub const BASE_ADDRESSES_1_09_0: BaseAddresses = BaseAddresses {
     bullet_man: 0x3cd9598,
     csfd4_virtual_memory_flag: 0x3cdf238,
     cs_flipper: 0x4500708,
+    cs_lua_event_manager: 0x3cdec38,
     cs_menu_man: 0x8ba74f44,
     cs_menu_man_imp: 0x3ce2580,
     cs_net_man: 0x3cd1ca0,
@@ -604,12 +637,14 @@ pub const BASE_ADDRESSES_1_09_0: BaseAddresses = BaseAddresses {
     func_item_inject: 0x55c4c0,
     func_item_spawn: 0x556ab0,
     func_remove_intro_screens: 0xaddc8d,
+    lua_warp: 0x59555e,
 };
 
 pub const BASE_ADDRESSES_1_09_1: BaseAddresses = BaseAddresses {
     bullet_man: 0x3cd9598,
     csfd4_virtual_memory_flag: 0x3cdf238,
     cs_flipper: 0x4500708,
+    cs_lua_event_manager: 0x3cdec38,
     cs_menu_man: 0x8ba74fa4,
     cs_menu_man_imp: 0x3ce2580,
     cs_net_man: 0x3cd1ca0,
@@ -635,12 +670,14 @@ pub const BASE_ADDRESSES_1_09_1: BaseAddresses = BaseAddresses {
     func_item_inject: 0x55c520,
     func_item_spawn: 0x556b10,
     func_remove_intro_screens: 0xaddced,
+    lua_warp: 0x5955be,
 };
 
 pub const BASE_ADDRESSES_2_00_0: BaseAddresses = BaseAddresses {
     bullet_man: 0x3cd9598,
     csfd4_virtual_memory_flag: 0x3cdf238,
     cs_flipper: 0x4500708,
+    cs_lua_event_manager: 0x3cdec38,
     cs_menu_man: 0x8ba751e4,
     cs_menu_man_imp: 0x3ce2580,
     cs_net_man: 0x3cd1ca0,
@@ -666,4 +703,5 @@ pub const BASE_ADDRESSES_2_00_0: BaseAddresses = BaseAddresses {
     func_item_inject: 0x55c760,
     func_item_spawn: 0x556d50,
     func_remove_intro_screens: 0xaddf7d,
+    lua_warp: 0x5957fe,
 };
