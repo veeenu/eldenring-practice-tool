@@ -173,6 +173,7 @@ impl PracticeTool {
             format!("Ver {}.{:02}.{}", maj, min, patch)
         };
         let widgets = config.make_commands(&pointers);
+        pointers.font_draw.write(0xc3);
         info!("Practice tool initialized");
 
         PracticeTool {

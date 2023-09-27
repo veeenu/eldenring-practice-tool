@@ -18,6 +18,7 @@ commands = [
 
   { flag = "deathcam", hotkey = "L" },
 
+  { flag = "poise_view", hotkey = "M" },
   { flag = "hitbox_high", hotkey = "F1" },
   { flag = "hitbox_low", hotkey = "F2" },
   { flag = "hitbox_f" },

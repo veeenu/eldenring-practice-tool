@@ -24,6 +24,8 @@ pub struct Pointers {
     pub no_move: Bitflag<u8>,
     pub no_update_ai: Bitflag<u8>,
     pub no_ashes_of_war_fp_consume: Bitflag<u8>,
+    pub poise_view: Bitflag<u8>,
+    pub font_draw: PointerChain<u8>,
 
     pub collision: Bitflag<u8>,
 
@@ -160,10 +162,12 @@ impl Pointers {
             .with_module_base_addr(base_module_address);
 
         let BaseAddresses {
+            chr_dbg,
             chr_dbg_flags,
             cs_menu_man_imp,
             damage_ctrl,
             field_area,
+            font_draw,
             game_data_man,
             group_mask,
             hit_ins_hitbox_offset,
@@ -279,6 +283,8 @@ impl Pointers {
             no_move: bitflag!(0b1; chr_dbg_flags + 0xF),
             no_update_ai: bitflag!(0b1; chr_dbg_flags + 0x10),
             no_ashes_of_war_fp_consume: bitflag!(0b1; chr_dbg_flags + 0x12),
+            poise_view: bitflag!(0b1; chr_dbg, 0x69),
+            font_draw: pointer_chain!(font_draw),
 
             all_no_dead: bitflag!(0b1; chr_dbg_flags + 0xB),
 
