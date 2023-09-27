@@ -76,7 +76,7 @@ fn codegen_param_names() -> Result<()> {
         data.insert(stem, data_contents);
     }
 
-    serde_json::to_writer(
+    serde_json::to_writer_pretty(
         File::create(project_root().join("lib/libeldenring/src/codegen/param_names.json"))?,
         &data,
     )?;
