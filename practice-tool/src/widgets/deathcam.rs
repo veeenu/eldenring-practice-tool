@@ -6,6 +6,7 @@ use crate::util::KeyState;
 #[derive(Debug)]
 pub(crate) struct Deathcam {
     flag: Bitflag<u8>,
+    flag_torrent: Bitflag<u8>,
     seven: PointerChain<u8>,
     hotkey: Option<KeyState>,
 }
@@ -13,10 +14,11 @@ pub(crate) struct Deathcam {
 impl Deathcam {
     pub(crate) fn new(
         flag: Bitflag<u8>,
+        flag_torrent: Bitflag<u8>,
         seven: PointerChain<u8>,
         hotkey: Option<KeyState>,
     ) -> Self {
-        Deathcam { flag, seven, hotkey }
+        Deathcam { flag, flag_torrent, seven, hotkey }
     }
 }
 
@@ -28,6 +30,7 @@ impl Widget for Deathcam {
             self.seven.write(if state { 7 } else { 0 });
             if ui.checkbox("Deathcam", &mut state) {
                 self.flag.set(state);
+                self.flag_torrent.set(state);
             }
         } else {
             let token = ui.begin_disabled(true);

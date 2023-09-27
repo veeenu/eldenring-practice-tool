@@ -58,7 +58,7 @@ pub struct Pointers {
     pub warp1: PointerChain<u64>,
     pub warp2: PointerChain<u64>,
 
-    pub deathcam: (Bitflag<u8>, PointerChain<u8>),
+    pub deathcam: (Bitflag<u8>, Bitflag<u8>, PointerChain<u8>),
 
     // HitIns
     pub hitbox_high: Bitflag<u8>,
@@ -372,6 +372,7 @@ impl Pointers {
 
             deathcam: (
                 bitflag!(0b100; world_chr_man, player_ins, 0x1c8),
+                bitflag!(0b100; world_chr_man, torrent_enemy_ins, 0x18, 0, 0x1c8),
                 pointer_chain!(field_area, 0x98, 0x7c),
             ),
 

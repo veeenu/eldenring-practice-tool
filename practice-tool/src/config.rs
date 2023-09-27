@@ -155,6 +155,7 @@ impl Config {
                         Box::new(Deathcam::new(
                             chains.deathcam.0.clone(),
                             chains.deathcam.1.clone(),
+                            chains.deathcam.2.clone(),
                             *hotkey,
                         ))
                     },
