@@ -3,7 +3,7 @@ use std::sync::LazyLock;
 
 use log::*;
 use widestring::U16CString;
-use windows::core::PCWSTR;
+use windows::core::{w, PCWSTR};
 use windows::Win32::Foundation::MAX_PATH;
 use windows::Win32::Storage::FileSystem::{
     GetFileVersionInfoSizeW, GetFileVersionInfoW, VerQueryValueW, VS_FIXEDFILEINFO,
@@ -41,12 +41,12 @@ impl Version {
 fn get_version() -> Version {
     let file_path = {
         let mut buf = vec![0u16; MAX_PATH as usize];
-        unsafe { GetModuleFileNameW(GetModuleHandleW(PCWSTR(null_mut())), &mut buf) };
+        unsafe { GetModuleFileNameW(GetModuleHandleW(None).unwrap(), &mut buf) };
         U16CString::from_vec_truncate(buf)
     };
 
     let mut version_info_size =
-        unsafe { GetFileVersionInfoSizeW(PCWSTR(file_path.as_ptr()), null_mut()) };
+        unsafe { GetFileVersionInfoSizeW(PCWSTR(file_path.as_ptr()), None) };
     let mut version_info_buf = vec![0u8; version_info_size as usize];
     unsafe {
         GetFileVersionInfoW(
@@ -55,13 +55,14 @@ fn get_version() -> Version {
             version_info_size,
             version_info_buf.as_mut_ptr() as _,
         )
+        .unwrap()
     };
 
     let mut version_info: *mut VS_FIXEDFILEINFO = null_mut();
     unsafe {
         VerQueryValueW(
             version_info_buf.as_ptr() as _,
-            PCWSTR(widestring::U16CString::from_str("\\\\\0").unwrap().as_ptr()),
+            w!("\\\\\0"),
             &mut version_info as *mut *mut _ as _,
             &mut version_info_size,
         )

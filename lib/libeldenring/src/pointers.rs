@@ -1,9 +1,7 @@
 #![allow(clippy::new_without_default)]
 
 use std::fmt::Display;
-use std::ptr::null_mut;
 
-use windows::core::PCSTR;
 use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 
 use crate::memedit::*;
@@ -155,7 +153,7 @@ impl Display for CharacterStats {
 
 impl Pointers {
     pub fn new() -> Self {
-        let base_module_address = unsafe { GetModuleHandleA(PCSTR(null_mut())) }.0 as usize;
+        let base_module_address = unsafe { GetModuleHandleA(None).unwrap() }.0 as usize;
         let base_addresses = BaseAddresses::from(*crate::version::VERSION)
             .with_module_base_addr(base_module_address);
 
