@@ -92,6 +92,10 @@ enum CfgCommand {
         amount: u32,
         hotkey: KeyState,
     },
+    Target {
+        #[serde(rename = "target")]
+        hotkey: KeyState,
+    },
     Warp {
         #[serde(rename = "warp")]
         _warp: String,
@@ -211,6 +215,9 @@ impl Config {
                         chains.warp1.clone(),
                         chains.warp2.clone(),
                     )),
+                    CfgCommand::Target { hotkey } => {
+                        Box::new(Quitout::new(chains.target.clone(), *hotkey))
+                    },
                     CfgCommand::Quitout { hotkey } => {
                         Box::new(Quitout::new(chains.quitout.clone(), *hotkey))
                     },

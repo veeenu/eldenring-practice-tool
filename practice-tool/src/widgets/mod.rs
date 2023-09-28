@@ -18,10 +18,12 @@ pub(crate) mod position;
 pub(crate) mod quitout;
 pub(crate) mod runes;
 pub(crate) mod savefile_manager;
+pub(crate) mod target;
 pub(crate) mod warp;
 
 pub(crate) trait Widget: Send + Sync + std::fmt::Debug {
     fn render(&mut self, _ui: &imgui::Ui);
+    fn render_closed(&mut self, _ui: &imgui::Ui) {}
     fn interact(&mut self, _ui: &imgui::Ui) {}
     fn interact_ui(&mut self, _ui: &imgui::Ui) {}
 
