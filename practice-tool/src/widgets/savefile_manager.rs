@@ -1,15 +1,16 @@
 use std::cmp::Ordering;
-use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
-use std::process::Command;
+use std::process::{Command, Stdio};
 
 use hudhook::tracing::error;
 use imgui::*;
+use sys::{igSetNextWindowPos, ImVec2};
 
 use super::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 use crate::util::{get_key_code, KeyState};
 
 const SFM_TAG: &str = "##savefile-manager";
+const SFML_TAG: &str = "##savefile-manager-list";
 
 #[derive(Debug)]
 pub(crate) struct ErroredSavefileManagerInner {
@@ -132,18 +133,20 @@ impl Widget for SavefileManager {
             self.dir_stack.refresh();
         }
 
-        let style_tokens =
-            [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, super::MODAL_BACKGROUND)];
+        unsafe {
+            igSetNextWindowPos(
+                ImVec2::new(16.0 + scale * 200., 16.0),
+                Condition::Always as i8 as _,
+                ImVec2::new(0., 0.),
+            )
+        };
 
         if let Some(_token) = ui
             .modal_popup_config(SFM_TAG)
-            .flags(
-                WindowFlags::NO_TITLE_BAR
-                    | WindowFlags::NO_RESIZE
-                    | WindowFlags::NO_MOVE
-                    | WindowFlags::NO_SCROLLBAR
-                    | WindowFlags::ALWAYS_AUTO_RESIZE,
-            )
+            .resizable(false)
+            .movable(false)
+            .title_bar(false)
+            .scroll_bar(false)
             .begin_popup()
         {
             ui.child_window("##savefile-manager-breadcrumbs")
@@ -167,7 +170,7 @@ impl Widget for SavefileManager {
                 self.dir_stack.enter();
             }
 
-            ListBox::new(SFM_TAG).size([button_width, 200. * scale]).build(ui, || {
+            ListBox::new(SFML_TAG).size([button_width, 200. * scale]).build(ui, || {
                 if ui.selectable_config(".. Up one dir").build() {
                     self.dir_stack.exit();
                     self.breadcrumbs = self.dir_stack.breadcrumbs();
@@ -217,10 +220,14 @@ impl Widget for SavefileManager {
 
             if ui.button_with_size("Show folder", [button_width, BUTTON_HEIGHT]) {
                 let path = self.dir_stack.path().to_owned();
-                let path = if path.is_file() { path.parent().unwrap() } else { &path };
+                let path = if path.is_dir() { &path } else { path.parent().unwrap() };
 
-                if let Err(e) =
-                    Command::new("explorer.exe").arg(OsStr::new(path.to_str().unwrap())).spawn()
+                if let Err(e) = Command::new("explorer.exe")
+                    .stdin(Stdio::null())
+                    .stdout(Stdio::null())
+                    .stderr(Stdio::null())
+                    .arg(path.as_os_str())
+                    .spawn()
                 {
                     self.log = Some(format!("Couldn't show folder: {}", e));
                 };
@@ -233,8 +240,6 @@ impl Widget for SavefileManager {
                 self.dir_stack.refresh();
             }
         }
-
-        style_tokens.into_iter().rev().for_each(|t| t.pop());
     }
 
     fn interact(&mut self, ui: &imgui::Ui) {
