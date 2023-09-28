@@ -1,0 +1,26 @@
+name: Lints
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  lints:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          submodules: recursive
+
+      - name: Rust toolchains
+        run: |
+          rustup toolchain install nightly --target x86_64-pc-windows-msvc --profile minimal -c rustfmt clippy
+          rustup default nightly
+
+      - name: Lints
+        run: |
+          cargo clippy -- -D warnings
+          cargo +nightly fmt --all -- --check
+
