@@ -1,4 +1,4 @@
-use std::fmt::{Debug, Display};
+use std::fmt::Debug;
 use std::ops::{BitAnd, BitOr, BitXor, Not};
 
 use windows::Win32::Foundation::HANDLE;

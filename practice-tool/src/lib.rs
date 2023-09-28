@@ -331,6 +331,10 @@ impl PracticeTool {
                     ));
                 }
 
+                for w in self.widgets.iter_mut() {
+                    w.render_closed(ui);
+                }
+
                 if !ui.io().want_capture_keyboard {
                     for w in self.widgets.iter_mut() {
                         w.interact(ui);

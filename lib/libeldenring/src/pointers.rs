@@ -31,6 +31,8 @@ pub struct Pointers {
 
     pub all_no_dead: Bitflag<u8>,
 
+    pub current_target: PointerChain<u64>,
+
     pub character_stats: PointerChain<CharacterStats>,
     pub runes: PointerChain<u32>,
     pub igt: PointerChain<usize>,
@@ -170,6 +172,7 @@ impl Pointers {
             func_item_inject,
             lua_warp,
             cs_lua_event_manager,
+            current_target,
             ..
         } = base_addresses;
 
@@ -399,6 +402,7 @@ impl Pointers {
                 | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 => (0xB1, 0xB2),
                 V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 => (0xC1, 0xC2),
             },
+            current_target: pointer_chain!(current_target),
             base_addresses,
         }
     }

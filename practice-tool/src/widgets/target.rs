@@ -63,7 +63,6 @@ pub(crate) struct Target {
     detour_addr: PointerChain<[u8; 11]>,
     detour_orig_data: [u8; 11],
     hotkey: KeyState,
-    xa: u32,
     is_enabled: bool,
     entity_addr: u64,
 }
@@ -72,7 +71,7 @@ unsafe impl Send for Target {}
 unsafe impl Sync for Target {}
 
 impl Target {
-    pub(crate) fn new(detour_addr: PointerChain<u64>, xa: u32, hotkey: KeyState) -> Self {
+    pub(crate) fn new(detour_addr: PointerChain<u64>, hotkey: KeyState) -> Self {
         let detour_addr = detour_addr.cast();
         let mut allocate_near = detour_addr.eval().unwrap() as usize;
 
@@ -98,7 +97,6 @@ impl Target {
             detour_addr,
             detour_orig_data: Default::default(),
             hotkey,
-            xa,
             is_enabled: false,
             entity_addr: 0,
         }
@@ -110,11 +108,11 @@ impl Target {
         }
 
         let epc = EntityPointerChains {
-            hp: pointer_chain!(self.entity_addr as usize + 190, 0, 0x138),
-            sp: pointer_chain!(self.entity_addr as usize + 190, 0, 0x148),
-            mp: pointer_chain!(self.entity_addr as usize + 190, 0, 0x154),
-            res: pointer_chain!(self.entity_addr as usize + 190, 0x20, 0),
-            poise: pointer_chain!(self.entity_addr as usize + 190, 0x20, 0x10),
+            hp: pointer_chain!(self.entity_addr as usize + 0x190, 0, 0x138),
+            sp: pointer_chain!(self.entity_addr as usize + 0x190, 0, 0x154),
+            mp: pointer_chain!(self.entity_addr as usize + 0x190, 0, 0x148),
+            res: pointer_chain!(self.entity_addr as usize + 0x190, 0x20, 0x10),
+            poise: pointer_chain!(self.entity_addr as usize + 0x190, 0x40, 0x10),
         };
 
         let [hp, _, max_hp] = epc.hp.read().unwrap_or_default();
@@ -149,7 +147,6 @@ impl Target {
 
         detour_bytes[1..5].copy_from_slice(&u32_to_array(going_jmp_to as _));
         patch_data[2..10].copy_from_slice(&u64_to_array(data_ptr as _));
-        // patch_data[13..17].copy_from_slice(&u32_to_array(self.xa));
         patch_data[18..].copy_from_slice(&u32_to_array(returning_jmp_to as _));
 
         self.alloc_addr.write(patch_data);
@@ -257,7 +254,7 @@ impl Widget for Target {
         pbar("SP", sp, max_sp, 0x6b6bdfff);
         pbar("MP", mp, max_mp, 0x474793ff);
 
-        ui.text(format!("Poise     {:>6}/{:>6} {:.2}s", poise, poise_max, poise_time));
+        ui.text(format!("Poise    {:>6.0}/{:>6.0} {:.2}s", poise, poise_max, poise_time));
         let pct = if poise_max.abs() < 0.0001 { 0.0 } else { poise / poise_max };
         let tok = ui.push_style_color(StyleColor::PlotHistogram, conv_color(0xffc070ff));
         ProgressBar::new(pct).size(pbar_size).overlay_text("").build(ui);
@@ -268,6 +265,8 @@ impl Widget for Target {
         pbar("Bleed", bleed, bleed_max, 0xf6013bff);
         pbar("Blight", blight, blight_max, 0xaeac89ff);
         pbar("Frost", frost, frost_max, 0xa0b5c6ff);
+        pbar("Sleep", sleep, sleep_max, 0xa0b5c6ff);
+        pbar("Mad", mad, mad_max, 0xa0b5c6ff);
     }
 
     fn interact(&mut self, ui: &imgui::Ui) {
