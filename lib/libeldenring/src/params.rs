@@ -1,15 +1,14 @@
 use std::collections::{BTreeMap, HashMap};
 use std::ffi::c_void;
-use std::ptr::null_mut;
 use std::sync::LazyLock;
-use std::thread;
 use std::time::Duration;
+use std::{mem, thread};
 
 use log::*;
 use parking_lot::RwLock;
 use widestring::U16CStr;
-use windows::core::PCSTR;
 use windows::Win32::System::LibraryLoader::GetModuleHandleA;
+use windows::Win32::System::Memory::{VirtualQuery, MEMORY_BASIC_INFORMATION, PAGE_READWRITE};
 
 pub use crate::codegen::param_data::*;
 use crate::prelude::base_addresses::BaseAddresses;
@@ -106,15 +105,26 @@ impl Params {
     /// static.
     pub unsafe fn refresh(&mut self) -> Result<(), String> {
         let addresses: BaseAddresses = (*VERSION).into();
-        let module_base_addr = GetModuleHandleA(PCSTR(null_mut())).0 as usize;
+        let mut memory_basic_info = MEMORY_BASIC_INFORMATION::default();
 
-        let base_ptr = pointer_chain!(addresses.cs_regulation_manager + module_base_addr, 0x18);
+        let module_base_addr = GetModuleHandleA(None).unwrap().0 as usize;
+
+        let base_ptr: PointerChain<ParamMaster> =
+            pointer_chain!(addresses.cs_regulation_manager + module_base_addr, 0x18);
 
         let base_ptr: *const ParamMaster = loop {
             if let Some(base_ptr) = base_ptr.eval() {
-                break base_ptr;
+                VirtualQuery(
+                    Some(base_ptr as _),
+                    &mut memory_basic_info,
+                    mem::size_of::<MEMORY_BASIC_INFORMATION>(),
+                );
+
+                if memory_basic_info.Protect.contains(PAGE_READWRITE) {
+                    break base_ptr;
+                }
             }
-            thread::sleep(Duration::from_millis(50));
+            thread::sleep(Duration::from_millis(500));
         };
 
         let base: &ParamMaster =
@@ -136,8 +146,6 @@ impl Params {
 
         let param_entries: &[*const ParamEntry] =
             std::slice::from_raw_parts(base.start, count as usize);
-
-        info!("{:#?}", param_entries[0].as_ref());
 
         let m = param_entries
             .iter()

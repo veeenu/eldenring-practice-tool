@@ -485,10 +485,11 @@ pub unsafe extern "stdcall" fn DllMain(
     _: *mut ::std::ffi::c_void,
 ) {
     if reason == DLL_PROCESS_ATTACH {
-        trace!("DllMain()");
         thread::spawn(move || {
+            let practice_tool = PracticeTool::new();
+
             if let Err(e) = Hudhook::builder()
-                .with(PracticeTool::new().into_hook::<ImguiDx12Hooks>())
+                .with(practice_tool.into_hook::<ImguiDx12Hooks>())
                 .with_hmodule(hmodule)
                 .build()
                 .apply()

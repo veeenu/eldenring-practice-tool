@@ -446,10 +446,10 @@ fn codegen_version_enum(ver: &[VersionData]) -> String {
 
 fn patches_paths() -> impl Iterator<Item = PathBuf> {
     let base_path = PathBuf::from(
-        env::var("ERPT_PATCHES_PATH").unwrap_or_else(|_| panic!("{}", dedent(r#"
+        env::var("ERPT_PATCHES_PATH").unwrap_or_else(|_| panic!("{}", dedent(r"
             ERPT_PATCHES_PATH environment variable undefined.
             Check the documentation: https://github.com/veeenu/eldenring-practice-tool/README.md#building
-        "#))),
+        "))),
     );
     base_path
         .read_dir()
