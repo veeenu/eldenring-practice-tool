@@ -134,19 +134,20 @@ impl Target {
 
         let data_ptr = (&self.entity_addr as *const u64) as usize;
         let going_jmp_to = (alloc_addr as isize - detour_addr as isize - 5) as i32;
-        let returning_jmp_to = (detour_addr as isize - alloc_addr as isize - (22 - 7)) as i32;
+        let returning_jmp_to = (detour_addr as isize - alloc_addr as isize - 11) as i32;
 
         // jmp going; nop...
         let mut detour_bytes: [u8; 11] = [0xE9, 0, 0, 0, 0, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90];
 
         let mut patch_data: [u8; 22] = [
             0x48, 0xa3, 0, 0, 0, 0, 0, 0, 0, 0, // mov [data_ptr], rax
-            0x48, 0x89, 0x8d, 0xb0, 0x06, 0x00, 0x00, // mov [r13+6b0], rcx
+            0x48, 0x89, 0x8d, 0, 0, 0, 0, // mov [r13+...], rcx
             0xe9, 0, 0, 0, 0, // jmp returning
         ];
 
         detour_bytes[1..5].copy_from_slice(&u32_to_array(going_jmp_to as _));
         patch_data[2..10].copy_from_slice(&u64_to_array(data_ptr as _));
+        patch_data[10..17].copy_from_slice(&self.detour_orig_data[4..]);
         patch_data[18..].copy_from_slice(&u32_to_array(returning_jmp_to as _));
 
         self.alloc_addr.write(patch_data);
@@ -249,6 +250,8 @@ impl Widget for Target {
             let _tok = ui.push_style_color(StyleColor::PlotHistogram, conv_color(c));
             ProgressBar::new(pct).size(pbar_size).overlay_text("").build(ui);
         };
+
+        ui.text(format!("{:x}", self.entity_addr));
 
         pbar("HP", hp, max_hp, 0x9b4949ff);
         pbar("SP", sp, max_sp, 0x6b6bdfff);
