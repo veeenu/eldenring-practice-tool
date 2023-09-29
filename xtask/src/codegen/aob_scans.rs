@@ -37,7 +37,8 @@ static AOBS: LazyLock<Vec<(&str, Vec<&str>)>> = LazyLock::new(|| {
             "48 8B 0D ?? ?? ?? ?? 80 BB D7 00 00 00 00 0F 84 CE 00 00 00 48 85 C9 75 2E",
         ]),
         ("CSLuaEventManager", vec![
-            "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 ?? 41 BE 01 00 00 00 44 89 75",
+            "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 ?? 41 BE 01 00 00 00 44 89 74 24",
+            "48 8B 05 ?? ?? ?? ?? 48 85 C0 74 ?? 41 BE 01 00 00 00 44 89 75 83",
         ]),
         ("CSMenuMan", vec!["E8 ?? ?? ?? ?? 4C 8B F8 48 85 C0 0F 84 ?? ?? ?? ?? 48 8B 0D"]),
         ("CSMenuManImp", vec![
