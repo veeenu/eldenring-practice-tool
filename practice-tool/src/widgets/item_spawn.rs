@@ -3,11 +3,12 @@ use std::ffi::c_void;
 use std::fmt::Display;
 use std::sync::LazyLock;
 
+use imgui::sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos, igSetNextWindowPos, ImVec2};
 use imgui::*;
 use libeldenring::prelude::*;
 use serde::Deserialize;
 
-use super::{string_match, Widget};
+use super::{scaling_factor, string_match, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 use crate::util::KeyState;
 
 static AFFINITIES: [(u32, &str); 13] = [
@@ -231,15 +232,26 @@ impl ItemSpawner<'_> {
 
 impl Widget for ItemSpawner<'_> {
     fn render(&mut self, ui: &imgui::Ui) {
-        if ui.button_with_size("Spawn item", [
-            super::BUTTON_WIDTH * super::scaling_factor(ui),
-            super::BUTTON_HEIGHT,
-        ]) {
+        let scale = scaling_factor(ui);
+        let button_width = BUTTON_WIDTH * scale;
+
+        let (x, y) = unsafe {
+            let mut wnd_pos = ImVec2::default();
+            igGetWindowPos(&mut wnd_pos);
+            (igGetCursorPosX() + wnd_pos.x, igGetCursorPosY() + wnd_pos.y)
+        };
+
+        if ui.button_with_size("Spawn item", [button_width, BUTTON_HEIGHT]) {
             ui.open_popup(ISP_TAG);
         }
 
-        let style_tokens =
-            [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, super::MODAL_BACKGROUND)];
+        unsafe {
+            igSetNextWindowPos(
+                ImVec2::new(x + 200. * scale, y),
+                Condition::Always as i8 as _,
+                ImVec2::new(0., 0.),
+            )
+        };
 
         if let Some(_token) = ui
             .modal_popup_config(ISP_TAG)
@@ -293,8 +305,6 @@ impl Widget for ItemSpawner<'_> {
                 ui.close_current_popup();
             }
         }
-
-        style_tokens.into_iter().rev().for_each(|t| t.pop());
     }
 
     fn log(&mut self) -> Option<Vec<String>> {

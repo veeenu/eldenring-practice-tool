@@ -1,6 +1,5 @@
-use imgui::sys::{igSetNextWindowPos, ImVec2};
+use imgui::sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos, igSetNextWindowPos, ImVec2};
 use imgui::{Condition, Key};
-use imgui_sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos};
 
 use super::{Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 
@@ -48,12 +47,13 @@ impl Widget for Group {
             .scroll_bar(false)
             .begin_popup()
         {
+            let is_focused = ui.is_window_focused();
             for widget in &mut self.commands {
                 widget.render(ui);
             }
 
             if ui.button_with_size("Close", [button_width, BUTTON_HEIGHT])
-                || ui.is_key_released(Key::Escape)
+                || (ui.is_key_released(Key::Escape) && is_focused)
             {
                 ui.close_current_popup();
             }

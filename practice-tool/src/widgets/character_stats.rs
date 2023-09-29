@@ -1,8 +1,9 @@
 use hudhook::tracing::debug;
+use imgui::sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos, igSetNextWindowPos, ImVec2};
 use imgui::*;
 use libeldenring::prelude::*;
 
-use super::Widget;
+use super::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 
 #[derive(Debug)]
 pub(crate) struct CharacterStatsEdit {
@@ -18,8 +19,16 @@ impl CharacterStatsEdit {
 
 impl Widget for CharacterStatsEdit {
     fn render(&mut self, ui: &imgui::Ui) {
-        let button_width = super::BUTTON_WIDTH * super::scaling_factor(ui);
-        if ui.button_with_size("Edit stats", [button_width, super::BUTTON_HEIGHT]) {
+        let scale = scaling_factor(ui);
+        let button_width = BUTTON_WIDTH * scale;
+
+        let (x, y) = unsafe {
+            let mut wnd_pos = ImVec2::default();
+            igGetWindowPos(&mut wnd_pos);
+            (igGetCursorPosX() + wnd_pos.x, igGetCursorPosY() + wnd_pos.y)
+        };
+
+        if ui.button_with_size("Edit stats", [button_width, BUTTON_HEIGHT]) {
             self.stats = self.ptr.read();
             debug!("{:?}", self.stats);
         }
@@ -28,8 +37,13 @@ impl Widget for CharacterStatsEdit {
             ui.open_popup("##character_stats_edit");
         }
 
-        let style_tokens =
-            [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, super::MODAL_BACKGROUND)];
+        unsafe {
+            igSetNextWindowPos(
+                ImVec2::new(x + 200. * scale, y),
+                Condition::Always as i8 as _,
+                ImVec2::new(0., 0.),
+            )
+        };
 
         if let Some(_token) = ui
             .modal_popup_config("##character_stats_edit")
@@ -86,7 +100,5 @@ impl Widget for CharacterStatsEdit {
                 self.stats.take();
             }
         }
-
-        style_tokens.into_iter().rev().for_each(|t| t.pop());
     }
 }
