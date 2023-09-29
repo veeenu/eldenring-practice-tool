@@ -12,6 +12,7 @@ use crate::widgets::character_stats::CharacterStatsEdit;
 use crate::widgets::cycle_speed::CycleSpeed;
 use crate::widgets::deathcam::Deathcam;
 use crate::widgets::flag::Flag;
+use crate::widgets::group::Group;
 use crate::widgets::item_spawn::ItemSpawner;
 use crate::widgets::multiflag::MultiFlag;
 use crate::widgets::nudge_pos::NudgePosition;
@@ -101,6 +102,11 @@ enum CfgCommand {
         #[serde(rename = "warp")]
         _warp: String,
     },
+    Group {
+        #[serde(rename = "group")]
+        label: String,
+        commands: Vec<CfgCommand>,
+    },
     Quitout {
         #[serde(rename = "quitout")]
         hotkey: KeyState,
@@ -135,8 +141,8 @@ impl Config {
             .map_err(|e| format!("TOML config error at {}: {}", e.path(), e.inner()))
     }
 
-    pub(crate) fn make_commands(&self, chains: &Pointers) -> Vec<Box<dyn Widget>> {
-        self.commands
+    fn make_commands_inner(commands: &[CfgCommand], chains: &Pointers) -> Vec<Box<dyn Widget>> {
+        commands
             .iter()
             .filter_map(|cmd| {
                 Some(match cmd {
@@ -151,7 +157,7 @@ impl Config {
                     ))
                         as Box<dyn Widget>,
                     CfgCommand::MultiFlagUser { flags, hotkey, label } => Box::new(MultiFlag::new(
-                        label,
+                        label.as_str(),
                         flags.iter().map(|flag| (flag.getter)(chains).clone()).collect(),
                         *hotkey,
                     ))
@@ -201,7 +207,7 @@ impl Config {
                         ))
                     },
                     CfgCommand::CycleSpeed { cycle_speed, hotkey } => Box::new(CycleSpeed::new(
-                        cycle_speed,
+                        cycle_speed.as_slice(),
                         [chains.animation_speed.clone(), chains.torrent_animation_speed.clone()],
                         *hotkey,
                     )),
@@ -222,9 +228,17 @@ impl Config {
                     CfgCommand::Quitout { hotkey } => {
                         Box::new(Quitout::new(chains.quitout.clone(), *hotkey))
                     },
+                    CfgCommand::Group { label, commands } => Box::new(Group::new(
+                        label,
+                        Self::make_commands_inner(commands.as_slice(), chains),
+                    )),
                 })
             })
             .collect()
+    }
+
+    pub(crate) fn make_commands(&self, chains: &Pointers) -> Vec<Box<dyn Widget>> {
+        Self::make_commands_inner(&self.commands, chains)
     }
 }
 
