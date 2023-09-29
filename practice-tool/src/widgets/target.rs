@@ -92,7 +92,7 @@ impl Target {
         };
 
         Target {
-            label: format!("Target ({})", hotkey),
+            label: format!("Target entity info ({})", hotkey),
             alloc_addr,
             detour_addr,
             detour_orig_data: Default::default(),
@@ -115,11 +115,11 @@ impl Target {
             poise: pointer_chain!(self.entity_addr as usize + 0x190, 0x40, 0x10),
         };
 
-        let [hp, _, max_hp] = epc.hp.read().unwrap_or_default();
-        let [sp, _, max_sp] = epc.sp.read().unwrap_or_default();
-        let [mp, _, max_mp] = epc.mp.read().unwrap_or_default();
-        let res = epc.res.read().unwrap_or_default();
-        let poise = epc.poise.read().unwrap_or_default();
+        let [hp, _, max_hp] = epc.hp.read()?;
+        let [sp, _, max_sp] = epc.sp.read()?;
+        let [mp, _, max_mp] = epc.mp.read()?;
+        let res = epc.res.read()?;
+        let poise = epc.poise.read()?;
 
         Some(EnemyInfo { hp, max_hp, mp, max_mp, sp, max_sp, res, poise })
     }
@@ -199,6 +199,9 @@ impl Widget for Target {
     fn render_closed(&mut self, ui: &imgui::Ui) {
         let Some(EnemyInfo { hp, max_hp, mp, max_mp, sp, max_sp, res, poise }) = self.get_data()
         else {
+            if self.is_enabled {
+                ui.text("No enemy locked on")
+            };
             return;
         };
 
@@ -250,8 +253,6 @@ impl Widget for Target {
             let _tok = ui.push_style_color(StyleColor::PlotHistogram, conv_color(c));
             ProgressBar::new(pct).size(pbar_size).overlay_text("").build(ui);
         };
-
-        ui.text(format!("{:x}", self.entity_addr));
 
         pbar("HP", hp, max_hp, 0x9b4949ff);
         pbar("SP", sp, max_sp, 0x6b6bdfff);

@@ -3,8 +3,8 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
 use hudhook::tracing::error;
+use imgui::sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos, igSetNextWindowPos, ImVec2};
 use imgui::*;
-use sys::{igSetNextWindowPos, ImVec2};
 
 use super::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 use crate::util::{get_key_code, KeyState};
@@ -128,6 +128,12 @@ impl Widget for SavefileManager {
         let scale = scaling_factor(ui);
         let button_width = BUTTON_WIDTH * scale;
 
+        let (x, y) = unsafe {
+            let mut wnd_pos = ImVec2::default();
+            igGetWindowPos(&mut wnd_pos);
+            (igGetCursorPosX() + wnd_pos.x, igGetCursorPosY() + wnd_pos.y)
+        };
+
         if ui.button_with_size(&self.label, [button_width, BUTTON_HEIGHT]) {
             ui.open_popup(SFM_TAG);
             self.dir_stack.refresh();
@@ -135,7 +141,7 @@ impl Widget for SavefileManager {
 
         unsafe {
             igSetNextWindowPos(
-                ImVec2::new(16.0 + scale * 200., 16.0),
+                ImVec2::new(x + 200. * scale, y),
                 Condition::Always as i8 as _,
                 ImVec2::new(0., 0.),
             )

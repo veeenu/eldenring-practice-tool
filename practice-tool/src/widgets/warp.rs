@@ -1,10 +1,11 @@
 use std::mem;
 
 use hudhook::tracing::info;
-use imgui::{InputText, Key, WindowFlags};
+use imgui::sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos, igSetNextWindowPos, ImVec2};
+use imgui::{Condition, InputText, Key, WindowFlags};
 use libeldenring::prelude::*;
 
-use super::{string_match, Widget};
+use super::{scaling_factor, string_match, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 
 type WarpFunc = extern "system" fn(u64, u64, u32);
 
@@ -49,16 +50,26 @@ impl Warp {
 
 impl Widget for Warp {
     fn render(&mut self, ui: &imgui::Ui) {
-        let scale = super::scaling_factor(ui);
-        let button_height = super::BUTTON_HEIGHT * scale;
+        let scale = scaling_factor(ui);
+        let button_width = BUTTON_WIDTH * scale;
 
-        if ui.button_with_size(&self.label, [super::BUTTON_WIDTH * scale, super::BUTTON_HEIGHT]) {
+        let (x, y) = unsafe {
+            let mut wnd_pos = ImVec2::default();
+            igGetWindowPos(&mut wnd_pos);
+            (igGetCursorPosX() + wnd_pos.x, igGetCursorPosY() + wnd_pos.y)
+        };
+
+        if ui.button_with_size(&self.label, [button_width, BUTTON_HEIGHT]) {
             ui.open_popup(POPUP_TAG);
         }
 
-        let _tok =
-            [ui.push_style_color(imgui::StyleColor::ModalWindowDimBg, super::MODAL_BACKGROUND)];
-
+        unsafe {
+            igSetNextWindowPos(
+                ImVec2::new(x + 200. * scale, y),
+                Condition::Always as i8 as _,
+                ImVec2::new(0., 0.),
+            )
+        };
         if let Some(_token) = ui
             .modal_popup_config(POPUP_TAG)
             .flags(
@@ -103,12 +114,12 @@ impl Widget for Warp {
             }
 
             let _tok = ui.push_item_width(-1.);
-            if ui.button_with_size("Warp", [400., button_height]) {
+            if ui.button_with_size("Warp", [400., BUTTON_HEIGHT]) {
                 self.warp();
             }
 
             let _tok = ui.push_item_width(-1.);
-            if ui.button_with_size("Close", [400., button_height])
+            if ui.button_with_size("Close", [400., BUTTON_HEIGHT])
                 || ui.is_key_released(Key::Escape)
             {
                 ui.close_current_popup();
