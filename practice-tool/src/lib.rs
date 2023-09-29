@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #![feature(lazy_cell)]
+#![feature(const_fn_floating_point_arithmetic)]
 
 mod config;
 mod util;
@@ -328,6 +329,10 @@ impl PracticeTool {
                         "IGT {:02}:{:02}:{:02}.{:02}",
                         hours, minutes, seconds, millis
                     ));
+                }
+
+                for w in self.widgets.iter_mut() {
+                    w.render_closed(ui);
                 }
 
                 if !ui.io().want_capture_keyboard {

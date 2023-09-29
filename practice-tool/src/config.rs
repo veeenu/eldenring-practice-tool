@@ -19,6 +19,7 @@ use crate::widgets::position::SavePosition;
 use crate::widgets::quitout::Quitout;
 use crate::widgets::runes::Runes;
 use crate::widgets::savefile_manager::SavefileManager;
+use crate::widgets::target::Target;
 use crate::widgets::warp::Warp;
 use crate::widgets::Widget;
 
@@ -90,6 +91,10 @@ enum CfgCommand {
     Runes {
         #[serde(rename = "runes")]
         amount: u32,
+        hotkey: KeyState,
+    },
+    Target {
+        #[serde(rename = "target")]
         hotkey: KeyState,
     },
     Warp {
@@ -211,6 +216,9 @@ impl Config {
                         chains.warp1.clone(),
                         chains.warp2.clone(),
                     )),
+                    CfgCommand::Target { hotkey } => {
+                        Box::new(Target::new(chains.current_target.clone(), *hotkey))
+                    },
                     CfgCommand::Quitout { hotkey } => {
                         Box::new(Quitout::new(chains.quitout.clone(), *hotkey))
                     },

@@ -111,6 +111,7 @@ static AOBS_DIRECT: LazyLock<Vec<(&str, Vec<&str>)>> = LazyLock::new(|| {
         ]),
         ("FuncDbgActionForce", vec!["48 8B 41 08 0F BE 80 ?? E9 00 00 48 8D 64"]),
         ("LuaWarp", vec!["C3 ?? ?? ?? ?? ?? ?? 57 48 83 EC ?? 48 8B FA 44"]),
+        ("CurrentTarget", vec!["48 8B 48 08 49 89 8D ?? ?? ?? ?? 49 8B CE E8"]),
     ]
 });
 

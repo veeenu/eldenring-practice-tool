@@ -2,6 +2,7 @@ commands = [
   { savefile_manager = "o" },
   { character_stats = "yes" },
   { item_spawner = "u" },
+  { target = "n" },
   { warp = "yes" },
   { flag = "no_damage", hotkey = "1" },
   { flag = "no_dead", hotkey = "2" },

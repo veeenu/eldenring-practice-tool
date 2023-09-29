@@ -1,4 +1,4 @@
-use std::fmt::{Debug, Display};
+use std::fmt::Debug;
 use std::ops::{BitAnd, BitOr, BitXor, Not};
 
 use windows::Win32::Foundation::HANDLE;
@@ -24,7 +24,7 @@ use windows::Win32::System::Threading::GetCurrentProcess;
 ///
 /// This is useful for managing reverse engineered structures which are not
 /// fully known.
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct PointerChain<T> {
     proc: HANDLE,
     base: *mut T,
@@ -104,26 +104,30 @@ impl<T> PointerChain<T> {
             .map(|_| ())
         }
     }
+
+    pub fn cast<S>(&self) -> PointerChain<S> {
+        PointerChain { proc: self.proc, base: self.base as *mut S, offsets: self.offsets.clone() }
+    }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Bitflag<T>(PointerChain<T>, T);
 
-impl<T: Display + Debug> Debug for PointerChain<T> {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "PointerChain({} @ {:p}", self.proc.0, self.base)?;
-        for o in &self.offsets {
-            write!(f, ", {:x}", o)?;
-        }
-        write!(f, ")")
-    }
-}
-
-impl<T: Display + Debug> Debug for Bitflag<T> {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Bitflag(bit {} of {:?})", self.1, self.0)
-    }
-}
+// impl<T: Display + Debug> Debug for PointerChain<T> {
+//     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+//         write!(f, "PointerChain({} @ {:p}", self.proc.0, self.base)?;
+//         for o in &self.offsets {
+//             write!(f, ", {:x}", o)?;
+//         }
+//         write!(f, ")")
+//     }
+// }
+//
+// impl<T: Display + Debug> Debug for Bitflag<T> {
+//     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+//         write!(f, "Bitflag(bit {} of {:?})", self.1, self.0)
+//     }
+// }
 
 impl<T> Bitflag<T>
 where
