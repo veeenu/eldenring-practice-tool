@@ -2,10 +2,11 @@ use std::mem;
 
 use hudhook::tracing::info;
 use imgui::sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos, igSetNextWindowPos, ImVec2};
-use imgui::{Condition, InputText, Key, WindowFlags};
+use imgui::{Condition, InputText, WindowFlags};
 use libeldenring::prelude::*;
 
 use super::{scaling_factor, string_match, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
+use crate::util::KeyState;
 
 type WarpFunc = extern "system" fn(u64, u64, u32);
 
@@ -14,6 +15,8 @@ const POPUP_TAG: &str = "##warp";
 #[derive(Debug)]
 pub(crate) struct Warp {
     label: String,
+    label_close: String,
+    hotkey_close: KeyState,
     warp_ptr: usize,
     arg1: PointerChain<u64>,
     arg2: PointerChain<u64>,
@@ -23,9 +26,17 @@ pub(crate) struct Warp {
 }
 
 impl Warp {
-    pub(crate) fn new(warp_ptr: usize, arg1: PointerChain<u64>, arg2: PointerChain<u64>) -> Self {
+    pub(crate) fn new(
+        warp_ptr: usize,
+        arg1: PointerChain<u64>,
+        arg2: PointerChain<u64>,
+        hotkey_close: KeyState,
+    ) -> Self {
+        let label_close = format!("Close ({hotkey_close})");
         Warp {
-            label: "Warp".to_string(),
+            label: "Warp to Grace".to_string(),
+            label_close,
+            hotkey_close,
             warp_ptr,
             arg1,
             arg2,
@@ -119,8 +130,8 @@ impl Widget for Warp {
             }
 
             let _tok = ui.push_item_width(-1.);
-            if ui.button_with_size("Close", [400., BUTTON_HEIGHT])
-                || ui.is_key_released(Key::Escape)
+            if ui.button_with_size(&self.label_close, [400., BUTTON_HEIGHT])
+                || (self.hotkey_close.keyup(ui) && !ui.is_any_item_active())
             {
                 ui.close_current_popup();
             }

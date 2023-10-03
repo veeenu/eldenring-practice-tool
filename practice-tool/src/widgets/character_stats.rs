@@ -4,16 +4,20 @@ use imgui::*;
 use libeldenring::prelude::*;
 
 use super::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
+use crate::util::KeyState;
 
 #[derive(Debug)]
 pub(crate) struct CharacterStatsEdit {
     ptr: PointerChain<CharacterStats>,
     stats: Option<CharacterStats>,
+    hotkey_close: KeyState,
+    label_close: String,
 }
 
 impl CharacterStatsEdit {
-    pub(crate) fn new(ptr: PointerChain<CharacterStats>) -> Self {
-        CharacterStatsEdit { ptr, stats: None }
+    pub(crate) fn new(ptr: PointerChain<CharacterStats>, hotkey_close: KeyState) -> Self {
+        let label_close = format!("Close ({hotkey_close})");
+        CharacterStatsEdit { ptr, stats: None, hotkey_close, label_close }
     }
 }
 
@@ -93,8 +97,8 @@ impl Widget for CharacterStatsEdit {
                 }
             }
 
-            if ui.button_with_size("Close", [button_width, super::BUTTON_HEIGHT])
-                || ui.is_key_released(Key::Escape)
+            if ui.button_with_size(&self.label_close, [button_width, super::BUTTON_HEIGHT])
+                || (self.hotkey_close.keyup(ui) && !ui.is_any_item_active())
             {
                 ui.close_current_popup();
                 self.stats.take();

@@ -38,6 +38,10 @@ impl Widget for Runes {
     }
 
     fn interact(&mut self, ui: &imgui::Ui) {
+        if ui.is_any_item_active() {
+            return;
+        }
+
         if self.hotkey.keyup(ui) {
             self.add();
         }

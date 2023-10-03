@@ -154,9 +154,11 @@ pub(crate) struct ItemSpawner<'a> {
     func_ptr: usize,
     map_item_man: usize,
     hotkey_load: KeyState,
+    hotkey_close: KeyState,
     sentinel: Bitflag<u8>,
 
     label_load: String,
+    label_close: String,
 
     qty: u32,
     item_id: u32,
@@ -174,13 +176,17 @@ impl ItemSpawner<'_> {
         map_item_man: usize,
         sentinel: Bitflag<u8>,
         hotkey_load: KeyState,
+        hotkey_close: KeyState,
     ) -> Self {
-        let label_load = format!("Spawn item ({})", hotkey_load);
+        let label_load = format!("Spawn item ({hotkey_load})");
+        let label_close = format!("Close ({hotkey_close})");
         ItemSpawner {
             func_ptr,
             map_item_man,
             hotkey_load,
+            hotkey_close,
             label_load,
+            label_close,
             sentinel,
             qty: 1,
             item_id: 0x40000000 + 2919,
@@ -293,9 +299,7 @@ impl Widget for ItemSpawner<'_> {
             });
 
             ui.slider_config("Qty", 1, 99).build(&mut self.qty);
-            if self.hotkey_load.keyup(ui)
-                || ui.button_with_size(&self.label_load, [400., button_height])
-            {
+            if ui.button_with_size(&self.label_load, [400., button_height]) {
                 self.spawn();
             }
 
@@ -308,8 +312,8 @@ impl Widget for ItemSpawner<'_> {
                 self.item_id_tree = ITEM_ID_TREE.iter().map(ItemIDNodeRef::from).collect();
             }
 
-            if ui.button_with_size("Close", [400., button_height])
-                || ui.is_key_released(Key::Escape)
+            if ui.button_with_size(&self.label_close, [400., button_height])
+                || (self.hotkey_close.keyup(ui) && !ui.is_any_item_active())
             {
                 ui.close_current_popup();
             }
@@ -321,7 +325,7 @@ impl Widget for ItemSpawner<'_> {
     }
 
     fn interact(&mut self, ui: &imgui::Ui) {
-        if self.hotkey_load.keyup(ui) {
+        if !ui.is_any_item_active() && self.hotkey_load.keyup(ui) {
             self.spawn();
         }
     }

@@ -32,10 +32,13 @@ impl Widget for ErroredSavefileManagerInner {
 #[derive(Debug)]
 pub(crate) struct SavefileManager {
     label: String,
-    key_load: KeyState,
-    key_down: KeyState,
-    key_up: KeyState,
-    key_enter: KeyState,
+    label_close: String,
+    label_load: String,
+    hotkey_load: KeyState,
+    hotkey_down: KeyState,
+    hotkey_up: KeyState,
+    hotkey_enter: KeyState,
+    hotkey_close: KeyState,
     dir_stack: DirStack,
     savefile_path: PathBuf,
     breadcrumbs: String,
@@ -46,15 +49,20 @@ pub(crate) struct SavefileManager {
 }
 
 impl SavefileManager {
-    pub(crate) fn new_widget(key_load: KeyState) -> Box<dyn Widget> {
-        match SavefileManager::new_inner(key_load) {
+    pub(crate) fn new_widget(hotkey_load: KeyState, hotkey_close: KeyState) -> Box<dyn Widget> {
+        match SavefileManager::new_inner(hotkey_load, hotkey_close) {
             Ok(i) => Box::new(i) as _,
             Err(i) => Box::new(i) as _,
         }
     }
 
-    fn new_inner(key_load: KeyState) -> Result<Self, ErroredSavefileManagerInner> {
-        let label = format!("Savefiles (load with {})", key_load);
+    fn new_inner(
+        hotkey_load: KeyState,
+        hotkey_close: KeyState,
+    ) -> Result<Self, ErroredSavefileManagerInner> {
+        let label = format!("Savefiles (load with {hotkey_load})");
+        let label_load = format!("Load savefile ({hotkey_load})");
+        let label_close = format!("Close ({})", hotkey_close);
         let mut savefile_path = get_savefile_path().map_err(|e| {
             ErroredSavefileManagerInner::new(format!("Could not find savefile path: {}", e))
         })?;
@@ -67,10 +75,13 @@ impl SavefileManager {
 
         Ok(SavefileManager {
             label,
-            key_load,
-            key_down: KeyState::new(get_key_code("down").unwrap()),
-            key_up: KeyState::new(get_key_code("up").unwrap()),
-            key_enter: KeyState::new(get_key_code("return").unwrap()),
+            label_load,
+            label_close,
+            hotkey_load,
+            hotkey_down: KeyState::new(get_key_code("down").unwrap()),
+            hotkey_up: KeyState::new(get_key_code("up").unwrap()),
+            hotkey_enter: KeyState::new(get_key_code("return").unwrap()),
+            hotkey_close,
             dir_stack,
             savefile_path,
             savefile_name: String::new(),
@@ -162,17 +173,17 @@ impl Widget for SavefileManager {
                     ui.set_scroll_x(ui.scroll_max_x());
                 });
 
-            let center_scroll_y = if self.key_down.keyup(ui) {
+            let center_scroll_y = if self.hotkey_down.keyup(ui) {
                 self.dir_stack.next();
                 true
-            } else if self.key_up.keyup(ui) {
+            } else if self.hotkey_up.keyup(ui) {
                 self.dir_stack.prev();
                 true
             } else {
                 false
             };
 
-            if self.key_enter.keyup(ui) {
+            if self.hotkey_enter.keyup(ui) {
                 self.dir_stack.enter();
             }
 
@@ -201,10 +212,7 @@ impl Widget for SavefileManager {
                 }
             });
 
-            if ui.button_with_size(format!("Load savefile ({})", self.key_load), [
-                button_width,
-                BUTTON_HEIGHT,
-            ]) {
+            if ui.button_with_size(&self.label_load, [button_width, BUTTON_HEIGHT]) {
                 self.load_savefile();
             }
 
@@ -239,8 +247,8 @@ impl Widget for SavefileManager {
                 };
             }
 
-            if ui.button_with_size("Close", [button_width, BUTTON_HEIGHT])
-                || ui.is_key_released(Key::Escape)
+            if ui.button_with_size(&self.label_close, [button_width, BUTTON_HEIGHT])
+                || (self.hotkey_close.keyup(ui) && !ui.is_any_item_active())
             {
                 ui.close_current_popup();
                 self.dir_stack.refresh();
@@ -252,7 +260,7 @@ impl Widget for SavefileManager {
         if self.input_edited {
             return;
         }
-        if self.key_load.keydown(ui) {
+        if !ui.is_any_item_active() && self.hotkey_load.keydown(ui) {
             self.load_savefile();
         }
     }

@@ -25,7 +25,6 @@ pub(crate) trait Widget: Send + Sync + std::fmt::Debug {
     fn render(&mut self, _ui: &imgui::Ui);
     fn render_closed(&mut self, _ui: &imgui::Ui) {}
     fn interact(&mut self, _ui: &imgui::Ui) {}
-    fn interact_ui(&mut self, _ui: &imgui::Ui) {}
 
     fn enter(&self, _ui: &imgui::Ui) -> Option<Arc<Mutex<Box<dyn Widget>>>> {
         None
