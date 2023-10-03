@@ -1,5 +1,5 @@
 commands = [
-  { savefile_manager = "o", hotkey_open = "rshift+o" },
+  { savefile_manager = "o" },
   { item_spawner = "u" },
   { character_stats = "yes" },
   { warp = "yes" },
