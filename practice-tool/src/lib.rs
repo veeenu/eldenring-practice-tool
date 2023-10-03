@@ -208,10 +208,9 @@ impl PracticeTool {
                 for w in self.widgets.iter_mut() {
                     w.render(ui);
                 }
-                if !ui.io().want_capture_keyboard {
-                    for w in self.widgets.iter_mut() {
-                        w.interact(ui);
-                    }
+
+                for w in self.widgets.iter_mut() {
+                    w.interact(ui);
                 }
 
                 if ui.button_with_size("Close", [
@@ -335,10 +334,8 @@ impl PracticeTool {
                     w.render_closed(ui);
                 }
 
-                if !ui.io().want_capture_keyboard {
-                    for w in self.widgets.iter_mut() {
-                        w.interact(ui);
-                    }
+                for w in self.widgets.iter_mut() {
+                    w.interact(ui);
                 }
             });
 
@@ -348,10 +345,8 @@ impl PracticeTool {
     }
 
     fn render_hidden(&mut self, ui: &imgui::Ui) {
-        if !ui.io().want_capture_keyboard {
-            for w in self.widgets.iter_mut() {
-                w.interact(ui);
-            }
+        for w in self.widgets.iter_mut() {
+            w.interact(ui);
         }
     }
 

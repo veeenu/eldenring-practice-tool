@@ -39,6 +39,10 @@ impl Widget for Flag {
     }
 
     fn interact(&mut self, ui: &imgui::Ui) {
+        if ui.is_any_item_active() {
+            return;
+        }
+
         if let Some(true) = self.hotkey.as_ref().map(|k| k.keyup(ui)) {
             self.bitflag.toggle();
         }

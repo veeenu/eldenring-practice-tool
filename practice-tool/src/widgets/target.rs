@@ -197,6 +197,10 @@ impl Widget for Target {
     }
 
     fn render_closed(&mut self, ui: &imgui::Ui) {
+        if !self.is_enabled {
+            return;
+        }
+
         let Some(EnemyInfo { hp, max_hp, mp, max_mp, sp, max_sp, res, poise }) = self.get_data()
         else {
             if self.is_enabled {
@@ -274,6 +278,10 @@ impl Widget for Target {
     }
 
     fn interact(&mut self, ui: &imgui::Ui) {
+        if ui.is_any_item_active() {
+            return;
+        }
+
         if self.hotkey.keyup(ui) {
             if self.is_enabled {
                 self.disable();

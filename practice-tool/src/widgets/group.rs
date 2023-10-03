@@ -1,18 +1,27 @@
 use imgui::sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos, igSetNextWindowPos, ImVec2};
-use imgui::{Condition, Key};
+use imgui::Condition;
 
 use super::{Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
+use crate::util::KeyState;
 
 #[derive(Debug)]
 pub(crate) struct Group {
     label: String,
+    label_close: String,
     tag: String,
+    hotkey_close: KeyState,
     commands: Vec<Box<dyn Widget>>,
 }
 
 impl Group {
-    pub(crate) fn new(label: &str, commands: Vec<Box<dyn Widget>>) -> Self {
-        Self { label: label.to_string(), tag: format!("##group-{label}"), commands }
+    pub(crate) fn new(label: &str, hotkey_close: KeyState, commands: Vec<Box<dyn Widget>>) -> Self {
+        Self {
+            label: label.to_string(),
+            tag: format!("##group-{label}"),
+            label_close: format!("Close ({hotkey_close})"),
+            hotkey_close,
+            commands,
+        }
     }
 }
 
@@ -47,13 +56,12 @@ impl Widget for Group {
             .scroll_bar(false)
             .begin_popup()
         {
-            let is_focused = ui.is_window_focused();
             for widget in &mut self.commands {
                 widget.render(ui);
             }
 
-            if ui.button_with_size("Close", [button_width, BUTTON_HEIGHT])
-                || (ui.is_key_released(Key::Escape) && is_focused)
+            if ui.button_with_size(&self.label_close, [button_width, BUTTON_HEIGHT])
+                || (self.hotkey_close.keyup(ui) && !ui.is_any_item_active())
             {
                 ui.close_current_popup();
             }
@@ -69,12 +77,6 @@ impl Widget for Group {
     fn interact(&mut self, ui: &imgui::Ui) {
         for widget in &mut self.commands {
             widget.interact(ui);
-        }
-    }
-
-    fn interact_ui(&mut self, ui: &imgui::Ui) {
-        for widget in &mut self.commands {
-            widget.interact_ui(ui);
         }
     }
 

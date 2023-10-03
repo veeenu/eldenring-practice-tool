@@ -48,6 +48,7 @@ enum CfgCommand {
     SavefileManager {
         #[serde(rename = "savefile_manager")]
         hotkey_load: KeyState,
+        hotkey_open: Option<KeyState>,
     },
     ItemSpawner {
         #[serde(rename = "item_spawner")]
@@ -141,7 +142,11 @@ impl Config {
             .map_err(|e| format!("TOML config error at {}: {}", e.path(), e.inner()))
     }
 
-    fn make_commands_inner(commands: &[CfgCommand], chains: &Pointers) -> Vec<Box<dyn Widget>> {
+    fn make_commands_inner(
+        commands: &[CfgCommand],
+        settings: &Settings,
+        chains: &Pointers,
+    ) -> Vec<Box<dyn Widget>> {
         commands
             .iter()
             .filter_map(|cmd| {
@@ -181,14 +186,15 @@ impl Config {
                         error!("Invalid flag {}", flag);
                         return None;
                     },
-                    CfgCommand::SavefileManager { hotkey_load } => {
-                        SavefileManager::new_widget(*hotkey_load)
+                    CfgCommand::SavefileManager { hotkey_load, hotkey_open } => {
+                        SavefileManager::new_widget(*hotkey_load, *hotkey_open, settings.display)
                     },
                     CfgCommand::ItemSpawner { hotkey_load } => Box::new(ItemSpawner::new(
                         chains.func_item_inject,
                         chains.base_addresses.map_item_man,
                         chains.gravity.clone(),
                         *hotkey_load,
+                        settings.display,
                     )),
                     CfgCommand::Position { hotkey, modifier } => Box::new(SavePosition::new(
                         chains.global_position.clone(),
@@ -211,9 +217,10 @@ impl Config {
                         [chains.animation_speed.clone(), chains.torrent_animation_speed.clone()],
                         *hotkey,
                     )),
-                    CfgCommand::CharacterStats { .. } => {
-                        Box::new(CharacterStatsEdit::new(chains.character_stats.clone()))
-                    },
+                    CfgCommand::CharacterStats { .. } => Box::new(CharacterStatsEdit::new(
+                        chains.character_stats.clone(),
+                        settings.display,
+                    )),
                     CfgCommand::Runes { amount, hotkey } => {
                         Box::new(Runes::new(*amount, chains.runes.clone(), *hotkey))
                     },
@@ -221,6 +228,7 @@ impl Config {
                         chains.func_warp,
                         chains.warp1.clone(),
                         chains.warp2.clone(),
+                        settings.display,
                     )),
                     CfgCommand::Target { hotkey } => {
                         Box::new(Target::new(chains.current_target.clone(), *hotkey))
@@ -229,8 +237,9 @@ impl Config {
                         Box::new(Quitout::new(chains.quitout.clone(), *hotkey))
                     },
                     CfgCommand::Group { label, commands } => Box::new(Group::new(
-                        label,
-                        Self::make_commands_inner(commands.as_slice(), chains),
+                        label.as_str(),
+                        settings.display,
+                        Self::make_commands_inner(commands.as_slice(), settings, chains),
                     )),
                 })
             })
@@ -238,7 +247,7 @@ impl Config {
     }
 
     pub(crate) fn make_commands(&self, chains: &Pointers) -> Vec<Box<dyn Widget>> {
-        Self::make_commands_inner(&self.commands, chains)
+        Self::make_commands_inner(&self.commands, &self.settings, chains)
     }
 }
 
@@ -247,7 +256,7 @@ impl Default for Config {
         Config {
             settings: Settings {
                 log_level: LevelFilterSerde(LevelFilter::DEBUG),
-                display: KeyState::new(util::get_key_code("0").unwrap()),
+                display: KeyState::new(util::get_key_code("0").unwrap(), None),
                 dxgi_debug: false,
                 show_console: false,
             },
