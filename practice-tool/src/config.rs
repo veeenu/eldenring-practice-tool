@@ -48,6 +48,7 @@ enum CfgCommand {
     SavefileManager {
         #[serde(rename = "savefile_manager")]
         hotkey_load: KeyState,
+        hotkey_open: Option<KeyState>,
     },
     ItemSpawner {
         #[serde(rename = "item_spawner")]
@@ -185,8 +186,8 @@ impl Config {
                         error!("Invalid flag {}", flag);
                         return None;
                     },
-                    CfgCommand::SavefileManager { hotkey_load } => {
-                        SavefileManager::new_widget(*hotkey_load, settings.display)
+                    CfgCommand::SavefileManager { hotkey_load, hotkey_open } => {
+                        SavefileManager::new_widget(*hotkey_load, *hotkey_open, settings.display)
                     },
                     CfgCommand::ItemSpawner { hotkey_load } => Box::new(ItemSpawner::new(
                         chains.func_item_inject,
@@ -255,7 +256,7 @@ impl Default for Config {
         Config {
             settings: Settings {
                 log_level: LevelFilterSerde(LevelFilter::DEBUG),
-                display: KeyState::new(util::get_key_code("0").unwrap()),
+                display: KeyState::new(util::get_key_code("0").unwrap(), None),
                 dxgi_debug: false,
                 show_console: false,
             },

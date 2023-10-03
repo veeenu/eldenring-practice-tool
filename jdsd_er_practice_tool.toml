@@ -1,11 +1,11 @@
 commands = [
-  { savefile_manager = "o" },
+  { savefile_manager = "o", hotkey_open = "rshift+o" },
   { item_spawner = "u" },
   { character_stats = "yes" },
   { warp = "yes" },
   { cycle_speed = [1.0, 3.0, 6.0], hotkey = "6" },
   { runes = 10000, hotkey = "7" },
-  { group = "Positions", commands = [
+  { group = "Position storage", commands = [
     { nudge = 1.0, nudge_up = "[", nudge_down = "]" },
     { position = "H", modifier = "rshift" },
     { position = "J", modifier = "rshift" },

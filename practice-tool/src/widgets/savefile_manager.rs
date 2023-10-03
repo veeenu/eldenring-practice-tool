@@ -38,6 +38,7 @@ pub(crate) struct SavefileManager {
     hotkey_down: KeyState,
     hotkey_up: KeyState,
     hotkey_enter: KeyState,
+    hotkey_open: Option<KeyState>,
     hotkey_close: KeyState,
     dir_stack: DirStack,
     savefile_path: PathBuf,
@@ -49,8 +50,12 @@ pub(crate) struct SavefileManager {
 }
 
 impl SavefileManager {
-    pub(crate) fn new_widget(hotkey_load: KeyState, hotkey_close: KeyState) -> Box<dyn Widget> {
-        match SavefileManager::new_inner(hotkey_load, hotkey_close) {
+    pub(crate) fn new_widget(
+        hotkey_load: KeyState,
+        hotkey_open: Option<KeyState>,
+        hotkey_close: KeyState,
+    ) -> Box<dyn Widget> {
+        match SavefileManager::new_inner(hotkey_load, hotkey_open, hotkey_close) {
             Ok(i) => Box::new(i) as _,
             Err(i) => Box::new(i) as _,
         }
@@ -58,11 +63,13 @@ impl SavefileManager {
 
     fn new_inner(
         hotkey_load: KeyState,
+        hotkey_open: Option<KeyState>,
         hotkey_close: KeyState,
     ) -> Result<Self, ErroredSavefileManagerInner> {
         let label = format!("Savefiles (load with {hotkey_load})");
         let label_load = format!("Load savefile ({hotkey_load})");
         let label_close = format!("Close ({})", hotkey_close);
+
         let mut savefile_path = get_savefile_path().map_err(|e| {
             ErroredSavefileManagerInner::new(format!("Could not find savefile path: {}", e))
         })?;
@@ -78,9 +85,10 @@ impl SavefileManager {
             label_load,
             label_close,
             hotkey_load,
-            hotkey_down: KeyState::new(get_key_code("down").unwrap()),
-            hotkey_up: KeyState::new(get_key_code("up").unwrap()),
-            hotkey_enter: KeyState::new(get_key_code("return").unwrap()),
+            hotkey_down: KeyState::new(get_key_code("down").unwrap(), None),
+            hotkey_up: KeyState::new(get_key_code("up").unwrap(), None),
+            hotkey_enter: KeyState::new(get_key_code("return").unwrap(), None),
+            hotkey_open,
             hotkey_close,
             dir_stack,
             savefile_path,
@@ -89,6 +97,10 @@ impl SavefileManager {
             breadcrumbs: "/".to_string(),
             input_edited: false,
         })
+    }
+
+    fn is_opening(&self, ui: &imgui::Ui) -> bool {
+        self.hotkey_open.map(|k| k.keydown(ui)).unwrap_or(false)
     }
 
     fn load_savefile(&mut self) {
@@ -145,7 +157,7 @@ impl Widget for SavefileManager {
             (igGetCursorPosX() + wnd_pos.x, igGetCursorPosY() + wnd_pos.y)
         };
 
-        if ui.button_with_size(&self.label, [button_width, BUTTON_HEIGHT]) {
+        if ui.button_with_size(&self.label, [button_width, BUTTON_HEIGHT]) || self.is_opening(ui) {
             ui.open_popup(SFM_TAG);
             self.dir_stack.refresh();
         }
@@ -260,7 +272,8 @@ impl Widget for SavefileManager {
         if self.input_edited {
             return;
         }
-        if !ui.is_any_item_active() && self.hotkey_load.keydown(ui) {
+
+        if !ui.is_any_item_active() && self.hotkey_load.keydown(ui) && !self.is_opening(ui) {
             self.load_savefile();
         }
     }
