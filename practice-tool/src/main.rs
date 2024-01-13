@@ -161,9 +161,9 @@ fn perform_injection() -> Result<()> {
     let syringe = Syringe::for_process(process);
     syringe.inject(dll_path).map_err(|e| {
         anyhow!(
-            "Could not hook the practice tool: {e}.\n\nPlease make sure you have
-            no antiviruses running, EAC is properly bypassed, and you are
-            running an unmodded and legitimate version of the game."
+            "Could not hook the practice tool: {e}.\n\nPlease make sure you have no antiviruses \
+             running, EAC is properly bypassed, and you are running an unmodded and legitimate \
+             version of the game."
         )
     })?;
 
