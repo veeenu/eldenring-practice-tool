@@ -4,16 +4,12 @@
 [![GitHub all releases](https://img.shields.io/github/downloads/veeenu/eldenring-practice-tool/total)](https://github.com/veeenu/eldenring-practice-tool/releases/latest)
 [![GitHub](https://img.shields.io/github/license/veeenu/eldenring-practice-tool)](https://github.com/veeenu/eldenring-practice-tool/blob/main/LICENSE) 
 [![Discord](https://img.shields.io/discord/267623298647457802)](https://discord.gg/CVHbN7eF)
-[![Patreon](https://img.shields.io/badge/Patreon-orange)](https://www.patreon.com/johndisandonato)
 [![Twitch](https://img.shields.io/twitch/status/johndisandonato?style=social)](https://twitch.tv/johndisandonato)
+[![Patreon](https://img.shields.io/badge/Support_me-Patreon-orange)](https://www.patreon.com/johndisandonato)
 
-A tool for practicing speedruns. It is compatible with all Elden Ring patches.
+A tool for practicing speedruns. Made with ❤️ by [johndisandonato](https://twitch.tv/johndisandonato).
 
-Made with ❤️ by [johndisandonato](https://twitch.tv/johndisandonato).
-
-The tool is free, and will always be free, but maintaining it requires a significant effort.
-
-Please consider [supporting the project](https://www.patreon.com/johndisandonato)!
+The tool is free, and will always be free. Please consider [supporting the project](https://www.patreon.com/johndisandonato)!
 
 ![Screenshot](lib/data/screenshot.jpg)
 
@@ -35,8 +31,8 @@ manually.
 ### Running the tool
 
 - Extract all files from the zip archive. Anywhere will do.
-- Double-click `eldenring.exe` to start the game (Steam -> right click ELDEN
-  RING -> Manage -> Browse Local Files). Never start it from Steam -- the tool won't work.
+- Double-click `eldenring.exe` to start the game (Steam -> right click **ELDEN
+  RING** -> Manage -> Browse Local Files). Never start the game from Steam: the tool won't work.
 - Double-click `jdsd_er_practice_tool.exe`.
 
 The tool will automatically appear over the game. Press `0` to open and close its interface.
