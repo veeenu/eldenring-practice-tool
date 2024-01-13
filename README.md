@@ -20,7 +20,7 @@ Download the **latest stable release** [here](https://github.com/veeenu/eldenrin
 ### Prerequisites
 
 - Steam must be open. Offline mode is fine, but the program must be started.
-- Antiviruses are disabled. This includes Windows Defender.
+- Antiviruses are disabled. This includes Windows Defender. If you don't want to do that, make sure to whitelist the contents of the practice tool in your antivirus.
 - You have a legitimate copy of the game. Pirated copies will never be supported.
 - EAC is [bypassed](https://soulsspeedruns.com/eldenring/eac-bypass/) with the textfile method.
 Other methods aren't supported and could make it impossible to run the tool.
