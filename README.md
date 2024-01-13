@@ -9,7 +9,7 @@
 
 A tool for practicing speedruns. Made with ❤️ by [johndisandonato](https://twitch.tv/johndisandonato).
 
-The tool is free, and will always be free. Please consider [supporting the project](https://www.patreon.com/johndisandonato)!
+The tool is free, and will always be free for everyone. Please consider [supporting the project](https://www.patreon.com/johndisandonato)!
 
 ![Screenshot](lib/data/screenshot.jpg)
 
