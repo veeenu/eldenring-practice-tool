@@ -31,8 +31,8 @@ manually.
 ### Running the tool
 
 - Extract all files from the zip archive. Anywhere will do.
-- Double-click `eldenring.exe` to start the game (Steam -> right click **ELDEN
-  RING** -> Manage -> Browse Local Files). Never start the game from Steam: the tool won't work.
+- Double-click `eldenring.exe` to start the game (Steam → right click **ELDEN
+  RING** → Manage → Browse Local Files). Never start the game from Steam: the tool won't work.
 - Double-click `jdsd_er_practice_tool.exe`.
 
 The tool will automatically appear over the game. Press `0` to open and close its interface.
