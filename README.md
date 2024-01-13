@@ -12,6 +12,7 @@ A tool for practicing speedruns. It is compatible with all Elden Ring patches.
 Made with ❤️ by [johndisandonato](https://twitch.tv/johndisandonato).
 
 The tool is free, and will always be free, but maintaining it requires a significant effort.
+
 Please consider [supporting the project](https://www.patreon.com/johndisandonato)!
 
 ![Screenshot](lib/data/screenshot.jpg)
