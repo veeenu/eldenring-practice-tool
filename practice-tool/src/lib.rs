@@ -171,7 +171,7 @@ impl PracticeTool {
         let pointers = Pointers::new();
         let version_label = {
             let (maj, min, patch) = (*VERSION).tuple();
-            format!("Ver {}.{:02}.{}", maj, min, patch)
+            format!("Game Ver {}.{:02}.{}", maj, min, patch)
         };
         let widgets = config.make_commands(&pointers);
         info!("Practice tool initialized");
@@ -298,6 +298,10 @@ impl PracticeTool {
                                 "https://github.com/veeenu/eldenring-practice-tool/issues/new",
                             )
                             .ok();
+                        }
+                        ui.same_line();
+                        if ui.button("Support") {
+                            open::that("https://patreon.com/johndisandonato").ok();
                         }
                     });
 

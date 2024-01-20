@@ -1,6 +1,6 @@
 [package]
 name = "eldenring-practice-tool"
-version = "1.4.0"
+version = "1.4.1"
 edition = "2021"
 authors = ["Andrea Venuta <andrea@johndisandonato.stream>"]
 
@@ -33,6 +33,8 @@ fuzzy_match = "0.2.1"
 const_format = "0.2.23"
 dll-syringe = { git = "https://github.com/OpenByteDev/dll-syringe" }
 tracing-subscriber = "0.3.16"
+textwrap-macros = "0.3.0"
+anyhow = "1.0.79"
 
 [dependencies.windows]
 version = "0.51.0"
