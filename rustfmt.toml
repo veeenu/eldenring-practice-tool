@@ -10,6 +10,5 @@ use_small_heuristics = "Max"
 normalize_comments = true
 reorder_impl_items = true
 use_try_shorthand = true
-newline_style = "Unix"
 format_strings = true
 wrap_comments = true
