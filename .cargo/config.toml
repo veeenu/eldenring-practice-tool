@@ -1,0 +1,9 @@
+[build]
+target = "x86_64-pc-windows-msvc"
+rustflags = ["-C", "link-args=-Wl,--subsystem,windows"]
+
+[alias]
+xtask = "xwin run --package xtask --release --"
+c = "xwin clippy --all-features --all-targets"
+d = "xtask dist"
+r = "xtask run"

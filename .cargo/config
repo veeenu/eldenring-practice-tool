@@ -1,7 +1,0 @@
-[build]
-rustflags = ["-C", "link-args=-Wl,--subsystem,windows"]
-
-[alias]
-xtask = "run --package xtask --release --"
-r = "xtask run"
-d = "xtask dist"
