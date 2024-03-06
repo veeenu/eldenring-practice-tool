@@ -35,8 +35,8 @@ impl ReadWrite for Runes {
     }
 }
 
-pub(crate) fn runes(amount: u32, ptr: PointerChain<u32>, key: Key) -> Box<dyn Widget> {
-    Box::new(StoreValue::new(Runes::new(amount, ptr), Some(key)))
+pub(crate) fn runes(amount: u32, ptr: PointerChain<u32>, key: Option<Key>) -> Box<dyn Widget> {
+    Box::new(StoreValue::new(Runes::new(amount, ptr), key))
 }
 
 // use super::Widget;

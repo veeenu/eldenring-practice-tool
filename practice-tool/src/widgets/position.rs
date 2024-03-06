@@ -79,9 +79,6 @@ impl PositionStorage for SavePosition {
     fn display_current(&mut self) -> &str {
         self.label_current.clear();
 
-        let pos = self.ptr_pos.read();
-        let angle = self.ptr_angle.read();
-
         let (read_pos, valid) = if let (Some([x, y, z, _, _]), Some(angle)) =
             (self.global_position.read(), self.chunk_position.angle1.read())
         {
@@ -105,7 +102,7 @@ impl PositionStorage for SavePosition {
     fn display_stored(&mut self) -> &str {
         self.label_stored.clear();
 
-        let [x, y, z, a] = self.saved_position;
+        let [x, y, z, a, _] = self.saved_position;
 
         write!(self.label_stored, "{:7.1} {:7.1} {:7.1} {:7.1}", x, y, z, a).ok();
 

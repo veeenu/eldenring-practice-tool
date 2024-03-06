@@ -27,7 +27,9 @@ def kill_process_by_name(process_name):
 
 if __name__ == '__main__':
     with open(Path(__file__).parent.parent / '.env') as fp:
-        patches_path = fp.read().strip().split('=')[1].replace('"', '') + '*'
+        line = fp.read().splitlines()[0]
+        patches_path = line.strip().split('=')[1].replace('"', '') + '*'
+    print(patches_path)
     dirs = glob(patches_path)
     exes = list(map(lambda x: ExePath(Path(x) / 'Game/eldenring.exe'), dirs))
 

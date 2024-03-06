@@ -1,7 +1,6 @@
 use libeldenring::memedit::PointerChain;
 use practice_tool_core::key::Key;
 use practice_tool_core::widgets::flag::{Flag, FlagWidget};
-use practice_tool_core::widgets::store_value::{ReadWrite, StoreValue};
 use practice_tool_core::widgets::Widget;
 
 struct ActionFreeze {
@@ -20,7 +19,7 @@ impl ActionFreeze {
 }
 
 impl Flag for ActionFreeze {
-    fn get(&mut self) -> Option<bool> {
+    fn get(&self) -> Option<bool> {
         self.ptr.read().and_then(|val| match val {
             x if x == self.state_on => Some(true),
             x if x == self.state_off => Some(false),
@@ -34,7 +33,7 @@ impl Flag for ActionFreeze {
     }
 }
 
-pub(crate) fn quitout(
+pub(crate) fn action_freeze(
     ptr: PointerChain<u8>,
     states: (u8, u8),
     key: Option<Key>,

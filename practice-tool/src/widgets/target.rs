@@ -61,7 +61,7 @@ pub(crate) struct Target {
     alloc_addr: PointerChain<[u8; 22]>,
     detour_addr: PointerChain<[u8; 11]>,
     detour_orig_data: [u8; 11],
-    hotkey: Key,
+    hotkey: Option<Key>,
     is_enabled: bool,
     entity_addr: u64,
 }
@@ -70,7 +70,7 @@ unsafe impl Send for Target {}
 unsafe impl Sync for Target {}
 
 impl Target {
-    pub(crate) fn new(detour_addr: PointerChain<u64>, hotkey: Key) -> Self {
+    pub(crate) fn new(detour_addr: PointerChain<u64>, hotkey: Option<Key>) -> Self {
         let detour_addr = detour_addr.cast();
         let mut allocate_near = detour_addr.eval().unwrap() as usize;
 
@@ -91,7 +91,9 @@ impl Target {
         };
 
         Target {
-            label: format!("Target entity info ({})", hotkey),
+            label: hotkey
+                .map(|k| format!("Target entity info ({k})"))
+                .unwrap_or_else(|| "Target entity info".to_string()),
             alloc_addr,
             detour_addr,
             detour_orig_data: Default::default(),
@@ -256,12 +258,12 @@ impl Widget for Target {
         const COLOR_SP: [f32; 4] = [0.41960785, 0.41960785, 0.8745098, 1.0];
         const COLOR_MP: [f32; 4] = [0.2784314, 0.2784314, 0.5764706, 1.0];
         const COLOR_POISON: [f32; 4] = [0.5137255, 0.19215687, 0.972549, 1.0];
-        const COLOR_ROT: [f32; 4] = [0.24313725, 0.035294117, 0.525490196, 1.0];
+        const COLOR_ROT: [f32; 4] = [0.24313725, 0.035294117, 0.5254902, 1.0];
         const COLOR_BLEED: [f32; 4] = [0.9647059, 0.003921569, 0.23137255, 1.0];
         const COLOR_BLIGHT: [f32; 4] = [0.6823529, 0.6745098, 0.5372549, 1.0];
         const COLOR_FROST: [f32; 4] = [0.627451, 0.70980394, 0.7764706, 1.0];
-        const COLOR_SLEEP: [f32; 4] = [0.62745098, 0.70980392, 0.776470588, 1.0];
-        const COLOR_MAD: [f32; 4] = [0.62745098, 0.70980392, 0.776470588, 1.0];
+        const COLOR_SLEEP: [f32; 4] = [0.627451, 0.70980392, 0.7764706, 1.0];
+        const COLOR_MAD: [f32; 4] = [0.627451, 0.70980392, 0.7764706, 1.0];
 
         let pbar = |label, cur, max, c| {
             ui.text(format!("{label:8} {cur:>6}/{max:>6}"));
@@ -294,7 +296,7 @@ impl Widget for Target {
             return;
         }
 
-        if self.hotkey.keyup(ui) {
+        if self.hotkey.map(|k| k.is_pressed(ui)).unwrap_or(false) {
             if self.is_enabled {
                 self.disable();
             } else {

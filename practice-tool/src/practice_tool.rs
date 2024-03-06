@@ -4,16 +4,16 @@ use std::time::Instant;
 use const_format::formatcp;
 use hudhook::tracing::metadata::LevelFilter;
 use hudhook::tracing::*;
-use hudhook::ImguiRenderLoop;
+use hudhook::{ImguiRenderLoop, TextureLoader};
 use imgui::*;
 use libeldenring::prelude::*;
 use pkg_version::*;
 use practice_tool_core::crossbeam_channel::{self, Receiver, Sender};
 use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 use tracing_subscriber::prelude::*;
-use windows::Win32::UI::Input::KeyboardAndMouse::{GetAsyncKeyState, VK_RSHIFT};
 
 use crate::config;
+use crate::config::Settings;
 
 const MAJOR: usize = pkg_version_major!();
 const MINOR: usize = pkg_version_minor!();
@@ -38,8 +38,10 @@ pub(crate) struct PracticeTool {
     pointers: Pointers,
     version_label: String,
     widgets: Vec<Box<dyn Widget>>,
-    config: config::Config,
+    settings: Settings,
     log: Vec<(Instant, String)>,
+    log_rx: Receiver<String>,
+    log_tx: Sender<String>,
     ui_state: UiState,
     fonts: Option<FontIDs>,
     config_err: Option<String>,
@@ -149,16 +151,20 @@ impl PracticeTool {
             let (maj, min, patch) = (*VERSION).tuple();
             format!("Game Ver {}.{:02}.{}", maj, min, patch)
         };
+        let settings = config.settings.clone();
         let widgets = config.make_commands(&pointers);
+        let (log_tx, log_rx) = crossbeam_channel::unbounded();
         info!("Practice tool initialized");
 
         PracticeTool {
             pointers,
             version_label,
             widgets,
-            config,
+            settings,
             ui_state: UiState::Closed,
             log: Default::default(),
+            log_rx,
+            log_tx,
             fonts: None,
             config_err,
         }
@@ -253,7 +259,7 @@ impl PracticeTool {
                              your tool by editing\nthe jdsd_er_practice_tool.toml file with\na \
                              text editor. If you break something,\njust download a fresh \
                              file!\n\nThank you for using my tool! <3\n",
-                            self.config.settings.display
+                            self.settings.display
                         ));
                         ui.separator();
                         ui.text("-- johndisandonato");
@@ -391,10 +397,11 @@ impl ImguiRenderLoop for PracticeTool {
     fn render(&mut self, ui: &mut imgui::Ui) {
         let font_token = self.set_font(ui);
 
-        if !ui.io().want_capture_keyboard && self.config.settings.display.keyup(ui) {
-            let rshift = unsafe { GetAsyncKeyState(VK_RSHIFT.0 as _) < 0 };
+        let display = self.settings.display.is_pressed(ui);
+        let hide = self.settings.hide.map(|k| k.is_pressed(ui)).unwrap_or(false);
 
-            self.ui_state = match (&self.ui_state, rshift) {
+        if !ui.io().want_capture_keyboard && (display || hide) {
+            self.ui_state = match (&self.ui_state, hide) {
                 (UiState::Hidden, _) => UiState::Closed,
                 (_, true) => UiState::Hidden,
                 (UiState::MenuOpen, _) => UiState::Closed,
@@ -422,18 +429,20 @@ impl ImguiRenderLoop for PracticeTool {
         }
 
         for w in &mut self.widgets {
-            if let Some(logs) = w.log() {
-                let now = Instant::now();
-                self.log.extend(logs.into_iter().map(|l| (now, l)));
-            }
-            self.log.retain(|(tm, _)| tm.elapsed() < std::time::Duration::from_secs(5));
+            w.log(self.log_tx.clone());
         }
+
+        let now = Instant::now();
+        self.log.extend(
+            self.log_rx.try_iter().inspect(|log| debug!("Received log: {}", log)).map(|l| (now, l)),
+        );
+        self.log.retain(|(tm, _)| tm.elapsed() < std::time::Duration::from_secs(5));
 
         self.render_logs(ui);
         drop(font_token);
     }
 
-    fn initialize(&mut self, ctx: &mut imgui::Context) {
+    fn initialize(&mut self, ctx: &mut Context, _: TextureLoader) {
         let fonts = ctx.fonts();
         self.fonts = Some(FontIDs {
             small: fonts.add_font(&[FontSource::TtfData {

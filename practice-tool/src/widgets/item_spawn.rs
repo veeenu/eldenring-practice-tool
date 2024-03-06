@@ -7,9 +7,11 @@ use imgui::sys::{
     igGetCursorPosX, igGetCursorPosY, igGetTreeNodeToLabelSpacing, igGetWindowPos, igIndent,
     igSetNextWindowPos, igUnindent, ImVec2,
 };
-use imgui::*;
+use imgui::{Condition, InputText, TreeNodeFlags, Ui, WindowFlags};
 use libeldenring::prelude::*;
-use practice_tool_core::widgets::{scaling_factor, BUTTON_HEIGHT, BUTTON_WIDTH};
+use practice_tool_core::crossbeam_channel::Sender;
+use practice_tool_core::key::Key;
+use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 use serde::Deserialize;
 
 use super::string_match;
@@ -73,7 +75,7 @@ enum ItemIDNodeRef<'a> {
 }
 
 impl<'a> ItemIDNodeRef<'a> {
-    fn render(&self, ui: &imgui::Ui, current: &mut u32, filtered: bool) {
+    fn render(&self, ui: &Ui, current: &mut u32, filtered: bool) {
         match self {
             ItemIDNodeRef::Leaf { node, value } => {
                 unsafe { igUnindent(igGetTreeNodeToLabelSpacing()) };
@@ -156,7 +158,7 @@ static ITEM_ID_TREE: LazyLock<Vec<ItemIDNode>> =
 pub(crate) struct ItemSpawner<'a> {
     func_ptr: usize,
     map_item_man: usize,
-    hotkey_load: Key,
+    hotkey_load: Option<Key>,
     hotkey_close: Key,
     sentinel: Bitflag<u8>,
 
@@ -169,7 +171,7 @@ pub(crate) struct ItemSpawner<'a> {
     affinity: usize,
 
     filter_string: String,
-    log: Option<Vec<String>>,
+    logs: Vec<String>,
     item_id_tree: Vec<ItemIDNodeRef<'a>>,
 }
 
@@ -178,10 +180,12 @@ impl ItemSpawner<'_> {
         func_ptr: usize,
         map_item_man: usize,
         sentinel: Bitflag<u8>,
-        hotkey_load: Key,
+        hotkey_load: Option<Key>,
         hotkey_close: Key,
     ) -> Self {
-        let label_load = format!("Spawn item ({hotkey_load})");
+        let label_load = hotkey_load
+            .map(|k| format!("Spawn item ({k})"))
+            .unwrap_or_else(|| "Spawn item".to_string());
         let label_close = format!("Close ({hotkey_close})");
         ItemSpawner {
             func_ptr,
@@ -196,7 +200,7 @@ impl ItemSpawner<'_> {
             upgrade: 0,
             affinity: 0,
             filter_string: String::new(),
-            log: None,
+            logs: Vec::new(),
             item_id_tree: ITEM_ID_TREE.iter().map(ItemIDNodeRef::from).collect(),
         }
     }
@@ -228,14 +232,7 @@ impl ItemSpawner<'_> {
     }
 
     fn write_log(&mut self, log: String) {
-        let logs = self.log.take();
-        self.log = match logs {
-            Some(mut v) => {
-                v.push(log);
-                Some(v)
-            },
-            None => Some(vec![log]),
-        };
+        self.logs.push(log);
     }
 }
 
@@ -317,19 +314,21 @@ impl Widget for ItemSpawner<'_> {
             }
 
             if ui.button_with_size(&self.label_close, [400., button_height])
-                || (self.hotkey_close.keyup(ui) && !ui.is_any_item_active())
+                || (self.hotkey_close.is_pressed(ui) && !ui.is_any_item_active())
             {
                 ui.close_current_popup();
             }
         }
     }
 
-    fn log(&mut self) -> Option<Vec<String>> {
-        self.log.take()
+    fn log(&mut self, tx: Sender<String>) {
+        for log in self.logs.drain(..) {
+            tx.send(log).ok();
+        }
     }
 
     fn interact(&mut self, ui: &imgui::Ui) {
-        if !ui.is_any_item_active() && self.hotkey_load.keyup(ui) {
+        if !ui.is_any_item_active() && self.hotkey_load.map(|k| k.is_pressed(ui)).unwrap_or(false) {
             self.spawn();
         }
     }

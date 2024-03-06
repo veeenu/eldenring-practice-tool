@@ -26,11 +26,10 @@ use std::ffi::c_void;
 use std::thread;
 
 use hudhook::hooks::dx12::ImguiDx12Hooks;
-use hudhook::tracing::{error, trace};
+use hudhook::tracing::error;
 use hudhook::windows::Win32::Foundation::HINSTANCE;
 use hudhook::windows::Win32::System::SystemServices::DLL_PROCESS_ATTACH;
-use hudhook::{eject, Hudhook, ImguiRenderLoop};
-use once_cell::sync::Lazy;
+use hudhook::{eject, Hudhook};
 use practice_tool::PracticeTool;
 
 #[no_mangle]

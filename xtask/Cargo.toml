@@ -17,6 +17,7 @@ serde = { version = "1.0.136", features = ["derive"] }
 dll-syringe = { git = "https://github.com/OpenByteDev/dll-syringe" }
 tracing-subscriber = "0.3.16"
 tracing = "0.1.37"
+hudhook.workspace = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

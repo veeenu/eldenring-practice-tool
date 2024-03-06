@@ -8,14 +8,14 @@ use practice_tool_core::widgets::Widget;
 
 #[derive(Debug)]
 struct CycleSpeed {
-    ptr: PointerChain<f32>,
+    ptr: [PointerChain<f32>; 2],
     values: Vec<f32>,
     current: Option<f32>,
     label: String,
 }
 
 impl CycleSpeed {
-    fn new(values: &[f32], ptr: PointerChain<f32>) -> Self {
+    fn new(values: &[f32], ptr: [PointerChain<f32>; 2]) -> Self {
         let mut values = values.to_vec();
         values.sort_by(|a, b| a.partial_cmp(b).unwrap_or(Ordering::Equal));
         CycleSpeed { ptr, values, current: None, label: String::new() }
@@ -24,7 +24,7 @@ impl CycleSpeed {
 
 impl ReadWrite for CycleSpeed {
     fn read(&mut self) -> bool {
-        self.current = self.ptr.read();
+        self.current = self.ptr[0].read();
 
         self.label.clear();
 
@@ -42,7 +42,8 @@ impl ReadWrite for CycleSpeed {
             .and_then(|current| self.values.iter().find(|&&x| x > current))
             .unwrap_or_else(|| self.values.first().unwrap_or(&1.0));
 
-        self.ptr.write(next);
+        self.ptr[0].write(next);
+        self.ptr[1].write(next);
     }
 
     fn label(&self) -> &str {
@@ -50,8 +51,12 @@ impl ReadWrite for CycleSpeed {
     }
 }
 
-pub(crate) fn cycle_speed(values: &[f32], ptr: PointerChain<f32>, key: Key) -> Box<dyn Widget> {
-    Box::new(StoreValue::new(CycleSpeed::new(values, ptr), Some(key)))
+pub(crate) fn cycle_speed(
+    values: &[f32],
+    ptr: [PointerChain<f32>; 2],
+    key: Option<Key>,
+) -> Box<dyn Widget> {
+    Box::new(StoreValue::new(CycleSpeed::new(values, ptr), key))
 }
 
 // use super::Widget;

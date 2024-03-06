@@ -5,7 +5,7 @@ use imgui::sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos, igSetNextWind
 use imgui::{Condition, InputText, WindowFlags};
 use libeldenring::prelude::*;
 use practice_tool_core::key::Key;
-use practice_tool_core::widgets::{scaling_factor, BUTTON_HEIGHT, BUTTON_WIDTH};
+use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 
 use super::string_match;
 
@@ -133,7 +133,7 @@ impl Widget for Warp {
 
             let _tok = ui.push_item_width(-1.);
             if ui.button_with_size(&self.label_close, [400., button_height])
-                || (self.hotkey_close.keyup(ui) && !ui.is_any_item_active())
+                || (self.hotkey_close.is_pressed(ui) && !ui.is_any_item_active())
             {
                 ui.close_current_popup();
             }

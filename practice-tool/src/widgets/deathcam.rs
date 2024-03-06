@@ -1,6 +1,6 @@
 use libeldenring::memedit::{Bitflag, PointerChain};
 use practice_tool_core::key::Key;
-use practice_tool_core::widgets::flag::Flag;
+use practice_tool_core::widgets::flag::{Flag, FlagWidget};
 use practice_tool_core::widgets::Widget;
 
 #[derive(Debug)]
@@ -22,10 +22,11 @@ impl Deathcam {
 
 impl Flag for Deathcam {
     fn set(&mut self, value: bool) {
-        let state = self.flag.get();
-        self.seven.write(if state { 7 } else { 0 });
-        self.flag.set(value);
-        self.flag_torrent.set(value);
+        if let Some(state) = self.flag.get() {
+            self.seven.write(if state { 7 } else { 0 });
+            self.flag.set(value);
+            self.flag_torrent.set(value);
+        }
     }
 
     fn get(&self) -> Option<bool> {
@@ -34,12 +35,12 @@ impl Flag for Deathcam {
 }
 
 pub(crate) fn deathcam(
-    flag: PointerChain<u8>,
-    flag_torrent: PointerChain<u8>,
+    flag: Bitflag<u8>,
+    flag_torrent: Bitflag<u8>,
     seven: PointerChain<u8>,
     key: Option<Key>,
 ) -> Box<dyn Widget> {
-    Box::new(Flag::new("Deathcam", Deathcam::new(flag, flag_torrent, seven), key))
+    Box::new(FlagWidget::new("Deathcam", Deathcam::new(flag, flag_torrent, seven), key))
 }
 
 // impl Widget for Deathcam {

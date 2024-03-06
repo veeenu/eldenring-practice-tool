@@ -9,8 +9,9 @@ use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-use dll_syringe::process::OwnedProcess;
-use dll_syringe::Syringe;
+use hudhook::inject::Process;
+// use dll_syringe::process::OwnedProcess;
+// use dll_syringe::Syringe;
 use tracing_subscriber::filter::LevelFilter;
 use widestring::U16CString;
 use winapi::ctypes::c_void;
@@ -167,11 +168,11 @@ fn run() -> Result<()> {
         .join("libjdsd_er_practice_tool.dll")
         .canonicalize()?;
 
-    let process = OwnedProcess::find_first_by_name("eldenring.exe")
-        .ok_or_else(|| "Could not find process".to_string())?;
+    let process =
+        Process::by_name("eldenring.exe").map_err(|e| format!("Could not find process: {e}"))?;
 
-    let syringe = Syringe::for_process(process);
-    syringe.inject(dll_path)?;
+    // let syringe = Syringe::for_process(process);
+    process.inject(dll_path)?;
 
     Ok(())
 }
