@@ -3,13 +3,16 @@ use std::ffi::c_void;
 use std::fmt::Display;
 use std::sync::LazyLock;
 
-use imgui::sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos, igSetNextWindowPos, ImVec2};
+use imgui::sys::{
+    igGetCursorPosX, igGetCursorPosY, igGetTreeNodeToLabelSpacing, igGetWindowPos, igIndent,
+    igSetNextWindowPos, igUnindent, ImVec2,
+};
 use imgui::*;
 use libeldenring::prelude::*;
+use practice_tool_core::widgets::{scaling_factor, BUTTON_HEIGHT, BUTTON_WIDTH};
 use serde::Deserialize;
 
-use super::{scaling_factor, string_match, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
-use crate::util::KeyState;
+use super::string_match;
 
 static AFFINITIES: [(u32, &str); 13] = [
     (0, "No affinity"),
@@ -73,7 +76,7 @@ impl<'a> ItemIDNodeRef<'a> {
     fn render(&self, ui: &imgui::Ui, current: &mut u32, filtered: bool) {
         match self {
             ItemIDNodeRef::Leaf { node, value } => {
-                unsafe { imgui_sys::igUnindent(imgui_sys::igGetTreeNodeToLabelSpacing()) };
+                unsafe { igUnindent(igGetTreeNodeToLabelSpacing()) };
                 ui.tree_node_config(*node)
                     .label::<&str, &str>(node)
                     .flags(if current == value {
@@ -84,7 +87,7 @@ impl<'a> ItemIDNodeRef<'a> {
                         TreeNodeFlags::LEAF | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
                     })
                     .build(|| {});
-                unsafe { imgui_sys::igIndent(imgui_sys::igGetTreeNodeToLabelSpacing()) };
+                unsafe { igIndent(igGetTreeNodeToLabelSpacing()) };
                 if ui.is_item_clicked() {
                     *current = *value;
                 }
@@ -153,8 +156,8 @@ static ITEM_ID_TREE: LazyLock<Vec<ItemIDNode>> =
 pub(crate) struct ItemSpawner<'a> {
     func_ptr: usize,
     map_item_man: usize,
-    hotkey_load: KeyState,
-    hotkey_close: KeyState,
+    hotkey_load: Key,
+    hotkey_close: Key,
     sentinel: Bitflag<u8>,
 
     label_load: String,
@@ -175,8 +178,8 @@ impl ItemSpawner<'_> {
         func_ptr: usize,
         map_item_man: usize,
         sentinel: Bitflag<u8>,
-        hotkey_load: KeyState,
-        hotkey_close: KeyState,
+        hotkey_load: Key,
+        hotkey_close: Key,
     ) -> Self {
         let label_load = format!("Spawn item ({hotkey_load})");
         let label_close = format!("Close ({hotkey_close})");
@@ -240,6 +243,7 @@ impl Widget for ItemSpawner<'_> {
     fn render(&mut self, ui: &imgui::Ui) {
         let scale = scaling_factor(ui);
         let button_width = BUTTON_WIDTH * scale;
+        let button_height = BUTTON_HEIGHT;
 
         let (x, y) = unsafe {
             let mut wnd_pos = ImVec2::default();
@@ -247,7 +251,7 @@ impl Widget for ItemSpawner<'_> {
             (igGetCursorPosX() + wnd_pos.x, igGetCursorPosY() + wnd_pos.y)
         };
 
-        if ui.button_with_size("Spawn item", [button_width, BUTTON_HEIGHT]) {
+        if ui.button_with_size("Spawn item", [button_width, button_height]) {
             ui.open_popup(ISP_TAG);
         }
 
@@ -269,7 +273,7 @@ impl Widget for ItemSpawner<'_> {
             )
             .begin_popup()
         {
-            let button_height = super::BUTTON_HEIGHT * super::scaling_factor(ui);
+            let button_height = button_height * scale;
 
             {
                 let _tok = ui.push_item_width(-1.);

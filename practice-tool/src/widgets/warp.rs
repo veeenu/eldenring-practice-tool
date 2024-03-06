@@ -4,9 +4,10 @@ use hudhook::tracing::info;
 use imgui::sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos, igSetNextWindowPos, ImVec2};
 use imgui::{Condition, InputText, WindowFlags};
 use libeldenring::prelude::*;
+use practice_tool_core::key::Key;
+use practice_tool_core::widgets::{scaling_factor, BUTTON_HEIGHT, BUTTON_WIDTH};
 
-use super::{scaling_factor, string_match, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
-use crate::util::KeyState;
+use super::string_match;
 
 type WarpFunc = extern "system" fn(u64, u64, u32);
 
@@ -16,7 +17,7 @@ const POPUP_TAG: &str = "##warp";
 pub(crate) struct Warp {
     label: String,
     label_close: String,
-    hotkey_close: KeyState,
+    hotkey_close: Key,
     warp_ptr: usize,
     arg1: PointerChain<u64>,
     arg2: PointerChain<u64>,
@@ -30,7 +31,7 @@ impl Warp {
         warp_ptr: usize,
         arg1: PointerChain<u64>,
         arg2: PointerChain<u64>,
-        hotkey_close: KeyState,
+        hotkey_close: Key,
     ) -> Self {
         let label_close = format!("Close ({hotkey_close})");
         Warp {
@@ -63,6 +64,7 @@ impl Widget for Warp {
     fn render(&mut self, ui: &imgui::Ui) {
         let scale = scaling_factor(ui);
         let button_width = BUTTON_WIDTH * scale;
+        let button_height = BUTTON_HEIGHT;
 
         let (x, y) = unsafe {
             let mut wnd_pos = ImVec2::default();
@@ -70,7 +72,7 @@ impl Widget for Warp {
             (igGetCursorPosX() + wnd_pos.x, igGetCursorPosY() + wnd_pos.y)
         };
 
-        if ui.button_with_size(&self.label, [button_width, BUTTON_HEIGHT]) {
+        if ui.button_with_size(&self.label, [button_width, button_height]) {
             ui.open_popup(POPUP_TAG);
         }
 
@@ -125,12 +127,12 @@ impl Widget for Warp {
             }
 
             let _tok = ui.push_item_width(-1.);
-            if ui.button_with_size("Warp", [400., BUTTON_HEIGHT]) {
+            if ui.button_with_size("Warp", [400., button_height]) {
                 self.warp();
             }
 
             let _tok = ui.push_item_width(-1.);
-            if ui.button_with_size(&self.label_close, [400., BUTTON_HEIGHT])
+            if ui.button_with_size(&self.label_close, [400., button_height])
                 || (self.hotkey_close.keyup(ui) && !ui.is_any_item_active())
             {
                 ui.close_current_popup();

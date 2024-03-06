@@ -7,9 +7,9 @@ use std::path::PathBuf;
 use std::sync::Mutex;
 
 use hudhook::hooks::dx12::ImguiDx12Hooks;
-use hudhook::hooks::ImguiRenderLoop;
+use hudhook::tracing::{error, info};
+use hudhook::ImguiRenderLoop;
 use imgui::*;
-use libeldenring::params::{PARAMS, PARAM_NAMES};
 use libeldenring::prelude::*;
 use tracing_subscriber::filter::LevelFilter;
 use tracing_subscriber::prelude::*;
@@ -275,4 +275,4 @@ impl ParamTinkerer {
     }
 }
 
-hudhook::hudhook!(ParamTinkerer::new().into_hook::<ImguiDx12Hooks>());
+hudhook::hudhook!(ImguiDx12Hooks, ParamTinkerer::new());

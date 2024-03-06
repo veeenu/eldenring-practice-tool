@@ -13,34 +13,28 @@ crate-type = ["cdylib", "rlib"]
 name = "libjdsd_er_practice_tool"
 
 [dependencies]
-hudhook = { workspace = true }
-libeldenring = { path = "../lib/libeldenring" }
-imgui = { workspace = true }
-imgui-sys = { workspace = true }
-log-panics = { version = "2.0.0", features = ["with-backtrace"] }
-serde = { version = "1.0.136", features = ["derive"] }
-open = "2.1.1"
-semver = "1.0.7"
-ureq = { version = "2.4.0", features = ["json"] }
-pkg-version = "1.0.0"
-toml = "0.5.8"
-parking_lot = "0.12.0"
-regex = "1.5.5"
-serde_path_to_error = "0.1.7"
-serde_json = "1.0.79"
-serde_yaml = "0.8.23"
-fuzzy_match = "0.2.1"
-const_format = "0.2.23"
-dll-syringe = { git = "https://github.com/OpenByteDev/dll-syringe" }
-tracing-subscriber = "0.3.16"
-textwrap-macros = "0.3.0"
 anyhow = "1.0.79"
+const_format = "0.2.23"
+fuzzy_match = "0.2.1"
+log-panics = { version = "2.0.0", features = ["with-backtrace"] }
+open = "2.1.1"
+parking_lot = "0.12.0"
+pkg-version = "1.0.0"
+regex = "1.5.5"
+semver = "1.0.7"
+serde = { version = "1.0.136", features = ["derive"] }
+serde_json = "1.0.79"
+serde_path_to_error = "0.1.7"
+serde_yaml = "0.8.23"
+textwrap-macros = "0.3.0"
+toml = "0.5.8"
+tracing-subscriber = "0.3.16"
+ureq = { version = "2.4.0", features = ["json"] }
 
-[dependencies.windows]
-version = "0.51.0"
-features = [
-  "Win32_Foundation",
-  "Win32_UI_Controls_Dialogs",
-  "Win32_UI_Input_KeyboardAndMouse",
-  "Win32_System_LibraryLoader",
-]
+libeldenring = { path = "../lib/libeldenring" }
+
+hudhook.workspace = true
+imgui.workspace = true
+once_cell.workspace = true
+windows.workspace = true
+practice-tool-core.workspace = true
