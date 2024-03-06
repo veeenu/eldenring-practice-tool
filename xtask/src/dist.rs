@@ -1,21 +1,17 @@
-use std::env;
+use std::fs;
 use std::fs::File;
 use std::io::{Read, Write};
 use std::path::PathBuf;
-use std::process::Command;
 
 use zip::write::FileOptions;
 use zip::{CompressionMethod, ZipWriter};
 
-use crate::{project_root, Result};
+use crate::{cargo_command, project_root, target_path, Result};
 
 pub(crate) fn dist() -> Result<()> {
-    let cargo = env::var("CARGO").unwrap_or_else(|_| "cargo".to_string());
-
-    let status = Command::new(&cargo)
-        .current_dir(project_root())
+    let status = cargo_command("build")
         .env("CARGO_XTASK_DIST", "true")
-        .args(["build", "--release", "--package", "eldenring-practice-tool"])
+        .args(["--release", "--package", "eldenring-practice-tool"])
         .status()
         .map_err(|e| format!("cargo: {}", e))?;
 
@@ -23,10 +19,9 @@ pub(crate) fn dist() -> Result<()> {
         return Err("cargo build failed".into());
     }
 
-    let status = Command::new(&cargo)
-        .current_dir(project_root())
+    let status = cargo_command("build")
         .env("CARGO_XTASK_DIST", "true")
-        .args(["build", "--release", "--package", "no-logo"])
+        .args(["--release", "--package", "no-logo"])
         .status()
         .map_err(|e| format!("cargo: {}", e))?;
 
@@ -34,8 +29,8 @@ pub(crate) fn dist() -> Result<()> {
         return Err("cargo build failed".into());
     }
 
-    std::fs::remove_dir_all(dist_dir()).ok();
-    std::fs::create_dir_all(dist_dir())?;
+    fs::remove_dir_all(dist_dir()).ok();
+    fs::create_dir_all(dist_dir())?;
 
     // Create distribution zip file(s)
 
@@ -80,14 +75,14 @@ pub(crate) fn dist() -> Result<()> {
     let mut dist = DistZipFile::new("jdsd_er_practice_tool.zip")?;
 
     dist.add(
-        project_root().join("target/release/jdsd_er_practice_tool.exe"),
+        target_path("release").join("jdsd_er_practice_tool.exe"),
         "jdsd_er_practice_tool.exe",
     )?;
     dist.add(
-        project_root().join("target/release/libjdsd_er_practice_tool.dll"),
+        target_path("release").join("libjdsd_er_practice_tool.dll"),
         "jdsd_er_practice_tool.dll",
     )?;
-    dist.add(project_root().join("target/release/dinput8.dll"), "dinput8.dll")?;
+    dist.add(target_path("release").join("dinput8.dll"), "dinput8.dll")?;
     dist.add(project_root().join("lib/data/RELEASE-README.txt"), "README.txt")?;
     dist.add(project_root().join("jdsd_er_practice_tool.toml"), "jdsd_er_practice_tool.toml")?;
 
