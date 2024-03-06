@@ -1,0 +1,12 @@
+[package]
+name = "scripts"
+edition = "2021"
+version.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "inject"
+path = "src/bin/inject.rs"
+
+[dependencies]
+hudhook.workspace = true

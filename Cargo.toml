@@ -5,7 +5,8 @@ members = [
   "lib/libeldenring",
   "lib/param-tinkerer",
   "lib/no-logo",
-  "xtask",
+  "lib/scripts",
+  "xtask", 
 ]
 
 [workspace.package]
