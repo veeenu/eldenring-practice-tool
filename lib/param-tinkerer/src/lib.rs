@@ -1,5 +1,3 @@
-#![feature(lazy_cell)]
-
 use std::ffi::OsString;
 use std::fmt::Write;
 use std::os::windows::prelude::OsStringExt;

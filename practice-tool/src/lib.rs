@@ -14,9 +14,6 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#![feature(lazy_cell)]
-#![feature(const_fn_floating_point_arithmetic)]
-
 mod config;
 mod practice_tool;
 mod util;
@@ -37,6 +34,7 @@ use practice_tool::PracticeTool;
 pub unsafe extern "stdcall" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut c_void) {
     if reason == DLL_PROCESS_ATTACH {
         thread::spawn(move || {
+            std::fs::write("c:/foooo.txt", "hello").unwrap();
             let practice_tool = PracticeTool::new();
 
             if let Err(e) = Hudhook::builder()

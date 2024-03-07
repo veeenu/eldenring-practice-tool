@@ -1,5 +1,3 @@
-#![feature(lazy_cell)]
-
 use std::thread;
 use std::time::Duration;
 

@@ -1,7 +1,6 @@
 use std::borrow::Cow;
 use std::ffi::c_void;
 use std::fmt::Display;
-use std::sync::LazyLock;
 
 use imgui::sys::{
     igGetCursorPosX, igGetCursorPosY, igGetTreeNodeToLabelSpacing, igGetWindowPos, igIndent,
@@ -9,6 +8,7 @@ use imgui::sys::{
 };
 use imgui::{Condition, InputText, TreeNodeFlags, Ui, WindowFlags};
 use libeldenring::prelude::*;
+use once_cell::sync::Lazy;
 use practice_tool_core::crossbeam_channel::Sender;
 use practice_tool_core::key::Key;
 use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
@@ -151,8 +151,8 @@ impl ItemIDNode {
 }
 
 const ISP_TAG: &str = "##item-spawn";
-static ITEM_ID_TREE: LazyLock<Vec<ItemIDNode>> =
-    LazyLock::new(|| serde_json::from_str(include_str!("item_ids.json")).unwrap());
+static ITEM_ID_TREE: Lazy<Vec<ItemIDNode>> =
+    Lazy::new(|| serde_json::from_str(include_str!("item_ids.json")).unwrap());
 
 #[derive(Debug)]
 pub(crate) struct ItemSpawner<'a> {

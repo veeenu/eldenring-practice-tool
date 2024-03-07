@@ -3,9 +3,9 @@
 // **********************************
 use std::collections::HashMap;
 use std::ffi::c_void;
-use std::sync::LazyLock;
 
 use macro_param::ParamStruct;
+use once_cell::sync::Lazy;
 
 use crate::params::*;
 use crate::prelude::*;
@@ -20,7 +20,7 @@ unsafe fn get_lambda<T: ParamStruct>() -> BoxedVisitorLambda {
 
 type BoxedVisitorLambda = Box<dyn Fn(*const c_void, &mut dyn ParamVisitor) + Send + Sync>;
 
-pub static PARAM_VTABLE: LazyLock<HashMap<String, BoxedVisitorLambda>> = LazyLock::new(|| {
+pub static PARAM_VTABLE: Lazy<HashMap<String, BoxedVisitorLambda>> = Lazy::new(|| {
     [
         ("ActionButtonParam".to_string(), unsafe { get_lambda::<ActionButtonParam>() }),
         ("AiAnimTblParam".to_string(), unsafe { get_lambda::<AiAnimTblParam>() }),
