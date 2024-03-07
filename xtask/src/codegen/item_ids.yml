@@ -490,26 +490,26 @@
         "Explosive Greatbolt": 53020000
         "Bone Ballista Bolt": 53030000
 "Armor":
-    "Type 1": 0x100003e8
-    "Type 2": 0x1000044c
-    "Type 3": 0x100004b0
-    "Type 4": 0x10000514
-    "Type 5": 0x10000578
-    "Type 6": 0x100005dc
-    "Type 7": 0x10000640
-    "Type 8": 0x100006a4
-    "Type 9": 0x10000708
-    "Type 10": 0x1000076c
-    "Type 11": 0x100007d0
-    "Type 12": 0x10000834
-    "Type 13": 0x10000898
-    "Type 14": 0x100008fc
-    "Type 15": 0x10000960
-    "Type 16": 0x100009c4
-    "Type 17": 0x10000a28
-    "Type 18": 0x10000a8c
-    "Type 19": 0x10000af0
-    "Type 20": 0x10000b54
+    # "Type 1": 0x100003e8
+    # "Type 2": 0x1000044c
+    # "Type 3": 0x100004b0
+    # "Type 4": 0x10000514
+    # "Type 5": 0x10000578
+    # "Type 6": 0x100005dc
+    # "Type 7": 0x10000640
+    # "Type 8": 0x100006a4
+    # "Type 9": 0x10000708
+    # "Type 10": 0x1000076c
+    # "Type 11": 0x100007d0
+    # "Type 12": 0x10000834
+    # "Type 13": 0x10000898
+    # "Type 14": 0x100008fc
+    # "Type 15": 0x10000960
+    # "Type 16": 0x100009c4
+    # "Type 17": 0x10000a28
+    # "Type 18": 0x10000a8c
+    # "Type 19": 0x10000af0
+    # "Type 20": 0x10000b54
     "Type 1": 0x10000bb8
     "Type 2": 0x10000c1c
     "Type 3": 0x10000c80
@@ -1234,42 +1234,42 @@
     "Entwining Umbilical Cord": 0x200017d4
     "Ancestral Spirit's Horn": 0x200017de
 "Goods":
-    "<name unavailable>": 0x4000000c
-    "<name unavailable>": 0x4000000d
-    "<name unavailable>": 0x4000000e
-    "<name unavailable>": 0x4000000f
-    "<name unavailable>": 0x40000010
-    "<name unavailable>": 0x40000014
-    "<name unavailable>": 0x40000015
-    "<name unavailable>": 0x40000016
-    "<name unavailable>": 0x40000017
-    "<name unavailable>": 0x40000018
-    "<name unavailable>": 0x40000019
-    "<name unavailable>": 0x4000001a
-    "<name unavailable>": 0x4000001b
-    "<name unavailable>": 0x4000001c
-    "<name unavailable>": 0x4000001d
-    "<name unavailable>": 0x4000001e
-    "<name unavailable>": 0x4000001f
-    "<name unavailable>": 0x40000023
-    "<name unavailable>": 0x40000028
-    "<name unavailable>": 0x40000029
-    "<name unavailable>": 0x4000002a
-    "<name unavailable>": 0x4000002b
-    "<name unavailable>": 0x4000002c
-    "<name unavailable>": 0x4000003c
-    "<name unavailable>": 0x4000003d
-    "<name unavailable>": 0x4000003e
-    "<name unavailable>": 0x4000003f
-    "<name unavailable>": 0x40000040
-    "<name unavailable>": 0x40000041
-    "<name unavailable>": 0x40000042
-    "<name unavailable>": 0x40000043
-    "<name unavailable>": 0x40000044
-    "<name unavailable>": 0x40000045
-    "<name unavailable>": 0x4000005e
-    "<name unavailable>": 0x40000062
-    "<name unavailable>": 0x40000063
+    "<name unavailable>01": 0x4000000c
+    "<name unavailable>02": 0x4000000d
+    "<name unavailable>03": 0x4000000e
+    "<name unavailable>04": 0x4000000f
+    "<name unavailable>05": 0x40000010
+    "<name unavailable>06": 0x40000014
+    "<name unavailable>07": 0x40000015
+    "<name unavailable>08": 0x40000016
+    "<name unavailable>09": 0x40000017
+    "<name unavailable>10": 0x40000018
+    "<name unavailable>11": 0x40000019
+    "<name unavailable>12": 0x4000001a
+    "<name unavailable>13": 0x4000001b
+    "<name unavailable>14": 0x4000001c
+    "<name unavailable>15": 0x4000001d
+    "<name unavailable>16": 0x4000001e
+    "<name unavailable>17": 0x4000001f
+    "<name unavailable>18": 0x40000023
+    "<name unavailable>19": 0x40000028
+    "<name unavailable>20": 0x40000029
+    "<name unavailable>21": 0x4000002a
+    "<name unavailable>22": 0x4000002b
+    "<name unavailable>23": 0x4000002c
+    "<name unavailable>24": 0x4000003c
+    "<name unavailable>25": 0x4000003d
+    "<name unavailable>26": 0x4000003e
+    "<name unavailable>27": 0x4000003f
+    "<name unavailable>28": 0x40000040
+    "<name unavailable>29": 0x40000041
+    "<name unavailable>30": 0x40000042
+    "<name unavailable>31": 0x40000043
+    "<name unavailable>32": 0x40000044
+    "<name unavailable>33": 0x40000045
+    "<name unavailable>34": 0x4000005e
+    "<name unavailable>35": 0x40000062
+    "<name unavailable>36": 0x40000063
     "Tarnished's Furled Finger": 0x40000064
     "Duelist's Furled Finger": 0x40000065
     "Bloody Finger": 0x40000066
@@ -1283,24 +1283,24 @@
     "Small Red Effigy": 0x4000006e
     "Festering Bloody Finger": 0x4000006f
     "Recusant Finger": 0x40000070
-    "Phantom Bloody Finger": 0x40000071
+    "Phantom Bloody Finger (alt)": 0x40000071
     "Phantom Recusant Finger": 0x40000072
     "Memory of Grace": 0x40000073
     "Spectral Steed Whistle": 0x40000082
     "Phantom Great Rune": 0x40000087
     "Furlcalling Finger Remedy": 0x40000096
-    "Tarnished's Furled Finger": 0x400000aa
-    "Duelist's Furled Finger": 0x400000ab
-    "Bloody Finger": 0x400000ac
-    "White Cipher Ring": 0x400000ae
-    "Blue Cipher Ring": 0x400000af
-    "Taunter's Tongue": 0x400000b2
-    "Small Golden Effigy": 0x400000b3
-    "Small Red Effigy": 0x400000b4
-    "Spectral Steed Whistle": 0x400000b5
-    "Furlcalling Finger Remedy": 0x400000b6
-    "Festering Bloody Finger": 0x400000b7
-    "Recusant Finger": 0x400000b8
+    "Tarnished's Furled Finger (alt)": 0x400000aa
+    "Duelist's Furled Finger (alt)": 0x400000ab
+    "Bloody Finger (alt)": 0x400000ac
+    "White Cipher Ring (alt)": 0x400000ae
+    "Blue Cipher Ring (alt)": 0x400000af
+    "Taunter's Tongue (alt)": 0x400000b2
+    "Small Golden Effigy (alt)": 0x400000b3
+    "Small Red Effigy (alt)": 0x400000b4
+    "Spectral Steed Whistle (alt)": 0x400000b5
+    "Furlcalling Finger Remedy (alt)": 0x400000b6
+    "Festering Bloody Finger (alt)": 0x400000b7
+    "Recusant Finger (alt)": 0x400000b8
     "Rune Arc": 0x400000be
     "Godrick's Great Rune": 0x400000bf
     "Radahn's Great Rune": 0x400000c0
@@ -1309,7 +1309,7 @@
     "Mohg's Great Rune": 0x400000c3
     "Malenia's Great Rune": 0x400000c4
     "Flask of Wondrous Physick": 0x400000fa
-    "Flask of Wondrous Physick": 0x400000fb
+    "Flask of Wondrous Physick (alt)": 0x400000fb
     "Fire Pot": 0x4000012c
     "Redmane Fire Pot": 0x4000012d
     "Giantsflame Fire Pot": 0x4000012e
@@ -1355,57 +1355,57 @@
     "Rejuvenating Boluses": 0x400003b6
     "Clarifying Boluses": 0x400003c0
     "Flask of Crimson Tears": 0x400003e8
-    "Flask of Crimson Tears": 0x400003e9
+    "Flask of Crimson Tears (alt)": 0x400003e9
     "Flask of Crimson Tears +1": 0x400003ea
-    "Flask of Crimson Tears +1": 0x400003eb
+    "Flask of Crimson Tears +1 (alt)": 0x400003eb
     "Flask of Crimson Tears +2": 0x400003ec
-    "Flask of Crimson Tears +2": 0x400003ed
+    "Flask of Crimson Tears +2 (alt)": 0x400003ed
     "Flask of Crimson Tears +3": 0x400003ee
-    "Flask of Crimson Tears +3": 0x400003ef
+    "Flask of Crimson Tears +3 (alt)": 0x400003ef
     "Flask of Crimson Tears +4": 0x400003f0
-    "Flask of Crimson Tears +4": 0x400003f1
+    "Flask of Crimson Tears +4 (alt)": 0x400003f1
     "Flask of Crimson Tears +5": 0x400003f2
-    "Flask of Crimson Tears +5": 0x400003f3
+    "Flask of Crimson Tears +5 (alt)": 0x400003f3
     "Flask of Crimson Tears +6": 0x400003f4
-    "Flask of Crimson Tears +6": 0x400003f5
+    "Flask of Crimson Tears +6 (alt)": 0x400003f5
     "Flask of Crimson Tears +7": 0x400003f6
-    "Flask of Crimson Tears +7": 0x400003f7
+    "Flask of Crimson Tears +7 (alt)": 0x400003f7
     "Flask of Crimson Tears +8": 0x400003f8
-    "Flask of Crimson Tears +8": 0x400003f9
+    "Flask of Crimson Tears +8 (alt)": 0x400003f9
     "Flask of Crimson Tears +9": 0x400003fa
-    "Flask of Crimson Tears +9": 0x400003fb
+    "Flask of Crimson Tears +9 (alt)": 0x400003fb
     "Flask of Crimson Tears +10": 0x400003fc
-    "Flask of Crimson Tears +10": 0x400003fd
+    "Flask of Crimson Tears +10 (alt)": 0x400003fd
     "Flask of Crimson Tears +11": 0x400003fe
-    "Flask of Crimson Tears +11": 0x400003ff
+    "Flask of Crimson Tears +11 (alt)": 0x400003ff
     "Flask of Crimson Tears +12": 0x40000400
-    "Flask of Crimson Tears +12": 0x40000401
+    "Flask of Crimson Tears +12 (alt)": 0x40000401
     "Flask of Cerulean Tears": 0x4000041a
-    "Flask of Cerulean Tears": 0x4000041b
+    "Flask of Cerulean Tears (alt)": 0x4000041b
     "Flask of Cerulean Tears +1": 0x4000041c
-    "Flask of Cerulean Tears +1": 0x4000041d
+    "Flask of Cerulean Tears +1 (alt)": 0x4000041d
     "Flask of Cerulean Tears +2": 0x4000041e
-    "Flask of Cerulean Tears +2": 0x4000041f
+    "Flask of Cerulean Tears +2 (alt)": 0x4000041f
     "Flask of Cerulean Tears +3": 0x40000420
-    "Flask of Cerulean Tears +3": 0x40000421
+    "Flask of Cerulean Tears +3 (alt)": 0x40000421
     "Flask of Cerulean Tears +4": 0x40000422
-    "Flask of Cerulean Tears +4": 0x40000423
+    "Flask of Cerulean Tears +4 (alt)": 0x40000423
     "Flask of Cerulean Tears +5": 0x40000424
-    "Flask of Cerulean Tears +5": 0x40000425
+    "Flask of Cerulean Tears +5 (alt)": 0x40000425
     "Flask of Cerulean Tears +6": 0x40000426
-    "Flask of Cerulean Tears +6": 0x40000427
+    "Flask of Cerulean Tears +6 (alt)": 0x40000427
     "Flask of Cerulean Tears +7": 0x40000428
-    "Flask of Cerulean Tears +7": 0x40000429
+    "Flask of Cerulean Tears +7 (alt)": 0x40000429
     "Flask of Cerulean Tears +8": 0x4000042a
-    "Flask of Cerulean Tears +8": 0x4000042b
+    "Flask of Cerulean Tears +8 (alt)": 0x4000042b
     "Flask of Cerulean Tears +9": 0x4000042c
-    "Flask of Cerulean Tears +9": 0x4000042d
+    "Flask of Cerulean Tears +9 (alt)": 0x4000042d
     "Flask of Cerulean Tears +10": 0x4000042e
-    "Flask of Cerulean Tears +10": 0x4000042f
+    "Flask of Cerulean Tears +10 (alt)": 0x4000042f
     "Flask of Cerulean Tears +11": 0x40000430
-    "Flask of Cerulean Tears +11": 0x40000431
+    "Flask of Cerulean Tears +11 (alt)": 0x40000431
     "Flask of Cerulean Tears +12": 0x40000432
-    "Flask of Cerulean Tears +12": 0x40000433
+    "Flask of Cerulean Tears +12 (alt)": 0x40000433
     "Pickled Turtle Neck": 0x4000044c
     "Immunizing Cured Meat": 0x40000456
     "Invigorating Cured Meat": 0x40000460
@@ -1726,24 +1726,24 @@
     "Serpent's Amnion": 0x40001fc1
     "Rya's Necklace": 0x40001fc2
     "Irina's Letter": 0x40001fc3
-    "Letter from Volcano Manor": 0x40001fc4
+    "Letter from Volcano Manor (alt)": 0x40001fc4
     "Red Letter": 0x40001fc5
     "Drawing-Room Key": 0x40001fc6
-    "Rya's Necklace": 0x40001fc8
+    "Rya's Necklace (alt)": 0x40001fc8
     "Volcano Manor Invitation": 0x40001fc9
     "Amber Starlight": 0x40001fce
     "Seluvis's Introduction": 0x40001fcf
     "Sellen's Primal Glintstone": 0x40001fd0
     "Miniature Ranni": 0x40001fd2
     "Asimi, Silver Tear": 0x40001fd3
-    "Godrick's Great Rune": 0x40001fd4
-    "Radahn's Great Rune": 0x40001fd5
-    "Morgott's Great Rune": 0x40001fd6
-    "Rykard's Great Rune": 0x40001fd7
-    "Mohg's Great Rune": 0x40001fd8
-    "Malenia's Great Rune": 0x40001fd9
+    "Godrick's Great Rune (alt)": 0x40001fd4
+    "Radahn's Great Rune (alt)": 0x40001fd5
+    "Morgott's Great Rune (alt)": 0x40001fd6
+    "Rykard's Great Rune (alt)": 0x40001fd7
+    "Mohg's Great Rune (alt)": 0x40001fd8
+    "Malenia's Great Rune (alt)": 0x40001fd9
     "Lord of Blood's Favor": 0x40001fda
-    "Lord of Blood's Favor": 0x40001fdb
+    "Lord of Blood's Favor (alt)": 0x40001fdb
     "Burial Crow's Letter": 0x40001fdc
     "Spirit Calling Bell": 0x40001fde
     "Fingerslayer Blade": 0x40001fdf
@@ -1758,16 +1758,16 @@
     "Chrysalids' Memento": 0x40001feb
     "Black Knifeprint": 0x40001fec
     "Letter to Bernahl": 0x40001fed
-    "Academy Glintstone Key": 0x40001fee
+    "Academy Glintstone Key (alt)": 0x40001fee
     "Haligtree Secret Medallion (Left)": 0x40001fef
     "Haligtree Secret Medallion (Right)": 0x40001ff0
-    "Burial Crow's Letter": 0x40001ff5
+    "Burial Crow's Letter (alt)": 0x40001ff5
     "Mending Rune of Perfect Order": 0x40001ff6
     "Mending Rune of the Death-Prince": 0x40001ff7
     "Mending Rune of the Fell Curse": 0x40001ff8
     "Larval Tear": 0x40001ff9
     "Imbued Sword Key": 0x40001ffa
-    "Miniature Ranni": 0x40001ffb
+    "Miniature Ranni (alt)": 0x40001ffb
     "Golden Tailoring Tools": 0x40001ffc
     "Iji's Confession": 0x40001ffd
     "Knifeprint Clue": 0x40001ffe
@@ -1776,7 +1776,7 @@
     "Seedbed Curse": 0x40002001
     "The Stormhawk King": 0x40002002
     "Asimi, Silver Chrysalid": 0x40002003
-    "Unalloyed Gold Needle": 0x40002004
+    "Unalloyed Gold Needle (alt 2)": 0x40002004
     "Sewer-Gaol Key": 0x40002005
     "Meeting Place Map": 0x40002006
     "Discarded Palace Key": 0x40002007
@@ -1829,21 +1829,21 @@
     "Note: Miquella's Needle": 0x4000220a
     "Note: Frenzied Flame Village": 0x4000220b
     "Note: The Lord of Frenzied Flame": 0x4000220c
-    "Note: Hidden Cave": 0x4000222e
-    "Note: Imp Shades": 0x4000222f
-    "Note: Flask of Wondrous Physick": 0x40002230
-    "Note: Stonedigger Trolls": 0x40002231
-    "Note: Walking Mausoleum": 0x40002232
-    "Note: Unseen Assassins": 0x40002233
-    "Note: Great Coffins": 0x40002234
-    "Note: Flame Chariots": 0x40002235
-    "Note: Demi-human Mobs": 0x40002236
-    "Note: Land Squirts": 0x40002237
-    "Note: Gravity's Advantage": 0x40002238
-    "Note: Revenants": 0x40002239
-    "Note: Waypoint Ruins": 0x4000223a
-    "Note: Gateway": 0x4000223b
-    "Note: Frenzied Flame Village": 0x4000223d
+    "Note: Hidden Cave (alt)": 0x4000222e
+    "Note: Imp Shades (alt)": 0x4000222f
+    "Note: Flask of Wondrous Physick (alt)": 0x40002230
+    "Note: Stonedigger Trolls (alt)": 0x40002231
+    "Note: Walking Mausoleum (alt)": 0x40002232
+    "Note: Unseen Assassins (alt)": 0x40002233
+    "Note: Great Coffins (alt)": 0x40002234
+    "Note: Flame Chariots (alt)": 0x40002235
+    "Note: Demi-human Mobs (alt)": 0x40002236
+    "Note: Land Squirts (alt)": 0x40002237
+    "Note: Gravity's Advantage (alt)": 0x40002238
+    "Note: Revenants (alt)": 0x40002239
+    "Note: Waypoint Ruins (alt)": 0x4000223a
+    "Note: Gateway (alt)": 0x4000223b
+    "Note: Frenzied Flame Village (alt)": 0x4000223d
     "Conspectus Scroll": 0x40002292
     "Royal House Scroll": 0x40002293
     "Fire Monks' Prayerbook": 0x40002297
@@ -1917,7 +1917,7 @@
     "Glintstone Whetblade": 0x4000230d
     "Black Whetblade": 0x4000230e
     "Unalloyed Gold Needle": 0x4000230f
-    "Unalloyed Gold Needle": 0x40002310
+    "Unalloyed Gold Needle (alt)": 0x40002310
     "Valkyrie's Prosthesis": 0x40002311
     "Sellia's Secret": 0x40002312
     "Beast Eye": 0x40002313
@@ -1969,7 +1969,7 @@
     "Inner Order": 0x40002357
     "Golden Order Totality": 0x40002358
     "The Ring": 0x40002359
-    "The Ring": 0x4000235a
+    "The Ring (alt)": 0x4000235a
     "About Sites of Grace": 0x4000238c
     "About Sorceries and Incantations": 0x4000238d
     "About Bows": 0x4000238e
@@ -2127,9 +2127,9 @@
     "Crimsonspill Crystal Tear": 0x40002af8
     "Greenspill Crystal Tear": 0x40002af9
     "Crimson Crystal Tear": 0x40002afa
-    "Crimson Crystal Tear": 0x40002afb
+    "Crimson Crystal Tear (alt)": 0x40002afb
     "Cerulean Crystal Tear": 0x40002afc
-    "Cerulean Crystal Tear": 0x40002afd
+    "Cerulean Crystal Tear (alt)": 0x40002afd
     "Speckled Hardtear": 0x40002afe
     "Crimson Bubbletear": 0x40002aff
     "Opaline Bubbletear": 0x40002b00
@@ -2141,7 +2141,7 @@
     "Spiked Cracked Tear": 0x40002b06
     "Windy Crystal Tear": 0x40002b07
     "Ruptured Crystal Tear": 0x40002b08
-    "Ruptured Crystal Tear": 0x40002b09
+    "Ruptured Crystal Tear (alt)": 0x40002b09
     "Leaden Hardtear": 0x40002b0a
     "Twiggy Cracked Tear": 0x40002b0b
     "Crimsonwhorl Bubbletear": 0x40002b0c
@@ -3104,122 +3104,122 @@
     "test gem 1": 0x8000000a
     "test gem 2": 0x80000014
     "test gem 3": 0x8000001e
-    "": 0x80000028
-    "": 0x80000029
-    "": 0x80000050
-    "": 0x80000051
-    "": 0x80000052
-    "": 0x80000053
-    "": 0x80000054
-    "": 0x80000055
-    "": 0x80000056
-    "": 0x80000057
-    "": 0x80000058
-    "": 0x80000059
-    "": 0x8000005a
-    "": 0x80000064
-    "": 0x80000065
-    "": 0x80000066
-    "": 0x80000067
-    "": 0x80000068
-    "": 0x80000069
-    "": 0x8000006a
-    "": 0x8000006b
-    "": 0x8000006c
-    "": 0x8000006d
-    "": 0x8000006e
-    "": 0x8000006f
-    "": 0x80000070
-    "": 0x80000071
-    "": 0x80000072
-    "": 0x80000073
-    "": 0x80000074
-    "": 0x80000075
-    "": 0x80000076
-    "": 0x80000077
-    "": 0x80000078
-    "": 0x80000079
-    "": 0x8000007a
-    "": 0x8000007b
-    "": 0x8000007c
-    "": 0x8000007d
-    "": 0x8000007e
-    "": 0x8000007f
-    "": 0x80000080
-    "": 0x80000081
-    "": 0x80000082
-    "": 0x80000083
-    "": 0x80000084
-    "": 0x80000085
-    "": 0x80000086
-    "": 0x80000087
-    "": 0x80000088
-    "": 0x80000089
-    "": 0x8000008a
-    "": 0x8000008b
-    "": 0x8000008c
-    "": 0x8000008d
-    "": 0x8000008e
-    "": 0x8000008f
-    "": 0x80000090
-    "": 0x80000092
-    "": 0x80000093
-    "": 0x80000094
-    "": 0x80000095
-    "": 0x80000097
-    "": 0x80000098
-    "": 0x80000099
-    "": 0x8000009b
-    "": 0x8000009c
-    "": 0x8000009d
-    "": 0x8000009e
-    "": 0x8000009f
-    "": 0x800000a0
-    "": 0x800000a1
-    "": 0x800000a3
-    "": 0x800000a4
-    "": 0x800000a5
-    "": 0x800000a6
-    "": 0x800000a7
-    "": 0x800000a8
-    "": 0x800000a9
-    "": 0x800000aa
-    "": 0x800000ab
-    "": 0x800000ad
-    "": 0x800000ae
-    "": 0x800000af
-    "": 0x800000b0
-    "": 0x800000b1
-    "": 0x800000b2
-    "": 0x800000b4
-    "": 0x800000b5
-    "": 0x800000b6
-    "": 0x800000b7
-    "": 0x800000b9
-    "": 0x800000ba
-    "": 0x800000bb
-    "": 0x800000be
-    "": 0x800000bf
-    "": 0x800000c0
-    "": 0x800000c2
-    "": 0x800003e8
-    "": 0x800003e9
-    "": 0x800003ea
-    "": 0x800003eb
-    "": 0x800003ec
-    "": 0x800003ed
-    "": 0x800003ee
-    "": 0x800003ef
-    "": 0x800003f0
-    "": 0x800003f1
-    "": 0x800003f2
-    "": 0x800003f3
-    "": 0x800003f4
-    "": 0x800003f5
-    "": 0x800003f6
-    "": 0x800003f7
-    "": 0x800003f8
-    "": 0x800003f9
+    # "": 0x80000028
+    # "": 0x80000029
+    # "": 0x80000050
+    # "": 0x80000051
+    # "": 0x80000052
+    # "": 0x80000053
+    # "": 0x80000054
+    # "": 0x80000055
+    # "": 0x80000056
+    # "": 0x80000057
+    # "": 0x80000058
+    # "": 0x80000059
+    # "": 0x8000005a
+    # "": 0x80000064
+    # "": 0x80000065
+    # "": 0x80000066
+    # "": 0x80000067
+    # "": 0x80000068
+    # "": 0x80000069
+    # "": 0x8000006a
+    # "": 0x8000006b
+    # "": 0x8000006c
+    # "": 0x8000006d
+    # "": 0x8000006e
+    # "": 0x8000006f
+    # "": 0x80000070
+    # "": 0x80000071
+    # "": 0x80000072
+    # "": 0x80000073
+    # "": 0x80000074
+    # "": 0x80000075
+    # "": 0x80000076
+    # "": 0x80000077
+    # "": 0x80000078
+    # "": 0x80000079
+    # "": 0x8000007a
+    # "": 0x8000007b
+    # "": 0x8000007c
+    # "": 0x8000007d
+    # "": 0x8000007e
+    # "": 0x8000007f
+    # "": 0x80000080
+    # "": 0x80000081
+    # "": 0x80000082
+    # "": 0x80000083
+    # "": 0x80000084
+    # "": 0x80000085
+    # "": 0x80000086
+    # "": 0x80000087
+    # "": 0x80000088
+    # "": 0x80000089
+    # "": 0x8000008a
+    # "": 0x8000008b
+    # "": 0x8000008c
+    # "": 0x8000008d
+    # "": 0x8000008e
+    # "": 0x8000008f
+    # "": 0x80000090
+    # "": 0x80000092
+    # "": 0x80000093
+    # "": 0x80000094
+    # "": 0x80000095
+    # "": 0x80000097
+    # "": 0x80000098
+    # "": 0x80000099
+    # "": 0x8000009b
+    # "": 0x8000009c
+    # "": 0x8000009d
+    # "": 0x8000009e
+    # "": 0x8000009f
+    # "": 0x800000a0
+    # "": 0x800000a1
+    # "": 0x800000a3
+    # "": 0x800000a4
+    # "": 0x800000a5
+    # "": 0x800000a6
+    # "": 0x800000a7
+    # "": 0x800000a8
+    # "": 0x800000a9
+    # "": 0x800000aa
+    # "": 0x800000ab
+    # "": 0x800000ad
+    # "": 0x800000ae
+    # "": 0x800000af
+    # "": 0x800000b0
+    # "": 0x800000b1
+    # "": 0x800000b2
+    # "": 0x800000b4
+    # "": 0x800000b5
+    # "": 0x800000b6
+    # "": 0x800000b7
+    # "": 0x800000b9
+    # "": 0x800000ba
+    # "": 0x800000bb
+    # "": 0x800000be
+    # "": 0x800000bf
+    # "": 0x800000c0
+    # "": 0x800000c2
+    # "": 0x800003e8
+    # "": 0x800003e9
+    # "": 0x800003ea
+    # "": 0x800003eb
+    # "": 0x800003ec
+    # "": 0x800003ed
+    # "": 0x800003ee
+    # "": 0x800003ef
+    # "": 0x800003f0
+    # "": 0x800003f1
+    # "": 0x800003f2
+    # "": 0x800003f3
+    # "": 0x800003f4
+    # "": 0x800003f5
+    # "": 0x800003f6
+    # "": 0x800003f7
+    # "": 0x800003f8
+    # "": 0x800003f9
     "Ash of War: Lion's Claw": 0x80002710
     "Ash of War: Impaling Thrust": 0x80002774
     "Ash of War: Piercing Fang": 0x800027d8

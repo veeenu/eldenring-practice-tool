@@ -7,6 +7,8 @@ use practice_tool_tasks::{
     cargo_command, project_root, steam_command, target_path, Distribution, FileInstall,
 };
 
+mod codegen;
+
 const APPID: u32 = 1245620;
 
 fn main() -> Result<()> {
@@ -15,7 +17,7 @@ fn main() -> Result<()> {
     let task = env::args().nth(1);
     match task.as_deref() {
         Some("dist") => dist()?,
-        // Some("codegen") => codegen()?,
+        Some("codegen") => codegen()?,
         Some("run") => run()?,
         Some("install") => install()?,
         Some("uninstall") => uninstall()?,
@@ -65,7 +67,7 @@ fn run() -> Result<()> {
 fn codegen() -> Result<()> {
     // crate::codegen::aob_scans::get_base_addresses();
     // crate::codegen::params::codegen()?;
-    // crate::codegen::item_ids::codegen()?;
+    crate::codegen::item_ids::codegen()?;
 
     let cargo = env::var("CARGO").unwrap_or_else(|_| "cargo".to_string());
     let status = Command::new(cargo)
