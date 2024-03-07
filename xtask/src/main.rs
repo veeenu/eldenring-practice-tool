@@ -1,5 +1,4 @@
 use std::ffi::OsStr;
-use std::process::Command;
 use std::{env, fs, iter};
 
 use anyhow::{bail, Context, Result};
@@ -17,7 +16,8 @@ fn main() -> Result<()> {
     let task = env::args().nth(1);
     match task.as_deref() {
         Some("dist") => dist()?,
-        Some("codegen") => codegen()?,
+        Some("codegen") => codegen::codegen()?,
+        Some("inject") => inject(env::args().skip(1).map(String::from))?,
         Some("run") => run()?,
         Some("install") => install()?,
         Some("uninstall") => uninstall()?,
@@ -32,12 +32,13 @@ fn print_help() {
         r#"
 Tasks:
 
-run ........... compile and start the practice tool
-dist .......... build distribution artifacts
-codegen ....... generate Rust code: parameters, base addresses, ...
+run ............. compile and start the practice tool
+dist ............ build distribution artifacts
+codegen ......... generate Rust code: parameters, base addresses, ...
+inject <args> ... standalone dll inject
 install ......... install standalone dll to $ER_PATH
 uninstall ....... uninstall standalone dll from $ER_PATH
-help .......... print this help
+help ............ print this help
 "#
     );
 }
@@ -61,24 +62,6 @@ fn run() -> Result<()> {
 
     inject(iter::once(dll_path))?;
 
-    Ok(())
-}
-
-fn codegen() -> Result<()> {
-    crate::codegen::aob_scans::get_base_addresses();
-    crate::codegen::params::codegen()?;
-    crate::codegen::item_ids::codegen()?;
-
-    let cargo = env::var("CARGO").unwrap_or_else(|_| "cargo".to_string());
-    let status = Command::new(cargo)
-        .current_dir(project_root())
-        .args(["fmt", "--all"])
-        .status()
-        .context("cargo")?;
-
-    if !status.success() {
-        bail!("cargo fmt failed");
-    }
     Ok(())
 }
 
