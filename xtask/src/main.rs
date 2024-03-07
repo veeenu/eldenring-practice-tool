@@ -1,50 +1,59 @@
-// mod codegen;
-mod dist;
-
 use std::ffi::OsStr;
-use std::fs::File;
-use std::io::{Read, Write};
-use std::path::{Path, PathBuf};
 use std::process::Command;
-use std::{env, iter};
+use std::{env, fs, iter};
 
-type DynError = Box<dyn std::error::Error>;
-type Result<T> = std::result::Result<T, DynError>;
+use anyhow::{bail, Context, Result};
+use practice_tool_tasks::{
+    cargo_command, project_root, steam_command, target_path, Distribution, FileInstall,
+};
 
-// Main
-//
+const APPID: u32 = 1245620;
 
 fn main() -> Result<()> {
     dotenv::dotenv().ok();
 
     let task = env::args().nth(1);
     match task.as_deref() {
-        Some("dist") => dist::dist()?,
+        Some("dist") => dist()?,
         // Some("codegen") => codegen()?,
         Some("run") => run()?,
+        Some("install") => install()?,
+        Some("uninstall") => uninstall()?,
         Some("help") => print_help(),
         _ => print_help(),
     }
     Ok(())
 }
 
-// Tasks
-//
+fn print_help() {
+    eprintln!(
+        r#"
+Tasks:
+
+run ........... compile and start the practice tool
+dist .......... build distribution artifacts
+codegen ....... generate Rust code: parameters, base addresses, ...
+install ......... install standalone dll to $ER_PATH
+uninstall ....... uninstall standalone dll from $ER_PATH
+help .......... print this help
+"#
+    );
+}
 
 fn run() -> Result<()> {
     let status = cargo_command("build")
         .args(["--lib", "--package", "eldenring-practice-tool"])
         .status()
-        .map_err(|e| format!("cargo: {}", e))?;
+        .context("cargo")?;
 
     if !status.success() {
-        return Err("cargo build failed".into());
+        bail!("cargo build failed");
     }
 
-    let mut buf = String::new();
-    File::open(project_root().join("jdsd_er_practice_tool.toml"))?.read_to_string(&mut buf)?;
-    File::create(target_path("debug").join("jdsd_er_practice_tool.toml"))?
-        .write_all(buf.as_bytes())?;
+    fs::copy(
+        project_root().join("jdsd_er_practice_tool.toml"),
+        target_path("debug").join("jdsd_er_practice_tool.toml"),
+    )?;
 
     let dll_path = target_path("debug").join("libjdsd_er_practice_tool.dll").canonicalize()?;
 
@@ -63,73 +72,64 @@ fn codegen() -> Result<()> {
         .current_dir(project_root())
         .args(["fmt", "--all"])
         .status()
-        .map_err(|e| format!("cargo: {}", e))?;
+        .context("cargo")?;
 
     if !status.success() {
-        return Err("cargo fmt failed".into());
+        bail!("cargo fmt failed");
     }
     Ok(())
 }
 
-fn print_help() {
-    eprintln!(
-        r#"
-Tasks:
-
-run ........... compile and start the practice tool
-dist .......... build distribution artifacts
-codegen ....... generate Rust code: parameters, base addresses, ...
-help .......... print this help
-"#
-    );
+fn dist() -> Result<()> {
+    Distribution::new("jdsd_er_practice_tool.zip")
+        .with_artifact("libjdsd_er_practice_tool.dll", "jdsd_er_practice_tool.dll")
+        .with_artifact("jdsd_er_practice_tool.exe", "jdsd_er_practice_tool.exe")
+        .with_artifact("dinput8.dll", "dinput8.dll")
+        .with_file("lib/data/RELEASE-README.txt", "README.txt")
+        .with_file("jdsd_er_practice_tool.toml", "jdsd_er_practice_tool.toml")
+        .build()
 }
 
-// Utilities
-//
+fn install() -> Result<()> {
+    let status = cargo_command("build")
+        .args(["--lib", "--release", "--package", "darksoulsiii-practice-tool"])
+        .status()
+        .context("cargo")?;
 
-fn project_root() -> PathBuf {
-    Path::new(&env!("CARGO_MANIFEST_DIR")).ancestors().nth(1).unwrap().to_path_buf()
-}
-
-fn target_path(target: &str) -> PathBuf {
-    let mut target_path = project_root().join("target");
-    if cfg!(not(windows)) {
-        target_path = target_path.join("x86_64-pc-windows-msvc");
+    if !status.success() {
+        bail!("cargo build failed");
     }
 
-    target_path.join(target)
+    FileInstall::new()
+        .with_file(target_path("release").join("libjdsd_dsiii_practice_tool.dll"), "dinput8.dll")
+        .with_file(
+            project_root().join("jdsd_dsiii_practice_tool.toml"),
+            "jdsd_dsiii_practice_tool.toml",
+        )
+        .install("DSIII_PATH")?;
+
+    Ok(())
 }
 
-fn cargo_command(cmd: &'static str) -> Command {
-    let cargo = env::var("CARGO").unwrap_or_else(|_| "cargo".to_string());
+fn uninstall() -> Result<()> {
+    FileInstall::new()
+        .with_file(target_path("release").join("libjdsd_dsiii_practice_tool.dll"), "dinput8.dll")
+        .with_file(
+            project_root().join("jdsd_dsiii_practice_tool.toml"),
+            "jdsd_dsiii_practice_tool.toml",
+        )
+        .uninstall("DSIII_PATH")?;
 
-    let mut command = Command::new(cargo);
-    command.current_dir(project_root());
-    if cfg!(windows) {
-        command.arg(cmd);
-    } else {
-        command.args(["xwin", cmd, "--target", "x86_64-pc-windows-msvc"]);
-    }
-    command
+    Ok(())
 }
 
 fn inject<S: AsRef<OsStr>>(args: impl Iterator<Item = S>) -> Result<()> {
-    cargo_command("build")
-        .args(["--release", "--bin", "inject"])
+    cargo_command("build").args(["--release", "--bin", "inject"]).status().context("cargo")?;
+
+    steam_command(target_path("release").join("inject"), APPID)?
+        .args(args)
         .status()
-        .map_err(|e| format!("cargo: {}", e))?;
+        .context("inject")?;
 
-    let mut cmd = if cfg!(windows) {
-        Command::new(target_path("release").join("inject"))
-    } else {
-        let mut c = Command::new(env::var("XTASK_WINE").expect("XTASK_WINE not defined"));
-        c.arg(target_path("release").join("inject.exe").strip_prefix(project_root()).unwrap());
-        c
-    };
-
-    cmd.args(args);
-    eprintln!("{cmd:?}");
-
-    cmd.status().map_err(|e| format!("inject: {}", e))?;
     Ok(())
 }
