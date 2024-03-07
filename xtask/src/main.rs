@@ -66,7 +66,7 @@ fn run() -> Result<()> {
 
 fn codegen() -> Result<()> {
     // crate::codegen::aob_scans::get_base_addresses();
-    // crate::codegen::params::codegen()?;
+    crate::codegen::params::codegen()?;
     crate::codegen::item_ids::codegen()?;
 
     let cargo = env::var("CARGO").unwrap_or_else(|_| "cargo".to_string());

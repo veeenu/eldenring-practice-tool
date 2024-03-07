@@ -7,7 +7,6 @@ use std::ffi::c_void;
 use macro_param::ParamStruct;
 use once_cell::sync::Lazy;
 
-use crate::params::*;
 use crate::prelude::*;
 
 unsafe fn get_lambda<T: ParamStruct>() -> BoxedVisitorLambda {
