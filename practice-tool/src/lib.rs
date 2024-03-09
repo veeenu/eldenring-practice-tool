@@ -80,11 +80,10 @@ unsafe fn apply_no_logo() {
 
     let ptr = (module_base.0 as usize + offset) as *mut [u8; 2];
     let mut old = PAGE_PROTECTION_FLAGS(0);
-    if *ptr == [0x74, 0x53] {
-        if VirtualProtect(ptr as _, 2, PAGE_EXECUTE_READWRITE, &mut old).is_ok() {
-            (*ptr) = [0x90, 0x90];
-            VirtualProtect(ptr as _, 2, old, &mut old).ok();
-        }
+    if *ptr == [0x74, 0x53] && VirtualProtect(ptr as _, 2, PAGE_EXECUTE_READWRITE, &mut old).is_ok()
+    {
+        (*ptr) = [0x90, 0x90];
+        VirtualProtect(ptr as _, 2, old, &mut old).ok();
     }
 }
 
