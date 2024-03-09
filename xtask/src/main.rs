@@ -69,10 +69,10 @@ fn dist() -> Result<()> {
     Distribution::new("jdsd_er_practice_tool.zip")
         .with_artifact("libjdsd_er_practice_tool.dll", "jdsd_er_practice_tool.dll")
         .with_artifact("jdsd_er_practice_tool.exe", "jdsd_er_practice_tool.exe")
-        .with_artifact("dinput8.dll", "dinput8.dll")
+        // .with_artifact("dinput8.dll", "dinput8.dll")
         .with_file("lib/data/RELEASE-README.txt", "README.txt")
         .with_file("jdsd_er_practice_tool.toml", "jdsd_er_practice_tool.toml")
-        .build()
+        .build(&["--locked", "--release", "--workspace", "--exclude", "xtask"])
 }
 
 fn install() -> Result<()> {
@@ -86,23 +86,17 @@ fn install() -> Result<()> {
     }
 
     FileInstall::new()
-        .with_file(target_path("release").join("libjdsd_dsiii_practice_tool.dll"), "dinput8.dll")
-        .with_file(
-            project_root().join("jdsd_dsiii_practice_tool.toml"),
-            "jdsd_dsiii_practice_tool.toml",
-        )
-        .install("DSIII_PATH")?;
+        .with_file(target_path("release").join("libjdsd_er_practice_tool.dll"), "dinput8.dll")
+        .with_file(project_root().join("jdsd_er_practice_tool.toml"), "jdsd_er_practice_tool.toml")
+        .install("ER_PATH")?;
 
     Ok(())
 }
 
 fn uninstall() -> Result<()> {
     FileInstall::new()
-        .with_file(target_path("release").join("libjdsd_dsiii_practice_tool.dll"), "dinput8.dll")
-        .with_file(
-            project_root().join("jdsd_dsiii_practice_tool.toml"),
-            "jdsd_dsiii_practice_tool.toml",
-        )
+        .with_file(target_path("release").join("libjdsd_er_practice_tool.dll"), "dinput8.dll")
+        .with_file(project_root().join("jdsd_er_practice_tool.toml"), "jdsd_er_practice_tool.toml")
         .uninstall("DSIII_PATH")?;
 
     Ok(())

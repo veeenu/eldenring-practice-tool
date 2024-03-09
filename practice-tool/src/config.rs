@@ -116,7 +116,7 @@ enum CfgCommand {
     },
     Warp {
         #[serde(rename = "warp")]
-        _warp: String,
+        _warp: bool,
     },
     Group {
         #[serde(rename = "group")]
@@ -382,7 +382,7 @@ mod tests {
     use super::Config;
 
     #[test]
-    fn test_parse() {
+    fn test_parse_ok() {
         println!(
             "{:?}",
             toml::from_str::<toml::Value>(include_str!("../../jdsd_er_practice_tool.toml"))

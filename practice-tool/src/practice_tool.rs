@@ -35,10 +35,11 @@ enum UiState {
 }
 
 pub(crate) struct PracticeTool {
+    settings: Settings,
     pointers: Pointers,
     version_label: String,
     widgets: Vec<Box<dyn Widget>>,
-    settings: Settings,
+
     log: Vec<(Instant, String)>,
     log_rx: Receiver<String>,
     log_tx: Sender<String>,
@@ -148,7 +149,7 @@ impl PracticeTool {
 
         let pointers = Pointers::new();
         let version_label = {
-            let (maj, min, patch) = (*VERSION).tuple();
+            let (maj, min, patch) = (*VERSION).into();
             format!("Game Ver {}.{:02}.{}", maj, min, patch)
         };
         let settings = config.settings.clone();
