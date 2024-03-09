@@ -42,33 +42,3 @@ pub(crate) fn deathcam(
 ) -> Box<dyn Widget> {
     Box::new(FlagWidget::new("Deathcam", Deathcam::new(flag, flag_torrent, seven), key))
 }
-
-// impl Widget for Deathcam {
-//     fn render(&mut self, ui: &imgui::Ui) {
-//         let state = self.flag.get();
-//
-//         if let Some(mut state) = state {
-//             self.seven.write(if state { 7 } else { 0 });
-//             if ui.checkbox(&self.label, &mut state) {
-//                 self.flag.set(state);
-//                 self.flag_torrent.set(state);
-//             }
-//         } else {
-//             let token = ui.begin_disabled(true);
-//             ui.checkbox(&self.label, &mut false);
-//             token.end();
-//         }
-//     }
-//
-//     fn interact(&mut self, ui: &imgui::Ui) {
-//         if ui.is_any_item_active() {
-//             return;
-//         }
-//
-//         if let Some(true) = self.hotkey.as_ref().map(|k| k.keyup(ui)) {
-//             if let Some(false) = self.flag.toggle() {
-//                 self.seven.write(0x0);
-//             }
-//         }
-//     }
-// }
