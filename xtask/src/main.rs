@@ -77,7 +77,7 @@ fn dist() -> Result<()> {
 
 fn install() -> Result<()> {
     let status = cargo_command("build")
-        .args(["--lib", "--release", "--package", "darksoulsiii-practice-tool"])
+        .args(["--lib", "--release", "--package", "eldenring-practice-tool"])
         .status()
         .context("cargo")?;
 

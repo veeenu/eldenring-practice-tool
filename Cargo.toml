@@ -38,12 +38,14 @@ features = [
   "Win32_UI_Controls_Dialogs",
   "Win32_UI_Input_KeyboardAndMouse",
   "Win32_UI_WindowsAndMessaging",
-  "Win32_System_LibraryLoader"
+  "Win32_System_LibraryLoader",
+  "Win32_System_SystemInformation",
+  "Win32_System_SystemServices",
 ]
 
-[patch.'crates-io']
-hudhook = { path = "../hudhook" }
-
-[patch.'https://github.com/veeenu/practice-tool-core']
-practice-tool-core = { path = "../practice-tool-core" }
-practice-tool-tasks = { path = "../practice-tool-core/tasks" }
+# [patch.'crates-io']
+# hudhook = { path = "../hudhook" }
+#
+# [patch.'https://github.com/veeenu/practice-tool-core']
+# practice-tool-core = { path = "../practice-tool-core" }
+# practice-tool-tasks = { path = "../practice-tool-core/tasks" }
