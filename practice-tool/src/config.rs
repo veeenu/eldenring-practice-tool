@@ -39,6 +39,37 @@ pub(crate) struct Settings {
     pub(crate) dxgi_debug: bool,
     #[serde(default)]
     pub(crate) show_console: bool,
+    #[serde(default = "Indicator::default_set")]
+    pub(crate) indicators: Vec<Indicator>,
+}
+
+#[derive(Deserialize, Copy, Clone, Debug)]
+#[serde(try_from = "String")]
+pub(crate) enum Indicator {
+    Igt,
+    Position,
+    GameVersion,
+    ImguiDebug,
+}
+
+impl Indicator {
+    fn default_set() -> Vec<Indicator> {
+        vec![Indicator::GameVersion, Indicator::Position, Indicator::Igt]
+    }
+}
+
+impl TryFrom<String> for Indicator {
+    type Error = String;
+
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        match value.as_str() {
+            "igt" => Ok(Indicator::Igt),
+            "position" => Ok(Indicator::Position),
+            "game_version" => Ok(Indicator::GameVersion),
+            "imgui_debug" => Ok(Indicator::ImguiDebug),
+            value => Err(format!("Unrecognized indicator: {value}")),
+        }
+    }
 }
 
 #[derive(Deserialize, Debug)]
@@ -259,6 +290,7 @@ impl Default for Config {
                 hide: "rshift+0".parse().ok(),
                 dxgi_debug: false,
                 show_console: false,
+                indicators: Indicator::default_set(),
             },
             commands: Vec::new(),
         }

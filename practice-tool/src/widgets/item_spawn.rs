@@ -85,8 +85,11 @@ impl<'a> ItemIDNodeRef<'a> {
                         TreeNodeFlags::LEAF
                             | TreeNodeFlags::SELECTED
                             | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
+                            | TreeNodeFlags::SPAN_AVAIL_WIDTH
                     } else {
-                        TreeNodeFlags::LEAF | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
+                        TreeNodeFlags::LEAF
+                            | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
+                            | TreeNodeFlags::SPAN_AVAIL_WIDTH
                     })
                     .build(|| {});
                 unsafe { igIndent(igGetTreeNodeToLabelSpacing()) };
@@ -248,7 +251,7 @@ impl Widget for ItemSpawner<'_> {
             (igGetCursorPosX() + wnd_pos.x, igGetCursorPosY() + wnd_pos.y)
         };
 
-        if ui.button_with_size("Spawn item", [button_width, button_height]) {
+        if ui.button_with_size(&self.label_load, [button_width, button_height]) {
             ui.open_popup(ISP_TAG);
         }
 
@@ -314,7 +317,7 @@ impl Widget for ItemSpawner<'_> {
             }
 
             if ui.button_with_size(&self.label_close, [400., button_height])
-                || (self.hotkey_close.is_pressed(ui) && !ui.is_any_item_active())
+                || (self.hotkey_close.is_pressed(ui) && !ui.io().want_capture_keyboard)
             {
                 ui.close_current_popup();
             }
@@ -328,7 +331,7 @@ impl Widget for ItemSpawner<'_> {
     }
 
     fn interact(&mut self, ui: &imgui::Ui) {
-        if !ui.is_any_item_active() && self.hotkey_load.map(|k| k.is_pressed(ui)).unwrap_or(false) {
+        if self.hotkey_load.map(|k| k.is_pressed(ui)).unwrap_or(false) {
             self.spawn();
         }
     }

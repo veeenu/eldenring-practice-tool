@@ -1,3 +1,4 @@
+use std::fmt::Write;
 use std::sync::Mutex;
 use std::time::Instant;
 
@@ -12,8 +13,8 @@ use practice_tool_core::crossbeam_channel::{self, Receiver, Sender};
 use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 use tracing_subscriber::prelude::*;
 
-use crate::config;
-use crate::config::Settings;
+use crate::config::{Config, Indicator, Settings};
+use crate::util;
 
 const MAJOR: usize = pkg_version_major!();
 const MINOR: usize = pkg_version_minor!();
@@ -46,6 +47,9 @@ pub(crate) struct PracticeTool {
     ui_state: UiState,
     fonts: Option<FontIDs>,
     config_err: Option<String>,
+
+    position_bufs: [String; 4],
+    igt_buf: String,
 }
 
 impl PracticeTool {
@@ -53,7 +57,7 @@ impl PracticeTool {
         hudhook::alloc_console().ok();
         log_panics::init();
 
-        fn load_config() -> Result<config::Config, String> {
+        fn load_config() -> Result<Config, String> {
             let config_path = crate::util::get_dll_path()
                 .map(|mut path| {
                     path.pop();
@@ -64,13 +68,13 @@ impl PracticeTool {
             let config_content = std::fs::read_to_string(config_path)
                 .map_err(|e| format!("Couldn't read config file: {}", e))?;
             println!("{}", config_content);
-            config::Config::parse(&config_content).map_err(String::from)
+            Config::parse(&config_content).map_err(String::from)
         }
 
         let (config, config_err) = match load_config() {
             Ok(config) => (config, None),
             Err(e) => (
-                config::Config::default(),
+                Config::default(),
                 Some({
                     error!("{}", e);
                     format!(
@@ -81,19 +85,13 @@ impl PracticeTool {
             ),
         };
 
-        let log_file = crate::util::get_dll_path()
+        let log_file = util::get_dll_path()
             .map(|mut path| {
                 path.pop();
                 path.push("jdsd_er_practice_tool.log");
                 path
             })
             .map(std::fs::File::create);
-
-        let log_level = config.settings.log_level.inner();
-
-        if log_level < LevelFilter::DEBUG || !config.settings.show_console {
-            hudhook::free_console().ok();
-        }
 
         match log_file {
             Some(Ok(log_file)) => {
@@ -130,6 +128,10 @@ impl PracticeTool {
             hudhook::util::enable_debug_interface();
         }
 
+        if config.settings.log_level.inner() < LevelFilter::DEBUG || !config.settings.show_console {
+            hudhook::free_console().ok();
+        }
+
         wait_option_thread(
             || unsafe {
                 let mut params = PARAMS.write();
@@ -158,16 +160,18 @@ impl PracticeTool {
         info!("Practice tool initialized");
 
         PracticeTool {
+            settings,
             pointers,
             version_label,
             widgets,
-            settings,
-            ui_state: UiState::Closed,
-            log: Default::default(),
+            log: Vec::new(),
             log_rx,
             log_tx,
             fonts: None,
+            ui_state: UiState::Closed,
             config_err,
+            position_bufs: Default::default(),
+            igt_buf: Default::default(),
         }
     }
 
@@ -188,21 +192,31 @@ impl PracticeTool {
                     ui.text(e);
                 }
 
-                for w in self.widgets.iter_mut() {
-                    w.render(ui);
+                if !(ui.io().want_capture_keyboard && ui.is_any_item_active()) {
+                    for w in self.widgets.iter_mut() {
+                        w.interact(ui);
+                    }
                 }
 
                 for w in self.widgets.iter_mut() {
-                    w.interact(ui);
+                    w.render(ui);
                 }
 
                 if ui.button_with_size("Close", [BUTTON_WIDTH * scaling_factor(ui), BUTTON_HEIGHT])
                 {
                     self.ui_state = UiState::Closed;
                     self.pointers.cursor_show.set(false);
-                    if option_env!("CARGO_XTASK_DIST").is_none() {
-                        hudhook::eject();
-                    }
+                }
+
+                if option_env!("CARGO_XTASK_DIST").is_none()
+                    && ui.button_with_size("Eject", [
+                        BUTTON_WIDTH * scaling_factor(ui),
+                        BUTTON_HEIGHT,
+                    ])
+                {
+                    self.ui_state = UiState::Closed;
+                    self.pointers.cursor_show.set(false);
+                    hudhook::eject();
                 }
             });
     }
@@ -286,33 +300,63 @@ impl PracticeTool {
                         }
                     });
 
-                ui.text(&self.version_label);
+                for indicator in &self.settings.indicators {
+                    match indicator {
+                        Indicator::GameVersion => {
+                            ui.text(&self.version_label);
+                        },
+                        Indicator::Position => {
+                            if let (Some([x, y, z, _a1, _a2]), Some(m)) = (
+                                self.pointers.global_position.read(),
+                                self.pointers.global_position.read_map_id(),
+                            ) {
+                                let (a, b, r, s) =
+                                    ((m >> 24) & 0xff, (m >> 16) & 0xff, (m >> 8) & 0xff, m & 0xff);
+                                self.position_bufs.iter_mut().for_each(String::clear);
+                                write!(self.position_bufs[0], "m{a:02x}_{b:02x}_{r:02x}_{s:02x}")
+                                    .ok();
+                                write!(self.position_bufs[1], "{x:.2}").ok();
+                                write!(self.position_bufs[2], "{y:.2}").ok();
+                                write!(self.position_bufs[3], "{z:.2}").ok();
 
-                if let (Some([x, y, z, _a1, _a2]), Some(m)) = (
-                    self.pointers.global_position.read(),
-                    self.pointers.global_position.read_map_id(),
-                ) {
-                    let (a, b, r, s) =
-                        ((m >> 24) & 0xff, (m >> 16) & 0xff, (m >> 8) & 0xff, m & 0xff);
-                    ui.text(format!("m{a:02x}_{b:02x}_{r:02x}_{s:02x}"));
-                    ui.same_line();
-                    ui.text_colored([0.7048, 0.1228, 0.1734, 1.], format!("{x:.2}"));
-                    ui.same_line();
-                    ui.text_colored([0.1161, 0.5327, 0.3512, 1.], format!("{y:.2}"));
-                    ui.same_line();
-                    ui.text_colored([0.1445, 0.2852, 0.5703, 1.], format!("{z:.2}"));
-                }
-
-                if let Some(igt) = self.pointers.igt.read() {
-                    let millis = (igt % 1000) / 10;
-                    let total_seconds = igt / 1000;
-                    let seconds = total_seconds % 60;
-                    let minutes = total_seconds / 60 % 60;
-                    let hours = total_seconds / 3600;
-                    ui.text(format!(
-                        "IGT {:02}:{:02}:{:02}.{:02}",
-                        hours, minutes, seconds, millis
-                    ));
+                                ui.text(&self.position_bufs[0]);
+                                ui.same_line();
+                                ui.text_colored(
+                                    [0.7048, 0.1228, 0.1734, 1.],
+                                    &self.position_bufs[1],
+                                );
+                                ui.same_line();
+                                ui.text_colored(
+                                    [0.1161, 0.5327, 0.3512, 1.],
+                                    &self.position_bufs[2],
+                                );
+                                ui.same_line();
+                                ui.text_colored(
+                                    [0.1445, 0.2852, 0.5703, 1.],
+                                    &self.position_bufs[3],
+                                );
+                            }
+                        },
+                        Indicator::Igt => {
+                            if let Some(igt) = self.pointers.igt.read() {
+                                let millis = (igt % 1000) / 10;
+                                let total_seconds = igt / 1000;
+                                let seconds = total_seconds % 60;
+                                let minutes = total_seconds / 60 % 60;
+                                let hours = total_seconds / 3600;
+                                self.igt_buf.clear();
+                                write!(
+                                    self.igt_buf,
+                                    "IGT {hours:02}:{minutes:02}:{seconds:02}.{millis:02}",
+                                )
+                                .ok();
+                                ui.text(&self.igt_buf);
+                            }
+                        },
+                        Indicator::ImguiDebug => {
+                            imgui_debug(ui);
+                        },
+                    }
                 }
 
                 for w in self.widgets.iter_mut() {
@@ -356,14 +400,15 @@ impl PracticeTool {
                     | WindowFlags::NO_MOVE
                     | WindowFlags::NO_SCROLLBAR
                     | WindowFlags::ALWAYS_AUTO_RESIZE
+                    | WindowFlags::NO_INPUTS
             })
             .size([ww, wh], Condition::Always)
             .bg_alpha(0.0)
             .build(|| {
-                for _ in 0..20 {
+                for _ in 0..5 {
                     ui.text("");
                 }
-                for l in self.log.iter() {
+                for l in self.log.iter().rev().take(3).rev() {
                     ui.text(&l.1);
                 }
                 ui.set_scroll_here_y();
@@ -434,9 +479,7 @@ impl ImguiRenderLoop for PracticeTool {
         }
 
         let now = Instant::now();
-        self.log.extend(
-            self.log_rx.try_iter().inspect(|log| debug!("Received log: {}", log)).map(|l| (now, l)),
-        );
+        self.log.extend(self.log_rx.try_iter().inspect(|log| info!("{}", log)).map(|l| (now, l)));
         self.log.retain(|(tm, _)| tm.elapsed() < std::time::Duration::from_secs(5));
 
         self.render_logs(ui);
@@ -463,4 +506,27 @@ impl ImguiRenderLoop for PracticeTool {
             }]),
         });
     }
+
+    fn should_block_messages(&self, _: &Io) -> bool {
+        match &self.ui_state {
+            UiState::MenuOpen => true,
+            UiState::Closed => false,
+            UiState::Hidden => false,
+        }
+    }
+}
+
+// Display some imgui debug information. Very expensive.
+fn imgui_debug(ui: &Ui) {
+    let io = ui.io();
+    ui.text(format!("Mouse position     {:?}", io.mouse_pos));
+    ui.text(format!("Mouse down         {:?}", io.mouse_down));
+    ui.text(format!("Want capture mouse {:?}", io.want_capture_mouse));
+    ui.text(format!("Want capture kbd   {:?}", io.want_capture_keyboard));
+    ui.text(format!("Want text input    {:?}", io.want_text_input));
+    ui.text(format!("Want set mouse pos {:?}", io.want_set_mouse_pos));
+    ui.text(format!("Any item active    {:?}", ui.is_any_item_active()));
+    ui.text(format!("Any item hovered   {:?}", ui.is_any_item_hovered()));
+    ui.text(format!("Any item focused   {:?}", ui.is_any_item_focused()));
+    ui.text(format!("Any mouse down     {:?}", ui.is_any_mouse_down()));
 }

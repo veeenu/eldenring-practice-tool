@@ -42,7 +42,7 @@ impl SavePosition {
 }
 
 impl PositionStorage for SavePosition {
-    fn read(&mut self) {
+    fn save(&mut self) {
         if let (Some([x, y, z, _, _]), Some([_, _, _, r1, r2]), Some(m)) = (
             self.global_position.read(),
             self.chunk_position.read(),
@@ -56,7 +56,7 @@ impl PositionStorage for SavePosition {
         }
     }
 
-    fn write(&mut self) {
+    fn load(&mut self) {
         if let (Some([gx, gy, gz, _, _]), Some([cx, cy, cz, _, _])) =
             (self.global_position.read(), self.chunk_position.read())
         {
