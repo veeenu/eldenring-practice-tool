@@ -1,7 +1,7 @@
 use std::ptr::null_mut;
-use std::sync::LazyLock;
 
 use log::*;
+use once_cell::sync::Lazy;
 use widestring::U16CString;
 use windows::core::{w, PCWSTR};
 use windows::Win32::Foundation::MAX_PATH;
@@ -12,32 +12,7 @@ use windows::Win32::System::LibraryLoader::{GetModuleFileNameW, GetModuleHandleW
 
 pub use crate::prelude::base_addresses::Version;
 
-pub static VERSION: LazyLock<Version> = LazyLock::new(get_version);
-
-impl Version {
-    pub fn tuple(&self) -> (u8, u8, u8) {
-        match self {
-            Version::V1_02_0 => (1, 2, 0),
-            Version::V1_02_1 => (1, 2, 1),
-            Version::V1_02_2 => (1, 2, 2),
-            Version::V1_02_3 => (1, 2, 3),
-            Version::V1_03_0 => (1, 3, 0),
-            Version::V1_03_1 => (1, 3, 1),
-            Version::V1_03_2 => (1, 3, 2),
-            Version::V1_04_0 => (1, 4, 0),
-            Version::V1_04_1 => (1, 4, 1),
-            Version::V1_05_0 => (1, 5, 0),
-            Version::V1_06_0 => (1, 6, 0),
-            Version::V1_07_0 => (1, 7, 0),
-            Version::V1_08_0 => (1, 8, 0),
-            Version::V1_08_1 => (1, 8, 1),
-            Version::V1_09_0 => (1, 9, 0),
-            Version::V1_09_1 => (1, 9, 1),
-            Version::V2_00_0 => (2, 0, 0),
-            Version::V2_00_1 => (2, 0, 1),
-        }
-    }
-}
+pub static VERSION: Lazy<Version> = Lazy::new(get_version);
 
 fn get_version() -> Version {
     let file_path = {

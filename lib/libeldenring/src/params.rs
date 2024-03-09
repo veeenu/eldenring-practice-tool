@@ -1,10 +1,10 @@
 use std::collections::{BTreeMap, HashMap};
 use std::ffi::c_void;
-use std::sync::LazyLock;
 use std::time::Duration;
 use std::{mem, thread};
 
 use log::*;
+use once_cell::sync::Lazy;
 use parking_lot::RwLock;
 use widestring::U16CStr;
 use windows::Win32::System::LibraryLoader::GetModuleHandleA;
@@ -16,7 +16,7 @@ use crate::prelude::*;
 use crate::version::VERSION;
 use crate::{pointer_chain, wait_option, ParamVisitor};
 
-pub static PARAMS: LazyLock<RwLock<Params>> = LazyLock::new(|| unsafe {
+pub static PARAMS: Lazy<RwLock<Params>> = Lazy::new(|| unsafe {
     let mut params = Params::new();
     wait_option(|| match params.refresh() {
         Ok(()) => Some(()),
@@ -28,8 +28,8 @@ pub static PARAMS: LazyLock<RwLock<Params>> = LazyLock::new(|| unsafe {
     RwLock::new(params)
 });
 
-pub static PARAM_NAMES: LazyLock<HashMap<String, HashMap<usize, String>>> =
-    LazyLock::new(|| serde_json::from_str(include_str!("codegen/param_names.json")).unwrap());
+pub static PARAM_NAMES: Lazy<HashMap<String, HashMap<usize, String>>> =
+    Lazy::new(|| serde_json::from_str(include_str!("codegen/param_names.json")).unwrap());
 
 #[derive(Debug)]
 #[repr(C)]

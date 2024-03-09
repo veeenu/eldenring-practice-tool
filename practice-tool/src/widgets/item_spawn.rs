@@ -1,15 +1,20 @@
 use std::borrow::Cow;
 use std::ffi::c_void;
 use std::fmt::Display;
-use std::sync::LazyLock;
 
-use imgui::sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos, igSetNextWindowPos, ImVec2};
-use imgui::*;
+use imgui::sys::{
+    igGetCursorPosX, igGetCursorPosY, igGetTreeNodeToLabelSpacing, igGetWindowPos, igIndent,
+    igSetNextWindowPos, igUnindent, ImVec2,
+};
+use imgui::{Condition, InputText, TreeNodeFlags, Ui, WindowFlags};
 use libeldenring::prelude::*;
+use once_cell::sync::Lazy;
+use practice_tool_core::crossbeam_channel::Sender;
+use practice_tool_core::key::Key;
+use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 use serde::Deserialize;
 
-use super::{scaling_factor, string_match, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
-use crate::util::KeyState;
+use super::string_match;
 
 static AFFINITIES: [(u32, &str); 13] = [
     (0, "No affinity"),
@@ -70,21 +75,24 @@ enum ItemIDNodeRef<'a> {
 }
 
 impl<'a> ItemIDNodeRef<'a> {
-    fn render(&self, ui: &imgui::Ui, current: &mut u32, filtered: bool) {
+    fn render(&self, ui: &Ui, current: &mut u32, filtered: bool) {
         match self {
             ItemIDNodeRef::Leaf { node, value } => {
-                unsafe { imgui_sys::igUnindent(imgui_sys::igGetTreeNodeToLabelSpacing()) };
+                unsafe { igUnindent(igGetTreeNodeToLabelSpacing()) };
                 ui.tree_node_config(*node)
                     .label::<&str, &str>(node)
                     .flags(if current == value {
                         TreeNodeFlags::LEAF
                             | TreeNodeFlags::SELECTED
                             | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
+                            | TreeNodeFlags::SPAN_AVAIL_WIDTH
                     } else {
-                        TreeNodeFlags::LEAF | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
+                        TreeNodeFlags::LEAF
+                            | TreeNodeFlags::NO_TREE_PUSH_ON_OPEN
+                            | TreeNodeFlags::SPAN_AVAIL_WIDTH
                     })
                     .build(|| {});
-                unsafe { imgui_sys::igIndent(imgui_sys::igGetTreeNodeToLabelSpacing()) };
+                unsafe { igIndent(igGetTreeNodeToLabelSpacing()) };
                 if ui.is_item_clicked() {
                     *current = *value;
                 }
@@ -146,15 +154,15 @@ impl ItemIDNode {
 }
 
 const ISP_TAG: &str = "##item-spawn";
-static ITEM_ID_TREE: LazyLock<Vec<ItemIDNode>> =
-    LazyLock::new(|| serde_json::from_str(include_str!("item_ids.json")).unwrap());
+static ITEM_ID_TREE: Lazy<Vec<ItemIDNode>> =
+    Lazy::new(|| serde_json::from_str(include_str!("item_ids.json")).unwrap());
 
 #[derive(Debug)]
 pub(crate) struct ItemSpawner<'a> {
     func_ptr: usize,
     map_item_man: usize,
-    hotkey_load: KeyState,
-    hotkey_close: KeyState,
+    hotkey_load: Option<Key>,
+    hotkey_close: Key,
     sentinel: Bitflag<u8>,
 
     label_load: String,
@@ -166,7 +174,7 @@ pub(crate) struct ItemSpawner<'a> {
     affinity: usize,
 
     filter_string: String,
-    log: Option<Vec<String>>,
+    logs: Vec<String>,
     item_id_tree: Vec<ItemIDNodeRef<'a>>,
 }
 
@@ -175,10 +183,12 @@ impl ItemSpawner<'_> {
         func_ptr: usize,
         map_item_man: usize,
         sentinel: Bitflag<u8>,
-        hotkey_load: KeyState,
-        hotkey_close: KeyState,
+        hotkey_load: Option<Key>,
+        hotkey_close: Key,
     ) -> Self {
-        let label_load = format!("Spawn item ({hotkey_load})");
+        let label_load = hotkey_load
+            .map(|k| format!("Spawn item ({k})"))
+            .unwrap_or_else(|| "Spawn item".to_string());
         let label_close = format!("Close ({hotkey_close})");
         ItemSpawner {
             func_ptr,
@@ -193,7 +203,7 @@ impl ItemSpawner<'_> {
             upgrade: 0,
             affinity: 0,
             filter_string: String::new(),
-            log: None,
+            logs: Vec::new(),
             item_id_tree: ITEM_ID_TREE.iter().map(ItemIDNodeRef::from).collect(),
         }
     }
@@ -225,14 +235,7 @@ impl ItemSpawner<'_> {
     }
 
     fn write_log(&mut self, log: String) {
-        let logs = self.log.take();
-        self.log = match logs {
-            Some(mut v) => {
-                v.push(log);
-                Some(v)
-            },
-            None => Some(vec![log]),
-        };
+        self.logs.push(log);
     }
 }
 
@@ -240,6 +243,7 @@ impl Widget for ItemSpawner<'_> {
     fn render(&mut self, ui: &imgui::Ui) {
         let scale = scaling_factor(ui);
         let button_width = BUTTON_WIDTH * scale;
+        let button_height = BUTTON_HEIGHT;
 
         let (x, y) = unsafe {
             let mut wnd_pos = ImVec2::default();
@@ -247,7 +251,7 @@ impl Widget for ItemSpawner<'_> {
             (igGetCursorPosX() + wnd_pos.x, igGetCursorPosY() + wnd_pos.y)
         };
 
-        if ui.button_with_size("Spawn item", [button_width, BUTTON_HEIGHT]) {
+        if ui.button_with_size(&self.label_load, [button_width, button_height]) {
             ui.open_popup(ISP_TAG);
         }
 
@@ -269,7 +273,7 @@ impl Widget for ItemSpawner<'_> {
             )
             .begin_popup()
         {
-            let button_height = super::BUTTON_HEIGHT * super::scaling_factor(ui);
+            let button_height = button_height * scale;
 
             {
                 let _tok = ui.push_item_width(-1.);
@@ -313,20 +317,23 @@ impl Widget for ItemSpawner<'_> {
             }
 
             if ui.button_with_size(&self.label_close, [400., button_height])
-                || (self.hotkey_close.keyup(ui) && !ui.is_any_item_active())
+                || (self.hotkey_close.is_pressed(ui)
+                    && !(ui.io().want_capture_keyboard && ui.is_any_item_active()))
             {
                 ui.close_current_popup();
             }
         }
     }
 
-    fn log(&mut self) -> Option<Vec<String>> {
-        self.log.take()
+    fn interact(&mut self, ui: &imgui::Ui) {
+        if self.hotkey_load.map(|k| k.is_pressed(ui)).unwrap_or(false) {
+            self.spawn();
+        }
     }
 
-    fn interact(&mut self, ui: &imgui::Ui) {
-        if !ui.is_any_item_active() && self.hotkey_load.keyup(ui) {
-            self.spawn();
+    fn log(&mut self, tx: Sender<String>) {
+        for log in self.logs.drain(..) {
+            tx.send(log).ok();
         }
     }
 }

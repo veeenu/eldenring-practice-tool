@@ -18,12 +18,10 @@ use std::ffi::OsStr;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::os::windows::ffi::OsStrExt;
-use std::os::windows::prelude::AsRawHandle;
 use std::path::PathBuf;
 
 use anyhow::{anyhow, Context, Result};
-use dll_syringe::process::OwnedProcess;
-use dll_syringe::Syringe;
+use hudhook::inject::Process;
 use hudhook::tracing::{debug, trace};
 use pkg_version::*;
 use semver::*;
@@ -105,6 +103,7 @@ fn check_eac(handle: HANDLE) -> Result<bool> {
         );
         let mut file = OpenOptions::new()
             .create(true)
+            .truncate(true)
             .write(true)
             .open(steam_appid_path)
             .context("Couldn't open steam_appid.txt")?;
@@ -137,7 +136,7 @@ fn perform_injection() -> Result<()> {
     let dll_path = dll_path.canonicalize()?;
     trace!("Injecting {:?}", dll_path);
 
-    let process = OwnedProcess::find_first_by_name("eldenring.exe").ok_or_else(|| {
+    let process = Process::by_name("eldenring.exe").map_err(|_| {
         anyhow!(dedent!(
             r#"
             Could not find the ELDEN RING process.
@@ -154,12 +153,11 @@ fn perform_injection() -> Result<()> {
     })?;
 
     trace!("Checking EAC...");
-    if check_eac(HANDLE(process.as_raw_handle() as _))? {
+    if check_eac(process.handle())? {
         return Ok(());
     }
 
-    let syringe = Syringe::for_process(process);
-    syringe.inject(dll_path).map_err(|e| {
+    process.inject(dll_path).map_err(|e| {
         anyhow!(
             "Could not hook the practice tool: {e}.\n\nPlease make sure you have no antiviruses \
              running, EAC is properly bypassed, and you are running an unmodded and legitimate \

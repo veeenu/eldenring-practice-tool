@@ -80,7 +80,9 @@ You can customize the default ones or add your own by editing
 The bundled file contains all possible settings with predefined hotkeys and is
 mostly self-explanatory.
 
-You can find a list of supported hotkey codes [here](https://github.com/veeenu/darksoulsiii-practice-tool/blob/7aa6ac33c6f155d35d0fa99ab100c8caa13913f9/practice-tool/src/util/vk.rs#L15-L186).
+You can find a list of supported hotkey codes [here](https://github.com/veeenu/practice-tool-core/blob/2960d851005ca0edaf030472cdddd3c992f077f9/src/key.rs#L6)
+(use the values in quotes, e.g. `"tab"`, `"left"`). You can combine those by prepending modifiers,
+such as `"ctrl+x"`, `"alt+1"`.
 
 ## What versions of the game are supported?
 

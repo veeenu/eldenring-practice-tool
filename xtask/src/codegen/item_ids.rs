@@ -1,10 +1,11 @@
 use std::convert::TryFrom;
 use std::path::PathBuf;
 
+use anyhow::{anyhow, Result};
 use serde::Serialize;
 use serde_yaml::Value;
 
-use crate::{project_root, DynError, Result};
+use crate::project_root;
 
 #[derive(Debug, Serialize)]
 #[serde(untagged)]
@@ -14,7 +15,7 @@ enum ItemIDNode {
 }
 
 impl TryFrom<(Value, Value)> for ItemIDNode {
-    type Error = DynError;
+    type Error = anyhow::Error;
 
     fn try_from((k, v): (Value, Value)) -> Result<Self> {
         match (k, v) {
@@ -25,14 +26,14 @@ impl TryFrom<(Value, Value)> for ItemIDNode {
                 node: s,
                 children: m.into_iter().map(|(k, v)| ItemIDNode::try_from((k, v))).try_fold(
                     Vec::new(),
-                    |mut o: Vec<_>, i: Result<ItemIDNode>| {
+                    |mut o: Vec<_>, i: Result<ItemIDNode>| -> Result<Vec<_>> {
                         let i = i?;
                         o.push(i);
                         Result::Ok(o)
                     },
                 )?,
             }),
-            (a, b) => Err(format!("invalid value {:?} {:?}", a, b).into()),
+            (a, b) => Err(anyhow!("invalid value {:?} {:?}", a, b)),
         }
     }
 }
@@ -55,12 +56,12 @@ pub(crate) fn codegen() -> Result<()> {
 
     let v: Result<Vec<ItemIDNode>> = match val {
         Value::Mapping(m) => m.into_iter().map(|(k, v)| ItemIDNode::try_from((k, v))).collect(),
-        _ => Err("invalid input format".into()),
+        _ => Err(anyhow!("invalid input format")),
     };
 
     let v = v?;
 
-    serde_json::to_writer(std::fs::File::create(item_ids_json_path())?, &v)?;
+    serde_json::to_writer_pretty(std::fs::File::create(item_ids_json_path())?, &v)?;
 
     Ok(())
 }

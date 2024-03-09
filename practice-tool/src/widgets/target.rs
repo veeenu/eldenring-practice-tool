@@ -1,12 +1,11 @@
 use imgui::{ProgressBar, StyleColor};
 use libeldenring::memedit::PointerChain;
 use libeldenring::pointer_chain;
+use practice_tool_core::key::Key;
+use practice_tool_core::widgets::Widget;
 use windows::Win32::System::Memory::{
     VirtualAlloc, MEM_COMMIT, MEM_RESERVE, PAGE_EXECUTE_READWRITE,
 };
-
-use super::Widget;
-use crate::util::KeyState;
 
 #[derive(Debug, Default)]
 struct EnemyInfo {
@@ -62,7 +61,7 @@ pub(crate) struct Target {
     alloc_addr: PointerChain<[u8; 22]>,
     detour_addr: PointerChain<[u8; 11]>,
     detour_orig_data: [u8; 11],
-    hotkey: KeyState,
+    hotkey: Option<Key>,
     is_enabled: bool,
     entity_addr: u64,
 }
@@ -71,7 +70,7 @@ unsafe impl Send for Target {}
 unsafe impl Sync for Target {}
 
 impl Target {
-    pub(crate) fn new(detour_addr: PointerChain<u64>, hotkey: KeyState) -> Self {
+    pub(crate) fn new(detour_addr: PointerChain<u64>, hotkey: Option<Key>) -> Self {
         let detour_addr = detour_addr.cast();
         let mut allocate_near = detour_addr.eval().unwrap() as usize;
 
@@ -92,7 +91,9 @@ impl Target {
         };
 
         Target {
-            label: format!("Target entity info ({})", hotkey),
+            label: hotkey
+                .map(|k| format!("Target entity info ({k})"))
+                .unwrap_or_else(|| "Target entity info".to_string()),
             alloc_addr,
             detour_addr,
             detour_orig_data: Default::default(),
@@ -243,38 +244,51 @@ impl Widget for Target {
 
         let pbar_size: [f32; 2] = [200., 4.];
 
-        const fn conv_color(rgba: u32) -> [f32; 4] {
-            let r = ((rgba >> 24) & 0xff) as u8;
-            let g = ((rgba >> 16) & 0xff) as u8;
-            let b = ((rgba >> 8) & 0xff) as u8;
-            let a = (rgba & 0xff) as u8;
-            [(r as f32 / 255.), (g as f32 / 255.), (b as f32 / 255.), (a as f32 / 255.)]
-        }
+        // Waiting for const fn float arithmetic... https://github.com/rust-lang/rust/issues/57241
+        // const fn conv_color(rgba: u32) -> [f32; 4] {
+        //     let r = ((rgba >> 24) & 0xff) as u8;
+        //     let g = ((rgba >> 16) & 0xff) as u8;
+        //     let b = ((rgba >> 8) & 0xff) as u8;
+        //     let a = (rgba & 0xff) as u8;
+        //     [(r as f32 / 255.), (g as f32 / 255.), (b as f32 / 255.), (a as f32 /
+        // 255.)] }
+
+        const COLOR_BASE: [f32; 4] = [1.0, 0.7529412, 0.4392157, 1.0];
+        const COLOR_HP: [f32; 4] = [0.60784316, 0.28627452, 0.28627452, 1.0];
+        const COLOR_SP: [f32; 4] = [0.41960785, 0.41960785, 0.8745098, 1.0];
+        const COLOR_MP: [f32; 4] = [0.2784314, 0.2784314, 0.5764706, 1.0];
+        const COLOR_POISON: [f32; 4] = [0.5137255, 0.19215687, 0.972549, 1.0];
+        const COLOR_ROT: [f32; 4] = [0.24313725, 0.035294117, 0.5254902, 1.0];
+        const COLOR_BLEED: [f32; 4] = [0.9647059, 0.003921569, 0.23137255, 1.0];
+        const COLOR_BLIGHT: [f32; 4] = [0.6823529, 0.6745098, 0.5372549, 1.0];
+        const COLOR_FROST: [f32; 4] = [0.627451, 0.70980394, 0.7764706, 1.0];
+        const COLOR_SLEEP: [f32; 4] = [0.627451, 0.70980392, 0.7764706, 1.0];
+        const COLOR_MAD: [f32; 4] = [0.627451, 0.70980392, 0.7764706, 1.0];
 
         let pbar = |label, cur, max, c| {
             ui.text(format!("{label:8} {cur:>6}/{max:>6}"));
             let pct = div(cur, max);
-            let _tok = ui.push_style_color(StyleColor::PlotHistogram, conv_color(c));
+            let _tok = ui.push_style_color(StyleColor::PlotHistogram, c);
             ProgressBar::new(pct).size(pbar_size).overlay_text("").build(ui);
         };
 
-        pbar("HP", hp, max_hp, 0x9b4949ff);
-        pbar("SP", sp, max_sp, 0x6b6bdfff);
-        pbar("MP", mp, max_mp, 0x474793ff);
+        pbar("HP", hp, max_hp, COLOR_HP);
+        pbar("SP", sp, max_sp, COLOR_SP);
+        pbar("MP", mp, max_mp, COLOR_MP);
 
         ui.text(format!("Poise    {:>6.0}/{:>6.0} {:.2}s", poise, poise_max, poise_time));
         let pct = if poise_max.abs() < 0.0001 { 0.0 } else { poise / poise_max };
-        let tok = ui.push_style_color(StyleColor::PlotHistogram, conv_color(0xffc070ff));
+        let tok = ui.push_style_color(StyleColor::PlotHistogram, COLOR_BASE);
         ProgressBar::new(pct).size(pbar_size).overlay_text("").build(ui);
         drop(tok);
 
-        pbar("Poison", poison, poison_max, 0x8331f8ff);
-        pbar("Rot", rot, rot_max, 0x3e0986ff);
-        pbar("Bleed", bleed, bleed_max, 0xf6013bff);
-        pbar("Blight", blight, blight_max, 0xaeac89ff);
-        pbar("Frost", frost, frost_max, 0xa0b5c6ff);
-        pbar("Sleep", sleep, sleep_max, 0xa0b5c6ff);
-        pbar("Mad", mad, mad_max, 0xa0b5c6ff);
+        pbar("Poison", poison, poison_max, COLOR_POISON);
+        pbar("Rot", rot, rot_max, COLOR_ROT);
+        pbar("Bleed", bleed, bleed_max, COLOR_BLEED);
+        pbar("Blight", blight, blight_max, COLOR_BLIGHT);
+        pbar("Frost", frost, frost_max, COLOR_FROST);
+        pbar("Sleep", sleep, sleep_max, COLOR_SLEEP);
+        pbar("Mad", mad, mad_max, COLOR_MAD);
     }
 
     fn interact(&mut self, ui: &imgui::Ui) {
@@ -282,7 +296,7 @@ impl Widget for Target {
             return;
         }
 
-        if self.hotkey.keyup(ui) {
+        if self.hotkey.map(|k| k.is_pressed(ui)).unwrap_or(false) {
             if self.is_enabled {
                 self.disable();
             } else {

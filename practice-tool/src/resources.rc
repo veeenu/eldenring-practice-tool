@@ -1,0 +1,4 @@
+#define IDI_ICON 0x101
+
+IDI_ICON ICON "icon.ico"
+

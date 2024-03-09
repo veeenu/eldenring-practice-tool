@@ -5,11 +5,13 @@ members = [
   "lib/libeldenring",
   "lib/param-tinkerer",
   "lib/no-logo",
-  "xtask",
+  "lib/scripts",
+  "xtask", 
 ]
-exclude = [
-  "lib/hudhook"
-]
+
+[workspace.package]
+version = "1.6.0"
+authors = ["Andrea Venuta <venutawebdesign@gmail.com>"]
 
 [profile.release]
 strip = "symbols"
@@ -21,9 +23,29 @@ debug = true
 strip = "none"
 
 [workspace.dependencies]
-hudhook = { git = "https://github.com/veeenu/hudhook" }
 imgui = "0.11.0"
 imgui-sys = "0.11.0"
+once_cell = "1.19.0"
+parking_lot = "0.12.1"
+hudhook = { version = "0.6.4", features = ["dx12", "inject"], default-features = false }
+practice-tool-core = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
+practice-tool-tasks = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
 
-# [patch.'https://github.com/veeenu/hudhook']
+[workspace.dependencies.windows]
+version = "0.54.0"
+features = [
+  "Win32_Foundation",
+  "Win32_UI_Controls_Dialogs",
+  "Win32_UI_Input_KeyboardAndMouse",
+  "Win32_UI_WindowsAndMessaging",
+  "Win32_System_LibraryLoader",
+  "Win32_System_SystemInformation",
+  "Win32_System_SystemServices",
+]
+
+# [patch.'crates-io']
 # hudhook = { path = "../hudhook" }
+#
+# [patch.'https://github.com/veeenu/practice-tool-core']
+# practice-tool-core = { path = "../practice-tool-core" }
+# practice-tool-tasks = { path = "../practice-tool-core/tasks" }
