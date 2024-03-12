@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   lints:
@@ -17,10 +17,9 @@ jobs:
       - name: Rust toolchains
         run: |
           rustup toolchain install nightly --target x86_64-pc-windows-msvc --profile minimal -c rustfmt clippy
-          rustup default nightly
 
       - name: Lints
         run: |
-          cargo clippy -- -D warnings
+          cargo +nightly clippy -- -D warnings
           cargo +nightly fmt --all -- --check
 
