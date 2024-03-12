@@ -72,7 +72,7 @@ While troubleshooting bugs, I may ask you to use the [nightly release](https://g
 instead of the latest stable release. This is an automated release with the very latest changes,
 intended for faster issues feedback cycles. Don't use it otherwise!
 
-## Where are all the key bindings?
+## How can I change the key bindings?
 
 You can customize the default ones or add your own by editing
 `jdsd_er_practice_tool.toml` with your favorite text editor.
@@ -80,9 +80,15 @@ You can customize the default ones or add your own by editing
 The bundled file contains all possible settings with predefined hotkeys and is
 mostly self-explanatory.
 
-You can find a list of supported hotkey codes [here](https://github.com/veeenu/practice-tool-core/blob/2960d851005ca0edaf030472cdddd3c992f077f9/src/key.rs#L6)
-(use the values in quotes, e.g. `"tab"`, `"left"`). You can combine those by prepending modifiers,
-such as `"ctrl+x"`, `"alt+1"`.
+You can find a list of supported hotkey codes [here](https://github.com/veeenu/practice-tool-core/blob/2960d851005ca0edaf030472cdddd3c992f077f9/src/key.rs#L7-L151).
+
+Valid combinations are:
+- Individual keys: `"tab"`, `"left"`
+- Keys with up to 3 modifiers, separated by `+`: `"ctrl+x"`, `"alt+1"`, `"ctrl+rshift+alt+q"`.
+  Valid modifiers are:
+  - `ctrl`, `shift`, `alt`, `super` (bilateral)
+  - `lctrl`, `lshift`, `lalt`, `lsuper` (left variant)
+  - `rctrl`, `rshift`, `ralt`, `rsuper` (right variant)
 
 ## What versions of the game are supported?
 
