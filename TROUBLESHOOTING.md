@@ -85,6 +85,7 @@ You can find a list of supported hotkey codes [here](https://github.com/veeenu/p
 Valid combinations are:
 - Individual keys: `"tab"`, `"left"`
 - Keys with up to 3 modifiers, separated by `+`: `"ctrl+x"`, `"alt+1"`, `"ctrl+rshift+alt+q"`.
+  
   Valid modifiers are:
   - `ctrl`, `shift`, `alt`, `super` (bilateral)
   - `lctrl`, `lshift`, `lalt`, `lsuper` (left variant)
