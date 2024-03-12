@@ -13,12 +13,9 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: nightly
-          override: true
-          target: x86_64-pc-windows-msvc
+      - name: Install Rust toolchain
+        run: |
+          rustup toolchain install stable --target x86_64-pc-windows-msvc --profile minimal -c rustfmt clippy
 
       - name: Distribution build
         run: cargo xtask dist

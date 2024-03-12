@@ -11,10 +11,9 @@ use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 use windows::Win32::System::Memory::{VirtualQuery, MEMORY_BASIC_INFORMATION, PAGE_READWRITE};
 
 pub use crate::codegen::param_data::*;
+use crate::pointer_chain;
 use crate::prelude::base_addresses::BaseAddresses;
 use crate::prelude::*;
-use crate::version::VERSION;
-use crate::{pointer_chain, wait_option, ParamVisitor};
 
 pub static PARAMS: Lazy<RwLock<Params>> = Lazy::new(|| unsafe {
     let mut params = Params::new();
