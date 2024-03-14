@@ -1,10 +1,11 @@
-
 # Development
 
 You will need:
 
-- A recent [Rust nightly](https://rustup.rs/)
+- The latest [Rust stable](https://rustup.rs/)
 - The [MSVC toolchain](https://visualstudio.microsoft.com/vs/features/cplusplus/)
+- On Linux:
+  - [cargo xwin](https://github.com/rust-cross/cargo-xwin)
 
 Most building functions are exposed by the [xtasks](https://github.com/matklad/cargo-xtask).
 
@@ -42,5 +43,5 @@ of the project. Complete example:
 
 ```
 $ cat .env
-ERPT_PATCHES_PATH="C:/Videogames/EldenRingPatches"
+ER_PATCHES_PATH="C:/Videogames/EldenRingPatches"
 ```
