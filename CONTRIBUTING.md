@@ -45,3 +45,13 @@ of the project. Complete example:
 $ cat .env
 ER_PATCHES_PATH="C:/Videogames/EldenRingPatches"
 ```
+
+# Lints and format
+
+Before opening a pull request, please make sure that the code is formatted properly and has no 
+outstanding lints. Use `nightly` for opting into the experimental lints and format rules.
+
+```sh
+cargo +nightly clippy
+cargo +nightly fmt --all
+```

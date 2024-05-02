@@ -1,8 +1,8 @@
 [package]
 name = "eldenring-practice-tool"
-version = "1.4.1"
+version.workspace = true
+authors.workspace = true
 edition = "2021"
-authors = ["Andrea Venuta <andrea@johndisandonato.stream>"]
 
 [[bin]]
 name = "jdsd_er_practice_tool"

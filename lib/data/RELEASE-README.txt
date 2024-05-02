@@ -1,11 +1,11 @@
 Welcome to the Elden Ring Practice Tool!
 
-To run the tool:
+To run the tool stand-alone:
 
 - Bypass EAC with the `steam_appid.txt` method.
 - Double-click `jdsd_er_practice_tool.exe` while the game is running.
 
-To install the tool: 
+To run the tool with installation:
 
 - Bypass EAC with the `steam_appid.txt` method.
 - Rename `jdsd_er_practice_tool.dll` to `dinput8.dll`. Make sure your file extensions are visible

@@ -45,5 +45,6 @@ commands = [
 [settings]
 log_level = "INFO"
 display = "0"
+hide = "rshift+0"
 dxgi_debug = false
 show_console = false
