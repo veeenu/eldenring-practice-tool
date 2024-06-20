@@ -5,7 +5,7 @@ use std::time::Instant;
 use const_format::formatcp;
 use hudhook::tracing::metadata::LevelFilter;
 use hudhook::tracing::*;
-use hudhook::{ImguiRenderLoop, TextureLoader};
+use hudhook::{ImguiRenderLoop, RenderContext};
 use imgui::*;
 use libeldenring::prelude::*;
 use pkg_version::*;
@@ -486,7 +486,7 @@ impl ImguiRenderLoop for PracticeTool {
         drop(font_token);
     }
 
-    fn initialize(&mut self, ctx: &mut Context, _: TextureLoader) {
+    fn initialize(&mut self, ctx: &mut Context, _: &mut dyn RenderContext) {
         let fonts = ctx.fonts();
         self.fonts = Some(FontIDs {
             small: fonts.add_font(&[FontSource::TtfData {
@@ -505,14 +505,6 @@ impl ImguiRenderLoop for PracticeTool {
                 config: None,
             }]),
         });
-    }
-
-    fn should_block_messages(&self, _: &Io) -> bool {
-        match &self.ui_state {
-            UiState::MenuOpen => true,
-            UiState::Closed => false,
-            UiState::Hidden => false,
-        }
     }
 }
 
