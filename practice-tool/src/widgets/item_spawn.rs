@@ -362,7 +362,7 @@ impl ItemSpawnInstance {
         }
 
         type SpawnItemFn = extern "system" fn(*const c_void, *mut SpawnRequest, *mut u32, u32);
-        let spawn_fn_ptr = std::mem::transmute::<_, SpawnItemFn>(self.spawn_item_func_ptr);
+        let spawn_fn_ptr = std::mem::transmute::<u64, SpawnItemFn>(self.spawn_item_func_ptr);
         let pp_map_item_man = self.map_item_man as *const *const c_void;
 
         let item_id = self.item_id;

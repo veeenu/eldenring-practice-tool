@@ -1,4 +1,5 @@
 use std::ffi::c_void;
+use std::mem;
 use std::ptr::null_mut;
 
 use libeldenring::prelude::*;
@@ -33,19 +34,19 @@ static SYMBOLS: Lazy<(FnDirectInput8Create, FnHResult, FnGetClassObject, FnHResu
         let module = LoadLibraryW(PCWSTR(dinput8_path().as_ptr() as _)).unwrap();
 
         (
-            std::mem::transmute(
+            mem::transmute::<unsafe extern "system" fn() -> isize, FnDirectInput8Create>(
                 GetProcAddress(module, PCSTR("DirectInput8Create\0".as_ptr())).unwrap(),
             ),
-            std::mem::transmute(
+            mem::transmute::<unsafe extern "system" fn() -> isize, FnHResult>(
                 GetProcAddress(module, PCSTR("DllCanUnloadNow\0".as_ptr())).unwrap(),
             ),
-            std::mem::transmute(
+            mem::transmute::<unsafe extern "system" fn() -> isize, FnGetClassObject>(
                 GetProcAddress(module, PCSTR("DllGetClassObject\0".as_ptr())).unwrap(),
             ),
-            std::mem::transmute(
+            mem::transmute::<unsafe extern "system" fn() -> isize, FnHResult>(
                 GetProcAddress(module, PCSTR("DllRegisterServer\0".as_ptr())).unwrap(),
             ),
-            std::mem::transmute(
+            mem::transmute::<unsafe extern "system" fn() -> isize, FnHResult>(
                 GetProcAddress(module, PCSTR("DllUnregisterServer\0".as_ptr())).unwrap(),
             ),
         )

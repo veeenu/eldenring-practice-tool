@@ -20,8 +20,8 @@ mod util;
 mod widgets;
 
 use std::ffi::c_void;
-use std::thread;
 use std::time::{Duration, Instant};
+use std::{mem, ptr, thread};
 
 use hudhook::hooks::dx12::ImguiDx12Hooks;
 use hudhook::tracing::error;
@@ -53,10 +53,19 @@ static DIRECTINPUT8CREATE: Lazy<FDirectInput8Create> = Lazy::new(|| unsafe {
     let count = GetSystemDirectoryW(Some(&mut dinput8_path)) as usize;
 
     // If count == 0, this will be fun
-    std::ptr::copy_nonoverlapping(w!("\\dinput8.dll").0, dinput8_path[count..].as_mut_ptr(), 12);
+    ptr::copy_nonoverlapping(w!("\\dinput8.dll").0, dinput8_path[count..].as_mut_ptr(), 12);
 
     let dinput8 = LoadLibraryW(PCWSTR(dinput8_path.as_ptr())).unwrap();
-    let directinput8create = std::mem::transmute(GetProcAddress(dinput8, s!("DirectInput8Create")));
+    let directinput8create = mem::transmute::<
+        Option<unsafe extern "system" fn() -> isize>,
+        unsafe extern "stdcall" fn(
+            HINSTANCE,
+            u32,
+            *const GUID,
+            *mut *mut c_void,
+            HINSTANCE,
+        ) -> HRESULT,
+    >(GetProcAddress(dinput8, s!("DirectInput8Create")));
 
     apply_no_logo();
 
