@@ -23,8 +23,6 @@ use std::path::PathBuf;
 use anyhow::{anyhow, Context, Result};
 use hudhook::inject::Process;
 use hudhook::tracing::{debug, trace};
-use pkg_version::*;
-use semver::*;
 use textwrap_macros::dedent;
 use tracing_subscriber::filter::LevelFilter;
 use tracing_subscriber::prelude::*;
@@ -32,8 +30,7 @@ use windows::core::{PCWSTR, PWSTR};
 use windows::Win32::Foundation::{HANDLE, HWND};
 use windows::Win32::System::Threading::{QueryFullProcessImageNameW, PROCESS_NAME_FORMAT};
 use windows::Win32::UI::WindowsAndMessaging::{
-    MessageBoxW, IDYES, MB_ICONERROR, MB_ICONINFORMATION, MB_OK, MB_YESNO, MESSAGEBOX_RESULT,
-    MESSAGEBOX_STYLE,
+    MessageBoxW, MB_ICONERROR, MB_ICONINFORMATION, MB_OK, MESSAGEBOX_RESULT, MESSAGEBOX_STYLE,
 };
 
 fn message_box<S: AsRef<str>, T: AsRef<str>>(
@@ -49,40 +46,6 @@ fn message_box<S: AsRef<str>, T: AsRef<str>>(
     let text = OsStr::new(text.as_ref()).encode_wide().chain(Some(0)).collect::<Vec<_>>();
 
     unsafe { MessageBoxW(HWND(0), PCWSTR(text.as_ptr()), PCWSTR(caption.as_ptr()), style) }
-}
-
-fn err_to_string<T: std::fmt::Display>(e: T) -> String {
-    format!("Error: {}", e)
-}
-
-fn get_current_version() -> Version {
-    Version {
-        major: pkg_version_major!(),
-        minor: pkg_version_minor!(),
-        patch: pkg_version_patch!(),
-        pre: Prerelease::EMPTY,
-        build: BuildMetadata::EMPTY,
-    }
-}
-
-fn get_latest_version() -> Result<(Version, String, String), String> {
-    #[derive(serde::Deserialize)]
-    struct GithubRelease {
-        tag_name: String,
-        html_url: String,
-        body: String,
-    }
-
-    let release =
-        ureq::get("https://api.github.com/repos/veeenu/eldenring-practice-tool/releases/latest")
-            .call()
-            .map_err(|e| format!("{}", e))?
-            .into_json::<GithubRelease>()
-            .map_err(|e| format!("{}", e))?;
-
-    let version = Version::parse(&release.tag_name).map_err(err_to_string)?;
-
-    Ok((version, release.html_url, release.body))
 }
 
 fn check_eac(handle: HANDLE) -> Result<bool> {
@@ -126,6 +89,12 @@ fn perform_injection() -> Result<()> {
     let mut dll_path = std::env::current_exe().unwrap();
     dll_path.pop();
     dll_path.push("jdsd_er_practice_tool.dll");
+
+    if !dll_path.exists() {
+        dll_path.pop();
+        dll_path.push("dinput8");
+        dll_path.set_extension("dll");
+    }
 
     if !dll_path.exists() {
         dll_path.pop();
@@ -179,40 +148,6 @@ fn main() -> Result<()> {
             .boxed();
 
         tracing_subscriber::registry().with(LevelFilter::TRACE).with(stdout_layer).init();
-    }
-
-    let current_version = get_current_version();
-
-    match get_latest_version() {
-        Ok((latest_version, download_url, release_notes)) => {
-            if latest_version > current_version {
-                let release_notes = match release_notes.find("## What's Changed") {
-                    Some(i) => release_notes[..i].trim(),
-                    None => &release_notes,
-                };
-                let update_msg = format!(
-                    "A new version of the practice tool is available!\n\nLatest version: \
-                     {}\nInstalled version: {}\n\nRelease notes:\n{}\n\nDo you want to download \
-                     the update?",
-                    latest_version, current_version, release_notes
-                );
-
-                let msgbox_response =
-                    message_box("Update available", update_msg, MB_YESNO | MB_ICONINFORMATION);
-
-                if msgbox_response == IDYES {
-                    open::that(download_url).ok();
-                    return Ok(());
-                }
-            }
-        },
-        Err(e) => {
-            message_box(
-                "Error",
-                format!("Could not check for a new version: {e}"),
-                MB_OK | MB_ICONERROR,
-            );
-        },
     }
 
     if let Err(e) = perform_injection() {
