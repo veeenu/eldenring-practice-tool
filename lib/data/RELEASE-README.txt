@@ -1,26 +1,26 @@
 Welcome to the Elden Ring Practice Tool!
 
 ----------------------------------------------------------------------------------------------------
-You can run the practice tool in two ways.
-
-# Standalone
+# Getting started
 
 - Extract all files from the zip archive. Anywhere will do.
 - Double-click `eldenring.exe` to start the game (Steam → right click **ELDEN
   RING** → Manage → Browse Local Files). Never start the game from Steam: the tool won't work.
-- Double-click `jdsd_er_practice_tool.exe`.
+- Double-click `jdsd_er_practice_tool.exe` and pick an option.
+
+# Run the tool
 
 The tool will automatically appear over the game. Press `0` to open and close its interface.
 
-# Installed
-- Extract all files from the zip archive _to your Elden Ring `Game` folder_ (Steam → right click 
-  **ELDEN RING** → Manage → Browse Local Files). The files must be in the same folder as 
-  `eldenring.exe`.
-- Double-click `eldenring.exe`.
-- Press the right shift button and keep it pressed for a few seconds until the tool appears on 
-  screen.
+# Install/update the tool
 
-If you don't want to load the tool, just don't press right shift during startup!
+Just follow the instructions on screen.
+This will install/update the tool next to your `eldenring.exe` game. 
+
+Once you have installed the tool, you will be able to start it by holding down the right shift key
+for a few seconds while the game is loading. You can also continue using the executable to start it.
+
+If you don't want to load the tool, just don't hold right shift during startup!
 ----------------------------------------------------------------------------------------------------
 
 If you have issues or questions, thoroughly check the FAQ.

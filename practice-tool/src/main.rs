@@ -247,7 +247,7 @@ fn action() -> Result<Action> {
     let buttons = [
         TASKDIALOG_BUTTON { nButtonID: 100, pszButtonText: w!("Run the tool") },
         TASKDIALOG_BUTTON { nButtonID: 101, pszButtonText: w!("Install/update the tool") },
-        TASKDIALOG_BUTTON { nButtonID: 102, pszButtonText: w!("Uninstall the tool") },
+        // TASKDIALOG_BUTTON { nButtonID: 102, pszButtonText: w!("Uninstall the tool") },
     ];
 
     let config = TASKDIALOGCONFIG {
@@ -273,7 +273,7 @@ fn action() -> Result<Action> {
     match button_pressed {
         100 => Ok(Action::Run),
         101 => Ok(Action::Install),
-        102 => Ok(Action::Uninstall),
+        // 102 => Ok(Action::Uninstall),
         _ => Err(anyhow!("Error")),
     }
 }
@@ -303,13 +303,14 @@ fn main() -> Result<()> {
             }
         },
         Action::Uninstall => {
-            message_box(
-                "Uninstall",
-                "Uninstall has not yet been implemented. Coming Soon (TM)!\n\nOpen Elden Ring's \
-                 installation directory and remove dinput8.dll and jdsd_er_practice_tool.toml \
-                 manually.",
-                MB_OK | MB_ICONERROR,
-            );
+            unreachable!()
+            // message_box(
+            //     "Uninstall",
+            //     "Uninstall has not yet been implemented. Coming Soon (TM)!\n\nOpen Elden Ring's \
+            //      installation directory and remove dinput8.dll and jdsd_er_practice_tool.toml \
+            //      manually.",
+            //     MB_OK | MB_ICONERROR,
+            // );
         },
     }
 
