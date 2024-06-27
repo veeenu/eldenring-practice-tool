@@ -14,7 +14,7 @@ use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_
 use tracing_subscriber::prelude::*;
 
 use crate::config::{Config, Indicator, Settings};
-use crate::install::Update;
+use crate::install::{Install, Update};
 use crate::util;
 
 const MAJOR: usize = pkg_version_major!();
@@ -49,6 +49,7 @@ pub(crate) struct PracticeTool {
     fonts: Option<FontIDs>,
     config_err: Option<String>,
     update_available: Update,
+    install_necessary: Install,
 
     position_bufs: [String; 4],
     igt_buf: String,
@@ -67,6 +68,12 @@ impl PracticeTool {
                     path
                 })
                 .ok_or_else(|| "Couldn't find config file".to_string())?;
+
+            if !config_path.exists() {
+                std::fs::write(&config_path, include_str!("../../jdsd_er_practice_tool.toml"))
+                    .map_err(|e| format!("Couldn't write default config file: {}", e))?;
+            }
+
             let config_content = std::fs::read_to_string(config_path)
                 .map_err(|e| format!("Couldn't read config file: {}", e))?;
             println!("{}", config_content);
@@ -151,7 +158,14 @@ impl PracticeTool {
             },
         );
 
-        let update_available = Update::check();
+        let update_available =
+            if config.settings.disable_update_prompt { Update::UpToDate } else { Update::check() };
+
+        let install_necessary = if config.settings.disable_install_prompt {
+            Install::Unnecessary
+        } else {
+            Install::check()
+        };
 
         let pointers = Pointers::new();
         let version_label = {
@@ -177,6 +191,7 @@ impl PracticeTool {
             position_bufs: Default::default(),
             igt_buf: Default::default(),
             update_available,
+            install_necessary,
         }
     }
 
@@ -214,10 +229,10 @@ impl PracticeTool {
                 }
 
                 if option_env!("CARGO_XTASK_DIST").is_none()
-                    && ui.button_with_size(
-                        "Eject",
-                        [BUTTON_WIDTH * scaling_factor(ui), BUTTON_HEIGHT],
-                    )
+                    && ui.button_with_size("Eject", [
+                        BUTTON_WIDTH * scaling_factor(ui),
+                        BUTTON_HEIGHT,
+                    ])
                 {
                     self.ui_state = UiState::Closed;
                     self.pointers.cursor_show.set(false);
@@ -259,6 +274,30 @@ impl PracticeTool {
                     ui.open_popup("##help_window");
                 }
 
+                match &self.install_necessary {
+                    Install::Unnecessary => {},
+                    Install::Necessary { .. } => {
+                        ui.same_line();
+
+                        let green = [0.1, 0.7, 0.1, 1.0];
+                        let _token = ui.push_style_color(StyleColor::Button, green);
+
+                        if ui.small_button("Install") {
+                            ui.open_popup("##install");
+                        }
+                    },
+                    Install::Error(_) => {
+                        ui.same_line();
+
+                        let red = [1.0, 0.0, 0.0, 1.0];
+                        let _token = ui.push_style_color(StyleColor::Button, red);
+
+                        if ui.small_button("Install") {
+                            ui.open_popup("##install");
+                        }
+                    },
+                }
+
                 match &self.update_available {
                     Update::UpToDate => {},
                     Update::Available { .. } => {
@@ -280,8 +319,6 @@ impl PracticeTool {
                         if ui.small_button("Update") {
                             ui.open_popup("##update");
                         }
-
-                        drop(_token);
                     },
                 }
 
@@ -331,6 +368,40 @@ impl PracticeTool {
                         }
                     });
 
+                ui.modal_popup_config("##install")
+                    .resizable(false)
+                    .movable(false)
+                    .title_bar(false)
+                    .build(|| {
+                        self.pointers.cursor_show.set(true);
+
+                        match &self.install_necessary {
+                            Install::Unnecessary => ui.text("Install successful."),
+                            Install::Necessary { .. } => {
+                                ui.text(
+                                    "Do you want to install the tool?\nThis will copy the tool's \
+                                     DLL file next to a file \nnamed `dinput8.dll` right next to \
+                                     `eldenring.exe`.\nIf you want to uninstall the tool, all you \
+                                     have to\ndo is remove that file.",
+                                );
+                                if ui.button("Install") {
+                                    self.install_necessary.install();
+                                }
+                                ui.same_line();
+                            },
+                            Install::Error(e) => {
+                                ui.text("Error while trying to determine installation status.");
+                                ui.separator();
+                                ui.text(e);
+                            },
+                        }
+
+                        if ui.button("Close") {
+                            ui.close_current_popup();
+                            self.pointers.cursor_show.set(false);
+                        }
+                    });
+
                 ui.modal_popup_config("##update")
                     .resizable(false)
                     .movable(false)
@@ -339,6 +410,9 @@ impl PracticeTool {
                         self.pointers.cursor_show.set(true);
 
                         match &self.update_available {
+                            Update::UpToDate => {
+                                ui.close_current_popup();
+                            },
                             Update::Available { url, notes } => {
                                 ui.text(notes);
                                 if ui.button("Download") {
@@ -346,7 +420,6 @@ impl PracticeTool {
                                 }
                                 ui.same_line();
                             },
-                            Update::UpToDate => todo!(),
                             Update::Error(e) => {
                                 ui.text("Update error: could not check for updates.");
                                 ui.separator();

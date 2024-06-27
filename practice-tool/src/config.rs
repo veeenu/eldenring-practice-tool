@@ -39,6 +39,10 @@ pub(crate) struct Settings {
     pub(crate) dxgi_debug: bool,
     #[serde(default)]
     pub(crate) show_console: bool,
+    #[serde(default)]
+    pub(crate) disable_install_prompt: bool,
+    #[serde(default)]
+    pub(crate) disable_update_prompt: bool,
     #[serde(default = "Indicator::default_set")]
     pub(crate) indicators: Vec<Indicator>,
 }
@@ -291,6 +295,8 @@ impl Default for Config {
                 dxgi_debug: false,
                 show_console: false,
                 indicators: Indicator::default_set(),
+                disable_install_prompt: false,
+                disable_update_prompt: false,
             },
             commands: Vec::new(),
         }
