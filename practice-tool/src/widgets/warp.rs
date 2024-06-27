@@ -457,42 +457,109 @@ const GRACES: &[(&str, u32)] = &[
     ("Wyndham Catacombs", 30072950),
     ("Yelough Anix Tunnel", 32112950),
     ("Zamor Ruins", 1049532950),
+    ("Belurat, Tower Settlement - Theatre of the Divine Beast", 72000),
+    ("Belurat, Tower Settlement - Belurat, Tower Settlement", 72001),
+    ("Belurat, Tower Settlement - Small Private Altar", 72002),
+    ("Belurat, Tower Settlement - Stagefront", 72003),
+    ("Enir-Ilim - Gate of Divinity", 72010),
+    ("Enir-Ilim - Enir-Ilim: Outer Wall", 72012),
+    ("Enir-Ilim - First Rise", 72013),
+    ("Enir-Ilim - Spiral Rise", 72014),
+    ("Enir-Ilim - Cleansing Chamber Anteroom", 72015),
+    ("Enir-Ilim - Divine Gate Front Staircase", 72016),
+    ("Shadow Keep - Main Gate Plaza", 72101),
+    ("Shadow Keep - Shadow Keep Main Gate", 72102),
+    ("Shadow Keep, Church District - Church District Entrance", 72106),
+    ("Shadow Keep, Church District - Sunken Chapel", 72107),
+    ("Shadow Keep, Church District - Tree,Worship Passage", 72108),
+    ("Shadow Keep, Church District - Tree,Worship Sanctum", 72109),
+    ("Specimen Storehouse - Messmer's Dark Chamber", 72110),
+    ("Specimen Storehouse - Storehouse, First Floor", 72111),
+    ("Specimen Storehouse - Storehouse, Fourth Floor", 72112),
+    ("Specimen Storehouse - Storehouse, Seventh Floor", 72113),
+    ("Specimen Storehouse - Dark Chamber Entrance", 72114),
+    ("Specimen Storehouse - Storehouse, Back Section", 72116),
+    ("Specimen Storehouse - Storehouse, Loft", 72117),
+    ("Specimen Storehouse - West Rampart", 72120),
+    ("Stone Coffin Fissure - Garden of Deep Purple", 72200),
+    ("Stone Coffin Fissure - Stone Coffin Fissure", 72201),
+    ("Stone Coffin Fissure - Fissure Cross", 72202),
+    ("Stone Coffin Fissure - Fissure Waypoint", 72203),
+    ("Stone Coffin Fissure - Fissure Depths", 72204),
+    ("Scadu Altus - Finger Birthing Grounds", 72500),
+    ("Midra's Manse - Discussion Chamber", 72800),
+    ("Midra's Manse - Manse Hall", 72801),
+    ("Midra's Manse - Midra's Library", 72802),
+    ("Midra's Manse - Second Floor Chamber", 72803),
+    ("Gravesite Plain - Fog Rift Catacombs", 74000),
+    ("Gravesite Plain - Ruined Forge Lava Intake", 74200),
+    ("Gravesite Plain - Rivermouth Cave", 74300),
+    ("Gravesite Plain - Dragon's Pit", 74301),
+    ("Gravesite Plain - Dragon's Pit Terminus", 74351),
+    ("Gravesite Plain - Cliffroad Terminus", 76804),
+    ("Gravesite Plain - Main Gate Cross", 76803),
+    ("Gravesite Plain - Gravesite Plain", 76800),
+    ("Gravesite Plain - Three,Path Cross", 76802),
+    ("Gravesite Plain - Greatbridge, North", 76805),
+    ("Gravesite Plain - Scorched Ruins", 76801),
+    ("Gravesite Plain - Ellac River Cave", 76812),
+    ("Gravesite Plain - Castle Front", 76813),
+    ("Gravesite Plain - Pillar Path Waypoint", 76811),
+    ("Gravesite Plain - Pillar Path Cross", 76810),
+    ("Gravesite Plain - Belurat Gaol", 74100),
+    ("Gravesite Plain - Ellac River Downstream", 76830),
+    ("Charo's Hidden Grave - Charo's Hidden Grave", 76841),
+    ("Charo's Hidden Grave - Lamenter's Gaol", 74102),
+    ("Castle Ensis - Castle Ensis Checkpoint", 76821),
+    ("Castle Ensis - Ensis Moongazing Grounds", 76823),
+    ("Castle Ensis - Castle,Lord's Chamber", 76822),
+    ("Cerulean Coast - Cerulean Coast West", 76832),
+    ("Cerulean Coast - The Fissure", 76833),
+    ("Cerulean Coast - Cerulean Coast Cross", 76835),
+    ("Cerulean Coast - Cerulean Coast", 76831),
+    ("Cerulean Coast - Finger Ruins of Rhia", 76834),
+    ("Foot of the Jagged Peak - Grand Altar of Dragon Communion", 76840),
+    ("Abyssal Woods - Divided Falls", 76861),
+    ("Abyssal Woods - Abyssal Woods", 76860),
+    ("Abyssal Woods - Forsaken Graveyard", 76862),
+    ("Abyssal Woods - Church Ruins", 76864),
+    ("Abyssal Woods - Woodland Trail", 76863),
+    ("Foot of the Jagged Peak - Foot of the Jagged Peak", 76850),
+    ("Jagged Peak - Jagged Peak Mountainside", 76851),
+    ("Jagged Peak - Jagged Peak Summit", 76852),
+    ("Jagged Peak - Rest of the Dread Dragon", 76853),
+    ("Ancient Ruins of Rauh - Ancient Ruins, Grand Stairway", 76944),
+    ("Ancient Ruins of Rauh - Church of the Bud", 76945),
+    ("Ancient Ruins of Rauh - Church of the Bud, Main Entrance", 76943),
+    ("Ancient Ruins of Rauh - Rauh Ancient Ruins, West", 76942),
+    ("Ancient Ruins of Rauh - Rauh Ancient Ruins, East", 76941),
+    ("Ancient Ruins of Rauh - Viaduct Minor Tower", 76940),
+    ("Rauh Base - Temple Town Ruins", 76913),
+    ("Rauh Base - Ravine North", 76914),
+    ("Rauh Base - Scorpion River Catacombs", 74001),
+    ("Rauh Base - Taylew's Ruined Forge", 74203),
+    ("Rauh Base - Ancient Ruins Base", 76912),
+    ("Scadu Altus - Darklight Catacombs", 74002),
+    ("Scadu Altus - Bonny Gaol", 74101),
+    ("Scadu Altus - Highroad Cross", 76900),
+    ("Scadu Altus - Scadu Altus, West", 76907),
+    ("Scadu Altus - Moorth Highway, South", 76908),
+    ("Scadu Altus - Fort of Reprimand", 76909),
+    ("Scadu Altus - Behind the Fort of Reprimand", 76910),
+    ("Scadu Altus - Moorth Ruins", 76902),
+    ("Scadu Altus - Bonny Village", 76903),
+    ("Scadu Altus - Castle Watering Hole", 76916),
+    ("Scadu Altus - Ruined Forge of Starfall Past", 74202),
+    ("Scadu Altus - Scaduview Cross", 76911),
+    ("Scadu Altus - Recluses' River Downstream", 76918),
+    ("Scadu Altus - Recluses' River Upstream", 76917),
+    ("Scadu Altus - Bridge Leading to the Village", 76904),
+    ("Scadu Altus - Cathedral of Manus Metyr", 76906),
+    ("Scadu Altus - Church District Highroad", 76905),
+    ("Scaduview - Scaduview", 76930),
+    ("Scaduview - Shadow Keep, Back Gate", 76931),
+    ("Scaduview - Fingerstone Hill", 76936),
+    ("Scaduview - Hinterland Bridge", 76937),
+    ("Scaduview - Hinterland", 76935),
+    ("Scaduview - Scadutree Base", 76960),
 ];
-
-// type PackCoordsFunc = extern "system" fn(u32, u32, u32, u32);
-// type WarpFunc = extern "system" fn(u32, u32);
-//
-// #[derive(Debug)]
-// pub(crate) struct Warp {
-//     label: String,
-//     pack_coords_func_ptr: usize,
-//     warp_func_ptr: usize,
-//     hotkey: KeyState,
-// }
-//
-// impl Warp {
-//     pub(crate) fn new(pack_coords_func_ptr: usize, warp_func_ptr: usize,
-// hotkey: KeyState) -> Self {         Warp { label: format!("Warp"),
-// pack_coords_func_ptr, warp_func_ptr, hotkey }     }
-//
-//     fn warp(&self) {
-//         let pack_coords: WarpFunc = unsafe {
-// mem::transmute(self.pack_coords_func_ptr) };         let warp: WarpFunc =
-// unsafe { mem::transmute(self.warp_func_ptr) };     }
-// }
-//
-// impl Widget for Warp {
-//     fn render(&mut self, ui: &imgui::Ui) {
-//         let scale = super::scaling_factor(ui);
-//
-//         if ui.button_with_size(&self.label, [super::BUTTON_WIDTH * scale,
-// super::BUTTON_HEIGHT]) {             self.warp();
-//         }
-//     }
-//
-//     fn interact(&mut self, ui: &imgui::Ui) {
-//         if self.hotkey.keyup(ui) {
-//             self.warp();
-//         }
-//     }
-// }
