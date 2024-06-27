@@ -3640,8 +3640,8 @@
     "Well-Pickled Turtle Neck": 0x401E8912
     "Scorpion Stew": 0x401E8930
     "Gourmet Scorpion Stew": 0x401E8931
-    "Scorpion Stew": 0x401E8932
-    "Gourmet Scorpion Stew": 0x401E8933
+    "Scorpion Stew (dup1)": 0x401E8932
+    "Gourmet Scorpion Stew (dup1)": 0x401E8933
     "Sacred Bloody Flesh": 0x401E893A
     "Silver Horn Tender": 0x401E8944
     "Golden Horn Tender": 0x401E894E
@@ -3772,7 +3772,7 @@
     "Message from Leda": 0x401EA3E2
     "Prayer Room Key": 0x401EA3E4
     "Tower of Shadow Message": 0x401EA3E5
-    "Note: Sealed Spiritsprings": 0x401EA443
+    "Note: Sealed Spiritsprings (dup1)": 0x401EA443
     "Incursion Painting": 0x401EA488
     "The Sacred Tower Painting": 0x401EA489
     "Domain of Dragons Painting": 0x401EA48A

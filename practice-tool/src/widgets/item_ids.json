@@ -12751,5 +12751,2421 @@
         "value": 2147568648
       }
     ]
+  },
+  {
+    "node": "DLC Weapons",
+    "children": [
+      {
+        "node": "Main-gauche",
+        "value": 1500000
+      },
+      {
+        "node": "Fire Knight's Shortsword",
+        "value": 1510000
+      },
+      {
+        "node": "Velvet Sword of St. Trina",
+        "value": 2510000
+      },
+      {
+        "node": "Star-Lined Sword",
+        "value": 2520000
+      },
+      {
+        "node": "Carian Sorcery Sword",
+        "value": 2530000
+      },
+      {
+        "node": "Stone-Sheathed Sword",
+        "value": 2540000
+      },
+      {
+        "node": "Sword of Light",
+        "value": 2550000
+      },
+      {
+        "node": "Sword of Darkness",
+        "value": 2560000
+      },
+      {
+        "node": "Sword Lance",
+        "value": 3500000
+      },
+      {
+        "node": "Greatsword of Damnation",
+        "value": 3510000
+      },
+      {
+        "node": "Lizard Greatsword",
+        "value": 3520000
+      },
+      {
+        "node": "Greatsword of Solitude",
+        "value": 3550000
+      },
+      {
+        "node": "Ancient Meteoric Ore Greatsword",
+        "value": 4500000
+      },
+      {
+        "node": "Fire Knight's Greatsword",
+        "value": 4520000
+      },
+      {
+        "node": "Greatsword of Radahn (Lord)",
+        "value": 4530000
+      },
+      {
+        "node": "Moonrithyll's Knight Sword",
+        "value": 4540000
+      },
+      {
+        "node": "Greatsword of Radahn (Light)",
+        "value": 4550000
+      },
+      {
+        "node": "Queelign's Greatsword",
+        "value": 6500000
+      },
+      {
+        "node": "Spirit Sword",
+        "value": 7500000
+      },
+      {
+        "node": "Falx",
+        "value": 7510000
+      },
+      {
+        "node": "Dancing Blade of Ranah",
+        "value": 7520000
+      },
+      {
+        "node": "Horned Warrior's Sword",
+        "value": 7530000
+      },
+      {
+        "node": "Putrescence Cleaver",
+        "value": 8500000
+      },
+      {
+        "node": "Freyja's Greatsword",
+        "value": 8510000
+      },
+      {
+        "node": "Horned Warrior's Greatsword",
+        "value": 8520000
+      },
+      {
+        "node": "Sword of Night",
+        "value": 9500000
+      },
+      {
+        "node": "Euporia",
+        "value": 10500000
+      },
+      {
+        "node": "Black Steel Twinblade",
+        "value": 10510000
+      },
+      {
+        "node": "Flowerstone Gavel",
+        "value": 11500000
+      },
+      {
+        "node": "Smithscript Greathammer",
+        "value": 12500000
+      },
+      {
+        "node": "Anvil Hammer",
+        "value": 12510000
+      },
+      {
+        "node": "Black Steel Greathammer",
+        "value": 12520000
+      },
+      {
+        "node": "Bloodfiend's Arm",
+        "value": 12530000
+      },
+      {
+        "node": "Serpent Flail",
+        "value": 13500000
+      },
+      {
+        "node": "Smithscript Axe",
+        "value": 14500000
+      },
+      {
+        "node": "Death Knight's Twin Axes",
+        "value": 14510000
+      },
+      {
+        "node": "Messmer Soldier's Axe",
+        "value": 14520000
+      },
+      {
+        "node": "Forked-Tongue Hatchet",
+        "value": 14540000
+      },
+      {
+        "node": "Death Knight's Longhaft Axe",
+        "value": 15500000
+      },
+      {
+        "node": "Bonny Butchering Knife",
+        "value": 15510000
+      },
+      {
+        "node": "Smithscript Spear",
+        "value": 16500000
+      },
+      {
+        "node": "Swift Spear",
+        "value": 16520000
+      },
+      {
+        "node": "Bloodfiend's Fork",
+        "value": 16540000
+      },
+      {
+        "node": "Spear of the Impaler",
+        "value": 17500000
+      },
+      {
+        "node": "Bloodfiend's Sacred Spear",
+        "value": 16550000
+      },
+      {
+        "node": "Messmer Soldier's Spear",
+        "value": 17510000
+      },
+      {
+        "node": "Barbed Staff-Spear",
+        "value": 17520000
+      },
+      {
+        "node": "Spirit Glaive",
+        "value": 18500000
+      },
+      {
+        "node": "Poleblade of the Bud",
+        "value": 18510000
+      },
+      {
+        "node": "Obsidian Lamina",
+        "value": 19500000
+      },
+      {
+        "node": "Tooth Whip",
+        "value": 20500000
+      },
+      {
+        "node": "Thiollier's Hidden Needle",
+        "value": 21500000
+      },
+      {
+        "node": "Pata",
+        "value": 21510000
+      },
+      {
+        "node": "Poisoned Hand",
+        "value": 21520000
+      },
+      {
+        "node": "Madding Hand",
+        "value": 21530000
+      },
+      {
+        "node": "Golem Fist",
+        "value": 21540000
+      },
+      {
+        "node": "Shield of Night",
+        "value": 21550000
+      },
+      {
+        "node": "Claws of Night",
+        "value": 22500000
+      },
+      {
+        "node": "Devonia's Hammer",
+        "value": 23500000
+      },
+      {
+        "node": "Shadow Sunflower Blossom",
+        "value": 23510000
+      },
+      {
+        "node": "Gazing Finger",
+        "value": 23520000
+      },
+      {
+        "node": "Nanaya's Torch",
+        "value": 24500000
+      },
+      {
+        "node": "Lamenting Visage",
+        "value": 24510000
+      },
+      {
+        "node": "Smithscript Shield",
+        "value": 30510000
+      },
+      {
+        "node": "Messmer Soldier Shield",
+        "value": 31500000
+      },
+      {
+        "node": "Wolf Crest Shield",
+        "value": 31510000
+      },
+      {
+        "node": "Serpent Crest Shield",
+        "value": 31520000
+      },
+      {
+        "node": "Golden Lion Shield",
+        "value": 31530000
+      },
+      {
+        "node": "Black Steel Greatshield",
+        "value": 32500000
+      },
+      {
+        "node": "Verdigris Greatshield",
+        "value": 32520000
+      },
+      {
+        "node": "Staff of the Great Beyond",
+        "value": 33510000
+      },
+      {
+        "node": "Maternal Staff",
+        "value": 33520000
+      },
+      {
+        "node": "Dryleaf Seal",
+        "value": 34500000
+      },
+      {
+        "node": "Fire Knight's Seal",
+        "value": 34510000
+      },
+      {
+        "node": "Spiraltree Seal",
+        "value": 34520000
+      },
+      {
+        "node": "Bone Bow",
+        "value": 40500000
+      },
+      {
+        "node": "Ansbach's Longbow",
+        "value": 41510000
+      },
+      {
+        "node": "Igon's Greatbow",
+        "value": 42500000
+      },
+      {
+        "node": "Repeating Crossbow",
+        "value": 43500000
+      },
+      {
+        "node": "Spread Crossbow",
+        "value": 43510000
+      },
+      {
+        "node": "Rabbath's Cannon",
+        "value": 44500000
+      },
+      {
+        "node": "Piquebone Arrow (Fletched)",
+        "value": 50540000
+      },
+      {
+        "node": "Piquebone Arrow",
+        "value": 50550000
+      },
+      {
+        "node": "Igon's Harpoon",
+        "value": 51500000
+      },
+      {
+        "node": "Piquebone Bolt",
+        "value": 52520000
+      },
+      {
+        "node": "Rabbath's Greatbolt",
+        "value": 53500000
+      },
+      {
+        "node": "Dryleaf Arts",
+        "value": 60500000
+      },
+      {
+        "node": "Dane's Footwork",
+        "value": 60510000
+      },
+      {
+        "node": "Firespark Perfume Bottle",
+        "value": 61500000
+      },
+      {
+        "node": "Chilling Perfume Bottle",
+        "value": 61510000
+      },
+      {
+        "node": "Frenzyflame Perfume Bottle",
+        "value": 61520000
+      },
+      {
+        "node": "Lightning Perfume Bottle",
+        "value": 61530000
+      },
+      {
+        "node": "Deadly Poison Perfume Bottle",
+        "value": 61540000
+      },
+      {
+        "node": "Dueling Shield",
+        "value": 62500000
+      },
+      {
+        "node": "Carian Thrusting Shield",
+        "value": 62510000
+      },
+      {
+        "node": "Smithscript Dagger",
+        "value": 63500000
+      },
+      {
+        "node": "Backhand Blade",
+        "value": 64500000
+      },
+      {
+        "node": "Smithscript Cirque",
+        "value": 64510000
+      },
+      {
+        "node": "Curseblade's Cirque",
+        "value": 64520000
+      },
+      {
+        "node": "Great Katana",
+        "value": 66500000
+      },
+      {
+        "node": "Dragon-Hunter's Great Katana",
+        "value": 66510000
+      },
+      {
+        "node": "Rakshasa's Great Katana",
+        "value": 66520000
+      },
+      {
+        "node": "Milady",
+        "value": 67500000
+      },
+      {
+        "node": "Leda's Sword",
+        "value": 67510000
+      },
+      {
+        "node": "Rellana's Twin Blades",
+        "value": 67520000
+      },
+      {
+        "node": "Beast Claw",
+        "value": 68500000
+      }
+    ]
+  },
+  {
+    "node": "DLC Armor",
+    "children": [
+      {
+        "node": "Dane's Hat",
+        "value": 271435456
+      },
+      {
+        "node": "Dryleaf Robe",
+        "value": 271435556
+      },
+      {
+        "node": "Dryleaf Arm Wraps",
+        "value": 271435656
+      },
+      {
+        "node": "Dryleaf Cuissardes",
+        "value": 271435756
+      },
+      {
+        "node": "Dryleaf Robe (Altered)",
+        "value": 271436556
+      },
+      {
+        "node": "Gaius's Helm",
+        "value": 271445456
+      },
+      {
+        "node": "Gaius's Armor",
+        "value": 271445556
+      },
+      {
+        "node": "Gaius's Gauntlets",
+        "value": 271445656
+      },
+      {
+        "node": "Gaius's Greaves",
+        "value": 271445756
+      },
+      {
+        "node": "Oathseeker Knight Helm",
+        "value": 273435456
+      },
+      {
+        "node": "Leda's Armor",
+        "value": 273435556
+      },
+      {
+        "node": "Oathseeker Knight Gauntlets",
+        "value": 273435656
+      },
+      {
+        "node": "Oathseeker Knight Greaves",
+        "value": 273435756
+      },
+      {
+        "node": "Oathseeker Knight Armor",
+        "value": 273437556
+      },
+      {
+        "node": "Verdigris Helm",
+        "value": 273445456
+      },
+      {
+        "node": "Verdigris Armor",
+        "value": 273445556
+      },
+      {
+        "node": "Verdigris Gauntlets",
+        "value": 273445656
+      },
+      {
+        "node": "Verdigris Greaves",
+        "value": 273445756
+      },
+      {
+        "node": "Pelt of Ralva",
+        "value": 273455456
+      },
+      {
+        "node": "Iron Rivet Armor",
+        "value": 273455556
+      },
+      {
+        "node": "Iron Rivet Gauntlets",
+        "value": 273455656
+      },
+      {
+        "node": "Iron Rivet Greaves",
+        "value": 273455756
+      },
+      {
+        "node": "Fang Helm",
+        "value": 273456456
+      },
+      {
+        "node": "Thiollier's Mask",
+        "value": 273465456
+      },
+      {
+        "node": "Thiollier's Garb",
+        "value": 273465556
+      },
+      {
+        "node": "Thiollier's Gloves",
+        "value": 273465656
+      },
+      {
+        "node": "Thiollier's Trousers",
+        "value": 273465756
+      },
+      {
+        "node": "Thiollier's Garb (Altered)",
+        "value": 273466556
+      },
+      {
+        "node": "High Priest Hat",
+        "value": 273495456
+      },
+      {
+        "node": "High Priest Robe",
+        "value": 273495556
+      },
+      {
+        "node": "High Priest Gloves",
+        "value": 273495656
+      },
+      {
+        "node": "High Priest Undergarments",
+        "value": 273495756
+      },
+      {
+        "node": "Finger Robe",
+        "value": 273497556
+      },
+      {
+        "node": "Caterpillar Mask",
+        "value": 273505456
+      },
+      {
+        "node": "Braided Cord Robe",
+        "value": 273505556
+      },
+      {
+        "node": "Braided Arm Wraps",
+        "value": 273505656
+      },
+      {
+        "node": "Soiled Loincloth",
+        "value": 273505756
+      },
+      {
+        "node": "Dancer's Hood",
+        "value": 273515456
+      },
+      {
+        "node": "Dancer's Dress",
+        "value": 273515556
+      },
+      {
+        "node": "Dancer's Bracer",
+        "value": 273515656
+      },
+      {
+        "node": "Dancer's Trousers",
+        "value": 273515756
+      },
+      {
+        "node": "Dancer's Dress (Altered)",
+        "value": 273516556
+      },
+      {
+        "node": "Helm of Night",
+        "value": 273525456
+      },
+      {
+        "node": "Armor of Night",
+        "value": 273525556
+      },
+      {
+        "node": "Gauntlets of Night",
+        "value": 273525656
+      },
+      {
+        "node": "Greaves of Night",
+        "value": 273525756
+      },
+      {
+        "node": "Igon's Helm",
+        "value": 273535456
+      },
+      {
+        "node": "Igon's Armor",
+        "value": 273535556
+      },
+      {
+        "node": "Igon's Gauntlets",
+        "value": 273535656
+      },
+      {
+        "node": "Igon's Loincloth",
+        "value": 273535756
+      },
+      {
+        "node": "Igon's Helm (Altered)",
+        "value": 273536456
+      },
+      {
+        "node": "Igon's Armor (Altered)",
+        "value": 273536556
+      },
+      {
+        "node": "Wise Man's Mask",
+        "value": 273545456
+      },
+      {
+        "node": "Ansbach's Attire",
+        "value": 273545556
+      },
+      {
+        "node": "Ansbach's Manchettes",
+        "value": 273545656
+      },
+      {
+        "node": "Ansbach's Boots",
+        "value": 273545756
+      },
+      {
+        "node": "Ansbach's Attire (Altered)",
+        "value": 273546556
+      },
+      {
+        "node": "Freyja's Helm",
+        "value": 273555456
+      },
+      {
+        "node": "Freyja's Armor",
+        "value": 273555556
+      },
+      {
+        "node": "Freyja's Gauntlets",
+        "value": 273555656
+      },
+      {
+        "node": "Freyja's Greaves",
+        "value": 273555756
+      },
+      {
+        "node": "Freyja's Armor (Altered)",
+        "value": 273556556
+      },
+      {
+        "node": "Helm of Solitude",
+        "value": 273565456
+      },
+      {
+        "node": "Armor of Solitude",
+        "value": 273565556
+      },
+      {
+        "node": "Gauntlets of Solitude",
+        "value": 273565656
+      },
+      {
+        "node": "Greaves of Solitude",
+        "value": 273565756
+      },
+      {
+        "node": "Armor of Solitude (Altered)",
+        "value": 273566556
+      },
+      {
+        "node": "Messmer Soldier Helm",
+        "value": 273575456
+      },
+      {
+        "node": "Messmer Soldier Armor",
+        "value": 273575556
+      },
+      {
+        "node": "Messmer Soldier Gauntlets",
+        "value": 273575656
+      },
+      {
+        "node": "Messmer Soldier Greaves",
+        "value": 273575756
+      },
+      {
+        "node": "Messmer Soldier Armor (Altered)",
+        "value": 273576556
+      },
+      {
+        "node": "Black Knight Helm",
+        "value": 273585456
+      },
+      {
+        "node": "Black Knight Armor",
+        "value": 273585556
+      },
+      {
+        "node": "Black Knight Gauntlets",
+        "value": 273585656
+      },
+      {
+        "node": "Black Knight Greaves",
+        "value": 273585756
+      },
+      {
+        "node": "Rakshasa Helm",
+        "value": 273595456
+      },
+      {
+        "node": "Rakshasa Armor",
+        "value": 273595556
+      },
+      {
+        "node": "Rakshasa Gauntlets",
+        "value": 273595656
+      },
+      {
+        "node": "Rakshasa Greaves",
+        "value": 273595756
+      },
+      {
+        "node": "Fire Knight Helm",
+        "value": 273615456
+      },
+      {
+        "node": "Fire Knight Armor",
+        "value": 273615556
+      },
+      {
+        "node": "Fire Knight Gauntlets",
+        "value": 273615656
+      },
+      {
+        "node": "Fire Knight Greaves",
+        "value": 273615756
+      },
+      {
+        "node": "Fire Knight Armor (Altered)",
+        "value": 273616556
+      },
+      {
+        "node": "Death Mask Helm",
+        "value": 273617456
+      },
+      {
+        "node": "Winged Serpent Helm",
+        "value": 273618456
+      },
+      {
+        "node": "Salza's Hood",
+        "value": 273619456
+      },
+      {
+        "node": "Leather Headband",
+        "value": 273625456
+      },
+      {
+        "node": "Gloried Attire",
+        "value": 273625556
+      },
+      {
+        "node": "Leather Arm Wraps",
+        "value": 273625656
+      },
+      {
+        "node": "Leather Leg Wraps",
+        "value": 273625756
+      },
+      {
+        "node": "Leather Crown",
+        "value": 273626456
+      },
+      {
+        "node": "Highland Attire",
+        "value": 273626556
+      },
+      {
+        "node": "Death Knight Helm",
+        "value": 273635456
+      },
+      {
+        "node": "Death Knight Armor",
+        "value": 273635556
+      },
+      {
+        "node": "Death Knight Gauntlets",
+        "value": 273635656
+      },
+      {
+        "node": "Death Knight Greaves",
+        "value": 273635756
+      },
+      {
+        "node": "Curseblade Mask",
+        "value": 273645456
+      },
+      {
+        "node": "Ascetic's Loincloth",
+        "value": 273645556
+      },
+      {
+        "node": "Ascetic's Wrist Guards",
+        "value": 273645656
+      },
+      {
+        "node": "Ascetic's Ankle Guards",
+        "value": 273645756
+      },
+      {
+        "node": "Messmer's Helm",
+        "value": 273655456
+      },
+      {
+        "node": "Messmer's Armor",
+        "value": 273655556
+      },
+      {
+        "node": "Messmer's Gauntlets",
+        "value": 273655656
+      },
+      {
+        "node": "Messmer's Greaves",
+        "value": 273655756
+      },
+      {
+        "node": "Messmer's Helm (Altered)",
+        "value": 273656456
+      },
+      {
+        "node": "Gravebird Helm",
+        "value": 273665456
+      },
+      {
+        "node": "Gravebird's Blackquill Armor",
+        "value": 273665556
+      },
+      {
+        "node": "Gravebird Bracelets",
+        "value": 273665656
+      },
+      {
+        "node": "Gravebird Anklets",
+        "value": 273665756
+      },
+      {
+        "node": "Gravebird Armor",
+        "value": 273666556
+      },
+      {
+        "node": "Common Soldier Helm",
+        "value": 273675456
+      },
+      {
+        "node": "Common Soldier Cloth Armor",
+        "value": 273675556
+      },
+      {
+        "node": "Common Soldier Gauntlets",
+        "value": 273675656
+      },
+      {
+        "node": "Common Soldier Greaves",
+        "value": 273675756
+      },
+      {
+        "node": "Horned Warrior Helm",
+        "value": 273685456
+      },
+      {
+        "node": "Horned Warrior Armor",
+        "value": 273685556
+      },
+      {
+        "node": "Horned Warrior Gauntlets",
+        "value": 273685656
+      },
+      {
+        "node": "Horned Warrior Greaves",
+        "value": 273685756
+      },
+      {
+        "node": "Divine Beast Helm",
+        "value": 273687456
+      },
+      {
+        "node": "Divine Beast Warrior Armor",
+        "value": 273687556
+      },
+      {
+        "node": "Divine Bird Helm",
+        "value": 273688456
+      },
+      {
+        "node": "Divine Bird Warrior Armor",
+        "value": 273688556
+      },
+      {
+        "node": "Divine Bird Warrior Gauntlets",
+        "value": 273688656
+      },
+      {
+        "node": "Divine Bird Warrior Greaves",
+        "value": 273688756
+      },
+      {
+        "node": "Rellana's Helm",
+        "value": 273695456
+      },
+      {
+        "node": "Rellana's Armor",
+        "value": 273695556
+      },
+      {
+        "node": "Rellana's Gloves",
+        "value": 273695656
+      },
+      {
+        "node": "Rellana's Greaves",
+        "value": 273695756
+      },
+      {
+        "node": "Young Lion's Helm",
+        "value": 273705456
+      },
+      {
+        "node": "Young Lion's Armor",
+        "value": 273705556
+      },
+      {
+        "node": "Young Lion's Gauntlets",
+        "value": 273705656
+      },
+      {
+        "node": "Young Lion's Greaves",
+        "value": 273705756
+      },
+      {
+        "node": "Young Lion's Armor (Altered)",
+        "value": 273706556
+      },
+      {
+        "node": "Circlet of Light",
+        "value": 273707456
+      },
+      {
+        "node": "Shadow Militiaman Helm",
+        "value": 273715456
+      },
+      {
+        "node": "Shadow Militiaman Armor",
+        "value": 273715556
+      },
+      {
+        "node": "Shadow Militiaman Gauntlets",
+        "value": 273715656
+      },
+      {
+        "node": "Shadow Militiaman Greaves",
+        "value": 273715756
+      },
+      {
+        "node": "Divine Beast Head",
+        "value": 273725456
+      },
+      {
+        "node": "St. Trina's Blossom",
+        "value": 273735456
+      },
+      {
+        "node": "Crucible Hammer-Helm",
+        "value": 273745456
+      },
+      {
+        "node": "Greatjar",
+        "value": 273755456
+      },
+      {
+        "node": "Imp Head (Lion)",
+        "value": 273765456
+      }
+    ]
+  },
+  {
+    "node": "DLC Accessory",
+    "children": [
+      {
+        "node": "Perfumer's Talisman",
+        "value": 536873132
+      },
+      {
+        "node": "Crimson Amber Medallion +3",
+        "value": 536877912
+      },
+      {
+        "node": "Cerulean Amber Medallion +3",
+        "value": 536877922
+      },
+      {
+        "node": "Viridian Amber Medallion +3",
+        "value": 536877932
+      },
+      {
+        "node": "Two-Headed Turtle Talisman",
+        "value": 536877942
+      },
+      {
+        "node": "Stalwart Horn Charm +2",
+        "value": 536877952
+      },
+      {
+        "node": "Immunizing Horn Charm +2",
+        "value": 536877962
+      },
+      {
+        "node": "Clarifying Horn Charm +2",
+        "value": 536877972
+      },
+      {
+        "node": "Mottled Necklace +2",
+        "value": 536877992
+      },
+      {
+        "node": "Spelldrake Talisman +3",
+        "value": 536878002
+      },
+      {
+        "node": "Flamedrake Talisman +3",
+        "value": 536878012
+      },
+      {
+        "node": "Boltdrake Talisman +3",
+        "value": 536878022
+      },
+      {
+        "node": "Golden Braid",
+        "value": 536878032
+      },
+      {
+        "node": "Pearldrake Talisman +3",
+        "value": 536878042
+      },
+      {
+        "node": "Crimson Seed Talisman +1",
+        "value": 536878052
+      },
+      {
+        "node": "Cerulean Seed Talisman +1",
+        "value": 536878062
+      },
+      {
+        "node": "Blessed Blue Dew Talisman",
+        "value": 536878912
+      },
+      {
+        "node": "Fine Crucible Feather Talisman",
+        "value": 536878922
+      },
+      {
+        "node": "Outer God Heirloom",
+        "value": 536878932
+      },
+      {
+        "node": "Shattered Stone Talisman",
+        "value": 536878942
+      },
+      {
+        "node": "Two-Handed Sword Talisman",
+        "value": 536878952
+      },
+      {
+        "node": "Crusade Insignia",
+        "value": 536878962
+      },
+      {
+        "node": "Aged One's Exultation",
+        "value": 536878972
+      },
+      {
+        "node": "Arrow's Soaring Sting Talisman",
+        "value": 536878982
+      },
+      {
+        "node": "Pearl Shield Talisman",
+        "value": 536879002
+      },
+      {
+        "node": "Dried Bouquet",
+        "value": 536879012
+      },
+      {
+        "node": "Smithing Talisman",
+        "value": 536879022
+      },
+      {
+        "node": "Ailment Talisman",
+        "value": 536879032
+      },
+      {
+        "node": "Retaliatory Crossed-Tree",
+        "value": 536879042
+      },
+      {
+        "node": "Lacerating Crossed-Tree",
+        "value": 536879052
+      },
+      {
+        "node": "Sharpshot Talisman",
+        "value": 536879062
+      },
+      {
+        "node": "St. Trina's Smile",
+        "value": 536879072
+      },
+      {
+        "node": "Talisman of the Dread",
+        "value": 536879082
+      },
+      {
+        "node": "Enraged Divine Beast",
+        "value": 536879092
+      },
+      {
+        "node": "Beloved Stardust",
+        "value": 536879102
+      },
+      {
+        "node": "Talisman of Lord's Bestowal",
+        "value": 536879112
+      },
+      {
+        "node": "Verdigris Discus",
+        "value": 536879122
+      },
+      {
+        "node": "Rellana's Cameo",
+        "value": 536879132
+      },
+      {
+        "node": "Blade of Mercy",
+        "value": 536879142
+      },
+      {
+        "node": "Talisman of All Crucibles",
+        "value": 536879152
+      }
+    ]
+  },
+  {
+    "node": "DLC Goods",
+    "children": [
+      {
+        "node": "Hefty Fire Pot",
+        "value": 1075742124
+      },
+      {
+        "node": "Hefty Rock Pot",
+        "value": 1075742134
+      },
+      {
+        "node": "Hefty Lightning Pot",
+        "value": 1075742144
+      },
+      {
+        "node": "Hefty Fetid Pot",
+        "value": 1075742154
+      },
+      {
+        "node": "Hefty Fly Pot",
+        "value": 1075742164
+      },
+      {
+        "node": "Hefty Freezing Pot",
+        "value": 1075742184
+      },
+      {
+        "node": "Hefty Poison Pot",
+        "value": 1075742194
+      },
+      {
+        "node": "Hefty Oil Pot",
+        "value": 1075742204
+      },
+      {
+        "node": "Hefty Volcano Pot",
+        "value": 1075742424
+      },
+      {
+        "node": "Hefty Frenzied Flame Pot",
+        "value": 1075742444
+      },
+      {
+        "node": "Hefty Rancor Pot",
+        "value": 1075742474
+      },
+      {
+        "node": "Hefty Magic Pot",
+        "value": 1075742484
+      },
+      {
+        "node": "Hefty Rot Pot",
+        "value": 1075742494
+      },
+      {
+        "node": "Hefty Furnace Pot",
+        "value": 1075742504
+      },
+      {
+        "node": "Hefty Red Lightning Pot",
+        "value": 1075742514
+      },
+      {
+        "node": "Red Lightning Pot",
+        "value": 1075742524
+      },
+      {
+        "node": "Frenzied Flame Pot",
+        "value": 1075742534
+      },
+      {
+        "node": "Eternal Sleep Pot",
+        "value": 1075742564
+      },
+      {
+        "node": "Roped Frenzied Flame Pot",
+        "value": 1075742584
+      },
+      {
+        "node": "Spirit Raisin",
+        "value": 1075742624
+      },
+      {
+        "node": "Blessing of Marika",
+        "value": 1075742724
+      },
+      {
+        "node": "Lulling Branch",
+        "value": 1075742734
+      },
+      {
+        "node": "Dragon Communion Flesh",
+        "value": 1075742924
+      },
+      {
+        "node": "Dragonscale Flesh",
+        "value": 1075742929
+      },
+      {
+        "node": "Fingerprint Nostrum",
+        "value": 1075742934
+      },
+      {
+        "node": "Spellproof Pickled Liver",
+        "value": 1075742944
+      },
+      {
+        "node": "Fireproof Pickled Liver",
+        "value": 1075742954
+      },
+      {
+        "node": "Lightningproof Pickled Liver",
+        "value": 1075742964
+      },
+      {
+        "node": "Holyproof Pickled Liver",
+        "value": 1075742974
+      },
+      {
+        "node": "Opaline Pickled Liver",
+        "value": 1075742984
+      },
+      {
+        "node": "Well-Pickled Turtle Neck",
+        "value": 1075742994
+      },
+      {
+        "node": "Scorpion Stew",
+        "value": 1075743024
+      },
+      {
+        "node": "Gourmet Scorpion Stew",
+        "value": 1075743025
+      },
+      {
+        "node": "Scorpion Stew (dup1)",
+        "value": 1075743026
+      },
+      {
+        "node": "Gourmet Scorpion Stew (dup1)",
+        "value": 1075743027
+      },
+      {
+        "node": "Sacred Bloody Flesh",
+        "value": 1075743034
+      },
+      {
+        "node": "Silver Horn Tender",
+        "value": 1075743044
+      },
+      {
+        "node": "Golden Horn Tender",
+        "value": 1075743054
+      },
+      {
+        "node": "Messmerfire Grease",
+        "value": 1075743224
+      },
+      {
+        "node": "Dragonbolt Grease",
+        "value": 1075743234
+      },
+      {
+        "node": "Royal Magic Grease",
+        "value": 1075743244
+      },
+      {
+        "node": "Golden Grease",
+        "value": 1075743254
+      },
+      {
+        "node": "Eternal Sleep Grease",
+        "value": 1075743274
+      },
+      {
+        "node": "Dragon Communion Grease",
+        "value": 1075743304
+      },
+      {
+        "node": "Drawstring Messmerfire Grease",
+        "value": 1075743324
+      },
+      {
+        "node": "Drawstring Dragonbolt Grease",
+        "value": 1075743334
+      },
+      {
+        "node": "Drawstring Royal Magic Grease",
+        "value": 1075743344
+      },
+      {
+        "node": "Drawstring Golden Grease",
+        "value": 1075743354
+      },
+      {
+        "node": "Drawstring Eternal Sleep Grease",
+        "value": 1075743374
+      },
+      {
+        "node": "Festive Grease",
+        "value": 1075743424
+      },
+      {
+        "node": "Innard Meat",
+        "value": 1075743524
+      },
+      {
+        "node": "Dragon Communion Harpoon",
+        "value": 1075743534
+      },
+      {
+        "node": "Polter Stone",
+        "value": 1075743824
+      },
+      {
+        "node": "Rock Heart",
+        "value": 1075743834
+      },
+      {
+        "node": "Priestess Heart",
+        "value": 1075743844
+      },
+      {
+        "node": "Lamenter's Mask",
+        "value": 1075743854
+      },
+      {
+        "node": "Ancient Dragon's Blessing",
+        "value": 1075743924
+      },
+      {
+        "node": "Iris of Grace",
+        "value": 1075743944
+      },
+      {
+        "node": "Iris of Occultation",
+        "value": 1075743954
+      },
+      {
+        "node": "Thiollier's Concoction",
+        "value": 1075743964
+      },
+      {
+        "node": "Prattling Pate \"Lamentation\"",
+        "value": 1075743974
+      },
+      {
+        "node": "Remembrance of the Wild Boar Rider",
+        "value": 1075744724
+      },
+      {
+        "node": "Remembrance of the Impaler",
+        "value": 1075744725
+      },
+      {
+        "node": "Remembrance of the Shadow Sunflower",
+        "value": 1075744726
+      },
+      {
+        "node": "Remembrance of the Twin Moon Knight",
+        "value": 1075744727
+      },
+      {
+        "node": "Remembrance of the Saint of the Bud",
+        "value": 1075744728
+      },
+      {
+        "node": "Remembrance of the Dancing Lion",
+        "value": 1075744729
+      },
+      {
+        "node": "Remembrance of a God and a Lord",
+        "value": 1075744731
+      },
+      {
+        "node": "Remembrance of the Lord of Frenzied Flame",
+        "value": 1075744732
+      },
+      {
+        "node": "Remembrance of the Mother of Fingers",
+        "value": 1075744733
+      },
+      {
+        "node": "Remembrance of Putrescence",
+        "value": 1075744734
+      },
+      {
+        "node": "Leda's Rune",
+        "value": 1075744774
+      },
+      {
+        "node": "Broken Rune",
+        "value": 1075744775
+      },
+      {
+        "node": "Shadow Realm Rune [1]",
+        "value": 1075744776
+      },
+      {
+        "node": "Shadow Realm Rune [2]",
+        "value": 1075744777
+      },
+      {
+        "node": "Shadow Realm Rune [3]",
+        "value": 1075744778
+      },
+      {
+        "node": "Shadow Realm Rune [4]",
+        "value": 1075744779
+      },
+      {
+        "node": "Shadow Realm Rune [5]",
+        "value": 1075744780
+      },
+      {
+        "node": "Shadow Realm Rune [6]",
+        "value": 1075744781
+      },
+      {
+        "node": "Shadow Realm Rune [7]",
+        "value": 1075744782
+      },
+      {
+        "node": "Rune of an Unsung Hero",
+        "value": 1075744783
+      },
+      {
+        "node": "Marika's Rune",
+        "value": 1075744784
+      },
+      {
+        "node": "Bondstone",
+        "value": 1075744824
+      },
+      {
+        "node": "Spritestone",
+        "value": 1075744825
+      },
+      {
+        "node": "Horned Bairn",
+        "value": 1075744954
+      },
+      {
+        "node": "Perfumed Oil of Ranah",
+        "value": 1075744964
+      },
+      {
+        "node": "Call of Tibia",
+        "value": 1075744974
+      },
+      {
+        "node": "Surging Frenzied Flame",
+        "value": 1075744984
+      },
+      {
+        "node": "Golden Vow",
+        "value": 1075744994
+      },
+      {
+        "node": "Fire Coil",
+        "value": 1075745004
+      },
+      {
+        "node": "Fire Spritestone",
+        "value": 1075745014
+      },
+      {
+        "node": "Glinting Nail",
+        "value": 1075745024
+      },
+      {
+        "node": "Sunwarmth Stone",
+        "value": 1075745134
+      },
+      {
+        "node": "Charming Branch",
+        "value": 1075745174
+      },
+      {
+        "node": "Miriam's Vanishing",
+        "value": 1075746124
+      },
+      {
+        "node": "Glintblade Trio",
+        "value": 1075746134
+      },
+      {
+        "node": "Rellana's Twin Moons",
+        "value": 1075746144
+      },
+      {
+        "node": "Glintstone Nail",
+        "value": 1075746324
+      },
+      {
+        "node": "Glintstone Nails",
+        "value": 1075746334
+      },
+      {
+        "node": "Blades of Stone",
+        "value": 1075746524
+      },
+      {
+        "node": "Gravitational Missile",
+        "value": 1075746534
+      },
+      {
+        "node": "Mantle of Thorns",
+        "value": 1075746724
+      },
+      {
+        "node": "Impenetrable Thorns",
+        "value": 1075746734
+      },
+      {
+        "node": "Rings of Spectral Light",
+        "value": 1075746824
+      },
+      {
+        "node": "Vortex of Putrescence",
+        "value": 1075748024
+      },
+      {
+        "node": "Mass of Putrescence",
+        "value": 1075748034
+      },
+      {
+        "node": "Furious Blade of Ansbach",
+        "value": 1075748124
+      },
+      {
+        "node": "Heal from Afar",
+        "value": 1075748224
+      },
+      {
+        "node": "Aspects of the Crucible: Thorns",
+        "value": 1075748474
+      },
+      {
+        "node": "Aspects of the Crucible: Bloom",
+        "value": 1075748484
+      },
+      {
+        "node": "Minor Erdtree",
+        "value": 1075748494
+      },
+      {
+        "node": "Land of Shadow",
+        "value": 1075748504
+      },
+      {
+        "node": "Wrath from Afar",
+        "value": 1075748514
+      },
+      {
+        "node": "Light of Miquella",
+        "value": 1075748524
+      },
+      {
+        "node": "Multilayered Ring of Light",
+        "value": 1075748534
+      },
+      {
+        "node": "Roar of Rugalea",
+        "value": 1075748624
+      },
+      {
+        "node": "Knight's Lightning Spear",
+        "value": 1075748724
+      },
+      {
+        "node": "Dragonbolt of Florissax",
+        "value": 1075748734
+      },
+      {
+        "node": "Electrocharge",
+        "value": 1075748744
+      },
+      {
+        "node": "Bayle's Tyranny",
+        "value": 1075748824
+      },
+      {
+        "node": "Bayle's Flame Lightning",
+        "value": 1075748834
+      },
+      {
+        "node": "Ghostflame Breath",
+        "value": 1075748844
+      },
+      {
+        "node": "Rotten Butterflies",
+        "value": 1075749024
+      },
+      {
+        "node": "Pest-Thread Spears",
+        "value": 1075749034
+      },
+      {
+        "node": "Midra's Flame of Frenzy",
+        "value": 1075749124
+      },
+      {
+        "node": "Fleeting Microcosm",
+        "value": 1075749234
+      },
+      {
+        "node": "Cherishing Fingers",
+        "value": 1075749244
+      },
+      {
+        "node": "Watchful Spirit",
+        "value": 1075749424
+      },
+      {
+        "node": "Golden Arcs",
+        "value": 1075749524
+      },
+      {
+        "node": "Giant Golden Arc",
+        "value": 1075749534
+      },
+      {
+        "node": "Spira",
+        "value": 1075749544
+      },
+      {
+        "node": "Divine Beast Tornado",
+        "value": 1075749554
+      },
+      {
+        "node": "Divine Bird Feathers",
+        "value": 1075749564
+      },
+      {
+        "node": "Fire Serpent",
+        "value": 1075749624
+      },
+      {
+        "node": "Rain of Fire",
+        "value": 1075749634
+      },
+      {
+        "node": "Messmer's Orb",
+        "value": 1075749644
+      },
+      {
+        "node": "Miquella's Great Rune",
+        "value": 1075749824
+      },
+      {
+        "node": "Igon's Furled Finger",
+        "value": 1075749827
+      },
+      {
+        "node": "Well Depths Key",
+        "value": 1075749828
+      },
+      {
+        "node": "Gaol Upper Level Key",
+        "value": 1075749829
+      },
+      {
+        "node": "Gaol Lower Level Key",
+        "value": 1075749830
+      },
+      {
+        "node": "Cross Map",
+        "value": 1075749831
+      },
+      {
+        "node": "Hole-Laden Necklace",
+        "value": 1075749832
+      },
+      {
+        "node": "Heart of Bayle",
+        "value": 1075749835
+      },
+      {
+        "node": "New Cross Map",
+        "value": 1075749836
+      },
+      {
+        "node": "Storeroom Key",
+        "value": 1075749837
+      },
+      {
+        "node": "Secret Rite Scroll",
+        "value": 1075749838
+      },
+      {
+        "node": "Letter for Freyja",
+        "value": 1075749839
+      },
+      {
+        "node": "Ruins Map",
+        "value": 1075749840
+      },
+      {
+        "node": "Ruins Map (2nd)",
+        "value": 1075749841
+      },
+      {
+        "node": "Ruins Map (3rd)",
+        "value": 1075749842
+      },
+      {
+        "node": "Black Syrup",
+        "value": 1075749843
+      },
+      {
+        "node": "Messmer's Kindling",
+        "value": 1075749845
+      },
+      {
+        "node": "Keep Wall Key",
+        "value": 1075749847
+      },
+      {
+        "node": "Furnace Keeper's Note",
+        "value": 1075749849
+      },
+      {
+        "node": "Castle Cross Message",
+        "value": 1075749851
+      },
+      {
+        "node": "Ancient Ruins Cross Message",
+        "value": 1075749852
+      },
+      {
+        "node": "Monk's Missive",
+        "value": 1075749853
+      },
+      {
+        "node": "Storehouse Cross Message",
+        "value": 1075749854
+      },
+      {
+        "node": "Note: Sealed Spiritsprings",
+        "value": 1075749855
+      },
+      {
+        "node": "Torn Diary Page",
+        "value": 1075749856
+      },
+      {
+        "node": "Larval Tear",
+        "value": 1075749857
+      },
+      {
+        "node": "Message from Leda",
+        "value": 1075749858
+      },
+      {
+        "node": "Prayer Room Key",
+        "value": 1075749860
+      },
+      {
+        "node": "Tower of Shadow Message",
+        "value": 1075749861
+      },
+      {
+        "node": "Note: Sealed Spiritsprings (dup1)",
+        "value": 1075749955
+      },
+      {
+        "node": "Incursion Painting",
+        "value": 1075750024
+      },
+      {
+        "node": "The Sacred Tower Painting",
+        "value": 1075750025
+      },
+      {
+        "node": "Domain of Dragons Painting",
+        "value": 1075750026
+      },
+      {
+        "node": "Map: Gravesite Plain",
+        "value": 1075750424
+      },
+      {
+        "node": "Map: Scadu Altus",
+        "value": 1075750425
+      },
+      {
+        "node": "Map: Southern Shore",
+        "value": 1075750426
+      },
+      {
+        "node": "Map: Rauh Ruins",
+        "value": 1075750427
+      },
+      {
+        "node": "Map: Abyss",
+        "value": 1075750428
+      },
+      {
+        "node": "Moore's Bell Bearing",
+        "value": 1075750724
+      },
+      {
+        "node": "Ymir's Bell Bearing",
+        "value": 1075750725
+      },
+      {
+        "node": "Herbalist's Bell Bearing",
+        "value": 1075750726
+      },
+      {
+        "node": "Mushroom-Seller's Bell Bearing [1]",
+        "value": 1075750727
+      },
+      {
+        "node": "Mushroom-Seller's Bell Bearing [2]",
+        "value": 1075750728
+      },
+      {
+        "node": "Greasemonger's Bell Bearing",
+        "value": 1075750729
+      },
+      {
+        "node": "Moldmonger's Bell Bearing",
+        "value": 1075750730
+      },
+      {
+        "node": "Igon's Bell Bearing",
+        "value": 1075750731
+      },
+      {
+        "node": "Spellmachinist's Bell Bearing",
+        "value": 1075750732
+      },
+      {
+        "node": "String-Seller's Bell Bearing",
+        "value": 1075750733
+      },
+      {
+        "node": "Ring of Miquella",
+        "value": 1075750824
+      },
+      {
+        "node": "May the Best Win",
+        "value": 1075750825
+      },
+      {
+        "node": "The Two Fingers",
+        "value": 1075750826
+      },
+      {
+        "node": "Let Us Go Together",
+        "value": 1075750827
+      },
+      {
+        "node": "O Mother",
+        "value": 1075750828
+      },
+      {
+        "node": "About the Scadutree Blessing",
+        "value": 1075750984
+      },
+      {
+        "node": "About the Revered Spirit Ash Blessing",
+        "value": 1075750985
+      },
+      {
+        "node": "About New Inventory Features",
+        "value": 1075750986
+      },
+      {
+        "node": "Forager Brood Cookbook [6]",
+        "value": 1075751125
+      },
+      {
+        "node": "Forager Brood Cookbook [1]",
+        "value": 1075751126
+      },
+      {
+        "node": "Forager Brood Cookbook [2]",
+        "value": 1075751127
+      },
+      {
+        "node": "Forager Brood Cookbook [3]",
+        "value": 1075751128
+      },
+      {
+        "node": "Forager Brood Cookbook [4]",
+        "value": 1075751129
+      },
+      {
+        "node": "Forager Brood Cookbook [5]",
+        "value": 1075751130
+      },
+      {
+        "node": "Igon's Cookbook [2]",
+        "value": 1075751131
+      },
+      {
+        "node": "Finger-Weaver's Cookbook [2]",
+        "value": 1075751132
+      },
+      {
+        "node": "Greater Potentate's Cookbook [1]",
+        "value": 1075751133
+      },
+      {
+        "node": "Greater Potentate's Cookbook [4]",
+        "value": 1075751134
+      },
+      {
+        "node": "Greater Potentate's Cookbook [5]",
+        "value": 1075751135
+      },
+      {
+        "node": "Greater Potentate's Cookbook [12]",
+        "value": 1075751136
+      },
+      {
+        "node": "Greater Potentate's Cookbook [7]",
+        "value": 1075751137
+      },
+      {
+        "node": "Greater Potentate's Cookbook [9]",
+        "value": 1075751138
+      },
+      {
+        "node": "Greater Potentate's Cookbook [10]",
+        "value": 1075751139
+      },
+      {
+        "node": "Greater Potentate's Cookbook [11]",
+        "value": 1075751140
+      },
+      {
+        "node": "Mad Craftsman's Cookbook [2]",
+        "value": 1075751141
+      },
+      {
+        "node": "Greater Potentate's Cookbook [8]",
+        "value": 1075751142
+      },
+      {
+        "node": "Greater Potentate's Cookbook [3]",
+        "value": 1075751143
+      },
+      {
+        "node": "Greater Potentate's Cookbook [13]",
+        "value": 1075751144
+      },
+      {
+        "node": "Greater Potentate's Cookbook [14]",
+        "value": 1075751145
+      },
+      {
+        "node": "Greater Potentate's Cookbook [6]",
+        "value": 1075751146
+      },
+      {
+        "node": "Greater Potentate's Cookbook [2]",
+        "value": 1075751147
+      },
+      {
+        "node": "Ancient Dragon Knight's Cookbook [1]",
+        "value": 1075751148
+      },
+      {
+        "node": "Mad Craftsman's Cookbook [1]",
+        "value": 1075751149
+      },
+      {
+        "node": "St. Trina Disciple's Cookbook [1]",
+        "value": 1075751150
+      },
+      {
+        "node": "Fire Knight's Cookbook [1]",
+        "value": 1075751151
+      },
+      {
+        "node": "Ancient Dragon Knight's Cookbook [2]",
+        "value": 1075751152
+      },
+      {
+        "node": "Loyal Knight's Cookbook",
+        "value": 1075751153
+      },
+      {
+        "node": "Battlefield Priest's Cookbook [1]",
+        "value": 1075751154
+      },
+      {
+        "node": "Igon's Cookbook [1]",
+        "value": 1075751155
+      },
+      {
+        "node": "Battlefield Priest's Cookbook [2]",
+        "value": 1075751156
+      },
+      {
+        "node": "Forager Brood Cookbook [7]",
+        "value": 1075751157
+      },
+      {
+        "node": "St. Trina Disciple's Cookbook [3]",
+        "value": 1075751158
+      },
+      {
+        "node": "Grave Keeper's Cookbook [2]",
+        "value": 1075751159
+      },
+      {
+        "node": "Antiquity Scholar's Cookbook [2]",
+        "value": 1075751160
+      },
+      {
+        "node": "Tibia's Cookbook",
+        "value": 1075751161
+      },
+      {
+        "node": "Mad Craftsman's Cookbook [3]",
+        "value": 1075751162
+      },
+      {
+        "node": "Battlefield Priest's Cookbook [3]",
+        "value": 1075751163
+      },
+      {
+        "node": "Fire Knight's Cookbook [2]",
+        "value": 1075751164
+      },
+      {
+        "node": "Antiquity Scholar's Cookbook [1]",
+        "value": 1075751165
+      },
+      {
+        "node": "Finger-Weaver's Cookbook [1]",
+        "value": 1075751166
+      },
+      {
+        "node": "Battlefield Priest's Cookbook [4]",
+        "value": 1075751167
+      },
+      {
+        "node": "Grave Keeper's Cookbook [1]",
+        "value": 1075751168
+      },
+      {
+        "node": "St. Trina Disciple's Cookbook [2]",
+        "value": 1075751169
+      },
+      {
+        "node": "Hefty Cracked Pot",
+        "value": 1075751324
+      },
+      {
+        "node": "Scadutree Fragment",
+        "value": 1075751824
+      },
+      {
+        "node": "Revered Spirit Ash",
+        "value": 1075751924
+      },
+      {
+        "node": "Viridian Hidden Tear",
+        "value": 1075752824
+      },
+      {
+        "node": "Crimsonburst Dried Tear",
+        "value": 1075752834
+      },
+      {
+        "node": "Crimson-Sapping Cracked Tear",
+        "value": 1075752844
+      },
+      {
+        "node": "Cerulean-Sapping Cracked Tear",
+        "value": 1075752854
+      },
+      {
+        "node": "Oil-Soaked Tear",
+        "value": 1075752864
+      },
+      {
+        "node": "Bloodsucking Cracked Tear",
+        "value": 1075752874
+      },
+      {
+        "node": "Glovewort Crystal Tear",
+        "value": 1075752884
+      },
+      {
+        "node": "Deflecting Hardtear",
+        "value": 1075752894
+      },
+      {
+        "node": "Beast Horn",
+        "value": 1075756824
+      },
+      {
+        "node": "Spirit Calculus",
+        "value": 1075756834
+      },
+      {
+        "node": "Pearlescent Scale",
+        "value": 1075756844
+      },
+      {
+        "node": "Scorpion Liver",
+        "value": 1075756854
+      },
+      {
+        "node": "Fly Mold",
+        "value": 1075756864
+      },
+      {
+        "node": "Rada Fruit",
+        "value": 1075761825
+      },
+      {
+        "node": "Redflesh Mushroom",
+        "value": 1075761826
+      },
+      {
+        "node": "Whiteflesh Mushroom",
+        "value": 1075761827
+      },
+      {
+        "node": "Knot Resin",
+        "value": 1075761828
+      },
+      {
+        "node": "Dewgem",
+        "value": 1075761829
+      },
+      {
+        "node": "Black Pyrefly",
+        "value": 1075761830
+      },
+      {
+        "node": "Glintslab Firefly",
+        "value": 1075761831
+      },
+      {
+        "node": "Yellow Fulgurbloom",
+        "value": 1075761832
+      },
+      {
+        "node": "Shadow Sunflower",
+        "value": 1075761833
+      },
+      {
+        "node": "Toxic Mossling",
+        "value": 1075761834
+      },
+      {
+        "node": "Scarlet Bud",
+        "value": 1075761835
+      },
+      {
+        "node": "Sanguine Amaryllis",
+        "value": 1075761836
+      },
+      {
+        "node": "Frozen Maggot",
+        "value": 1075761837
+      },
+      {
+        "node": "Deep-Purple Lily",
+        "value": 1075761838
+      },
+      {
+        "node": "Nectarblood Burgeon",
+        "value": 1075761839
+      },
+      {
+        "node": "Winter-Lantern Fly",
+        "value": 1075761840
+      },
+      {
+        "node": "Swollen Grape",
+        "value": 1075761841
+      },
+      {
+        "node": "Grave Keeper's Brainpan",
+        "value": 1075761842
+      },
+      {
+        "node": "Horn-Strewn Excrement",
+        "value": 1075761843
+      },
+      {
+        "node": "Gas Stone",
+        "value": 1075761844
+      },
+      {
+        "node": "Ghostflame Bloom",
+        "value": 1075761845
+      },
+      {
+        "node": "Grave Cricket",
+        "value": 1075761846
+      },
+      {
+        "node": "Dragon's Calorbloom",
+        "value": 1075761847
+      },
+      {
+        "node": "Finger Mimic",
+        "value": 1075761848
+      },
+      {
+        "node": "Empyrean-Blood Burgeon",
+        "value": 1075761849
+      },
+      {
+        "node": "Congealed Putrescence",
+        "value": 1075761850
+      },
+      {
+        "node": "Roundrock",
+        "value": 1075761851
+      },
+      {
+        "node": "Spiritgrave Stone",
+        "value": 1075761852
+      },
+      {
+        "node": "Rauh Burrow",
+        "value": 1075761853
+      },
+      {
+        "node": "Ember of Messmer",
+        "value": 1075761854
+      },
+      {
+        "node": "Blessed Bone Shard",
+        "value": 1075761855
+      },
+      {
+        "node": "Red Fulgurbloom",
+        "value": 1075761856
+      },
+      {
+        "node": "Nailstone",
+        "value": 1075761857
+      },
+      {
+        "node": "Sharp Gravel Stone",
+        "value": 1075761858
+      },
+      {
+        "node": "Furnace Visage",
+        "value": 1075761859
+      },
+      {
+        "node": "Curseblade Meera",
+        "value": 1075941824
+      },
+      {
+        "node": "Bloodfiend Hexer's Ashes",
+        "value": 1075942824
+      },
+      {
+        "node": "Gravebird Ashes",
+        "value": 1075943824
+      },
+      {
+        "node": "Fire Knight Hilde",
+        "value": 1075944824
+      },
+      {
+        "node": "Spider Scorpion Ashes",
+        "value": 1075945824
+      },
+      {
+        "node": "Inquisitor Ashes",
+        "value": 1075946824
+      },
+      {
+        "node": "Demi-Human Swordsman Yosh",
+        "value": 1075947824
+      },
+      {
+        "node": "Messmer Soldier Ashes",
+        "value": 1075948824
+      },
+      {
+        "node": "Black Knight Commander Andreas",
+        "value": 1075949824
+      },
+      {
+        "node": "Black Knight Captain Huw",
+        "value": 1075950824
+      },
+      {
+        "node": "Bigmouth Imp Ashes",
+        "value": 1075951824
+      },
+      {
+        "node": "Man-Fly Ashes",
+        "value": 1075952824
+      },
+      {
+        "node": "Taylew the Golem Smith",
+        "value": 1075953824
+      },
+      {
+        "node": "Divine Bird Warrior Ornis",
+        "value": 1075954824
+      },
+      {
+        "node": "Horned Warrior Ashes",
+        "value": 1075955824
+      },
+      {
+        "node": "Ancient Dragon Florissax",
+        "value": 1075956824
+      },
+      {
+        "node": "Fingercreeper Ashes",
+        "value": 1075958824
+      },
+      {
+        "node": "Fire Knight Queelign",
+        "value": 1075959824
+      },
+      {
+        "node": "Swordhand of Night Jolán",
+        "value": 1075960824
+      },
+      {
+        "node": "Jolán and Anna",
+        "value": 1075961824
+      }
+    ]
   }
 ]
