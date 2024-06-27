@@ -43,9 +43,12 @@ features = [
   "Win32_System_SystemServices",
 ]
 
-# [patch.'crates-io']
+[patch.'crates-io']
 # hudhook = { path = "../hudhook" }
-#
-# [patch.'https://github.com/veeenu/practice-tool-core']
+# Necessary workaround for the slice::from_raw_parts panic (see https://github.com/imgui-rs/imgui-rs/commit/1d06e2c049352e2d5d1e5877204f69d28148be2f)
+imgui = { git = "https://github.com/imgui-rs/imgui-rs", rev = "1d06e2c049352e2d5d1e5877204f69d28148be2f" }
+imgui-sys = { git = "https://github.com/imgui-rs/imgui-rs", rev = "1d06e2c049352e2d5d1e5877204f69d28148be2f" }
+
+[patch.'https://github.com/veeenu/practice-tool-core']
 # practice-tool-core = { path = "../practice-tool-core" }
 # practice-tool-tasks = { path = "../practice-tool-core/tasks" }
