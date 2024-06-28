@@ -42,17 +42,15 @@ The tool will automatically appear over the game. Press `0` to open and close it
 
 ### Installed
 
-- Extract all files from the zip archive.
-- Rename `jdsd_er_practice_tool.dll` to `dinput8.dll`. Make sure your [file extensions are visible](https://www.howtogeek.com/205086/beginner-how-to-make-windows-show-file-extensions/)
-  to ensure you are naming the file correctly.
-- Copy `dinput8.dll` and `jdsd_er_practice_tool.toml` to you Dark Souls III `Game` folder.
-  The files must be in the same folder as `DarkSoulsIII.exe`.
-- Double-click `eldenring.exe`.
+- Extract all files from the zip archive. Anywhere will do.
+- Double-click `eldenring.exe` to start the game (Steam → right click **ELDEN
+  RING** → Manage → Browse Local Files). Never start the game from Steam: the tool won't work.
+- Double-click `install.exe` and follow the instructions.
+- Once the process is done, close and restart Elden Ring.
+- During the startup, from now on, hold the right shift button for a few seconds until 
+  the tool appears on screen.
 
-The tool is now installed. To load it, start the game, press the right shift button and 
-keep it pressed for a few seconds until the tool appears on screen.
-
-If you don't do that, the tool won't load and the game will start normally.
+If you don't want to load the tool, just don't press right shift during startup!
 
 ## Running the tool on Linux
 

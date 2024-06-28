@@ -457,42 +457,109 @@ const GRACES: &[(&str, u32)] = &[
     ("Wyndham Catacombs", 30072950),
     ("Yelough Anix Tunnel", 32112950),
     ("Zamor Ruins", 1049532950),
+    ("Abyssal Woods - Abyssal Woods", 2050421950),
+    ("Abyssal Woods - Church Ruins", 2053411950),
+    ("Abyssal Woods - Divided Falls", 2048431951),
+    ("Abyssal Woods - Forsaken Graveyard", 2052431950),
+    ("Abyssal Woods - Woodland Trail", 2051421950),
+    ("Ancient Ruins of Rauh - Ancient Ruins, Grand Stairway", 2044451950),
+    ("Ancient Ruins of Rauh - Church of the Bud", 2044451951),
+    ("Ancient Ruins of Rauh - Church of the Bud, Main Entrance", 2044461950),
+    ("Ancient Ruins of Rauh - Rauh Ancient Ruins, East", 2046471950),
+    ("Ancient Ruins of Rauh - Rauh Ancient Ruins, West", 2045451951),
+    ("Ancient Ruins of Rauh - Viaduct Minor Tower", 2047471950),
+    ("Belurat, Tower Settlement - Belurat, Tower Settlement", 20001951),
+    ("Belurat, Tower Settlement - Small Private Altar", 20001952),
+    ("Belurat, Tower Settlement - Stagefront", 20001953),
+    ("Belurat, Tower Settlement - Theatre of the Divine Beast", 20001950),
+    ("Castle Ensis - Castle Ensis Checkpoint", 2047441951),
+    ("Castle Ensis - Castle,Lord's Chamber", 2048441951),
+    ("Castle Ensis - Ensis Moongazing Grounds", 2048441950),
+    ("Cerulean Coast - Cerulean Coast", 2048391950),
+    ("Cerulean Coast - Cerulean Coast Cross", 2048371950),
+    ("Cerulean Coast - Cerulean Coast West", 2046391950),
+    ("Cerulean Coast - Finger Ruins of Rhia", 2050381950),
+    ("Cerulean Coast - The Fissure", 2047351950),
+    ("Charo's Hidden Grave - Charo's Hidden Grave", 2048391951),
+    ("Charo's Hidden Grave - Lamenter's Gaol", 41021950),
+    ("Enir-Ilim - Cleansing Chamber Anteroom", 20011955),
+    ("Enir-Ilim - Divine Gate Front Staircase", 20011956),
+    ("Enir-Ilim - Enir-Ilim: Outer Wall", 20011952),
+    ("Enir-Ilim - First Rise", 20011953),
+    ("Enir-Ilim - Gate of Divinity", 20011950),
+    ("Enir-Ilim - Spiral Rise", 20011954),
+    ("Foot of the Jagged Peak - Foot of the Jagged Peak", 2052401950),
+    ("Foot of the Jagged Peak - Grand Altar of Dragon Communion", 2049391950),
+    ("Gravesite Plain - Belurat Gaol", 41001950),
+    ("Gravesite Plain - Castle Front", 2047441950),
+    ("Gravesite Plain - Cliffroad Terminus", 2045411950),
+    ("Gravesite Plain - Dragon's Pit", 43011950),
+    ("Gravesite Plain - Dragon's Pit Terminus", 43011951),
+    ("Gravesite Plain - Ellac River Cave", 2047431950),
+    ("Gravesite Plain - Ellac River Downstream", 2047411951),
+    ("Gravesite Plain - Fog Rift Catacombs", 40001950),
+    ("Gravesite Plain - Gravesite Plain", 2046401950),
+    ("Gravesite Plain - Greatbridge, North", 2046441950),
+    ("Gravesite Plain - Main Gate Cross", 2045421950),
+    ("Gravesite Plain - Pillar Path Cross", 2048431950),
+    ("Gravesite Plain - Pillar Path Waypoint", 2048421950),
+    ("Gravesite Plain - Rivermouth Cave", 43001950),
+    ("Gravesite Plain - Ruined Forge Lava Intake", 42001950),
+    ("Gravesite Plain - Scorched Ruins", 2047411950),
+    ("Gravesite Plain - Three,Path Cross", 2046421950),
+    ("Jagged Peak - Jagged Peak Mountainside", 2053391950),
+    ("Jagged Peak - Jagged Peak Summit", 2054391950),
+    ("Jagged Peak - Rest of the Dread Dragon", 2055391950),
+    ("Midra's Manse - Discussion Chamber", 28001950),
+    ("Midra's Manse - Manse Hall", 28001951),
+    ("Midra's Manse - Midra's Library", 28001952),
+    ("Midra's Manse - Second Floor Chamber", 28001953),
+    ("Rauh Base - Ancient Ruins Base", 2048471950),
+    ("Rauh Base - Ravine North", 2045471950),
+    ("Rauh Base - Scorpion River Catacombs", 40011950),
+    ("Rauh Base - Taylew's Ruined Forge", 42031950),
+    ("Rauh Base - Temple Town Ruins", 2045461950),
+    ("Scadu Altus - Behind the Fort of Reprimand", 2049431952),
+    ("Scadu Altus - Bonny Gaol", 41011950),
+    ("Scadu Altus - Bonny Village", 2049441951),
+    ("Scadu Altus - Bridge Leading to the Village", 2051441950),
+    ("Scadu Altus - Castle Watering Hole", 2049471950),
+    ("Scadu Altus - Cathedral of Manus Metyr", 2051451950),
+    ("Scadu Altus - Church District Highroad", 2051471950),
+    ("Scadu Altus - Darklight Catacombs", 40021950),
+    ("Scadu Altus - Finger Birthing Grounds", 25001950),
+    ("Scadu Altus - Fort of Reprimand", 2049431951),
+    ("Scadu Altus - Highroad Cross", 2048451950),
+    ("Scadu Altus - Moorth Highway, South", 2049431950),
+    ("Scadu Altus - Moorth Ruins", 2049441950),
+    ("Scadu Altus - Recluses' River Downstream", 2050441950),
+    ("Scadu Altus - Recluses' River Upstream", 2050451950),
+    ("Scadu Altus - Ruined Forge of Starfall Past", 42021950),
+    ("Scadu Altus - Scadu Altus, West", 2047451950),
+    ("Scadu Altus - Scaduview Cross", 2050431950),
+    ("Scaduview - Fingerstone Hill", 2051481950),
+    ("Scaduview - Hinterland", 2050481950),
+    ("Scaduview - Hinterland Bridge", 2051481951),
+    ("Scaduview - Scadutree Base", 2050481951),
+    ("Scaduview - Scaduview", 2049481950),
+    ("Scaduview - Shadow Keep, Back Gate", 2049481951),
+    ("Shadow Keep - Main Gate Plaza", 21001951),
+    ("Shadow Keep - Shadow Keep Main Gate", 21001952),
+    ("Shadow Keep, Church District - Church District Entrance", 21001956),
+    ("Shadow Keep, Church District - Sunken Chapel", 21001957),
+    ("Shadow Keep, Church District - Tree,Worship Passage", 21001958),
+    ("Shadow Keep, Church District - Tree,Worship Sanctum", 21001959),
+    ("Specimen Storehouse - Dark Chamber Entrance", 21011954),
+    ("Specimen Storehouse - Messmer's Dark Chamber", 21011950),
+    ("Specimen Storehouse - Storehouse, Back Section", 21011956),
+    ("Specimen Storehouse - Storehouse, First Floor", 21011951),
+    ("Specimen Storehouse - Storehouse, Fourth Floor", 21011952),
+    ("Specimen Storehouse - Storehouse, Loft", 21011957),
+    ("Specimen Storehouse - Storehouse, Seventh Floor", 21011953),
+    ("Specimen Storehouse - West Rampart", 21021951),
+    ("Stone Coffin Fissure - Fissure Cross", 22001952),
+    ("Stone Coffin Fissure - Fissure Depths", 22001954),
+    ("Stone Coffin Fissure - Fissure Waypoint", 22001953),
+    ("Stone Coffin Fissure - Garden of Deep Purple", 22001950),
+    ("Stone Coffin Fissure - Stone Coffin Fissure", 22001951),
 ];
-
-// type PackCoordsFunc = extern "system" fn(u32, u32, u32, u32);
-// type WarpFunc = extern "system" fn(u32, u32);
-//
-// #[derive(Debug)]
-// pub(crate) struct Warp {
-//     label: String,
-//     pack_coords_func_ptr: usize,
-//     warp_func_ptr: usize,
-//     hotkey: KeyState,
-// }
-//
-// impl Warp {
-//     pub(crate) fn new(pack_coords_func_ptr: usize, warp_func_ptr: usize,
-// hotkey: KeyState) -> Self {         Warp { label: format!("Warp"),
-// pack_coords_func_ptr, warp_func_ptr, hotkey }     }
-//
-//     fn warp(&self) {
-//         let pack_coords: WarpFunc = unsafe {
-// mem::transmute(self.pack_coords_func_ptr) };         let warp: WarpFunc =
-// unsafe { mem::transmute(self.warp_func_ptr) };     }
-// }
-//
-// impl Widget for Warp {
-//     fn render(&mut self, ui: &imgui::Ui) {
-//         let scale = super::scaling_factor(ui);
-//
-//         if ui.button_with_size(&self.label, [super::BUTTON_WIDTH * scale,
-// super::BUTTON_HEIGHT]) {             self.warp();
-//         }
-//     }
-//
-//     fn interact(&mut self, ui: &imgui::Ui) {
-//         if self.hotkey.keyup(ui) {
-//             self.warp();
-//         }
-//     }
-// }

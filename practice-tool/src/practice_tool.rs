@@ -14,6 +14,7 @@ use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_
 use tracing_subscriber::prelude::*;
 
 use crate::config::{Config, Indicator, Settings};
+use crate::update::Update;
 use crate::util;
 
 const MAJOR: usize = pkg_version_major!();
@@ -47,6 +48,7 @@ pub(crate) struct PracticeTool {
     ui_state: UiState,
     fonts: Option<FontIDs>,
     config_err: Option<String>,
+    update_available: Update,
 
     position_bufs: [String; 4],
     igt_buf: String,
@@ -65,6 +67,12 @@ impl PracticeTool {
                     path
                 })
                 .ok_or_else(|| "Couldn't find config file".to_string())?;
+
+            if !config_path.exists() {
+                std::fs::write(&config_path, include_str!("../../jdsd_er_practice_tool.toml"))
+                    .map_err(|e| format!("Couldn't write default config file: {}", e))?;
+            }
+
             let config_content = std::fs::read_to_string(config_path)
                 .map_err(|e| format!("Couldn't read config file: {}", e))?;
             println!("{}", config_content);
@@ -149,6 +157,9 @@ impl PracticeTool {
             },
         );
 
+        let update_available =
+            if config.settings.disable_update_prompt { Update::UpToDate } else { Update::check() };
+
         let pointers = Pointers::new();
         let version_label = {
             let (maj, min, patch) = (*VERSION).into();
@@ -172,6 +183,7 @@ impl PracticeTool {
             config_err,
             position_bufs: Default::default(),
             igt_buf: Default::default(),
+            update_available,
         }
     }
 
@@ -254,6 +266,30 @@ impl PracticeTool {
                     ui.open_popup("##help_window");
                 }
 
+                match &self.update_available {
+                    Update::UpToDate => {},
+                    Update::Available { .. } => {
+                        ui.same_line();
+
+                        let green = [0.1, 0.7, 0.1, 1.0];
+                        let _token = ui.push_style_color(StyleColor::Button, green);
+
+                        if ui.small_button("Update") {
+                            ui.open_popup("##update");
+                        }
+                    },
+                    Update::Error(_) => {
+                        ui.same_line();
+
+                        let red = [1.0, 0.0, 0.0, 1.0];
+                        let _token = ui.push_style_color(StyleColor::Button, red);
+
+                        if ui.small_button("Update") {
+                            ui.open_popup("##update");
+                        }
+                    },
+                }
+
                 ui.modal_popup_config("##help_window")
                     .resizable(false)
                     .movable(false)
@@ -283,11 +319,6 @@ impl PracticeTool {
                             open::that("https://twitch.tv/johndisandonato").ok();
                         }
                         ui.separator();
-                        if ui.button("Close") {
-                            ui.close_current_popup();
-                            self.pointers.cursor_show.set(false);
-                        }
-                        ui.same_line();
                         if ui.button("Submit issue") {
                             open::that(
                                 "https://github.com/veeenu/eldenring-practice-tool/issues/new",
@@ -297,6 +328,42 @@ impl PracticeTool {
                         ui.same_line();
                         if ui.button("Support") {
                             open::that("https://patreon.com/johndisandonato").ok();
+                        }
+                        ui.same_line();
+                        if ui.button("Close") {
+                            ui.close_current_popup();
+                            self.pointers.cursor_show.set(false);
+                        }
+                    });
+
+                ui.modal_popup_config("##update")
+                    .resizable(false)
+                    .movable(false)
+                    .title_bar(false)
+                    .build(|| {
+                        self.pointers.cursor_show.set(true);
+
+                        match &self.update_available {
+                            Update::UpToDate => {
+                                ui.close_current_popup();
+                            },
+                            Update::Available { url, notes } => {
+                                ui.text(notes);
+                                if ui.button("Download") {
+                                    open::that(url).ok();
+                                }
+                                ui.same_line();
+                            },
+                            Update::Error(e) => {
+                                ui.text("Update error: could not check for updates.");
+                                ui.separator();
+                                ui.text(e);
+                            },
+                        }
+
+                        if ui.button("Close") {
+                            ui.close_current_popup();
+                            self.pointers.cursor_show.set(false);
                         }
                     });
 
