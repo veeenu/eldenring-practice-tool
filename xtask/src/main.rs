@@ -69,7 +69,7 @@ fn dist() -> Result<()> {
     Distribution::new("jdsd_er_practice_tool.zip")
         .with_artifact("libjdsd_er_practice_tool.dll", "jdsd_er_practice_tool.dll")
         .with_artifact("jdsd_er_practice_tool.exe", "jdsd_er_practice_tool.exe")
-        // .with_artifact("dinput8.dll", "dinput8.dll")
+        .with_artifact("install.exe", "install.exe")
         .with_file("lib/data/RELEASE-README.txt", "README.txt")
         .with_file("jdsd_er_practice_tool.toml", "jdsd_er_practice_tool.toml")
         .build(&["--locked", "--release", "--workspace", "--exclude", "xtask"])

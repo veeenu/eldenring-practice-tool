@@ -15,10 +15,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 mod config;
-mod install;
 mod practice_tool;
-mod util;
+mod update;
 mod widgets;
+
+pub mod util;
 
 use std::ffi::c_void;
 use std::time::{Duration, Instant};

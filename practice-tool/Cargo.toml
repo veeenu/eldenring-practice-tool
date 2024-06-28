@@ -6,7 +6,11 @@ edition = "2021"
 
 [[bin]]
 name = "jdsd_er_practice_tool"
-path = "src/main.rs"
+path = "src/bin/jdsd_er_practice_tool.rs"
+
+[[bin]]
+name = "install"
+path = "src/bin/install.rs"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
