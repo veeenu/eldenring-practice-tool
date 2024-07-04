@@ -8,13 +8,10 @@ crate-type = ["cdylib", "rlib"]
 name = "jdsd_er_param_tinkerer"
 
 [dependencies]
-imgui = { workspace = true }
-imgui-sys = { workspace = true }
+imgui.workspace = true
+imgui-sys.workspace = true
 libeldenring = { path = "../libeldenring" }
-hudhook = { workspace = true }
+hudhook.workspace = true
+windows.workspace = true
 tracing-subscriber = "0.3.16"
-
-[dependencies.windows]
-version = "0.39.0"
-features = ["Win32_System_LibraryLoader", "Win32_Foundation"]
 
