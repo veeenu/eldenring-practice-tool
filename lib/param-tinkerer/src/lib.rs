@@ -12,7 +12,7 @@ use libeldenring::prelude::*;
 use tracing_subscriber::filter::LevelFilter;
 use tracing_subscriber::prelude::*;
 use windows::core::PCSTR;
-use windows::Win32::Foundation::{GetLastError, HINSTANCE, MAX_PATH};
+use windows::Win32::Foundation::{GetLastError, HMODULE, MAX_PATH};
 use windows::Win32::System::LibraryLoader::{
     GetModuleFileNameW, GetModuleHandleExA, GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
     GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
@@ -20,19 +20,18 @@ use windows::Win32::System::LibraryLoader::{
 
 /// Returns the path of the implementor's DLL.
 pub fn get_dll_path() -> Option<PathBuf> {
-    let mut hmodule = HINSTANCE(0);
+    let mut hmodule = HMODULE(0);
     // SAFETY
     // This is reckless, but it should never fail, and if it does, it's ok to crash
     // and burn.
-    if !unsafe {
+    if let Err(e) = unsafe {
         GetModuleHandleExA(
             GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT | GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
             PCSTR("DllMain".as_ptr() as _),
             &mut hmodule,
         )
-        .as_bool()
     } {
-        error!("get_dll_path: GetModuleHandleExA error: {:x}", unsafe { GetLastError().0 },);
+        error!("get_dll_path: GetModuleHandleExA error: {:x} {e:?}", unsafe { GetLastError().0 },);
         return None;
     }
 
