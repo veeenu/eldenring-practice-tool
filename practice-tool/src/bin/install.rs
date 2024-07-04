@@ -19,7 +19,7 @@ use hudhook::inject::Process;
 use hudhook::tracing::debug;
 use libjdsd_er_practice_tool::util::*;
 use textwrap_macros::dedent;
-use windows::Win32::System::Threading::TerminateProcess;
+use windows::Win32::System::Threading::{TerminateProcess, WaitForSingleObjectEx};
 use windows::Win32::UI::WindowsAndMessaging::*;
 
 fn install() -> Result<()> {
@@ -94,6 +94,7 @@ fn install() -> Result<()> {
         } else {
             unsafe { TerminateProcess(process.handle(), 1) }
                 .map_err(|e| anyhow!("Could not close Elden Ring: {e}"))?;
+            unsafe { WaitForSingleObjectEx(process.handle(), 20000, false) };
         }
     }
 
