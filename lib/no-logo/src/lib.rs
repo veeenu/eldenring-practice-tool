@@ -54,7 +54,7 @@ static SYMBOLS: Lazy<(FnDirectInput8Create, FnHResult, FnGetClassObject, FnHResu
 
 fn dinput8_path() -> U16CString {
     let mut sys_path = vec![0u16; 320];
-    let len = unsafe { GetSystemDirectoryW(&mut sys_path) as usize };
+    let len = unsafe { GetSystemDirectoryW(Some(&mut sys_path)) as usize };
 
     widestring::U16CString::from_vec_truncate(
         sys_path[..len]
@@ -72,9 +72,9 @@ unsafe fn apply_patch() {
     let ptr = (module_base.0 as usize + offset) as *mut [u8; 2];
     let mut old = PAGE_PROTECTION_FLAGS(0);
     if *ptr == [0x74, 0x53] {
-        VirtualProtect(ptr as _, 2, PAGE_EXECUTE_READWRITE, &mut old);
+        VirtualProtect(ptr as _, 2, PAGE_EXECUTE_READWRITE, &mut old).ok();
         (*ptr) = [0x90, 0x90];
-        VirtualProtect(ptr as _, 2, old, &mut old);
+        VirtualProtect(ptr as _, 2, old, &mut old).ok();
     }
 }
 

@@ -10,7 +10,7 @@ members = [
 ]
 
 [workspace.package]
-version = "1.7.0"
+version = "1.7.1"
 authors = ["Andrea Venuta <venutawebdesign@gmail.com>"]
 
 [profile.release]
@@ -38,6 +38,7 @@ features = [
   "Win32_UI_Controls_Dialogs",
   "Win32_UI_Input_KeyboardAndMouse",
   "Win32_UI_WindowsAndMessaging",
+  "Win32_Storage_FileSystem",
   "Win32_System_LibraryLoader",
   "Win32_System_SystemInformation",
   "Win32_System_SystemServices",

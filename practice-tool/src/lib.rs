@@ -149,6 +149,8 @@ fn await_rshift() -> bool {
 pub unsafe extern "stdcall" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut c_void) {
     if reason == DLL_PROCESS_ATTACH {
         thread::spawn(move || {
+            apply_no_logo();
+
             if util::get_dll_path()
                 .and_then(|path| {
                     path.file_name().map(|s| s.to_string_lossy().to_lowercase() == "dinput8.dll")
