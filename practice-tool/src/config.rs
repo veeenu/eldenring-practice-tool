@@ -387,6 +387,7 @@ impl TryFrom<String> for FlagSpec {
             (no_attack, "No attack"),
             (no_move, "No move"),
             (no_update_ai, "No update AI"),
+            (runearc, "Rune Arc"),
             (gravity, "No Gravity"),
             (torrent_gravity, "No Gravity (Torrent)"),
             (collision, "No Collision"),

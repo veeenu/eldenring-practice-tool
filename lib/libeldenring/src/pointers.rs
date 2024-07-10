@@ -39,6 +39,8 @@ pub struct Pointers {
 
     pub fps: PointerChain<f32>,
 
+    pub runearc: Bitflag<u8>,
+
     pub weapon_hitbox1: Bitflag<u8>, // debug sphere 1
     pub weapon_hitbox2: Bitflag<u8>, // debug sphere 2
     pub weapon_hitbox3: Bitflag<u8>, // damipoli
@@ -309,6 +311,8 @@ impl Pointers {
             igt: pointer_chain!(game_data_man, 0xA0),
 
             fps: pointer_chain!(base_fps, 0x98, 0x8, 0x770),
+
+            runearc: bitflag!(0b1; game_data_man, 0x8, 0xFF),
 
             quitout: pointer_chain!(cs_menu_man_imp, 0x8, 0x5d),
             cursor_show: bitflag!(0b1; cs_menu_man_imp, 0xAC),

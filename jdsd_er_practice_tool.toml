@@ -29,6 +29,7 @@ commands = [
   { flag = "deathcam", hotkey = "5" },
   { flag = "no_dead", hotkey = "6" },
   { flag = "one_shot", hotkey = "7" },
+  { flag = "runearc", hotkey = "o" },
   { target = "ctrl+n" },
   { flag = "no_update_ai", hotkey = "f1" },
   { flag = "gravity", hotkey = "f2" },
