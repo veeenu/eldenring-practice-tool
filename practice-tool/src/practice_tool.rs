@@ -52,6 +52,9 @@ pub(crate) struct PracticeTool {
 
     position_bufs: [String; 4],
     igt_buf: String,
+
+    framecount: u32,
+    framecount_buf: String,
 }
 
 impl PracticeTool {
@@ -183,6 +186,8 @@ impl PracticeTool {
             config_err,
             position_bufs: Default::default(),
             igt_buf: Default::default(),
+            framecount: 0,
+            framecount_buf: Default::default(),
             update_available,
         }
     }
@@ -287,6 +292,7 @@ impl PracticeTool {
                                 IndicatorType::GameVersion => "Game Version",
                                 IndicatorType::Position => "Player Position",
                                 IndicatorType::Igt => "IGT Timer",
+                                IndicatorType::FrameCount => "Frame Counter",
                                 IndicatorType::ImguiDebug => "ImGui Debug Info",
                             };
 
@@ -294,6 +300,23 @@ impl PracticeTool {
 
                             if ui.checkbox(label, &mut state) {
                                 indicator.enabled = state;
+                            }
+
+                            if let IndicatorType::FrameCount = indicator.indicator {
+                                ui.same_line();
+
+                                let btn_reset_label = "Reset";
+                                let btn_reset_width = ui.calc_text_size(btn_reset_label)[0]
+                                    + style.frame_padding[0] * 2.0;
+
+                                ui.set_cursor_pos([
+                                    ui.content_region_max()[0] - btn_reset_width,
+                                    ui.cursor_pos()[1],
+                                ]);
+
+                                if ui.button("Reset") {
+                                    self.framecount = 0;
+                                }
                             }
                         }
 
@@ -474,6 +497,11 @@ impl PracticeTool {
                                 ui.text(&self.igt_buf);
                             }
                         },
+                        IndicatorType::FrameCount => {
+                            self.framecount_buf.clear();
+                            write!(self.framecount_buf, "Frame count {0}", self.framecount,).ok();
+                            ui.text(&self.framecount_buf);
+                        },
                         IndicatorType::ImguiDebug => {
                             imgui_debug(ui);
                         },
@@ -566,6 +594,8 @@ impl ImguiRenderLoop for PracticeTool {
 
         let display = self.settings.display.is_pressed(ui);
         let hide = self.settings.hide.map(|k| k.is_pressed(ui)).unwrap_or(false);
+
+        self.framecount += 1;
 
         if !ui.io().want_capture_keyboard && (display || hide) {
             self.ui_state = match (&self.ui_state, hide) {

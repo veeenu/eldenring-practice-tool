@@ -12,9 +12,9 @@ use crate::widgets::character_stats::character_stats_edit;
 use crate::widgets::cycle_speed::cycle_speed;
 use crate::widgets::deathcam::deathcam;
 use crate::widgets::flag::flag_widget;
-use crate::widgets::label::label_widget;
 use crate::widgets::group::group;
 use crate::widgets::item_spawn::ItemSpawner;
+use crate::widgets::label::label_widget;
 use crate::widgets::multiflag::multi_flag;
 use crate::widgets::nudge_pos::nudge_position;
 use crate::widgets::position::save_position;
@@ -52,6 +52,7 @@ pub(crate) enum IndicatorType {
     Position,
     GameVersion,
     ImguiDebug,
+    FrameCount,
 }
 
 #[derive(Debug, Deserialize, Clone)]
@@ -67,6 +68,7 @@ impl Indicator {
             Indicator { indicator: IndicatorType::GameVersion, enabled: true },
             Indicator { indicator: IndicatorType::Igt, enabled: true },
             Indicator { indicator: IndicatorType::Position, enabled: false },
+            Indicator { indicator: IndicatorType::FrameCount, enabled: false },
             Indicator { indicator: IndicatorType::ImguiDebug, enabled: false },
         ]
     }
@@ -89,6 +91,9 @@ impl TryFrom<IndicatorConfig> for Indicator {
             },
             "game_version" => {
                 Ok(Indicator { indicator: IndicatorType::GameVersion, enabled: indicator.enabled })
+            },
+            "framecount" => {
+                Ok(Indicator { indicator: IndicatorType::FrameCount, enabled: indicator.enabled })
             },
             "imgui_debug" => {
                 Ok(Indicator { indicator: IndicatorType::ImguiDebug, enabled: indicator.enabled })
@@ -221,9 +226,7 @@ impl CfgCommand {
                 error!("Invalid flag {}", flag);
                 return None;
             },
-            CfgCommand::Label { label } => {
-                label_widget(label.as_str())
-            },
+            CfgCommand::Label { label } => label_widget(label.as_str()),
             CfgCommand::SavefileManager { hotkey_load } => {
                 savefile_manager(hotkey_load.into_option(), settings.display)
             },
