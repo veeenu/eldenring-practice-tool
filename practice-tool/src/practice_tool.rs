@@ -491,7 +491,8 @@ impl PracticeTool {
                             }
                         },
                         IndicatorType::PositionChange => {
-                            if let Some([x, y, z, _a1, _a2]) = self.pointers.global_position.read() {
+                            if let Some([x, y, z, _a1, _a2]) = self.pointers.global_position.read()
+                            {
                                 let position_change_xyz = ((x - self.position_prev[0]).powf(2.0)
                                     + (y - self.position_prev[1]).powf(2.0)
                                     + (z - self.position_prev[2]).powf(2.0))
