@@ -52,6 +52,7 @@ pub(crate) struct PracticeTool {
 
     position_bufs: [String; 4],
     igt_buf: String,
+    fps_buf: String,
 
     framecount: u32,
     framecount_buf: String,
@@ -186,6 +187,7 @@ impl PracticeTool {
             config_err,
             position_bufs: Default::default(),
             igt_buf: Default::default(),
+            fps_buf: Default::default(),
             framecount: 0,
             framecount_buf: Default::default(),
             update_available,
@@ -292,6 +294,7 @@ impl PracticeTool {
                                 IndicatorType::GameVersion => "Game Version",
                                 IndicatorType::Position => "Player Position",
                                 IndicatorType::Igt => "IGT Timer",
+                                IndicatorType::Fps => "FPS",
                                 IndicatorType::FrameCount => "Frame Counter",
                                 IndicatorType::ImguiDebug => "ImGui Debug Info",
                             };
@@ -495,6 +498,13 @@ impl PracticeTool {
                                 )
                                 .ok();
                                 ui.text(&self.igt_buf);
+                            }
+                        },
+                        IndicatorType::Fps => {
+                            if let Some(fps) = self.pointers.fps.read() {
+                                self.fps_buf.clear();
+                                write!(self.fps_buf, "FPS {fps}",).ok();
+                                ui.text(&self.fps_buf);
                             }
                         },
                         IndicatorType::FrameCount => {

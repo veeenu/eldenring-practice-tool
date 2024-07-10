@@ -34,6 +34,7 @@ pub struct BaseAddresses {
     pub func_dbg_action_force: usize,
     pub lua_warp: usize,
     pub current_target: usize,
+    pub base_fps: usize,
 }
 
 impl BaseAddresses {
@@ -70,6 +71,7 @@ impl BaseAddresses {
             func_dbg_action_force: self.func_dbg_action_force + base,
             lua_warp: self.lua_warp + base,
             current_target: self.current_target + base,
+            base_fps: self.base_fps + base,
         }
     }
 }
@@ -215,6 +217,7 @@ pub const BASE_ADDRESSES_1_02_0: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x527214a,
     lua_warp: 0x5855ae,
     current_target: 0x6f0a22,
+    base_fps: 0x3c5f868,
 };
 
 pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
@@ -249,6 +252,7 @@ pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x53f757d,
     lua_warp: 0x58561e,
     current_target: 0x6f0a92,
+    base_fps: 0x3c5f888,
 };
 
 pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
@@ -283,6 +287,7 @@ pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x4f45cb0,
     lua_warp: 0x58561e,
     current_target: 0x6f0a92,
+    base_fps: 0x3c5f8a8,
 };
 
 pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
@@ -317,6 +322,7 @@ pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x4edd1ef,
     lua_warp: 0x58573e,
     current_target: 0x6f0bb2,
+    base_fps: 0x3c628c8,
 };
 
 pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
@@ -351,6 +357,7 @@ pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x1e42a5c,
     lua_warp: 0x58671e,
     current_target: 0x6f1ee2,
+    base_fps: 0x3c74448,
 };
 
 pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
@@ -385,6 +392,7 @@ pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x523c67d,
     lua_warp: 0x58671e,
     current_target: 0x6f1ee2,
+    base_fps: 0x3c74448,
 };
 
 pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
@@ -419,6 +427,7 @@ pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x54e7d76,
     lua_warp: 0x58670e,
     current_target: 0x6f1ec2,
+    base_fps: 0x3c74448,
 };
 
 pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
@@ -453,6 +462,7 @@ pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x4ff4205,
     lua_warp: 0x58940e,
     current_target: 0x6f5d92,
+    base_fps: 0x3c175c8,
 };
 
 pub const BASE_ADDRESSES_1_04_1: BaseAddresses = BaseAddresses {
@@ -487,6 +497,7 @@ pub const BASE_ADDRESSES_1_04_1: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x55ac951,
     lua_warp: 0x58931e,
     current_target: 0x6f5ca2,
+    base_fps: 0x3c175c8,
 };
 
 pub const BASE_ADDRESSES_1_05_0: BaseAddresses = BaseAddresses {
@@ -521,6 +532,7 @@ pub const BASE_ADDRESSES_1_05_0: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x3683da,
     lua_warp: 0x58992e,
     current_target: 0x6f6b52,
+    base_fps: 0x3c2f430,
 };
 
 pub const BASE_ADDRESSES_1_06_0: BaseAddresses = BaseAddresses {
@@ -555,6 +567,7 @@ pub const BASE_ADDRESSES_1_06_0: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x4f2244f,
     lua_warp: 0x58abfe,
     current_target: 0x6f89a2,
+    base_fps: 0x3c405a8,
 };
 
 pub const BASE_ADDRESSES_1_07_0: BaseAddresses = BaseAddresses {
@@ -589,6 +602,7 @@ pub const BASE_ADDRESSES_1_07_0: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0xb7f33f,
     lua_warp: 0x58ba6e,
     current_target: 0x6fa0f2,
+    base_fps: 0x3c5b030,
 };
 
 pub const BASE_ADDRESSES_1_08_0: BaseAddresses = BaseAddresses {
@@ -623,6 +637,7 @@ pub const BASE_ADDRESSES_1_08_0: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x575772e,
     lua_warp: 0x5951de,
     current_target: 0x7078d2,
+    base_fps: 0x3ce9898,
 };
 
 pub const BASE_ADDRESSES_1_08_1: BaseAddresses = BaseAddresses {
@@ -657,6 +672,7 @@ pub const BASE_ADDRESSES_1_08_1: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x56ba77a,
     lua_warp: 0x5951de,
     current_target: 0x7078d2,
+    base_fps: 0x3ce9898,
 };
 
 pub const BASE_ADDRESSES_1_09_0: BaseAddresses = BaseAddresses {
@@ -691,6 +707,7 @@ pub const BASE_ADDRESSES_1_09_0: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x5679cfa,
     lua_warp: 0x59555e,
     current_target: 0x708972,
+    base_fps: 0x3ceccd8,
 };
 
 pub const BASE_ADDRESSES_1_09_1: BaseAddresses = BaseAddresses {
@@ -725,6 +742,7 @@ pub const BASE_ADDRESSES_1_09_1: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x17b591f,
     lua_warp: 0x5955be,
     current_target: 0x7089d2,
+    base_fps: 0x3ceccd8,
 };
 
 pub const BASE_ADDRESSES_2_00_0: BaseAddresses = BaseAddresses {
@@ -759,6 +777,7 @@ pub const BASE_ADDRESSES_2_00_0: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x1d9c6f0,
     lua_warp: 0x5957fe,
     current_target: 0x708c62,
+    base_fps: 0x3ceccd8,
 };
 
 pub const BASE_ADDRESSES_2_00_1: BaseAddresses = BaseAddresses {
@@ -793,6 +812,7 @@ pub const BASE_ADDRESSES_2_00_1: BaseAddresses = BaseAddresses {
     func_dbg_action_force: 0x55611f7,
     lua_warp: 0x5957fe,
     current_target: 0x708c62,
+    base_fps: 0x3ceccd8,
 };
 
 pub const BASE_ADDRESSES_2_02_0: BaseAddresses = BaseAddresses {
@@ -827,6 +847,7 @@ pub const BASE_ADDRESSES_2_02_0: BaseAddresses = BaseAddresses {
     lua_warp: 0x599b1e,
     current_target: 0x716fae,
     cs_session_manager: 0,
+    base_fps: 0x3d76060,
 };
 
 pub const BASE_ADDRESSES_2_02_3: BaseAddresses = BaseAddresses {
@@ -861,4 +882,5 @@ pub const BASE_ADDRESSES_2_02_3: BaseAddresses = BaseAddresses {
     lua_warp: 0x599b1e,
     current_target: 0x716fae,
     cs_session_manager: 0,
+    base_fps: 0x3d76080,
 };

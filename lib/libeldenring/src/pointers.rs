@@ -37,6 +37,8 @@ pub struct Pointers {
     pub runes: PointerChain<u32>,
     pub igt: PointerChain<usize>,
 
+    pub fps: PointerChain<f32>,
+
     pub weapon_hitbox1: Bitflag<u8>, // debug sphere 1
     pub weapon_hitbox2: Bitflag<u8>, // debug sphere 2
     pub weapon_hitbox3: Bitflag<u8>, // damipoli
@@ -173,6 +175,7 @@ impl Pointers {
             lua_warp,
             cs_lua_event_manager,
             current_target,
+            base_fps,
             ..
         } = base_addresses;
 
@@ -304,6 +307,8 @@ impl Pointers {
             character_stats: pointer_chain!(game_data_man, 0x8, 0x3c),
             runes: pointer_chain!(game_data_man, 0x8, 0x6C),
             igt: pointer_chain!(game_data_man, 0xA0),
+
+            fps: pointer_chain!(base_fps, 0x98, 0x8, 0x770),
 
             quitout: pointer_chain!(cs_menu_man_imp, 0x8, 0x5d),
             cursor_show: bitflag!(0b1; cs_menu_man_imp, 0xAC),
