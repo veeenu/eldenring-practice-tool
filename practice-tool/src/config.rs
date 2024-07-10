@@ -12,6 +12,7 @@ use crate::widgets::character_stats::character_stats_edit;
 use crate::widgets::cycle_speed::cycle_speed;
 use crate::widgets::deathcam::deathcam;
 use crate::widgets::flag::flag_widget;
+use crate::widgets::label::label_widget;
 use crate::widgets::group::group;
 use crate::widgets::item_spawn::ItemSpawner;
 use crate::widgets::multiflag::multi_flag;
@@ -143,6 +144,10 @@ enum CfgCommand {
         hotkey: Option<Key>,
         label: String,
     },
+    Label {
+        #[serde(rename = "label")]
+        label: String,
+    },
     Position {
         position: PlaceholderOption<Key>,
         save: Option<Key>,
@@ -215,6 +220,9 @@ impl CfgCommand {
             CfgCommand::SpecialFlag { flag, hotkey: _ } => {
                 error!("Invalid flag {}", flag);
                 return None;
+            },
+            CfgCommand::Label { label } => {
+                label_widget(label.as_str())
             },
             CfgCommand::SavefileManager { hotkey_load } => {
                 savefile_manager(hotkey_load.into_option(), settings.display)
