@@ -359,6 +359,8 @@ impl ItemSpawnInstance {
             one: u32,
             item_id: u32,
             qty: u32,
+            dur: i32,
+            gem: i32,
         }
 
         type SpawnItemFn = extern "system" fn(*const c_void, *mut SpawnRequest, *mut u32, u32);
@@ -367,9 +369,11 @@ impl ItemSpawnInstance {
 
         let item_id = self.item_id;
         let qty = self.qty;
-        let mut spawn_request = SpawnRequest { one: 1, item_id, qty };
-        let mut dur: u32 = 0xffffffff;
+        let dur = -1;
+        let gem = -1;
+        let mut spawn_request = SpawnRequest { one: 1, item_id, qty, dur, gem };
+        let mut output = 0u32;
 
-        spawn_fn_ptr(*pp_map_item_man, &mut spawn_request as *mut _, &mut dur as *mut _, 0u32);
+        spawn_fn_ptr(*pp_map_item_man, &mut spawn_request as *mut _, &mut output as *mut _, 0u32);
     }
 }
