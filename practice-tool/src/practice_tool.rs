@@ -462,9 +462,9 @@ impl PracticeTool {
                                 self.position_bufs.iter_mut().for_each(String::clear);
                                 write!(self.position_bufs[0], "m{a:02x}_{b:02x}_{r:02x}_{s:02x}")
                                     .ok();
-                                write!(self.position_bufs[1], "{x:.2}").ok();
-                                write!(self.position_bufs[2], "{y:.2}").ok();
-                                write!(self.position_bufs[3], "{z:.2}").ok();
+                                write!(self.position_bufs[1], "{x:.3}").ok();
+                                write!(self.position_bufs[2], "{y:.3}").ok();
+                                write!(self.position_bufs[3], "{z:.3}").ok();
 
                                 ui.text(&self.position_bufs[0]);
                                 ui.same_line();
