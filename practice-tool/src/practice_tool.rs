@@ -13,7 +13,7 @@ use practice_tool_core::crossbeam_channel::{self, Receiver, Sender};
 use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 use tracing_subscriber::prelude::*;
 
-use crate::config::{Config, Indicator, Settings};
+use crate::config::{Config, IndicatorType, Settings};
 use crate::update::Update;
 use crate::util;
 
@@ -254,11 +254,59 @@ impl PracticeTool {
             .build(|| {
                 ui.text("johndisandonato's Practice Tool");
 
-                ui.same_line();
+                // ui.same_line();
 
                 if ui.small_button("Open") {
                     self.ui_state = UiState::MenuOpen;
                 }
+
+                ui.same_line();
+
+                if ui.small_button("Indicators") {
+                    ui.open_popup("##indicators_window");
+                }
+
+                ui.modal_popup_config("##indicators_window")
+                    .resizable(false)
+                    .movable(false)
+                    .title_bar(false)
+                    .build(|| {
+                        let style = ui.clone_style();
+
+                        self.pointers.cursor_show.set(true);
+
+                        ui.text(
+                            "You can toggle indicators here, as\nwell as reset the frame \
+                             counter.\n\nKeep in mind that the available\nindicators and order of \
+                             them depend\non your config file.",
+                        );
+                        ui.separator();
+
+                        for indicator in &mut self.settings.indicators {
+                            let label = match indicator.indicator {
+                                IndicatorType::GameVersion => "Game Version",
+                                IndicatorType::Position => "Player Position",
+                                IndicatorType::Igt => "IGT Timer",
+                                IndicatorType::ImguiDebug => "ImGui Debug Info",
+                            };
+
+                            let mut state = indicator.enabled;
+
+                            if ui.checkbox(label, &mut state) {
+                                indicator.enabled = state;
+                            }
+                        }
+
+                        ui.separator();
+
+                        let btn_close_width =
+                            ui.content_region_max()[0] - style.frame_padding[0] * 2.0;
+
+                        if ui.button_with_size("Close", [btn_close_width, 0.0]) {
+                            ui.close_current_popup();
+                            self.pointers.cursor_show.set(false);
+                        }
+                    });
 
                 ui.same_line();
 
@@ -367,12 +415,18 @@ impl PracticeTool {
                         }
                     });
 
+                ui.new_line();
+
                 for indicator in &self.settings.indicators {
-                    match indicator {
-                        Indicator::GameVersion => {
+                    if !indicator.enabled {
+                        continue;
+                    }
+
+                    match indicator.indicator {
+                        IndicatorType::GameVersion => {
                             ui.text(&self.version_label);
                         },
-                        Indicator::Position => {
+                        IndicatorType::Position => {
                             if let (Some([x, y, z, _a1, _a2]), Some(m)) = (
                                 self.pointers.global_position.read(),
                                 self.pointers.global_position.read_map_id(),
@@ -404,7 +458,7 @@ impl PracticeTool {
                                 );
                             }
                         },
-                        Indicator::Igt => {
+                        IndicatorType::Igt => {
                             if let Some(igt) = self.pointers.igt.read() {
                                 let millis = (igt % 1000) / 10;
                                 let total_seconds = igt / 1000;
@@ -420,7 +474,7 @@ impl PracticeTool {
                                 ui.text(&self.igt_buf);
                             }
                         },
-                        Indicator::ImguiDebug => {
+                        IndicatorType::ImguiDebug => {
                             imgui_debug(ui);
                         },
                     }

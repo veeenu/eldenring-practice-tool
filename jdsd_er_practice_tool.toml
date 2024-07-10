@@ -48,3 +48,9 @@ display = "0"
 hide = "rshift+0"
 dxgi_debug = false
 show_console = false
+indicators = [
+  { indicator = "game_version", enabled = true },
+  { indicator = "igt", enabled = true },
+  { indicator = "position", enabled = false },
+  { indicator = "imgui_debug", enabled = false }
+]
