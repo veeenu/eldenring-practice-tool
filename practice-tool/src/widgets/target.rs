@@ -1,11 +1,17 @@
+use std::f32::consts::{FRAC_PI_2, PI};
+use std::ops::Rem;
+
 use imgui::{ProgressBar, StyleColor};
 use libeldenring::memedit::PointerChain;
 use libeldenring::pointer_chain;
+use libeldenring::prelude::Position as ErPosition;
 use practice_tool_core::key::Key;
 use practice_tool_core::widgets::Widget;
 use windows::Win32::System::Memory::{
     VirtualAlloc, MEM_COMMIT, MEM_RESERVE, PAGE_EXECUTE_READWRITE,
 };
+
+const PI2: f32 = 2.0 * PI;
 
 #[derive(Debug, Default)]
 struct EnemyInfo {
@@ -17,6 +23,7 @@ struct EnemyInfo {
     max_sp: u32,
     res: EnemyResistances,
     poise: PoiseMeter,
+    position: EntityPosition,
 }
 
 #[derive(Debug, Default)]
@@ -47,12 +54,26 @@ struct PoiseMeter {
     poise_time: f32,
 }
 
+// TODO doing this might be better than plucking each address individually?
+#[derive(Debug, Default)]
+#[repr(C)]
+struct EntityPosition {
+    angle1: f32,
+    unk1: [f32; 3],
+    angle2: f32,
+    unk2: [f32; 2],
+    x: f32,
+    y: f32,
+    z: f32,
+}
+
 struct EntityPointerChains {
     hp: PointerChain<[u32; 3]>,
     sp: PointerChain<[u32; 3]>,
     mp: PointerChain<[u32; 3]>,
     res: PointerChain<EnemyResistances>,
     poise: PointerChain<PoiseMeter>,
+    position: PointerChain<EntityPosition>,
 }
 
 #[derive(Debug)]
@@ -64,13 +85,18 @@ pub(crate) struct Target {
     hotkey: Option<Key>,
     is_enabled: bool,
     entity_addr: u64,
+    player_position: ErPosition,
 }
 
 unsafe impl Send for Target {}
 unsafe impl Sync for Target {}
 
 impl Target {
-    pub(crate) fn new(detour_addr: PointerChain<u64>, hotkey: Option<Key>) -> Self {
+    pub(crate) fn new(
+        detour_addr: PointerChain<u64>,
+        player_position: ErPosition,
+        hotkey: Option<Key>,
+    ) -> Self {
         let detour_addr = detour_addr.cast();
         let mut allocate_near = detour_addr.eval().unwrap() as usize;
 
@@ -100,6 +126,7 @@ impl Target {
             hotkey,
             is_enabled: false,
             entity_addr: 0,
+            player_position,
         }
     }
 
@@ -114,6 +141,7 @@ impl Target {
             mp: pointer_chain!(self.entity_addr as usize + 0x190, 0, 0x148),
             res: pointer_chain!(self.entity_addr as usize + 0x190, 0x20, 0x10),
             poise: pointer_chain!(self.entity_addr as usize + 0x190, 0x40, 0x10),
+            position: pointer_chain!(self.entity_addr as usize + 0x190, 0x68, 0x54),
         };
 
         let [hp, _, max_hp] = epc.hp.read()?;
@@ -121,8 +149,9 @@ impl Target {
         let [mp, _, max_mp] = epc.mp.read()?;
         let res = epc.res.read()?;
         let poise = epc.poise.read()?;
+        let position = epc.position.read()?;
 
-        Some(EnemyInfo { hp, max_hp, mp, max_mp, sp, max_sp, res, poise })
+        Some(EnemyInfo { hp, max_hp, mp, max_mp, sp, max_sp, res, poise, position })
     }
 
     fn enable(&mut self) {
@@ -202,13 +231,16 @@ impl Widget for Target {
             return;
         }
 
-        let Some(EnemyInfo { hp, max_hp, mp, max_mp, sp, max_sp, res, poise }) = self.get_data()
+        let Some(EnemyInfo { hp, max_hp, mp, max_mp, sp, max_sp, res, poise, position }) =
+            self.get_data()
         else {
             if self.is_enabled {
                 ui.text("No enemy locked on")
             };
             return;
         };
+
+        let player_chunk_position = self.player_position.read();
 
         let PoiseMeter { poise, poise_max, _unk, poise_time } = poise;
 
@@ -276,6 +308,7 @@ impl Widget for Target {
         pbar("SP", sp, max_sp, COLOR_SP);
         pbar("MP", mp, max_mp, COLOR_MP);
 
+        // TODO don't allocate
         ui.text(format!("Poise    {:>6.0}/{:>6.0} {:.2}s", poise, poise_max, poise_time));
         let pct = if poise_max.abs() < 0.0001 { 0.0 } else { poise / poise_max };
         let tok = ui.push_style_color(StyleColor::PlotHistogram, COLOR_BASE);
@@ -289,6 +322,18 @@ impl Widget for Target {
         pbar("Frost", frost, frost_max, COLOR_FROST);
         pbar("Sleep", sleep, sleep_max, COLOR_SLEEP);
         pbar("Mad", mad, mad_max, COLOR_MAD);
+
+        if let Some([x, y, z, r1, r2]) = player_chunk_position {
+            let distance =
+                ((position.x - x).powf(2.) + (position.y - y).powf(2.) + (position.z - z).powf(2.))
+                    .sqrt();
+            let angle = f32::atan2(z - position.z, x - position.x);
+            let enemy_angle = position.angle1 * PI;
+
+            let relative_angle = wrapped_angle_add(angle, -enemy_angle) * 180.0 / PI;
+
+            ui.text(format!("{distance:>6.3}m {relative_angle:>6.2}°",));
+        }
     }
 
     fn interact(&mut self, ui: &imgui::Ui) {
@@ -304,4 +349,8 @@ impl Widget for Target {
             }
         }
     }
+}
+
+fn wrapped_angle_add(a: f32, b: f32) -> f32 {
+    (a + b + PI).rem(PI2) - PI
 }
