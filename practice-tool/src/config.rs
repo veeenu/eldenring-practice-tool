@@ -14,6 +14,7 @@ use crate::widgets::deathcam::deathcam;
 use crate::widgets::flag::flag_widget;
 use crate::widgets::group::group;
 use crate::widgets::item_spawn::ItemSpawner;
+use crate::widgets::label::label_widget;
 use crate::widgets::multiflag::multi_flag;
 use crate::widgets::nudge_pos::nudge_position;
 use crate::widgets::position::save_position;
@@ -45,30 +46,72 @@ pub(crate) struct Settings {
     pub(crate) indicators: Vec<Indicator>,
 }
 
-#[derive(Deserialize, Copy, Clone, Debug)]
-#[serde(try_from = "String")]
-pub(crate) enum Indicator {
+#[derive(Debug, Deserialize, Clone)]
+pub(crate) enum IndicatorType {
     Igt,
     Position,
+    PositionChange,
     GameVersion,
     ImguiDebug,
+    Fps,
+    FrameCount,
+    Animation,
+}
+
+#[derive(Debug, Deserialize, Clone)]
+#[serde(try_from = "IndicatorConfig")]
+pub(crate) struct Indicator {
+    pub(crate) indicator: IndicatorType,
+    pub(crate) enabled: bool,
 }
 
 impl Indicator {
     fn default_set() -> Vec<Indicator> {
-        vec![Indicator::GameVersion, Indicator::Position, Indicator::Igt]
+        vec![
+            Indicator { indicator: IndicatorType::GameVersion, enabled: true },
+            Indicator { indicator: IndicatorType::Igt, enabled: true },
+            Indicator { indicator: IndicatorType::Position, enabled: false },
+            Indicator { indicator: IndicatorType::PositionChange, enabled: false },
+            Indicator { indicator: IndicatorType::Animation, enabled: false },
+            Indicator { indicator: IndicatorType::Fps, enabled: false },
+            Indicator { indicator: IndicatorType::FrameCount, enabled: false },
+            Indicator { indicator: IndicatorType::ImguiDebug, enabled: false },
+        ]
     }
 }
 
-impl TryFrom<String> for Indicator {
+#[derive(Debug, Deserialize, Clone)]
+struct IndicatorConfig {
+    indicator: String,
+    enabled: bool,
+}
+
+impl TryFrom<IndicatorConfig> for Indicator {
     type Error = String;
 
-    fn try_from(value: String) -> Result<Self, Self::Error> {
-        match value.as_str() {
-            "igt" => Ok(Indicator::Igt),
-            "position" => Ok(Indicator::Position),
-            "game_version" => Ok(Indicator::GameVersion),
-            "imgui_debug" => Ok(Indicator::ImguiDebug),
+    fn try_from(indicator: IndicatorConfig) -> Result<Self, Self::Error> {
+        match indicator.indicator.as_str() {
+            "igt" => Ok(Indicator { indicator: IndicatorType::Igt, enabled: indicator.enabled }),
+            "position" => {
+                Ok(Indicator { indicator: IndicatorType::Position, enabled: indicator.enabled })
+            },
+            "position_change" => Ok(Indicator {
+                indicator: IndicatorType::PositionChange,
+                enabled: indicator.enabled,
+            }),
+            "animation" => {
+                Ok(Indicator { indicator: IndicatorType::Animation, enabled: indicator.enabled })
+            },
+            "game_version" => {
+                Ok(Indicator { indicator: IndicatorType::GameVersion, enabled: indicator.enabled })
+            },
+            "fps" => Ok(Indicator { indicator: IndicatorType::Fps, enabled: indicator.enabled }),
+            "framecount" => {
+                Ok(Indicator { indicator: IndicatorType::FrameCount, enabled: indicator.enabled })
+            },
+            "imgui_debug" => {
+                Ok(Indicator { indicator: IndicatorType::ImguiDebug, enabled: indicator.enabled })
+            },
             value => Err(format!("Unrecognized indicator: {value}")),
         }
     }
@@ -118,6 +161,10 @@ enum CfgCommand {
     MultiFlagUser {
         flags: Vec<FlagSpec>,
         hotkey: Option<Key>,
+        label: String,
+    },
+    Label {
+        #[serde(rename = "label")]
         label: String,
     },
     Position {
@@ -193,6 +240,7 @@ impl CfgCommand {
                 error!("Invalid flag {}", flag);
                 return None;
             },
+            CfgCommand::Label { label } => label_widget(label.as_str()),
             CfgCommand::SavefileManager { hotkey_load } => {
                 savefile_manager(hotkey_load.into_option(), settings.display)
             },
@@ -344,6 +392,7 @@ impl TryFrom<String> for FlagSpec {
             (no_attack, "No attack"),
             (no_move, "No move"),
             (no_update_ai, "No update AI"),
+            (runearc, "Rune Arc"),
             (gravity, "No Gravity"),
             (torrent_gravity, "No Gravity (Torrent)"),
             (collision, "No Collision"),

@@ -3,7 +3,7 @@ commands = [
   { item_spawner = "ctrl+u" },
   { character_stats = true },
   { warp = true },
-  { cycle_speed = [1.0, 3.0, 6.0], hotkey = "8" },
+  { cycle_speed = [0.5, 1.0, 2.0, 5.0, 10.0], hotkey = "8" },
   { runes = 10000, hotkey = "9" },
   { group = "Position storage", commands = [
     { nudge = 1.0, nudge_up = "[", nudge_down = "]" },
@@ -29,6 +29,7 @@ commands = [
   { flag = "deathcam", hotkey = "5" },
   { flag = "no_dead", hotkey = "6" },
   { flag = "one_shot", hotkey = "7" },
+  { flag = "runearc", hotkey = "o" },
   { target = "ctrl+n" },
   { flag = "no_update_ai", hotkey = "f1" },
   { flag = "gravity", hotkey = "f2" },
@@ -48,3 +49,13 @@ display = "0"
 hide = "rshift+0"
 dxgi_debug = false
 show_console = false
+indicators = [
+  { indicator = "game_version", enabled = true },
+  { indicator = "igt", enabled = true },
+  { indicator = "position", enabled = false },
+  { indicator = "position_change", enabled = false },
+  { indicator = "animation", enabled = false },
+  { indicator = "fps", enabled = false },
+  { indicator = "framecount", enabled = false },
+  { indicator = "imgui_debug", enabled = false }
+]
