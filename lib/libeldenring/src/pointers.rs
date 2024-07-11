@@ -41,6 +41,10 @@ pub struct Pointers {
 
     pub runearc: Bitflag<u8>,
 
+    pub cur_anim: PointerChain<u32>,
+    pub cur_anim_time: PointerChain<f32>,
+    pub cur_anim_length: PointerChain<f32>,
+
     pub weapon_hitbox1: Bitflag<u8>, // debug sphere 1
     pub weapon_hitbox2: Bitflag<u8>, // debug sphere 2
     pub weapon_hitbox3: Bitflag<u8>, // damipoli
@@ -178,6 +182,7 @@ impl Pointers {
             cs_lua_event_manager,
             current_target,
             base_fps,
+            base_anim,
             ..
         } = base_addresses;
 
@@ -311,6 +316,10 @@ impl Pointers {
             igt: pointer_chain!(game_data_man, 0xA0),
 
             fps: pointer_chain!(base_fps, 0x98, 0x8, 0x770),
+
+            cur_anim: pointer_chain!(base_anim, 0x0, 0x190, 0x18, 0x20),
+            cur_anim_time: pointer_chain!(base_anim, 0x0, 0x190, 0x18, 0x24),
+            cur_anim_length: pointer_chain!(base_anim, 0x0, 0x190, 0x18, 0x2C),
 
             runearc: bitflag!(0b1; game_data_man, 0x8, 0xFF),
 

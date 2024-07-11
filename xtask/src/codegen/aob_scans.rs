@@ -261,6 +261,14 @@ pub(crate) fn get_base_addresses() {
             7,
             true,
         ),
+        aob_indirect_twice(
+            "BaseAnim",
+            &["48 89 0D ?? ?? ?? ?? 8D 46 9C 83 F8 21 77 37 83 FE 66 74 26 83 FE 70 74 15 83 FE \
+               7C 0F 85 ?? ?? ?? ?? 48 8D BB ?? ?? ?? ?? E9 ?? ?? ?? ?? 48 8D BB ?? ?? ?? ??"],
+            3,
+            7,
+            true,
+        ),
     ];
 
     codegen::codegen_base_addresses(base_addresses_rs_path(), patches_paths(), aobs)

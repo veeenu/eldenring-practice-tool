@@ -59,6 +59,8 @@ pub(crate) struct PracticeTool {
 
     framecount: u32,
     framecount_buf: String,
+
+    cur_anim_buf: String,
 }
 
 impl PracticeTool {
@@ -195,6 +197,7 @@ impl PracticeTool {
             fps_buf: Default::default(),
             framecount: 0,
             framecount_buf: Default::default(),
+            cur_anim_buf: Default::default(),
             update_available,
         }
     }
@@ -299,6 +302,7 @@ impl PracticeTool {
                                 IndicatorType::GameVersion => "Game Version",
                                 IndicatorType::Position => "Player Position",
                                 IndicatorType::PositionChange => "Player Velocity",
+                                IndicatorType::Animation => "Animation",
                                 IndicatorType::Igt => "IGT Timer",
                                 IndicatorType::Fps => "FPS",
                                 IndicatorType::FrameCount => "Frame Counter",
@@ -514,6 +518,21 @@ impl PracticeTool {
                                 ui.text(&self.position_change_buf);
 
                                 self.position_prev = [x, y, z];
+                            }
+                        },
+                        IndicatorType::Animation => {
+                            if let (Some(cur_anim), Some(cur_anim_time), Some(cur_anim_length)) = (
+                                self.pointers.cur_anim.read(),
+                                self.pointers.cur_anim_time.read(),
+                                self.pointers.cur_anim_length.read(),
+                            ) {
+                                self.cur_anim_buf.clear();
+                                write!(
+                                    self.cur_anim_buf,
+                                    "Animation {cur_anim} ({cur_anim_time}s /  {cur_anim_length}s)",
+                                )
+                                .ok();
+                                ui.text(&self.cur_anim_buf);
                             }
                         },
                         IndicatorType::Igt => {
