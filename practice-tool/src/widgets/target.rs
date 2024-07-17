@@ -1,4 +1,5 @@
-use std::f32::consts::{PI};
+use std::f32::consts::PI;
+
 use imgui::{ProgressBar, StyleColor};
 use libeldenring::memedit::PointerChain;
 use libeldenring::pointer_chain;
@@ -19,7 +20,7 @@ struct EnemyInfo {
     max_sp: u32,
     res: EnemyResistances,
     poise: PoiseMeter,
-	position: EntityPosition,
+    position: EntityPosition,
 }
 
 #[derive(Debug, Default)]
@@ -80,14 +81,18 @@ pub(crate) struct Target {
     hotkey: Option<Key>,
     is_enabled: bool,
     entity_addr: u64,
-	player_position: ErPosition,
+    player_position: ErPosition,
 }
 
 unsafe impl Send for Target {}
 unsafe impl Sync for Target {}
 
 impl Target {
-    pub(crate) fn new(detour_addr: PointerChain<u64>, player_position: ErPosition, hotkey: Option<Key>) -> Self {
+    pub(crate) fn new(
+        detour_addr: PointerChain<u64>,
+        player_position: ErPosition,
+        hotkey: Option<Key>,
+    ) -> Self {
         let detour_addr = detour_addr.cast();
         let mut allocate_near = detour_addr.eval().unwrap() as usize;
 
@@ -117,7 +122,7 @@ impl Target {
             hotkey,
             is_enabled: false,
             entity_addr: 0,
-			player_position,
+            player_position,
         }
     }
 
@@ -132,7 +137,7 @@ impl Target {
             mp: pointer_chain!(self.entity_addr as usize + 0x190, 0, 0x148),
             res: pointer_chain!(self.entity_addr as usize + 0x190, 0x20, 0x10),
             poise: pointer_chain!(self.entity_addr as usize + 0x190, 0x40, 0x10),
-			position: pointer_chain!(self.entity_addr as usize + 0x190, 0x68, 0x54),
+            position: pointer_chain!(self.entity_addr as usize + 0x190, 0x68, 0x54),
         };
 
         let [hp, _, max_hp] = epc.hp.read()?;
@@ -140,9 +145,9 @@ impl Target {
         let [mp, _, max_mp] = epc.mp.read()?;
         let res = epc.res.read()?;
         let poise = epc.poise.read()?;
-		let position = epc.position.read()?;
+        let position = epc.position.read()?;
 
-        Some(EnemyInfo { hp, max_hp, mp, max_mp, sp, max_sp, res, poise, position})
+        Some(EnemyInfo { hp, max_hp, mp, max_mp, sp, max_sp, res, poise, position })
     }
 
     fn enable(&mut self) {
@@ -222,15 +227,16 @@ impl Widget for Target {
             return;
         }
 
-        let Some(EnemyInfo { hp, max_hp, mp, max_mp, sp, max_sp, res, poise, position }) = self.get_data()
+        let Some(EnemyInfo { hp, max_hp, mp, max_mp, sp, max_sp, res, poise, position }) =
+            self.get_data()
         else {
             if self.is_enabled {
                 ui.text("No enemy locked on")
             };
             return;
         };
-		
-		let player_chunk_position = self.player_position.read();
+
+        let player_chunk_position = self.player_position.read();
 
         let PoiseMeter { poise, poise_max, _unk, poise_time } = poise;
 
@@ -311,38 +317,40 @@ impl Widget for Target {
         pbar("Frost", frost, frost_max, COLOR_FROST);
         pbar("Sleep", sleep, sleep_max, COLOR_SLEEP);
         pbar("Mad", mad, mad_max, COLOR_MAD);
-		
-		if let Some([x, y, z, r1, _r2]) = player_chunk_position {
+
+        if let Some([x, y, z, r1, _r2]) = player_chunk_position {
             let distance =
                 ((position.x - x).powf(2.) + (position.y - y).powf(2.) + (position.z - z).powf(2.))
                     .sqrt();
-					
-            let angle = f32::atan((x - position.x)/(z - position.z));			
-			let my_angle = f32::asin(r1) * 2.0;
-			let enemy_angle = f32::asin(position.angle1) * 2.0;
-			
-			let my_angle_display = my_angle * 180.0 / PI;
-			let enemy_angle_display = enemy_angle * 180.0 / PI;
 
-			let mut relative_angle = if (z - position.z) >= 0.0 {
-				(enemy_angle - angle) * 180.0 / PI
-			} else {
-				(enemy_angle - angle) * 180.0 / PI + 180.0
-			};				
-			
-			if relative_angle < 0.0 {
-				relative_angle = relative_angle + 360.0;
-			}
-			
-			if relative_angle > 360.0 {
-				relative_angle = relative_angle - 360.0;
-			}		
-			
-			relative_angle = relative_angle - 180.0;
-			
+            let angle = f32::atan((x - position.x) / (z - position.z));
+            let my_angle = f32::asin(r1) * 2.0;
+            let enemy_angle = f32::asin(position.angle1) * 2.0;
+
+            let my_angle_display = my_angle * 180.0 / PI;
+            let enemy_angle_display = enemy_angle * 180.0 / PI;
+
+            let mut relative_angle = if (z - position.z) >= 0.0 {
+                (enemy_angle - angle) * 180.0 / PI
+            } else {
+                (enemy_angle - angle) * 180.0 / PI + 180.0
+            };
+
+            if relative_angle < 0.0 {
+                relative_angle = relative_angle + 360.0;
+            }
+
+            if relative_angle > 360.0 {
+                relative_angle = relative_angle - 360.0;
+            }
+
+            relative_angle = relative_angle - 180.0;
+
             ui.text(format!("{distance:>6.3}m {relative_angle:>6.4}deg",));
-			ui.text(format!("{my_angle_display:>6.4}myangle {enemy_angle_display:>6.4}enemyangle",));
-		}
+            ui.text(
+                format!("{my_angle_display:>6.4}myangle {enemy_angle_display:>6.4}enemyangle",),
+            );
+        }
     }
 
     fn interact(&mut self, ui: &imgui::Ui) {
