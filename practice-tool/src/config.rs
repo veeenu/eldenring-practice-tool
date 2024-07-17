@@ -284,7 +284,7 @@ impl CfgCommand {
                 settings.display,
             )),
             CfgCommand::Target { hotkey } => {
-                Box::new(Target::new(chains.current_target.clone(), hotkey.into_option()))
+                Box::new(Target::new(chains.current_target.clone(), chains.chunk_position.clone(), hotkey.into_option()))
             },
             CfgCommand::Quitout { hotkey } => quitout(chains.quitout.clone(), hotkey.into_option()),
             CfgCommand::Group { label, commands } => group(
