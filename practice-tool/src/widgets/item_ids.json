@@ -15167,5 +15167,110 @@
         "value": 1075961824
       }
     ]
+  },
+  {
+    "node": "DLC Ashes of War",
+    "children": [
+      {
+        "node": "Ash of War: Dryleaf Whirlwind",
+        "value": 2147683648
+      },
+      {
+        "node": "Ash of War: Aspects of the Crucible: Wings",
+        "value": 2147683748
+      },
+      {
+        "node": "Ash of War: Spinning Gravity Thrust",
+        "value": 2147883648
+      },
+      {
+        "node": "Ash of War: Palm Blast",
+        "value": 2147884648
+      },
+      {
+        "node": "Ash of War: Piercing Throw",
+        "value": 2147885648
+      },
+      {
+        "node": "Ash of War: Scattershot Throw",
+        "value": 2147886648
+      },
+      {
+        "node": "Ash of War: Wall of Sparks",
+        "value": 2147887648
+      },
+      {
+        "node": "Ash of War: Rolling Sparks",
+        "value": 2147888648
+      },
+      {
+        "node": "Ash of War: Raging Beast",
+        "value": 2147889648
+      },
+      {
+        "node": "Ash of War: Savage Claws",
+        "value": 2147890648
+      },
+      {
+        "node": "Ash of War: Blind Spot",
+        "value": 2147892648
+      },
+      {
+        "node": "Ash of War: Swift Slash",
+        "value": 2147893648
+      },
+      {
+        "node": "Ash of War: Overhead Stance",
+        "value": 2147894648
+      },
+      {
+        "node": "Ash of War: Wing Stance",
+        "value": 2147895648
+      },
+      {
+        "node": "Ash of War: Blinkbolt",
+        "value": 2147896648
+      },
+      {
+        "node": "Ash of War: Flame Skewer",
+        "value": 2147897648
+      },
+      {
+        "node": "Ash of War: Savage Lion's Claw",
+        "value": 2147898648
+      },
+      {
+        "node": "Ash of War: Divine Beast Frost Stomp",
+        "value": 2147899648
+      },
+      {
+        "node": "Ash of War: Flame Spear",
+        "value": 2147900648
+      },
+      {
+        "node": "Ash of War: Carian Sovereignty",
+        "value": 2147901648
+      },
+      {
+        "node": "Ash of War: Shriek of Sorrow",
+        "value": 2147902648
+      },
+      {
+        "node": "Ash of War: Ghostflame Call",
+        "value": 2147905648
+      },
+      {
+        "node": "Ash of War: The Poison Flower Blooms Twice",
+        "value": 2147988648
+      },
+      {
+        "node": "Ash of War: Igon's Drake Hunt",
+        "value": 2148031648
+      },
+      {
+        "node": "Ash of War: Shield Strike",
+        "value": 2148283648
+      }
+    ]
   }
 ]
