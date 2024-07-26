@@ -346,10 +346,7 @@ impl Widget for Target {
 
             relative_angle = relative_angle - 180.0;
 
-            ui.text(format!("{distance:>6.3}m {relative_angle:>6.4}deg",));
-            ui.text(
-                format!("{my_angle_display:>6.4}myangle {enemy_angle_display:>6.4}enemyangle",),
-            );
+            ui.text(format!("{distance:>6.3}m {my_angle_display:>6.3}deg",));
         }
     }
 
