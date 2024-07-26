@@ -1,5 +1,7 @@
 use std::f32::consts::PI;
+use std::fmt::Write;
 
+use imgui::sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos, ImVec2};
 use imgui::{ProgressBar, StyleColor};
 use libeldenring::memedit::PointerChain;
 use libeldenring::pointer_chain;
@@ -82,6 +84,8 @@ pub(crate) struct Target {
     is_enabled: bool,
     entity_addr: u64,
     player_position: ErPosition,
+
+    distance_text: String,
 }
 
 unsafe impl Send for Target {}
@@ -123,6 +127,8 @@ impl Target {
             is_enabled: false,
             entity_addr: 0,
             player_position,
+
+            distance_text: String::new(),
         }
     }
 
@@ -318,35 +324,56 @@ impl Widget for Target {
         pbar("Sleep", sleep, sleep_max, COLOR_SLEEP);
         pbar("Mad", mad, mad_max, COLOR_MAD);
 
-        if let Some([x, y, z, r1, _r2]) = player_chunk_position {
+        ui.new_line();
+
+        if let Some([x, y, z, _r1, _r2]) = player_chunk_position {
             let distance =
                 ((position.x - x).powf(2.) + (position.y - y).powf(2.) + (position.z - z).powf(2.))
                     .sqrt();
 
             let angle = f32::atan((x - position.x) / (z - position.z));
-            let my_angle = f32::asin(r1) * 2.0;
             let enemy_angle = f32::asin(position.angle1) * 2.0;
 
-            let my_angle_display = my_angle * 180.0 / PI;
-            let enemy_angle_display = enemy_angle * 180.0 / PI;
-
             let mut relative_angle = if (z - position.z) >= 0.0 {
-                (enemy_angle - angle) * 180.0 / PI
+                enemy_angle - angle
             } else {
-                (enemy_angle - angle) * 180.0 / PI + 180.0
+                (enemy_angle - angle) + PI
             };
 
             if relative_angle < 0.0 {
-                relative_angle = relative_angle + 360.0;
+                relative_angle += 2.0 * PI;
             }
 
-            if relative_angle > 360.0 {
-                relative_angle = relative_angle - 360.0;
+            if relative_angle > 2.0 * PI {
+                relative_angle -= 2.0 * PI;
             }
 
-            relative_angle = relative_angle - 180.0;
+            relative_angle -= PI;
 
-            ui.text(format!("{distance:>6.3}m {my_angle_display:>6.3}deg",));
+            self.distance_text.clear();
+            write!(
+                &mut self.distance_text,
+                "{distance:>6.3}m {:>8.3}deg",
+                relative_angle * 180.0 / PI
+            )
+            .unwrap();
+            ui.text(&self.distance_text);
+            ui.same_line();
+            let [_, text_height] = ui.calc_text_size(&self.distance_text);
+
+            let draw_list = ui.get_foreground_draw_list();
+
+            let radius = text_height * 0.5;
+            let mut window_pos = ImVec2::default();
+            unsafe { igGetWindowPos(&mut window_pos) };
+            let x = unsafe { igGetCursorPosX() } + window_pos.x + radius;
+            let y = unsafe { igGetCursorPosY() } + window_pos.y + radius;
+            let dy = (-relative_angle.cos()) * radius;
+            let dx = (-relative_angle.sin()) * radius;
+
+            draw_list.add_circle([x, y], radius, [1.0, 1.0, 1.0]).build();
+            draw_list.add_line([x, y], [x + dx, y + dy], [1.0, 1.0, 1.0]).build();
+            ui.new_line();
         }
     }
 
