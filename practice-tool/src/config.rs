@@ -273,6 +273,7 @@ impl CfgCommand {
             ),
             CfgCommand::CharacterStats { hotkey_open } => character_stats_edit(
                 chains.character_stats.clone(),
+                chains.character_blessings.clone(),
                 hotkey_open.into_option(),
                 settings.display,
             ),

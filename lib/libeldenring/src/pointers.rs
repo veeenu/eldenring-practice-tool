@@ -34,6 +34,8 @@ pub struct Pointers {
     pub current_target: PointerChain<u64>,
 
     pub character_stats: PointerChain<CharacterStats>,
+    pub character_blessings: Option<PointerChain<CharacterBlessings>>,
+
     pub runes: PointerChain<u32>,
     pub igt: PointerChain<usize>,
 
@@ -158,6 +160,19 @@ pub struct CharacterStats {
 impl Display for CharacterStats {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "CharacterStats {{ }}")
+    }
+}
+
+#[derive(Debug, Clone)]
+#[repr(C)]
+pub struct CharacterBlessings {
+    pub scadutree: i8,
+    pub revered_spirit_ash: i8,
+}
+
+impl Display for CharacterBlessings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "CharacterBlessings {{ }}")
     }
 }
 
@@ -310,6 +325,12 @@ impl Pointers {
             torrent_collision: bitflag!(0b1000; world_chr_man, torrent_enemy_ins, 0x18, 0, 0x58, 0xf0),
 
             character_stats: pointer_chain!(game_data_man, 0x8, 0x3c),
+            character_blessings: match version {
+                V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
+                | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1
+                | V2_00_0 | V2_00_1 => None,
+                V2_02_0 | V2_02_3 | V2_03_0 => Some(pointer_chain!(game_data_man, 0x8, 0xfc)),
+            },
             runes: pointer_chain!(game_data_man, 0x8, 0x6C),
             igt: pointer_chain!(game_data_man, 0xA0),
 
