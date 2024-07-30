@@ -22,6 +22,8 @@ Prerequisites:
 
 - Steam must be open. Offline mode is fine, but the program must be started.
 - Antiviruses are disabled. This includes Windows Defender. If you don't want to do that, make sure to whitelist the contents of the practice tool in your antivirus.
+- You are using a _completely vanilla_ install of the game, _with no mods whatsoever_. If you installed mods already, please reinstall Elden Ring from scratch.
+- You are not using other overlay software, such as RivaTuner Statistics Server, FRAPS or similar. The Steam Overlay is an exception.
 - You have a legitimate copy of the game. Pirated copies will never be supported.
 - EAC is [bypassed](https://soulsspeedruns.com/eldenring/eac-bypass/) with the textfile method.
 Other methods aren't supported and could make it impossible to run the tool.
