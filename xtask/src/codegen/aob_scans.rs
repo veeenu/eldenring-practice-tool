@@ -100,14 +100,14 @@ pub(crate) fn get_base_addresses() {
             7,
             true,
         ),
-        aob_indirect_twice(
-            "CSSessionManager",
-            &["48 8B 05 ?? ?? ?? ?? 48 89 9C 24 E8 00 00 00 48 89 ?? 24 B0 00 00 00 ?? 89 ?? 24 \
-               A8 00 00 00 ?? 89 ?? 24 A0 00 00 00 48 85 C0"],
-            3,
-            7,
-            true,
-        ),
+        // aob_indirect_twice(
+        //     "CSSessionManager",
+        //     &["48 8B 05 ?? ?? ?? ?? 48 89 9C 24 E8 00 00 00 48 89 ?? 24 B0 00 00 00 ?? 89 ?? 24
+        // \        A8 00 00 00 ?? 89 ?? 24 A0 00 00 00 48 85 C0"],
+        //     3,
+        //     7,
+        //     true,
+        // ),
         aob_indirect_twice(
             "DamageCtrl",
             &["48 8B 05 ?? ?? ?? ?? 49 8B D9 49 8B F8 48 8B F2 48 85 C0 75 2E"],
