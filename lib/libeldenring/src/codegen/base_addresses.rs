@@ -140,7 +140,7 @@ impl TryFrom<(u32, u32, u32)> for Version {
             (maj, min, patch) => {
                 log::error!("Unrecognized version {maj}.{min:02}.{patch}");
                 Err(())
-            }
+            },
         }
     }
 }
@@ -1040,4 +1040,3 @@ pub const BASE_ADDRESSES_2_03_0: BaseAddresses = BaseAddresses {
     event_patch2: 0xe53680,
     font_patch: 0x268d330,
 };
-
