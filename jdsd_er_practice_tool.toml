@@ -34,6 +34,7 @@ commands = [
   { flag = "runearc", hotkey = "o" },
   { target = "ctrl+n" },
   { flag = "no_update_ai", hotkey = "f1" },
+  { flag = "no_trigger_event" },
   { flag = "gravity", hotkey = "f2" },
   { flag = "torrent_gravity", hotkey = "f2" },
   { flags = ["collision", "torrent_collision"], label = "No Collision" },

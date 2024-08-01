@@ -22,6 +22,7 @@ pub struct Pointers {
     pub no_attack: Bitflag<u8>,
     pub no_move: Bitflag<u8>,
     pub no_update_ai: Bitflag<u8>,
+    pub no_trigger_event: Bitflag<u8>,
     pub no_ashes_of_war_fp_consume: Bitflag<u8>,
 
     pub collision: Bitflag<u8>,
@@ -317,6 +318,7 @@ impl Pointers {
             no_attack: bitflag!(0b1; chr_dbg_flags + 0xE),
             no_move: bitflag!(0b1; chr_dbg_flags + 0xF),
             no_update_ai: bitflag!(0b1; chr_dbg_flags + 0x10),
+            no_trigger_event: bitflag!(0b1; dbg_event_man_off, 0x28),
             no_ashes_of_war_fp_consume: bitflag!(0b1; chr_dbg_flags + 0x12),
 
             all_no_dead: bitflag!(0b1; chr_dbg_flags + 0xB),
