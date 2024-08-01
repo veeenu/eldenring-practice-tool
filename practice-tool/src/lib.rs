@@ -16,9 +16,9 @@
 
 mod config;
 mod practice_tool;
-mod update;
 mod widgets;
 
+pub mod update;
 pub mod util;
 
 use std::ffi::c_void;
