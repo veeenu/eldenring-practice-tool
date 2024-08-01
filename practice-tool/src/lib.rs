@@ -101,8 +101,8 @@ unsafe fn apply_no_logo() {
 unsafe fn apply_event_patch() {
     let module_base = GetModuleHandleW(None).unwrap();
 
-    let offset_1 = BaseAddresses::from(*VERSION).event_patch1;
-    let offset_2 = BaseAddresses::from(*VERSION).event_patch2;
+    let offset_1 = BaseAddresses::from(version::get_version()).event_patch1;
+    let offset_2 = BaseAddresses::from(version::get_version()).event_patch2;
 
     let ptr_1 = (module_base.0 as usize + offset_1) as *mut [u8; 2];
     let mut old_1 = PAGE_PROTECTION_FLAGS(0);
@@ -125,7 +125,7 @@ unsafe fn apply_event_patch() {
 
 unsafe fn apply_font_patch() {
     let module_base = GetModuleHandleW(None).unwrap();
-    let offset = BaseAddresses::from(*VERSION).font_patch;
+    let offset = BaseAddresses::from(version::get_version()).font_patch;
 
     let ptr = (module_base.0 as usize + offset) as *mut u8;
     let mut old = PAGE_PROTECTION_FLAGS(0);
