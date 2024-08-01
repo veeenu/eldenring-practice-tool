@@ -74,14 +74,14 @@ fn main() -> Result<()> {
         Update::Error(e) => {
             let _ = message_box(
                 "Elden Ring Practice Tool - Error",
-                &format!("Could not check for updates: {e}"),
+                format!("Could not check for updates: {e}"),
                 MB_OK | MB_ICONERROR,
             );
         },
         Update::Available { url, notes } => {
             if let MESSAGEBOX_RESULT(1) = message_box(
                 "Elden Ring Practice Tool - Update available",
-                &format!("{notes}\n\nDo you want to download it?"),
+                format!("{notes}\n\nDo you want to download it?"),
                 MB_OKCANCEL | MB_ICONINFORMATION,
             ) {
                 return Ok(open::that(&url)?);
