@@ -3,6 +3,7 @@ use std::mem;
 use std::ptr::null_mut;
 
 use libeldenring::prelude::*;
+use libeldenring::version;
 use once_cell::sync::Lazy;
 use u16cstr::u16str;
 use widestring::U16CString;
@@ -67,7 +68,11 @@ fn dinput8_path() -> U16CString {
 
 unsafe fn apply_patch() {
     let module_base = GetModuleHandleW(PCWSTR(null_mut())).unwrap();
-    let offset = base_addresses::BaseAddresses::from(*VERSION).func_remove_intro_screens;
+    let Ok(version) = version::check_version() else {
+        return;
+    };
+
+    let offset = base_addresses::BaseAddresses::from(version).func_remove_intro_screens;
 
     let ptr = (module_base.0 as usize + offset) as *mut [u8; 2];
     let mut old = PAGE_PROTECTION_FLAGS(0);

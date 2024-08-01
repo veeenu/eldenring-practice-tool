@@ -29,7 +29,7 @@ use hudhook::hooks::dx12::ImguiDx12Hooks;
 use hudhook::tracing::error;
 use hudhook::{eject, Hudhook};
 use libeldenring::codegen::base_addresses::BaseAddresses;
-use libeldenring::version::VERSION;
+use libeldenring::version;
 use once_cell::sync::Lazy;
 use practice_tool::PracticeTool;
 use windows::core::{s, w, GUID, HRESULT, PCWSTR};
@@ -87,7 +87,7 @@ unsafe extern "stdcall" fn DirectInput8Create(
 
 unsafe fn apply_no_logo() {
     let module_base = GetModuleHandleW(None).unwrap();
-    let offset = BaseAddresses::from(*VERSION).func_remove_intro_screens;
+    let offset = BaseAddresses::from(version::get_version()).func_remove_intro_screens;
 
     let ptr = (module_base.0 as usize + offset) as *mut [u8; 2];
     let mut old = PAGE_PROTECTION_FLAGS(0);
@@ -146,8 +146,12 @@ fn await_rshift() -> bool {
 
 #[no_mangle]
 #[allow(clippy::missing_safety_doc)]
-pub unsafe extern "stdcall" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut c_void) {
+pub unsafe extern "stdcall" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut c_void) -> bool {
     if reason == DLL_PROCESS_ATTACH {
+        if version::check_version().is_err() {
+            return false;
+        }
+
         thread::spawn(move || {
             apply_no_logo();
 
@@ -165,4 +169,6 @@ pub unsafe extern "stdcall" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut 
             }
         });
     }
+
+    true
 }

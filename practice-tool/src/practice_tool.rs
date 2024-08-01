@@ -8,6 +8,7 @@ use hudhook::tracing::*;
 use hudhook::{ImguiRenderLoop, RenderContext};
 use imgui::*;
 use libeldenring::prelude::*;
+use libeldenring::version;
 use pkg_version::*;
 use practice_tool_core::crossbeam_channel::{self, Receiver, Sender};
 use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
@@ -171,7 +172,7 @@ impl PracticeTool {
 
         let pointers = Pointers::new();
         let version_label = {
-            let (maj, min, patch) = (*VERSION).into();
+            let (maj, min, patch) = version::get_version().into();
             format!("Game Ver {}.{:02}.{}", maj, min, patch)
         };
         let settings = config.settings.clone();
