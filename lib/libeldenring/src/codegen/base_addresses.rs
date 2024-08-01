@@ -108,6 +108,7 @@ pub enum Version {
     V2_00_1,
     V2_02_0,
     V2_02_3,
+    V2_03_0,
 }
 
 impl TryFrom<(u32, u32, u32)> for Version {
@@ -135,10 +136,11 @@ impl TryFrom<(u32, u32, u32)> for Version {
             (2, 0, 1) => Ok(Version::V2_00_1),
             (2, 2, 0) => Ok(Version::V2_02_0),
             (2, 2, 3) => Ok(Version::V2_02_3),
+            (2, 3, 0) => Ok(Version::V2_03_0),
             (maj, min, patch) => {
                 log::error!("Unrecognized version {maj}.{min:02}.{patch}");
                 Err(())
-            },
+            }
         }
     }
 }
@@ -166,6 +168,7 @@ impl From<Version> for (u32, u32, u32) {
             Version::V2_00_1 => (2, 0, 1),
             Version::V2_02_0 => (2, 2, 0),
             Version::V2_02_3 => (2, 2, 3),
+            Version::V2_03_0 => (2, 3, 0),
         }
     }
 }
@@ -193,6 +196,7 @@ impl From<Version> for BaseAddresses {
             Version::V2_00_1 => BASE_ADDRESSES_2_00_1,
             Version::V2_02_0 => BASE_ADDRESSES_2_02_0,
             Version::V2_02_3 => BASE_ADDRESSES_2_02_3,
+            Version::V2_03_0 => BASE_ADDRESSES_2_03_0,
         }
     }
 }
@@ -996,3 +1000,44 @@ pub const BASE_ADDRESSES_2_02_3: BaseAddresses = BaseAddresses {
     event_patch2: 0xe53190,
     font_patch: 0x268ca90,
 };
+
+pub const BASE_ADDRESSES_2_03_0: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3d62768,
+    chr_dbg_flags: 0x3d661bf,
+    csfd4_virtual_memory_flag: 0x3d68468,
+    cs_flipper: 0x4589af8,
+    cs_lua_event_manager: 0x3d67e68,
+    cs_menu_man: 0x8ba7b5c4,
+    cs_menu_man_imp: 0x3d6b7d0,
+    cs_net_man: 0x3d5ae80,
+    cs_regulation_manager: 0x3d86c78,
+    cs_session_manager: 0x3d7a4f0,
+    damage_ctrl: 0x3d66398,
+    field_area: 0x3d691f8,
+    game_data_man: 0x3d5df58,
+    game_man: 0x3d69938,
+    global_pos: 0x3d65fa8,
+    group_mask: 0x3b33cff,
+    hit_ins: 0x3d6a100,
+    hit_ins_hitbox_offset: 0x3d6a10c,
+    map_item_man: 0x3d67a70,
+    menu_man_ins: 0x3d6b7d0,
+    msg_repository: 0x3d7d518,
+    solo_param_repository: 0x3d81f08,
+    world_chr_man: 0x3d65fa8,
+    world_chr_man_dbg: 0x3d661b8,
+    world_chr_man_imp: 0x3d65fa8,
+    func_item_spawn: 0x55ac50,
+    func_item_inject: 0x560660,
+    func_remove_intro_screens: 0xb0c0ed,
+    func_dbg_action_force: 0x57d2871,
+    lua_warp: 0x599c9e,
+    current_target: 0x71719e,
+    base_fps: 0x3d76080,
+    base_anim: 0x3b12e30,
+    dbg_event_man_off: 0x3d68018,
+    event_patch1: 0xe536a0,
+    event_patch2: 0xe53680,
+    font_patch: 0x268d330,
+};
+
