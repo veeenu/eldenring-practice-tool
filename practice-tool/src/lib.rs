@@ -98,8 +98,50 @@ unsafe fn apply_no_logo() {
     }
 }
 
+unsafe fn apply_event_patch() {
+    let module_base = GetModuleHandleW(None).unwrap();
+
+    let offset_1 = BaseAddresses::from(*VERSION).event_patch1;
+    let offset_2 = BaseAddresses::from(*VERSION).event_patch2;
+
+    let ptr_1 = (module_base.0 as usize + offset_1) as *mut [u8; 2];
+    let mut old_1 = PAGE_PROTECTION_FLAGS(0);
+    if *ptr_1 == [0x32, 0xC0]
+        && VirtualProtect(ptr_1 as _, 2, PAGE_EXECUTE_READWRITE, &mut old_1).is_ok()
+    {
+        (*ptr_1) = [0xB0, 0x01];
+        VirtualProtect(ptr_1 as _, 2, old_1, &mut old_1).ok();
+    }
+
+    let ptr_2 = (module_base.0 as usize + offset_2) as *mut [u8; 2];
+    let mut old_2 = PAGE_PROTECTION_FLAGS(0);
+    if *ptr_2 == [0x32, 0xC0]
+        && VirtualProtect(ptr_2 as _, 2, PAGE_EXECUTE_READWRITE, &mut old_2).is_ok()
+    {
+        (*ptr_2) = [0xB0, 0x01];
+        VirtualProtect(ptr_2 as _, 2, old_2, &mut old_2).ok();
+    }
+}
+
+unsafe fn apply_font_patch() {
+    let module_base = GetModuleHandleW(None).unwrap();
+    let offset = BaseAddresses::from(*VERSION).font_patch;
+
+    let ptr = (module_base.0 as usize + offset) as *mut u8;
+    let mut old = PAGE_PROTECTION_FLAGS(0);
+    if *ptr == 0x48 && VirtualProtect(ptr as _, 1, PAGE_EXECUTE_READWRITE, &mut old).is_ok() {
+        (*ptr) = 0xC3;
+        VirtualProtect(ptr as _, 1, old, &mut old).ok();
+    }
+}
+
 fn start_practice_tool(hmodule: HINSTANCE) {
     let practice_tool = PracticeTool::new();
+
+    unsafe {
+        apply_event_patch(); // Needed for event draw
+        apply_font_patch(); // Needed for event draw & altimeter
+    }
 
     if let Err(e) = Hudhook::builder()
         .with::<ImguiDx12Hooks>(practice_tool)

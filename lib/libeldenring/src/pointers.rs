@@ -77,6 +77,8 @@ pub struct Pointers {
     pub hitbox_f: Bitflag<u8>,
     pub hitbox_character: Bitflag<u8>,
 
+    pub hitbox_event: Bitflag<u8>,
+
     // FieldArea
     pub field_area_direction: Bitflag<u8>,
     pub field_area_altimeter: Bitflag<u8>,
@@ -202,6 +204,7 @@ impl Pointers {
             current_target,
             base_fps,
             base_anim,
+            dbg_event_man_off,
             ..
         } = base_addresses;
 
@@ -434,6 +437,7 @@ impl Pointers {
             hitbox_low: bitflag!(0b1; hit_ins_hitbox_offset + 0x1),
             hitbox_f: bitflag!(0b1; hit_ins_hitbox_offset + 0x4),
             hitbox_character: bitflag!(0b1; hit_ins_hitbox_offset + 0x3),
+            hitbox_event: bitflag!(0b1; dbg_event_man_off, 0x4),
             show_geom,
             show_chr,
 

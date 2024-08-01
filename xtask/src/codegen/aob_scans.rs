@@ -268,6 +268,34 @@ pub(crate) fn get_base_addresses() {
             7,
             true,
         ),
+        aob_indirect_twice(
+            "DbgEventManOff",
+            &["48 8B 0D ?? ?? ?? ?? 48 85 C9 74 13 83 CF 20 89 7D 87 E8 ?? ?? ?? ?? 84 C0 74 04 \
+               B0 01 EB 02 32 C0 40 F6 C7 20 74 06"],
+            3,
+            7,
+            true,
+        ),
+        aob_indirect_twice(
+            "EventPatch1",
+            &["E8 ?? ?? ?? ?? 84 C0 74 06 E8 ?? ?? ?? ?? 90 48 8B C7"],
+            1,
+            5,
+            true,
+        ),
+        aob_indirect_twice(
+            "EventPatch2",
+            &["E8 ?? ?? ?? ?? 84 C0 74 06 E8 ?? ?? ?? ?? 90 48 8B C7"],
+            10,
+            14,
+            true,
+        ),
+        aob_direct(
+            "FontPatch",
+            &["48 89 5C 24 10 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 ?? 48 81 EC ?? ?? ?? \
+               ?? 0F 29 B4 24 ?? ?? ?? ??"],
+            true,
+        ),
     ];
 
     codegen::codegen_base_addresses(base_addresses_rs_path(), patches_paths(), aobs)

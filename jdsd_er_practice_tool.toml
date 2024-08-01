@@ -19,6 +19,7 @@ commands = [
     { flag = "hitbox_low", hotkey = "f8" },
     { flag = "hitbox_f" },
     { flag = "hitbox_character" },
+    { flag = "hitbox_event" },
     { flags = ["weapon_hitbox1", "weapon_hitbox2", "weapon_hitbox3"], hotkey = "f9", label = "Weapon hitboxes" },
   ]},
 
