@@ -17,6 +17,7 @@
 use anyhow::{anyhow, Result};
 use hudhook::inject::Process;
 use hudhook::tracing::debug;
+use libjdsd_er_practice_tool::update::Update;
 use libjdsd_er_practice_tool::util::*;
 use textwrap_macros::dedent;
 use windows::Win32::UI::WindowsAndMessaging::*;
@@ -31,7 +32,7 @@ fn perform_injection() -> Result<()> {
             If it is not running, start it.
             
             If you have and it's not working, make sure to follow these steps:
-            - Disable running antivirus software and uninstall any mods.
+            - Disable running antivirus software, uninstall any mods and stop overlay programs (RTSS/FRAPS).
             - Start Steam (offline mode is fine).
             - Double-click eldenring.exe
               (Steam > ELDEN RING > Manage > Browse Local Files).
@@ -42,7 +43,12 @@ fn perform_injection() -> Result<()> {
     })?;
 
     debug!("Searching for tool DLL...");
-    let dll_path = get_dll_path_exe()?;
+    let dll_path = get_dll_path_exe().map_err(|e| {
+        anyhow!(
+            "Could not find the tool DLL: {e}.\n\nPlease make sure you have extracted the \
+             practice tool's zip file contents to a directory before trying again."
+        )
+    })?;
 
     debug!("Checking EAC...");
     if check_eac(&process)? {
@@ -53,8 +59,8 @@ fn perform_injection() -> Result<()> {
     process.inject(dll_path).map_err(|e| {
         anyhow!(
             "Could not hook the practice tool: {e}.\n\nPlease make sure you have no antiviruses \
-             running, EAC is properly bypassed, and you are running an unmodded and legitimate \
-             version of the game."
+             running, EAC is properly bypassed, no other overlay tools like FRAPS and RTSS are \
+             running, and you are running an unmodded and legitimate version of the game."
         )
     })?;
 
@@ -63,6 +69,26 @@ fn perform_injection() -> Result<()> {
 
 fn main() -> Result<()> {
     tracing_init();
+
+    match Update::check() {
+        Update::Error(e) => {
+            let _ = message_box(
+                "Elden Ring Practice Tool - Error",
+                &format!("Could not check for updates: {e}"),
+                MB_OK | MB_ICONERROR,
+            );
+        },
+        Update::Available { url, notes } => {
+            if let MESSAGEBOX_RESULT(1) = message_box(
+                "Elden Ring Practice Tool - Update available",
+                &format!("{notes}\n\nDo you want to download it?"),
+                MB_OKCANCEL | MB_ICONINFORMATION,
+            ) {
+                return Ok(open::that(&url)?);
+            }
+        },
+        Update::UpToDate => {},
+    }
 
     if let Err(e) = perform_injection() {
         message_box("Error", e.to_string(), MB_OK | MB_ICONERROR);
