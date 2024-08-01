@@ -9,6 +9,7 @@ use serde::Deserialize;
 
 use crate::widgets::action_freeze::action_freeze;
 use crate::widgets::character_stats::character_stats_edit;
+use crate::widgets::cycle_color::cycle_color;
 use crate::widgets::cycle_speed::cycle_speed;
 use crate::widgets::deathcam::deathcam;
 use crate::widgets::flag::flag_widget;
@@ -181,6 +182,11 @@ enum CfgCommand {
         cycle_speed: Vec<f32>,
         hotkey: Option<Key>,
     },
+    CycleColor {
+        #[serde(rename = "cycle_color")]
+        cycle_color: Vec<i32>,
+        hotkey: Option<Key>,
+    },
     CharacterStats {
         #[serde(rename = "character_stats")]
         hotkey_open: PlaceholderOption<Key>,
@@ -271,6 +277,9 @@ impl CfgCommand {
                 [chains.animation_speed.clone(), chains.torrent_animation_speed.clone()],
                 hotkey,
             ),
+            CfgCommand::CycleColor { cycle_color: values, hotkey } => {
+                cycle_color(values.as_slice(), chains.mesh_color.clone(), hotkey)
+            },
             CfgCommand::CharacterStats { hotkey_open } => character_stats_edit(
                 chains.character_stats.clone(),
                 chains.character_blessings.clone(),

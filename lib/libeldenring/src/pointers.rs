@@ -79,6 +79,8 @@ pub struct Pointers {
 
     pub hitbox_event: Bitflag<u8>,
 
+    pub mesh_color: PointerChain<i32>,
+
     // FieldArea
     pub field_area_direction: Bitflag<u8>,
     pub field_area_altimeter: Bitflag<u8>,
@@ -438,6 +440,7 @@ impl Pointers {
             hitbox_f: bitflag!(0b1; hit_ins_hitbox_offset + 0x4),
             hitbox_character: bitflag!(0b1; hit_ins_hitbox_offset + 0x3),
             hitbox_event: bitflag!(0b1; dbg_event_man_off, 0x4),
+            mesh_color: pointer_chain!(hit_ins_hitbox_offset + 0x8),
             show_geom,
             show_chr,
 
