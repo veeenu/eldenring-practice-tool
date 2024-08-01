@@ -146,13 +146,13 @@ fn await_rshift() -> bool {
 
 #[no_mangle]
 #[allow(clippy::missing_safety_doc)]
-pub unsafe extern "stdcall" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut c_void) {
+pub unsafe extern "stdcall" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut c_void) -> bool {
     if reason == DLL_PROCESS_ATTACH {
-        thread::spawn(move || {
-            if version::check_version().is_err() {
-                return;
-            }
+        if version::check_version().is_err() {
+            return false;
+        }
 
+        thread::spawn(move || {
             apply_no_logo();
 
             if util::get_dll_path()
@@ -169,4 +169,6 @@ pub unsafe extern "stdcall" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut 
             }
         });
     }
+
+    true
 }

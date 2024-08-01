@@ -80,8 +80,8 @@ fn error_messagebox((major, minor, patch): (u32, u32, u32)) {
         .chain(Some(0))
         .collect::<Vec<_>>();
     let text = OsStr::new(&format!(
-        "The current game version {major}.{minor}.{patch} is not supported.\n\nThe tool will be \
-         updated soon, stay tuned!"
+        "The current game version, {major}.{minor}.{patch}, is not supported yet.\n\n\
+        An update will be released soon, please stay tuned!"
     ))
     .encode_wide()
     .chain(Some(0))
