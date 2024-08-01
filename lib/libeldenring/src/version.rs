@@ -1,20 +1,29 @@
+use std::ffi::OsStr;
+use std::os::windows::ffi::OsStrExt;
 use std::ptr::null_mut;
+use std::sync::OnceLock;
 
 use log::*;
-use once_cell::sync::Lazy;
 use widestring::U16CString;
 use windows::core::{w, PCWSTR};
-use windows::Win32::Foundation::MAX_PATH;
+use windows::Win32::Foundation::{HWND, MAX_PATH};
 use windows::Win32::Storage::FileSystem::{
     GetFileVersionInfoSizeW, GetFileVersionInfoW, VerQueryValueW, VS_FIXEDFILEINFO,
 };
 use windows::Win32::System::LibraryLoader::{GetModuleFileNameW, GetModuleHandleW};
+use windows::Win32::UI::WindowsAndMessaging::{MessageBoxW, MB_ICONERROR, MB_OK};
 
 pub use crate::prelude::base_addresses::Version;
 
-pub static VERSION: Lazy<Version> = Lazy::new(get_version);
+static VERSION: OnceLock<Version> = OnceLock::new();
 
-fn get_version() -> Version {
+/// Ensures that the VERSION static gets filled, or returns an error.
+/// The caller MUST exit cleanly in case of an error.
+pub fn check_version() -> Result<Version, (u32, u32, u32)> {
+    if let Some(version) = VERSION.get().copied() {
+        return Ok(version);
+    }
+
     let file_path = {
         let mut buf = vec![0u16; MAX_PATH as usize];
         unsafe { GetModuleFileNameW(GetModuleHandleW(None).unwrap(), &mut buf) };
@@ -49,5 +58,36 @@ fn get_version() -> Version {
     let patch = (version_info.dwFileVersionLS >> 16) & 0xffff;
 
     info!("Version {} {} {}", major, minor, patch);
-    Version::from((major, minor, patch))
+    match Version::try_from((major, minor, patch)) {
+        Ok(version) => {
+            while VERSION.set(version).is_err() {}
+            Ok(version)
+        },
+        Err(()) => {
+            error_messagebox((major, minor, patch));
+            Err((major, minor, patch))
+        },
+    }
+}
+
+pub fn get_version() -> Version {
+    VERSION.get().copied().expect("Game version not found")
+}
+
+fn error_messagebox((major, minor, patch): (u32, u32, u32)) {
+    let caption = OsStr::new("Elden Ring Practice Tool - Unsupported version")
+        .encode_wide()
+        .chain(Some(0))
+        .collect::<Vec<_>>();
+    let text = OsStr::new(&format!(
+        "The current game version {major}.{minor}.{patch} is not supported.\n\nThe tool will be \
+         updated soon, stay tuned!"
+    ))
+    .encode_wide()
+    .chain(Some(0))
+    .collect::<Vec<_>>();
+
+    unsafe {
+        MessageBoxW(HWND(0), PCWSTR(text.as_ptr()), PCWSTR(caption.as_ptr()), MB_OK | MB_ICONERROR)
+    };
 }

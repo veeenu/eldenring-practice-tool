@@ -7,6 +7,7 @@ use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 use crate::memedit::*;
 use crate::prelude::base_addresses::BaseAddresses;
 use crate::prelude::Version;
+use crate::version;
 
 #[derive(Debug)]
 pub struct Pointers {
@@ -178,9 +179,12 @@ impl Display for CharacterBlessings {
 
 impl Pointers {
     pub fn new() -> Self {
+        let version = version::get_version();
+        use Version::*;
+
         let base_module_address = unsafe { GetModuleHandleA(None).unwrap() }.0 as usize;
-        let base_addresses = BaseAddresses::from(*crate::version::VERSION)
-            .with_module_base_addr(base_module_address);
+        let base_addresses =
+            BaseAddresses::from(version).with_module_base_addr(base_module_address);
 
         let BaseAddresses {
             chr_dbg_flags,
@@ -202,9 +206,6 @@ impl Pointers {
         } = base_addresses;
 
         // Special cases
-
-        let version = *crate::version::VERSION;
-        use Version::*;
 
         let map_id_offset = {
             match version {
