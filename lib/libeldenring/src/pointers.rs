@@ -22,6 +22,7 @@ pub struct Pointers {
     pub no_attack: Bitflag<u8>,
     pub no_move: Bitflag<u8>,
     pub no_update_ai: Bitflag<u8>,
+    pub no_trigger_event: Bitflag<u8>,
     pub no_ashes_of_war_fp_consume: Bitflag<u8>,
 
     pub collision: Bitflag<u8>,
@@ -76,6 +77,10 @@ pub struct Pointers {
     pub hitbox_low: Bitflag<u8>,
     pub hitbox_f: Bitflag<u8>,
     pub hitbox_character: Bitflag<u8>,
+
+    pub hitbox_event: Bitflag<u8>,
+
+    pub mesh_color: PointerChain<i32>,
 
     // FieldArea
     pub field_area_direction: Bitflag<u8>,
@@ -202,6 +207,7 @@ impl Pointers {
             current_target,
             base_fps,
             base_anim,
+            dbg_event_man_off,
             ..
         } = base_addresses;
 
@@ -312,6 +318,7 @@ impl Pointers {
             no_attack: bitflag!(0b1; chr_dbg_flags + 0xE),
             no_move: bitflag!(0b1; chr_dbg_flags + 0xF),
             no_update_ai: bitflag!(0b1; chr_dbg_flags + 0x10),
+            no_trigger_event: bitflag!(0b1; dbg_event_man_off, 0x28),
             no_ashes_of_war_fp_consume: bitflag!(0b1; chr_dbg_flags + 0x12),
 
             all_no_dead: bitflag!(0b1; chr_dbg_flags + 0xB),
@@ -350,7 +357,7 @@ impl Pointers {
                 match version {
                     V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6FD,
                     V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 => 0x6F5,
-                    V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1  | V2_00_0| V2_00_1 | V2_02_0 | V2_02_3 | V2_03_0=> 0x735
+                    V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1  | V2_00_0| V2_00_1 | V2_02_0 | V2_02_3 | V2_03_0 => 0x735
                 }
             ),
             global_position: Position {
@@ -434,6 +441,8 @@ impl Pointers {
             hitbox_low: bitflag!(0b1; hit_ins_hitbox_offset + 0x1),
             hitbox_f: bitflag!(0b1; hit_ins_hitbox_offset + 0x4),
             hitbox_character: bitflag!(0b1; hit_ins_hitbox_offset + 0x3),
+            hitbox_event: bitflag!(0b1; dbg_event_man_off, 0x4),
+            mesh_color: pointer_chain!(hit_ins_hitbox_offset + 0x8),
             show_geom,
             show_chr,
 
