@@ -282,6 +282,7 @@ impl CfgCommand {
             },
             CfgCommand::CharacterStats { hotkey_open } => character_stats_edit(
                 chains.character_stats.clone(),
+                chains.character_health.clone(),
                 chains.character_blessings.clone(),
                 hotkey_open.into_option(),
                 settings.display,
@@ -424,6 +425,8 @@ impl TryFrom<String> for FlagSpec {
             (field_area_compass, "Compass HUD"),
             // (show_map, "Show/hide map"),
             (show_chr, "Show/hide character"),
+            (show_all_map_layers, "Show all map layers"),
+            (show_all_graces, "Show all graces"),
         ])
     }
 }
