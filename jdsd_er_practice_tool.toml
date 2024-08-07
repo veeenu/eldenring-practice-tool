@@ -40,6 +40,7 @@ commands = [
   { flag = "torrent_gravity", hotkey = "f2" },
   { flags = ["collision", "torrent_collision"], label = "No Collision" },
   { flag = "action_freeze", hotkey = "ctrl+l" },
+  { flags = ["show_all_map_layers", "show_all_graces"], hotkey = "f3", label="Show all graces/landmarks" },
 
   { quitout = "p" },
 ]

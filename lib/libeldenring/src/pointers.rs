@@ -36,6 +36,7 @@ pub struct Pointers {
     pub current_target: PointerChain<u64>,
 
     pub character_stats: PointerChain<CharacterStats>,
+    pub character_health: PointerChain<i32>,
     pub character_blessings: Option<PointerChain<CharacterBlessings>>,
 
     pub runes: PointerChain<u32>,
@@ -97,6 +98,8 @@ pub struct Pointers {
     pub func_item_inject: usize,
     pub func_dbg_action_force: PointerChain<u8>,
     pub func_dbg_action_force_state_values: (u8, u8),
+    pub show_all_map_layers: Bitflag<u8>,
+    pub show_all_graces: Bitflag<u8>,
 
     pub base_addresses: BaseAddresses,
 }
@@ -203,6 +206,7 @@ impl Pointers {
             func_item_spawn,
             func_item_inject,
             lua_warp,
+            func_check_graces,
             cs_lua_event_manager,
             current_target,
             base_fps,
@@ -288,6 +292,13 @@ impl Pointers {
             V1_05_0 => bitflag!(0b1; group_mask + 4),
         };
 
+        let net_players_ins = match version {
+            V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
+            | V1_04_1 | V1_05_0 | V1_06_0 => 0xB658,
+            V1_07_0 | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 | V2_00_1 | V2_02_0
+            | V2_02_3 | V2_03_0 => 0x10EF8,
+        };
+
         let player_ins = match version {
             V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
             | V1_04_1 | V1_05_0 | V1_06_0 => 0x18468,
@@ -333,6 +344,14 @@ impl Pointers {
             torrent_collision: bitflag!(0b1000; world_chr_man, torrent_enemy_ins, 0x18, 0, 0x58, 0xf0),
 
             character_stats: pointer_chain!(game_data_man, 0x8, 0x3c),
+            character_health: pointer_chain!(
+                world_chr_man,
+                net_players_ins,
+                0, // 0 * 0x10, first net player
+                0x190,
+                0,
+                0x138
+            ),
             character_blessings: match version {
                 V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
                 | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1
@@ -460,6 +479,8 @@ impl Pointers {
                 | V2_03_0 => (0xC1, 0xC2),
             },
             current_target: pointer_chain!(current_target),
+            show_all_map_layers: bitflag!(0b1; func_check_graces),
+            show_all_graces: bitflag!(0b1; func_check_graces + 0x1),
             base_addresses,
         }
     }
