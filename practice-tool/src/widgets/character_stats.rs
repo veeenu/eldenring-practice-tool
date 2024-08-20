@@ -6,10 +6,10 @@ use practice_tool_core::widgets::Widget;
 #[derive(Debug)]
 struct CharacterStatsEdit {
     stats_ptr: PointerChain<CharacterStats>,
-    health_ptr: PointerChain<i32>,
+    points_ptr: PointerChain<CharacterPoints>,
     blessings_ptr: Option<PointerChain<CharacterBlessings>>,
     stats: Option<CharacterStats>,
-    health: Option<i32>,
+    points: Option<CharacterPoints>,
     blessings: Option<CharacterBlessings>,
 }
 
@@ -28,10 +28,22 @@ impl Stats for CharacterStatsEdit {
                 Datum::int("Arcane", &mut s.arcane, 1, 99),
                 Datum::int("Souls", &mut s.runes, 0, i32::MAX),
             ];
-            if let Some(h) = self.health.as_mut() {
-                stats_data.insert(stats_data.len(), Datum::int("Health", h, 0, i32::MAX));
+            if let Some(p) = self.points.as_mut() {
+                stats_data.insert(stats_data.len(), Datum::separator());
+                stats_data.insert(stats_data.len(), Datum::int("HP", &mut p.hp, 0, i32::MAX));
+                stats_data.insert(stats_data.len(), Datum::int("FP", &mut p.fp, 0, i32::MAX));
+                stats_data.insert(stats_data.len(), Datum::int("SP", &mut p.stamina, 0, i32::MAX));
+                stats_data
+                    .insert(stats_data.len(), Datum::int("Max HP", &mut p.max_hp, 0, i32::MAX));
+                stats_data
+                    .insert(stats_data.len(), Datum::int("Max FP", &mut p.max_fp, 0, i32::MAX));
+                stats_data.insert(
+                    stats_data.len(),
+                    Datum::int("Max SP", &mut p.max_stamina, 0, i32::MAX),
+                );
             }
             if let Some(b) = self.blessings.as_mut() {
+                stats_data.insert(stats_data.len(), Datum::separator());
                 stats_data.append(&mut vec![
                     Datum::byte("Scadutree Blessing", &mut b.scadutree, 0, 20),
                     Datum::byte("Revered Spirit Ash", &mut b.revered_spirit_ash, 0, 10),
@@ -43,7 +55,7 @@ impl Stats for CharacterStatsEdit {
 
     fn read(&mut self) {
         self.stats = self.stats_ptr.read();
-        self.health = self.health_ptr.read();
+        self.points = self.points_ptr.read();
         if let Some(ptr) = &self.blessings_ptr {
             self.blessings = ptr.read();
         }
@@ -53,8 +65,8 @@ impl Stats for CharacterStatsEdit {
         if let Some(stats) = self.stats.clone() {
             self.stats_ptr.write(stats);
         }
-        if let Some(h) = self.health {
-            self.health_ptr.write(h);
+        if let Some(h) = self.points.clone() {
+            self.points_ptr.write(h);
         }
         if let Some(ptr) = &self.blessings_ptr {
             if let Some(blessings) = self.blessings.clone() {
@@ -71,7 +83,7 @@ impl Stats for CharacterStatsEdit {
 
 pub(crate) fn character_stats_edit(
     character_stats: PointerChain<CharacterStats>,
-    character_health: PointerChain<i32>,
+    character_points: PointerChain<CharacterPoints>,
     character_blessings: Option<PointerChain<CharacterBlessings>>,
     key_open: Option<Key>,
     key_close: Key,
@@ -79,10 +91,10 @@ pub(crate) fn character_stats_edit(
     Box::new(StatsEditor::new(
         CharacterStatsEdit {
             stats_ptr: character_stats,
-            health_ptr: character_health,
+            points_ptr: character_points,
             blessings_ptr: character_blessings,
             stats: None,
-            health: None,
+            points: None,
             blessings: None,
         },
         key_open,

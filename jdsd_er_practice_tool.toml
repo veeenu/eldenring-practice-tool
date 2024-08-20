@@ -4,7 +4,6 @@ commands = [
   { character_stats = true },
   { warp = true },
   { cycle_speed = [0.5, 1.0, 2.0, 5.0, 10.0], hotkey = "8" },
-  { cycle_color = [0, 1, 2, 3, 4, 5] },
   { runes = 10000, hotkey = "9" },
   { group = "Position storage", commands = [
     { nudge = 1.0, nudge_up = "[", nudge_down = "]" },
@@ -13,6 +12,7 @@ commands = [
     { position = "k", save = "rshift+k" },
   ]},
   { group = "Render flags", commands = [
+    { cycle_color = [0, 1, 2, 3, 4, 5] },
     { flag = "show_map", hotkey = "f4" },
     { flag = "show_chr", hotkey = "f5" },
     { flag = "display_stable_pos", hotkey = "f6" },
