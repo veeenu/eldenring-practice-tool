@@ -36,7 +36,7 @@ pub struct Pointers {
     pub current_target: PointerChain<u64>,
 
     pub character_stats: PointerChain<CharacterStats>,
-    pub character_health: PointerChain<i32>,
+    pub character_points: PointerChain<CharacterPoints>,
     pub character_blessings: Option<PointerChain<CharacterBlessings>>,
 
     pub runes: PointerChain<u32>,
@@ -169,6 +169,26 @@ pub struct CharacterStats {
 impl Display for CharacterStats {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "CharacterStats {{ }}")
+    }
+}
+
+#[derive(Debug, Clone)]
+#[repr(C)]
+pub struct CharacterPoints {
+    pub hp: i32,
+    pub max_hp_ro: [i32; 2],
+    pub max_hp: i32,
+    pub fp: i32,
+    pub max_fp_ro: i32,
+    pub max_fp: i32,
+    pub stamina: i32,
+    pub max_stamina_ro: i32,
+    pub max_stamina: i32,
+}
+
+impl Display for CharacterPoints {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "CharacterPoints {{ }}")
     }
 }
 
@@ -344,7 +364,7 @@ impl Pointers {
             torrent_collision: bitflag!(0b1000; world_chr_man, torrent_enemy_ins, 0x18, 0, 0x58, 0xf0),
 
             character_stats: pointer_chain!(game_data_man, 0x8, 0x3c),
-            character_health: pointer_chain!(
+            character_points: pointer_chain!(
                 world_chr_man,
                 net_players_ins,
                 0, // 0 * 0x10, first net player
