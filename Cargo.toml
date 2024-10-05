@@ -10,7 +10,7 @@ members = [
 ]
 
 [workspace.package]
-version = "1.8.4"
+version = "1.8.5"
 authors = ["Andrea Venuta <venutawebdesign@gmail.com>"]
 
 [profile.release]
