@@ -4433,7 +4433,7 @@
     ]
   },
   {
-    "node": "Talismans",
+    "node": "Accessories",
     "children": [
       {
         "node": "Crimson Amber Medallion",
@@ -8859,7 +8859,12 @@
       {
         "node": "Gravel Stone",
         "value": 1073762679
-      },
+      }
+    ]
+  },
+  {
+    "node": "Spirit Ashes",
+    "children": [
       {
         "node": "Black Knife Tiche",
         "value": 1073941824
@@ -11679,7 +11684,7 @@
     ]
   },
   {
-    "node": "Magic",
+    "node": "Spells",
     "children": [
       {
         "node": "Glintstone Pebble",
@@ -13178,6 +13183,10 @@
       {
         "node": "Beast Claw",
         "value": 68500000
+      },
+      {
+        "node": "Red Bear's Claw",
+        "value": 68510000
       }
     ]
   },
@@ -13767,7 +13776,7 @@
     ]
   },
   {
-    "node": "DLC Accessory",
+    "node": "DLC Accessories",
     "children": [
       {
         "node": "Perfumer's Talisman",
@@ -14309,174 +14318,6 @@
       {
         "node": "Charming Branch",
         "value": 1075745174
-      },
-      {
-        "node": "Miriam's Vanishing",
-        "value": 1075746124
-      },
-      {
-        "node": "Glintblade Trio",
-        "value": 1075746134
-      },
-      {
-        "node": "Rellana's Twin Moons",
-        "value": 1075746144
-      },
-      {
-        "node": "Glintstone Nail",
-        "value": 1075746324
-      },
-      {
-        "node": "Glintstone Nails",
-        "value": 1075746334
-      },
-      {
-        "node": "Blades of Stone",
-        "value": 1075746524
-      },
-      {
-        "node": "Gravitational Missile",
-        "value": 1075746534
-      },
-      {
-        "node": "Mantle of Thorns",
-        "value": 1075746724
-      },
-      {
-        "node": "Impenetrable Thorns",
-        "value": 1075746734
-      },
-      {
-        "node": "Rings of Spectral Light",
-        "value": 1075746824
-      },
-      {
-        "node": "Vortex of Putrescence",
-        "value": 1075748024
-      },
-      {
-        "node": "Mass of Putrescence",
-        "value": 1075748034
-      },
-      {
-        "node": "Furious Blade of Ansbach",
-        "value": 1075748124
-      },
-      {
-        "node": "Heal from Afar",
-        "value": 1075748224
-      },
-      {
-        "node": "Aspects of the Crucible: Thorns",
-        "value": 1075748474
-      },
-      {
-        "node": "Aspects of the Crucible: Bloom",
-        "value": 1075748484
-      },
-      {
-        "node": "Minor Erdtree",
-        "value": 1075748494
-      },
-      {
-        "node": "Land of Shadow",
-        "value": 1075748504
-      },
-      {
-        "node": "Wrath from Afar",
-        "value": 1075748514
-      },
-      {
-        "node": "Light of Miquella",
-        "value": 1075748524
-      },
-      {
-        "node": "Multilayered Ring of Light",
-        "value": 1075748534
-      },
-      {
-        "node": "Roar of Rugalea",
-        "value": 1075748624
-      },
-      {
-        "node": "Knight's Lightning Spear",
-        "value": 1075748724
-      },
-      {
-        "node": "Dragonbolt of Florissax",
-        "value": 1075748734
-      },
-      {
-        "node": "Electrocharge",
-        "value": 1075748744
-      },
-      {
-        "node": "Bayle's Tyranny",
-        "value": 1075748824
-      },
-      {
-        "node": "Bayle's Flame Lightning",
-        "value": 1075748834
-      },
-      {
-        "node": "Ghostflame Breath",
-        "value": 1075748844
-      },
-      {
-        "node": "Rotten Butterflies",
-        "value": 1075749024
-      },
-      {
-        "node": "Pest-Thread Spears",
-        "value": 1075749034
-      },
-      {
-        "node": "Midra's Flame of Frenzy",
-        "value": 1075749124
-      },
-      {
-        "node": "Fleeting Microcosm",
-        "value": 1075749234
-      },
-      {
-        "node": "Cherishing Fingers",
-        "value": 1075749244
-      },
-      {
-        "node": "Watchful Spirit",
-        "value": 1075749424
-      },
-      {
-        "node": "Golden Arcs",
-        "value": 1075749524
-      },
-      {
-        "node": "Giant Golden Arc",
-        "value": 1075749534
-      },
-      {
-        "node": "Spira",
-        "value": 1075749544
-      },
-      {
-        "node": "Divine Beast Tornado",
-        "value": 1075749554
-      },
-      {
-        "node": "Divine Bird Feathers",
-        "value": 1075749564
-      },
-      {
-        "node": "Fire Serpent",
-        "value": 1075749624
-      },
-      {
-        "node": "Rain of Fire",
-        "value": 1075749634
-      },
-      {
-        "node": "Messmer's Orb",
-        "value": 1075749644
       },
       {
         "node": "Miquella's Great Rune",
@@ -15085,7 +14926,12 @@
       {
         "node": "Furnace Visage",
         "value": 1075761859
-      },
+      }
+    ]
+  },
+  {
+    "node": "DLC Spirit Ashes",
+    "children": [
       {
         "node": "Curseblade Meera",
         "value": 1075941824
@@ -15165,6 +15011,179 @@
       {
         "node": "Jolán and Anna",
         "value": 1075961824
+      }
+    ]
+  },
+  {
+    "node": "DLC Spells",
+    "children": [
+      {
+        "node": "Miriam's Vanishing",
+        "value": 1075746124
+      },
+      {
+        "node": "Glintblade Trio",
+        "value": 1075746134
+      },
+      {
+        "node": "Rellana's Twin Moons",
+        "value": 1075746144
+      },
+      {
+        "node": "Glintstone Nail",
+        "value": 1075746324
+      },
+      {
+        "node": "Glintstone Nails",
+        "value": 1075746334
+      },
+      {
+        "node": "Blades of Stone",
+        "value": 1075746524
+      },
+      {
+        "node": "Gravitational Missile",
+        "value": 1075746534
+      },
+      {
+        "node": "Mantle of Thorns",
+        "value": 1075746724
+      },
+      {
+        "node": "Impenetrable Thorns",
+        "value": 1075746734
+      },
+      {
+        "node": "Rings of Spectral Light",
+        "value": 1075746824
+      },
+      {
+        "node": "Vortex of Putrescence",
+        "value": 1075748024
+      },
+      {
+        "node": "Mass of Putrescence",
+        "value": 1075748034
+      },
+      {
+        "node": "Furious Blade of Ansbach",
+        "value": 1075748124
+      },
+      {
+        "node": "Heal from Afar",
+        "value": 1075748224
+      },
+      {
+        "node": "Aspects of the Crucible: Thorns",
+        "value": 1075748474
+      },
+      {
+        "node": "Aspects of the Crucible: Bloom",
+        "value": 1075748484
+      },
+      {
+        "node": "Minor Erdtree",
+        "value": 1075748494
+      },
+      {
+        "node": "Land of Shadow",
+        "value": 1075748504
+      },
+      {
+        "node": "Wrath from Afar",
+        "value": 1075748514
+      },
+      {
+        "node": "Light of Miquella",
+        "value": 1075748524
+      },
+      {
+        "node": "Multilayered Ring of Light",
+        "value": 1075748534
+      },
+      {
+        "node": "Roar of Rugalea",
+        "value": 1075748624
+      },
+      {
+        "node": "Knight's Lightning Spear",
+        "value": 1075748724
+      },
+      {
+        "node": "Dragonbolt of Florissax",
+        "value": 1075748734
+      },
+      {
+        "node": "Electrocharge",
+        "value": 1075748744
+      },
+      {
+        "node": "Bayle's Tyranny",
+        "value": 1075748824
+      },
+      {
+        "node": "Bayle's Flame Lightning",
+        "value": 1075748834
+      },
+      {
+        "node": "Ghostflame Breath",
+        "value": 1075748844
+      },
+      {
+        "node": "Rotten Butterflies",
+        "value": 1075749024
+      },
+      {
+        "node": "Pest-Thread Spears",
+        "value": 1075749034
+      },
+      {
+        "node": "Midra's Flame of Frenzy",
+        "value": 1075749124
+      },
+      {
+        "node": "Fleeting Microcosm",
+        "value": 1075749234
+      },
+      {
+        "node": "Cherishing Fingers",
+        "value": 1075749244
+      },
+      {
+        "node": "Watchful Spirit",
+        "value": 1075749424
+      },
+      {
+        "node": "Golden Arcs",
+        "value": 1075749524
+      },
+      {
+        "node": "Giant Golden Arc",
+        "value": 1075749534
+      },
+      {
+        "node": "Spira",
+        "value": 1075749544
+      },
+      {
+        "node": "Divine Beast Tornado",
+        "value": 1075749554
+      },
+      {
+        "node": "Divine Bird Feathers",
+        "value": 1075749564
+      },
+      {
+        "node": "Fire Serpent",
+        "value": 1075749624
+      },
+      {
+        "node": "Rain of Fire",
+        "value": 1075749634
+      },
+      {
+        "node": "Messmer's Orb",
+        "value": 1075749644
       }
     ]
   },
