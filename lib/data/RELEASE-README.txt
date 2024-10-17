@@ -1,26 +1,16 @@
 Welcome to the Elden Ring Practice Tool!
 
 ----------------------------------------------------------------------------------------------------
-# Getting started
+# How to run the tool
 
 - Extract all files from the zip archive. Anywhere will do.
 - Double-click `eldenring.exe` to start the game (Steam → right click **ELDEN
-  RING** → Manage → Browse Local Files). Never start the game from Steam: the tool won't work.
-- Double-click `jdsd_er_practice_tool.exe` and pick an option.
+  RING** → Manage → Browse Local Files). Never start the game from Steam: if you do, the tool 
+  won't work.
+- Double-click `jdsd_er_practice_tool.exe`. 
 
-# Run the tool
-
-The tool will automatically appear over the game. Press `0` to open and close its interface.
-
-# Install/update the tool
-
-Just follow the instructions on screen.
-This will install/update the tool next to your `eldenring.exe` game. 
-
-Once you have installed the tool, you will be able to start it by holding down the right shift key
-for a few seconds while the game is loading. You can also continue using the executable to start it.
-
-If you don't want to load the tool, just don't hold right shift during startup!
+The first time you run the tool, if you haven't disabled EAC already, the tool will offer to do it
+for you. You will then have to restart the game, and then the tool, and you'll be good to go!
 ----------------------------------------------------------------------------------------------------
 
 If you have issues or questions, thoroughly check the FAQ.
