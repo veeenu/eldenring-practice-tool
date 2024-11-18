@@ -37,7 +37,7 @@ manually.
 
 - Extract all files from the zip archive. Anywhere will do.
 - Double-click `eldenring.exe` to start the game (Steam → right click **ELDEN
-  RING** → Manage → Browse Local Files). Never start the game from Steam: the tool won't work.
+  RING** → Manage → Browse Local Files). **Never** start the game from Steam: the tool won't work.
 - Double-click `jdsd_er_practice_tool.exe`.
 
 The tool will automatically appear over the game. Press `0` to open and close its interface.
@@ -45,14 +45,17 @@ The tool will automatically appear over the game. Press `0` to open and close it
 ### Installed
 
 - Extract all files from the zip archive. Anywhere will do.
-- Double-click `eldenring.exe` to start the game (Steam → right click **ELDEN
-  RING** → Manage → Browse Local Files). Never start the game from Steam: the tool won't work.
-- Double-click `install.exe` and follow the instructions.
-- Once the process is done, close and restart Elden Ring.
+- Locate your **ELDEN RING** installation (Steam → right click **ELDEN
+  RING** → Manage → Browse Local Files).
+- Copy `jdsd_er_practice_tool.toml` and `jdsd_er_practice_tool.dll` in the folder you
+  just found. Rename `jdsd_er_practice_tool.dll` to `dinput8.dll`. 
+- Double-click `eldenring.exe` to start the game. **Never** start the game from Steam: the tool won't work.
 - During the startup, from now on, hold the right shift button for a few seconds until 
   the tool appears on screen.
 
-If you don't want to load the tool, just don't press right shift during startup!
+If you don't want to load the tool, don't press right shift during startup!
+
+If you want to uninstall the tool, remove `dinput8.dll` and `jdsd_er_practice_tool.toml`.
 
 ## Running the tool on Linux
 
