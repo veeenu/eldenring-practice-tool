@@ -247,10 +247,10 @@ impl PracticeTool {
                 }
 
                 if option_env!("CARGO_XTASK_DIST").is_none()
-                    && ui.button_with_size("Eject", [
-                        BUTTON_WIDTH * scaling_factor(ui),
-                        BUTTON_HEIGHT,
-                    ])
+                    && ui.button_with_size(
+                        "Eject",
+                        [BUTTON_WIDTH * scaling_factor(ui), BUTTON_HEIGHT],
+                    )
                 {
                     self.ui_state = UiState::Closed;
                     self.pointers.cursor_show.set(false);
@@ -268,7 +268,7 @@ impl PracticeTool {
             ui.push_style_var(StyleVar::WindowBorderSize(0.)),
         ];
         ui.window("##msg_window")
-            .position([w * 35. / 1920., h * 112. / 1080.], Condition::Always)
+            .position([w * 35. / 1920., h * 140. / 1080.], Condition::Always)
             .bg_alpha(0.0)
             .flags({
                 WindowFlags::NO_TITLE_BAR
