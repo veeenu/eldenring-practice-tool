@@ -1,5 +1,4 @@
-use std::ffi::c_void;
-use std::ffi::CStr;
+use std::ffi::{c_void, CStr};
 use std::mem;
 use std::ptr::null_mut;
 
