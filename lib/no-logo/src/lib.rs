@@ -1,4 +1,4 @@
-use std::ffi::c_void;
+use std::ffi::{c_void, CStr};
 use std::mem;
 use std::ptr::null_mut;
 
@@ -28,6 +28,10 @@ type FnHResult = unsafe extern "stdcall" fn() -> HRESULT;
 type FnGetClassObject =
     unsafe extern "stdcall" fn(*const c_void, *const c_void, *const c_void) -> HRESULT;
 
+const fn pcstr(s: &'static CStr) -> PCSTR {
+    PCSTR(s.as_ptr() as *const u8)
+}
+
 static SYMBOLS: Lazy<(FnDirectInput8Create, FnHResult, FnGetClassObject, FnHResult, FnHResult)> =
     Lazy::new(|| unsafe {
         apply_patch();
@@ -36,19 +40,19 @@ static SYMBOLS: Lazy<(FnDirectInput8Create, FnHResult, FnGetClassObject, FnHResu
 
         (
             mem::transmute::<unsafe extern "system" fn() -> isize, FnDirectInput8Create>(
-                GetProcAddress(module, PCSTR("DirectInput8Create\0".as_ptr())).unwrap(),
+                GetProcAddress(module, pcstr(c"DirectInput8Create")).unwrap(),
             ),
             mem::transmute::<unsafe extern "system" fn() -> isize, FnHResult>(
-                GetProcAddress(module, PCSTR("DllCanUnloadNow\0".as_ptr())).unwrap(),
+                GetProcAddress(module, pcstr(c"DllCanUnloadNow")).unwrap(),
             ),
             mem::transmute::<unsafe extern "system" fn() -> isize, FnGetClassObject>(
-                GetProcAddress(module, PCSTR("DllGetClassObject\0".as_ptr())).unwrap(),
+                GetProcAddress(module, pcstr(c"DllGetClassObject")).unwrap(),
             ),
             mem::transmute::<unsafe extern "system" fn() -> isize, FnHResult>(
-                GetProcAddress(module, PCSTR("DllRegisterServer\0".as_ptr())).unwrap(),
+                GetProcAddress(module, pcstr(c"DllRegisterServer")).unwrap(),
             ),
             mem::transmute::<unsafe extern "system" fn() -> isize, FnHResult>(
-                GetProcAddress(module, PCSTR("DllUnregisterServer\0".as_ptr())).unwrap(),
+                GetProcAddress(module, pcstr(c"DllUnregisterServer")).unwrap(),
             ),
         )
     });

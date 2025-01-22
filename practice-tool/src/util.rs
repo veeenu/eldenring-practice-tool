@@ -44,7 +44,7 @@ pub fn get_dll_path() -> Option<PathBuf> {
     let gmh_result = unsafe {
         GetModuleHandleExA(
             GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT | GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
-            PCSTR("DllMain\0".as_ptr()),
+            PCSTR(c"DllMain".as_ptr() as *const u8),
             &mut hmodule,
         )
     };

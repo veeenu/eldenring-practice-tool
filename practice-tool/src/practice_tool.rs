@@ -268,7 +268,7 @@ impl PracticeTool {
             ui.push_style_var(StyleVar::WindowBorderSize(0.)),
         ];
         ui.window("##msg_window")
-            .position([w * 35. / 1920., h * 112. / 1080.], Condition::Always)
+            .position([w * 35. / 1920., h * 140. / 1080.], Condition::Always)
             .bg_alpha(0.0)
             .flags({
                 WindowFlags::NO_TITLE_BAR
