@@ -45,6 +45,16 @@ commands = [
   { quitout = "p" },
 ]
 
+radial-menu = [
+  { key = "p", label = "Quitout" },
+  { key = "h", label = "Load position" },
+  { key = "ctrl+o", label = "Load savefile" },
+  { key = "f1", label = "AI Disable" },
+  { key = "1", label = "No Damage" },
+  { key = "ctrl+n", label = "Target Info" },
+  { key = "rshift+h", label = "Save position" },
+]
+
 [settings]
 log_level = "INFO"
 display = "0"

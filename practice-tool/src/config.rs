@@ -29,6 +29,8 @@ use crate::widgets::warp::Warp;
 #[derive(Deserialize)]
 pub(crate) struct Config {
     pub(crate) settings: Settings,
+    #[serde(rename = "radial-menu")]
+    pub(crate) radial_menu: Vec<RadialMenu>,
     commands: Vec<CfgCommand>,
 }
 
@@ -45,6 +47,12 @@ pub(crate) struct Settings {
     pub(crate) disable_update_prompt: bool,
     #[serde(default = "Indicator::default_set")]
     pub(crate) indicators: Vec<Indicator>,
+}
+
+#[derive(Debug, Deserialize, Clone)]
+pub(crate) struct RadialMenu {
+    pub key: Key,
+    pub label: String,
 }
 
 #[derive(Debug, Deserialize, Clone)]
@@ -356,6 +364,7 @@ impl Default for Config {
                 indicators: Indicator::default_set(),
                 disable_update_prompt: false,
             },
+            radial_menu: Vec::new(),
             commands: Vec::new(),
         }
     }
