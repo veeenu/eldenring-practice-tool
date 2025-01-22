@@ -37,6 +37,7 @@ features = [
   "Win32_Foundation",
   "Win32_UI_Controls_Dialogs",
   "Win32_UI_Input_KeyboardAndMouse",
+  "Win32_UI_Input_XboxController",
   "Win32_UI_WindowsAndMessaging",
   "Win32_Storage_FileSystem",
   "Win32_System_LibraryLoader",
