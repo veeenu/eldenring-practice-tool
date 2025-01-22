@@ -1,6 +1,7 @@
 use std::fmt::Write;
 use std::sync::Mutex;
-use std::time::Instant;
+use std::thread;
+use std::time::{Duration, Instant};
 
 use const_format::formatcp;
 use hudhook::tracing::metadata::LevelFilter;
@@ -150,6 +151,16 @@ impl PracticeTool {
             hudhook::free_console().ok();
         }
 
+        let pointers = Pointers::new();
+        let poll_interval = Duration::from_millis(100);
+        loop {
+            if let Some(menu_timer) = pointers.menu_timer.read() {
+                if menu_timer > 0. {
+                    break;
+                }
+            }
+            thread::sleep(poll_interval);
+        }
         wait_option_thread(
             || unsafe {
                 let mut params = PARAMS.write();
@@ -170,7 +181,6 @@ impl PracticeTool {
         let update_available =
             if config.settings.disable_update_prompt { Update::UpToDate } else { Update::check() };
 
-        let pointers = Pointers::new();
         let version_label = {
             let (maj, min, patch) = version::get_version().into();
             format!("Game Ver {}.{:02}.{}", maj, min, patch)
