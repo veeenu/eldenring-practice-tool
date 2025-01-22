@@ -215,7 +215,7 @@ impl ParamTinkerer {
                 if let Some((param_name, param_idx)) = param_item {
                     struct ImguiParamVisitor<'a>(&'a imgui::Ui);
 
-                    impl<'a> ParamVisitor for ImguiParamVisitor<'a> {
+                    impl ParamVisitor for ImguiParamVisitor<'_> {
                         fn visit_u8(&mut self, name: &str, v: &mut u8) {
                             let mut i = *v as i32;
                             self.0.input_int(name, &mut i).build();

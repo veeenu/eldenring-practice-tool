@@ -74,7 +74,7 @@ enum ItemIDNodeRef<'a> {
     Node { node: &'a str, children: Vec<ItemIDNodeRef<'a>> },
 }
 
-impl<'a> ItemIDNodeRef<'a> {
+impl ItemIDNodeRef<'_> {
     fn render(&self, ui: &Ui, current: &mut u32, filtered: bool) {
         match self {
             ItemIDNodeRef::Leaf { node, value } => {
