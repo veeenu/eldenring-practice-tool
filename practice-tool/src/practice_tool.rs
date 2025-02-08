@@ -88,7 +88,7 @@ impl PracticeTool {
             hudhook::free_console().ok();
         }
 
-        // let pointers = Pointers::new();
+        let pointers = Pointers::new();
         // let poll_interval = Duration::from_millis(100);
         // loop {
         //     if let Some(menu_timer) = pointers.menu_timer.read() {
