@@ -1,6 +1,5 @@
 use std::fmt::Write;
 use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::Mutex;
 use std::thread;
 use std::time::{Duration, Instant};
 
@@ -16,14 +15,13 @@ use practice_tool_core::crossbeam_channel::{self, Receiver, Sender};
 use practice_tool_core::widgets::radial_menu::radial_menu;
 use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 use sys::ImVec2;
-use tracing_subscriber::prelude::*;
 use windows::Win32::UI::Input::XboxController::{
     XINPUT_GAMEPAD_A, XINPUT_GAMEPAD_LEFT_SHOULDER, XINPUT_GAMEPAD_RIGHT_SHOULDER, XINPUT_STATE,
 };
 
 use crate::config::{Config, IndicatorType, RadialMenu, Settings};
 use crate::update::Update;
-use crate::{util, XINPUTGETSTATE};
+use crate::XINPUTGETSTATE;
 
 const MAJOR: usize = pkg_version_major!();
 const MINOR: usize = pkg_version_minor!();
@@ -80,83 +78,8 @@ pub(crate) struct PracticeTool {
 }
 
 impl PracticeTool {
-    pub(crate) fn new() -> Self {
+    pub(crate) fn new(config: Config, config_err: Option<String>) -> Self {
         hudhook::alloc_console().ok();
-        log_panics::init();
-
-        fn load_config() -> Result<Config, String> {
-            let config_path = crate::util::get_dll_path()
-                .map(|mut path| {
-                    path.pop();
-                    path.push("jdsd_er_practice_tool.toml");
-                    path
-                })
-                .ok_or_else(|| "Couldn't find config file".to_string())?;
-
-            if !config_path.exists() {
-                std::fs::write(&config_path, include_str!("../../jdsd_er_practice_tool.toml"))
-                    .map_err(|e| format!("Couldn't write default config file: {}", e))?;
-            }
-
-            let config_content = std::fs::read_to_string(config_path)
-                .map_err(|e| format!("Couldn't read config file: {}", e))?;
-            println!("{}", config_content);
-            Config::parse(&config_content).map_err(String::from)
-        }
-
-        let (config, config_err) = match load_config() {
-            Ok(config) => (config, None),
-            Err(e) => (
-                Config::default(),
-                Some({
-                    error!("{}", e);
-                    format!(
-                        "Configuration error, please review your jdsd_er_practice_tool.toml \
-                         file.\n\n{e}"
-                    )
-                }),
-            ),
-        };
-
-        let log_file = util::get_dll_path()
-            .map(|mut path| {
-                path.pop();
-                path.push("jdsd_er_practice_tool.log");
-                path
-            })
-            .map(std::fs::File::create);
-
-        match log_file {
-            Some(Ok(log_file)) => {
-                let file_layer = tracing_subscriber::fmt::layer()
-                    .with_thread_ids(true)
-                    .with_file(true)
-                    .with_line_number(true)
-                    .with_thread_names(true)
-                    .with_writer(Mutex::new(log_file))
-                    .with_ansi(false)
-                    .boxed();
-                let stdout_layer = tracing_subscriber::fmt::layer()
-                    .with_thread_ids(true)
-                    .with_file(true)
-                    .with_line_number(true)
-                    .with_thread_names(true)
-                    .with_ansi(true)
-                    .boxed();
-
-                tracing_subscriber::registry()
-                    .with(config.settings.log_level.inner())
-                    .with(file_layer)
-                    .with(stdout_layer)
-                    .init();
-            },
-            e => match e {
-                None => error!("Could not construct log file path"),
-                Some(Err(e)) => error!("Could not initialize log file: {:?}", e),
-                _ => unreachable!(),
-            },
-        }
-
         if config.settings.dxgi_debug {
             hudhook::util::enable_debug_interface();
         }

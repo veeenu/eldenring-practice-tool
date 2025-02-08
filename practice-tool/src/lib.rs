@@ -23,9 +23,11 @@ pub mod util;
 
 use std::ffi::c_void;
 use std::sync::atomic::Ordering;
+use std::sync::Mutex;
 use std::time::{Duration, Instant};
 use std::{mem, ptr, thread};
 
+use config::Config;
 use hudhook::hooks::dx12::ImguiDx12Hooks;
 use hudhook::mh::{MH_ApplyQueued, MH_Initialize, MhHook, MH_STATUS};
 use hudhook::tracing::error;
@@ -34,6 +36,7 @@ use libeldenring::codegen::base_addresses::BaseAddresses;
 use libeldenring::version;
 use once_cell::sync::Lazy;
 use practice_tool::PracticeTool;
+use tracing_subscriber::prelude::*;
 use windows::core::{s, w, GUID, HRESULT, PCWSTR};
 use windows::Win32::Foundation::{HINSTANCE, MAX_PATH};
 use windows::Win32::System::LibraryLoader::{GetModuleHandleW, GetProcAddress, LoadLibraryW};
@@ -100,7 +103,9 @@ static XINPUTGETSTATE: Lazy<FXInputGetState> = Lazy::new(|| unsafe {
         status @ MH_STATUS::MH_ERROR_MEMORY_ALLOC => {
             panic!("XInputCreate hook: initialize: {status:?}");
         },
-        _ => unreachable!(),
+        status => {
+            panic!("Unreachable: {status:?}");
+        },
     }
 
     let hook =
@@ -176,8 +181,8 @@ unsafe fn apply_font_patch() {
     }
 }
 
-fn start_practice_tool(hmodule: HINSTANCE) {
-    let practice_tool = PracticeTool::new();
+fn start_practice_tool(hmodule: HINSTANCE, config: Config, config_err: Option<String>) {
+    let practice_tool = PracticeTool::new(config, config_err);
 
     unsafe {
         apply_event_patch(); // Needed for event draw
@@ -227,6 +232,85 @@ fn await_rshift() -> bool {
     false
 }
 
+fn load_config() -> Result<Config, String> {
+    let config_path = crate::util::get_dll_path()
+        .map(|mut path| {
+            path.pop();
+            path.push("jdsd_er_practice_tool.toml");
+            path
+        })
+        .ok_or_else(|| "Couldn't find config file".to_string())?;
+
+    if !config_path.exists() {
+        std::fs::write(&config_path, include_str!("../../jdsd_er_practice_tool.toml"))
+            .map_err(|e| format!("Couldn't write default config file: {}", e))?;
+    }
+
+    let config_content = std::fs::read_to_string(config_path)
+        .map_err(|e| format!("Couldn't read config file: {}", e))?;
+    println!("{}", config_content);
+    Config::parse(&config_content).map_err(String::from)
+}
+
+fn setup() -> (Config, Option<String>) {
+    log_panics::init();
+
+    let (config, config_err) = match load_config() {
+        Ok(config) => (config, None),
+        Err(e) => (
+            Config::default(),
+            Some({
+                error!("Configuration error: {}", e);
+                format!(
+                    "Configuration error, please review your jdsd_er_practice_tool.toml \
+                     file.\n\n{e}"
+                )
+            }),
+        ),
+    };
+
+    let log_file = util::get_dll_path()
+        .map(|mut path| {
+            path.pop();
+            path.push("jdsd_er_practice_tool.log");
+            path
+        })
+        .map(std::fs::File::create);
+
+    match log_file {
+        Some(Ok(log_file)) => {
+            let file_layer = tracing_subscriber::fmt::layer()
+                .with_thread_ids(true)
+                .with_file(true)
+                .with_line_number(true)
+                .with_thread_names(true)
+                .with_writer(Mutex::new(log_file))
+                .with_ansi(false)
+                .boxed();
+            let stdout_layer = tracing_subscriber::fmt::layer()
+                .with_thread_ids(true)
+                .with_file(true)
+                .with_line_number(true)
+                .with_thread_names(true)
+                .with_ansi(true)
+                .boxed();
+
+            tracing_subscriber::registry()
+                .with(config.settings.log_level.inner())
+                .with(file_layer)
+                .with(stdout_layer)
+                .init();
+        },
+        e => match e {
+            None => error!("Could not construct log file path"),
+            Some(Err(e)) => error!("Could not initialize log file: {:?}", e),
+            _ => unreachable!(),
+        },
+    }
+
+    (config, config_err)
+}
+
 #[no_mangle]
 #[allow(clippy::missing_safety_doc)]
 pub unsafe extern "stdcall" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut c_void) -> bool {
@@ -235,10 +319,12 @@ pub unsafe extern "stdcall" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut 
             return false;
         }
 
-        Lazy::force(&DIRECTINPUT8CREATE);
-        Lazy::force(&XINPUTGETSTATE);
-
         thread::spawn(move || {
+            let (config, config_err) = setup();
+
+            Lazy::force(&DIRECTINPUT8CREATE);
+            Lazy::force(&XINPUTGETSTATE);
+
             apply_no_logo();
 
             if util::get_dll_path()
@@ -248,10 +334,10 @@ pub unsafe extern "stdcall" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut 
                 .unwrap_or(false)
             {
                 if await_rshift() {
-                    start_practice_tool(hmodule)
+                    start_practice_tool(hmodule, config, config_err)
                 }
             } else {
-                start_practice_tool(hmodule)
+                start_practice_tool(hmodule, config, config_err)
             }
         });
     }
