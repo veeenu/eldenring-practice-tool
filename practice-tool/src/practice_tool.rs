@@ -88,16 +88,16 @@ impl PracticeTool {
             hudhook::free_console().ok();
         }
 
-        let pointers = Pointers::new();
-        let poll_interval = Duration::from_millis(100);
-        loop {
-            if let Some(menu_timer) = pointers.menu_timer.read() {
-                if menu_timer > 0. {
-                    break;
-                }
-            }
-            thread::sleep(poll_interval);
-        }
+        // let pointers = Pointers::new();
+        // let poll_interval = Duration::from_millis(100);
+        // loop {
+        //     if let Some(menu_timer) = pointers.menu_timer.read() {
+        //         if menu_timer > 0. {
+        //             break;
+        //         }
+        //     }
+        //     thread::sleep(poll_interval);
+        // }
         wait_option_thread(
             || unsafe {
                 let mut params = PARAMS.write();
@@ -191,10 +191,10 @@ impl PracticeTool {
                 }
 
                 if option_env!("CARGO_XTASK_DIST").is_none()
-                    && ui.button_with_size("Eject", [
-                        BUTTON_WIDTH * scaling_factor(ui),
-                        BUTTON_HEIGHT,
-                    ])
+                    && ui.button_with_size(
+                        "Eject",
+                        [BUTTON_WIDTH * scaling_factor(ui), BUTTON_HEIGHT],
+                    )
                 {
                     self.ui_state = UiState::Closed;
                     self.pointers.cursor_show.set(false);
