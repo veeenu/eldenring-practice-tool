@@ -3,6 +3,7 @@ use std::str::FromStr;
 use hudhook::tracing::error;
 use hudhook::tracing::metadata::LevelFilter;
 use libeldenring::prelude::*;
+use practice_tool_core::controller::ControllerCombination;
 use practice_tool_core::key::Key;
 use practice_tool_core::widgets::Widget;
 use serde::Deserialize;
@@ -47,6 +48,7 @@ pub(crate) struct Settings {
     pub(crate) disable_update_prompt: bool,
     #[serde(default = "Indicator::default_set")]
     pub(crate) indicators: Vec<Indicator>,
+    pub(crate) radial_menu_open: Option<ControllerCombination>,
 }
 
 #[derive(Debug, Deserialize, Clone)]
@@ -363,6 +365,7 @@ impl Default for Config {
                 show_console: false,
                 indicators: Indicator::default_set(),
                 disable_update_prompt: false,
+                radial_menu_open: ControllerCombination::try_from("l3+r3").ok(),
             },
             radial_menu: Vec::new(),
             commands: Vec::new(),
