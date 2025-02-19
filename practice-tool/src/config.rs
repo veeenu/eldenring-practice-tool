@@ -62,6 +62,7 @@ pub(crate) enum IndicatorType {
     Igt,
     Position,
     PositionChange,
+    PositionDistance,
     GameVersion,
     ImguiDebug,
     Fps,
@@ -83,6 +84,7 @@ impl Indicator {
             Indicator { indicator: IndicatorType::Igt, enabled: true },
             Indicator { indicator: IndicatorType::Position, enabled: false },
             Indicator { indicator: IndicatorType::PositionChange, enabled: false },
+            Indicator { indicator: IndicatorType::PositionDistance, enabled: false },
             Indicator { indicator: IndicatorType::Animation, enabled: false },
             Indicator { indicator: IndicatorType::Fps, enabled: false },
             Indicator { indicator: IndicatorType::FrameCount, enabled: false },
@@ -108,6 +110,10 @@ impl TryFrom<IndicatorConfig> for Indicator {
             },
             "position_change" => Ok(Indicator {
                 indicator: IndicatorType::PositionChange,
+                enabled: indicator.enabled,
+            }),
+            "position_distance" => Ok(Indicator {
+                indicator: IndicatorType::PositionDistance,
                 enabled: indicator.enabled,
             }),
             "animation" => {

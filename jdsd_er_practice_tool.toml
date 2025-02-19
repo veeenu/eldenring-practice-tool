@@ -67,6 +67,7 @@ indicators = [
   { indicator = "igt", enabled = true },
   { indicator = "position", enabled = false },
   { indicator = "position_change", enabled = false },
+  { indicator = "position_distance", enabled = false },
   { indicator = "animation", enabled = false },
   { indicator = "fps", enabled = false },
   { indicator = "framecount", enabled = false },
