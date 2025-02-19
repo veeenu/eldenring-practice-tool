@@ -383,7 +383,9 @@ impl PracticeTool {
                                 ]);
 
                                 if ui.button("Start XYZ") {
-                                    if let Some([x, y, z, _a1, _a2]) = self.pointers.global_position.read() {
+                                    if let Some([x, y, z, _a1, _a2]) =
+                                        self.pointers.global_position.read()
+                                    {
                                         self.position_dist_ref = [x, y, z];
                                     }
                                 }
