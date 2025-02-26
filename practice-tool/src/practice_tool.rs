@@ -63,6 +63,9 @@ pub(crate) struct PracticeTool {
     position_prev: [f32; 3],
     position_change_buf: String,
 
+    position_dist_ref: [f32; 3],
+    position_dist_buf: String,
+
     igt_buf: String,
     fps_buf: String,
 
@@ -219,6 +222,8 @@ impl PracticeTool {
             position_prev: Default::default(),
             position_bufs: Default::default(),
             position_change_buf: Default::default(),
+            position_dist_ref: Default::default(),
+            position_dist_buf: Default::default(),
             igt_buf: Default::default(),
             fps_buf: Default::default(),
             framecount: 0,
@@ -334,6 +339,7 @@ impl PracticeTool {
                                 IndicatorType::GameVersion => "Game Version",
                                 IndicatorType::Position => "Player Position",
                                 IndicatorType::PositionChange => "Player Velocity",
+                                IndicatorType::PositionDistance => "Player Distance",
                                 IndicatorType::Animation => "Animation",
                                 IndicatorType::Igt => "IGT Timer",
                                 IndicatorType::Fps => "FPS",
@@ -361,6 +367,27 @@ impl PracticeTool {
 
                                 if ui.button("Reset") {
                                     self.framecount = 0;
+                                }
+                            }
+
+                            if let IndicatorType::PositionDistance = indicator.indicator {
+                                ui.same_line();
+
+                                let btn_xyz_label = "Start XYZ";
+                                let btn_xyz_width = ui.calc_text_size(btn_xyz_label)[0]
+                                    + style.frame_padding[0] * 2.0;
+
+                                ui.set_cursor_pos([
+                                    ui.content_region_max()[0] - btn_xyz_width,
+                                    ui.cursor_pos()[1],
+                                ]);
+
+                                if ui.button("Start XYZ") {
+                                    if let Some([x, y, z, _a1, _a2]) =
+                                        self.pointers.global_position.read()
+                                    {
+                                        self.position_dist_ref = [x, y, z];
+                                    }
                                 }
                             }
                         }
@@ -543,13 +570,37 @@ impl PracticeTool {
                                 self.position_change_buf.clear();
                                 write!(
                                     self.position_change_buf,
-                                    "[XYZ] {position_change_xyz:.6} | [XZ] \
-                                     {position_change_xz:.6} | [Y] {position_change_y:.6}"
+                                    "Velocity: [XYZ] {position_change_xyz:.3} | [XZ] \
+                                     {position_change_xz:.3} | [Y] {position_change_y:.3}"
                                 )
                                 .ok();
                                 ui.text(&self.position_change_buf);
 
                                 self.position_prev = [x, y, z];
+                            }
+                        },
+                        IndicatorType::PositionDistance => {
+                            if let Some([x, y, z, _a1, _a2]) = self.pointers.global_position.read()
+                            {
+                                let position_dist_xyz = ((x - self.position_dist_ref[0]).powf(2.0)
+                                    + (y - self.position_dist_ref[1]).powf(2.0)
+                                    + (z - self.position_dist_ref[2]).powf(2.0))
+                                .sqrt();
+
+                                let position_dist_xz = ((x - self.position_dist_ref[0]).powf(2.0)
+                                    + (z - self.position_dist_ref[2]).powf(2.0))
+                                .sqrt();
+
+                                let position_dist_y = y - self.position_dist_ref[1];
+
+                                self.position_dist_buf.clear();
+                                write!(
+                                    self.position_dist_buf,
+                                    "Distance: [XYZ] {position_dist_xyz:.4} | [XZ] \
+                                     {position_dist_xz:.4} | [Y] {position_dist_y:.4}"
+                                )
+                                .ok();
+                                ui.text(&self.position_dist_buf);
                             }
                         },
                         IndicatorType::Animation => {
