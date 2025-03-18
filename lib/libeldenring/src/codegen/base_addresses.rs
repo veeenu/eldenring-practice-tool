@@ -22,7 +22,6 @@ pub struct BaseAddresses {
     pub hit_ins: usize,
     pub hit_ins_hitbox_offset: usize,
     pub map_item_man: usize,
-    pub menu_man_ins: usize,
     pub msg_repository: usize,
     pub solo_param_repository: usize,
     pub world_chr_man: usize,
@@ -41,6 +40,8 @@ pub struct BaseAddresses {
     pub event_patch1: usize,
     pub event_patch2: usize,
     pub font_patch: usize,
+    pub sound_draw_patch: usize,
+    pub targeting_debug_draw: usize,
 }
 
 impl BaseAddresses {
@@ -65,7 +66,6 @@ impl BaseAddresses {
             hit_ins: self.hit_ins + base,
             hit_ins_hitbox_offset: self.hit_ins_hitbox_offset + base,
             map_item_man: self.map_item_man + base,
-            menu_man_ins: self.menu_man_ins + base,
             msg_repository: self.msg_repository + base,
             solo_param_repository: self.solo_param_repository + base,
             world_chr_man: self.world_chr_man + base,
@@ -84,6 +84,8 @@ impl BaseAddresses {
             event_patch1: self.event_patch1 + base,
             event_patch2: self.event_patch2 + base,
             font_patch: self.font_patch + base,
+            sound_draw_patch: self.sound_draw_patch + base,
+            targeting_debug_draw: self.targeting_debug_draw + base,
         }
     }
 }
@@ -235,7 +237,6 @@ pub const BASE_ADDRESSES_1_02_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3c54320,
     hit_ins_hitbox_offset: 0x3c5432c,
     map_item_man: 0x3c51cf0,
-    menu_man_ins: 0x3c55b30,
     msg_repository: 0x3c66d48,
     solo_param_repository: 0x3c6b578,
     world_chr_man: 0x3c50268,
@@ -254,6 +255,8 @@ pub const BASE_ADDRESSES_1_02_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xdd0810,
     event_patch2: 0xdd07f0,
     font_patch: 0x25df460,
+    sound_draw_patch: 0x3385f6,
+    targeting_debug_draw: 0x3c4c4ea,
 };
 
 pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
@@ -276,7 +279,6 @@ pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
     hit_ins: 0x3c54340,
     hit_ins_hitbox_offset: 0x3c5434c,
     map_item_man: 0x3c51d10,
-    menu_man_ins: 0x3c55b50,
     msg_repository: 0x3c66d68,
     solo_param_repository: 0x3c6b598,
     world_chr_man: 0x3c50288,
@@ -295,6 +297,8 @@ pub const BASE_ADDRESSES_1_02_1: BaseAddresses = BaseAddresses {
     event_patch1: 0xdd0860,
     event_patch2: 0xdd0840,
     font_patch: 0x25df4b0,
+    sound_draw_patch: 0x338666,
+    targeting_debug_draw: 0x3c4c50a,
 };
 
 pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
@@ -317,7 +321,6 @@ pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
     hit_ins: 0x3c54360,
     hit_ins_hitbox_offset: 0x3c5436c,
     map_item_man: 0x3c51d30,
-    menu_man_ins: 0x3c55b70,
     msg_repository: 0x3c66d88,
     solo_param_repository: 0x3c6b5b8,
     world_chr_man: 0x3c502a8,
@@ -336,6 +339,8 @@ pub const BASE_ADDRESSES_1_02_2: BaseAddresses = BaseAddresses {
     event_patch1: 0xdd0c70,
     event_patch2: 0xdd0c50,
     font_patch: 0x25df950,
+    sound_draw_patch: 0x338666,
+    targeting_debug_draw: 0x3c4c52a,
 };
 
 pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
@@ -358,7 +363,6 @@ pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
     hit_ins: 0x3c57380,
     hit_ins_hitbox_offset: 0x3c5738c,
     map_item_man: 0x3c54d50,
-    menu_man_ins: 0x3c58b90,
     msg_repository: 0x3c69d98,
     solo_param_repository: 0x3c6e5c8,
     world_chr_man: 0x3c532c8,
@@ -377,6 +381,8 @@ pub const BASE_ADDRESSES_1_02_3: BaseAddresses = BaseAddresses {
     event_patch1: 0xdd1640,
     event_patch2: 0xdd1620,
     font_patch: 0x25e1760,
+    sound_draw_patch: 0x338786,
+    targeting_debug_draw: 0x3c4f54a,
 };
 
 pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
@@ -399,7 +405,6 @@ pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3c68ef0,
     hit_ins_hitbox_offset: 0x3c68efc,
     map_item_man: 0x3c668c0,
-    menu_man_ins: 0x3c6a700,
     msg_repository: 0x3c7b928,
     solo_param_repository: 0x3c80158,
     world_chr_man: 0x3c64e38,
@@ -418,6 +423,8 @@ pub const BASE_ADDRESSES_1_03_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xdd99c0,
     event_patch2: 0xdd99a0,
     font_patch: 0x25eafd0,
+    sound_draw_patch: 0x338e86,
+    targeting_debug_draw: 0x3c610aa,
 };
 
 pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
@@ -440,7 +447,6 @@ pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
     hit_ins: 0x3c68ef0,
     hit_ins_hitbox_offset: 0x3c68efc,
     map_item_man: 0x3c668c0,
-    menu_man_ins: 0x3c6a700,
     msg_repository: 0x3c7b928,
     solo_param_repository: 0x3c80158,
     world_chr_man: 0x3c64e38,
@@ -459,6 +465,8 @@ pub const BASE_ADDRESSES_1_03_1: BaseAddresses = BaseAddresses {
     event_patch1: 0xdd98c0,
     event_patch2: 0xdd98a0,
     font_patch: 0x25ead70,
+    sound_draw_patch: 0x338e86,
+    targeting_debug_draw: 0x3c610aa,
 };
 
 pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
@@ -481,7 +489,6 @@ pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
     hit_ins: 0x3c68ef0,
     hit_ins_hitbox_offset: 0x3c68efc,
     map_item_man: 0x3c668c0,
-    menu_man_ins: 0x3c6a700,
     msg_repository: 0x3c7b928,
     solo_param_repository: 0x3c80158,
     world_chr_man: 0x3c64e38,
@@ -500,6 +507,8 @@ pub const BASE_ADDRESSES_1_03_2: BaseAddresses = BaseAddresses {
     event_patch1: 0xdd98a0,
     event_patch2: 0xdd9880,
     font_patch: 0x25ead50,
+    sound_draw_patch: 0x338e86,
+    targeting_debug_draw: 0x3c610aa,
 };
 
 pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
@@ -522,7 +531,6 @@ pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3c0c1c8,
     hit_ins_hitbox_offset: 0x3c0c1b4,
     map_item_man: 0x3c09b50,
-    menu_man_ins: 0x3c0d9d0,
     msg_repository: 0x3c1eab8,
     solo_param_repository: 0x3c232e8,
     world_chr_man: 0x3c080e8,
@@ -541,6 +549,8 @@ pub const BASE_ADDRESSES_1_04_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xdba4b0,
     event_patch2: 0xdba490,
     font_patch: 0x25d2a10,
+    sound_draw_patch: 0x33af76,
+    targeting_debug_draw: 0x3c0435a,
 };
 
 pub const BASE_ADDRESSES_1_04_1: BaseAddresses = BaseAddresses {
@@ -563,7 +573,6 @@ pub const BASE_ADDRESSES_1_04_1: BaseAddresses = BaseAddresses {
     hit_ins: 0x3c0c1c8,
     hit_ins_hitbox_offset: 0x3c0c1b4,
     map_item_man: 0x3c09b50,
-    menu_man_ins: 0x3c0d9d0,
     msg_repository: 0x3c1eab8,
     solo_param_repository: 0x3c232e8,
     world_chr_man: 0x3c080e8,
@@ -582,6 +591,8 @@ pub const BASE_ADDRESSES_1_04_1: BaseAddresses = BaseAddresses {
     event_patch1: 0xdba3c0,
     event_patch2: 0xdba3a0,
     font_patch: 0x25d2920,
+    sound_draw_patch: 0x33af76,
+    targeting_debug_draw: 0x3c0435a,
 };
 
 pub const BASE_ADDRESSES_1_05_0: BaseAddresses = BaseAddresses {
@@ -604,7 +615,6 @@ pub const BASE_ADDRESSES_1_05_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3c23f78,
     hit_ins_hitbox_offset: 0x3c23f64,
     map_item_man: 0x3c21900,
-    menu_man_ins: 0x3c25780,
     msg_repository: 0x3c36878,
     solo_param_repository: 0x3c3b0d8,
     world_chr_man: 0x3c1fe98,
@@ -623,6 +633,8 @@ pub const BASE_ADDRESSES_1_05_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xdc21a0,
     event_patch2: 0xdc2180,
     font_patch: 0x25e0dc0,
+    sound_draw_patch: 0x33b146,
+    targeting_debug_draw: 0x3c1c21a,
 };
 
 pub const BASE_ADDRESSES_1_06_0: BaseAddresses = BaseAddresses {
@@ -645,7 +657,6 @@ pub const BASE_ADDRESSES_1_06_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3c35180,
     hit_ins_hitbox_offset: 0x3c3518c,
     map_item_man: 0x3c32b20,
-    menu_man_ins: 0x3c369a0,
     msg_repository: 0x3c47ae8,
     solo_param_repository: 0x3c4c348,
     world_chr_man: 0x3c310b8,
@@ -664,6 +675,8 @@ pub const BASE_ADDRESSES_1_06_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xdc8670,
     event_patch2: 0xdc8650,
     font_patch: 0x25eaf20,
+    sound_draw_patch: 0x33bfd6,
+    targeting_debug_draw: 0x3c2d43a,
 };
 
 pub const BASE_ADDRESSES_1_07_0: BaseAddresses = BaseAddresses {
@@ -686,7 +699,6 @@ pub const BASE_ADDRESSES_1_07_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3c4fb40,
     hit_ins_hitbox_offset: 0x3c4fb4c,
     map_item_man: 0x3c4d4e0,
-    menu_man_ins: 0x3c51360,
     msg_repository: 0x3c624b8,
     solo_param_repository: 0x3c66d18,
     world_chr_man: 0x3c4ba78,
@@ -705,6 +717,8 @@ pub const BASE_ADDRESSES_1_07_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xdcbdb0,
     event_patch2: 0xdcbd90,
     font_patch: 0x25f84f0,
+    sound_draw_patch: 0x33c006,
+    targeting_debug_draw: 0x3c47dfa,
 };
 
 pub const BASE_ADDRESSES_1_08_0: BaseAddresses = BaseAddresses {
@@ -727,7 +741,6 @@ pub const BASE_ADDRESSES_1_08_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3cdda70,
     hit_ins_hitbox_offset: 0x3cdda7c,
     map_item_man: 0x3cdb400,
-    menu_man_ins: 0x3cdf140,
     msg_repository: 0x3cf0dd8,
     solo_param_repository: 0x3cf5788,
     world_chr_man: 0x3cd9998,
@@ -746,6 +759,8 @@ pub const BASE_ADDRESSES_1_08_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xe127e0,
     event_patch2: 0xe127c0,
     font_patch: 0x2644e30,
+    sound_draw_patch: 0x33cc46,
+    targeting_debug_draw: 0x3cd5c7a,
 };
 
 pub const BASE_ADDRESSES_1_08_1: BaseAddresses = BaseAddresses {
@@ -768,7 +783,6 @@ pub const BASE_ADDRESSES_1_08_1: BaseAddresses = BaseAddresses {
     hit_ins: 0x3cdda70,
     hit_ins_hitbox_offset: 0x3cdda7c,
     map_item_man: 0x3cdb400,
-    menu_man_ins: 0x3cdf140,
     msg_repository: 0x3cf0dd8,
     solo_param_repository: 0x3cf5788,
     world_chr_man: 0x3cd9998,
@@ -787,6 +801,8 @@ pub const BASE_ADDRESSES_1_08_1: BaseAddresses = BaseAddresses {
     event_patch1: 0xe127c0,
     event_patch2: 0xe127a0,
     font_patch: 0x2644e10,
+    sound_draw_patch: 0x33cc46,
+    targeting_debug_draw: 0x3cd5c7a,
 };
 
 pub const BASE_ADDRESSES_1_09_0: BaseAddresses = BaseAddresses {
@@ -809,7 +825,6 @@ pub const BASE_ADDRESSES_1_09_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3ce0eb0,
     hit_ins_hitbox_offset: 0x3ce0ebc,
     map_item_man: 0x3cde840,
-    menu_man_ins: 0x3ce2580,
     msg_repository: 0x3cf4218,
     solo_param_repository: 0x3cf8bc8,
     world_chr_man: 0x3cdcdd8,
@@ -828,6 +843,8 @@ pub const BASE_ADDRESSES_1_09_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xe154f0,
     event_patch2: 0xe154d0,
     font_patch: 0x2647af0,
+    sound_draw_patch: 0x33cd76,
+    targeting_debug_draw: 0x3cd90ba,
 };
 
 pub const BASE_ADDRESSES_1_09_1: BaseAddresses = BaseAddresses {
@@ -850,7 +867,6 @@ pub const BASE_ADDRESSES_1_09_1: BaseAddresses = BaseAddresses {
     hit_ins: 0x3ce0eb0,
     hit_ins_hitbox_offset: 0x3ce0ebc,
     map_item_man: 0x3cde840,
-    menu_man_ins: 0x3ce2580,
     msg_repository: 0x3cf4218,
     solo_param_repository: 0x3cf8bc8,
     world_chr_man: 0x3cdcdd8,
@@ -869,6 +885,8 @@ pub const BASE_ADDRESSES_1_09_1: BaseAddresses = BaseAddresses {
     event_patch1: 0xe15600,
     event_patch2: 0xe155e0,
     font_patch: 0x2647c00,
+    sound_draw_patch: 0x33cd76,
+    targeting_debug_draw: 0x3cd90ba,
 };
 
 pub const BASE_ADDRESSES_2_00_0: BaseAddresses = BaseAddresses {
@@ -891,7 +909,6 @@ pub const BASE_ADDRESSES_2_00_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3ce0eb0,
     hit_ins_hitbox_offset: 0x3ce0ebc,
     map_item_man: 0x3cde840,
-    menu_man_ins: 0x3ce2580,
     msg_repository: 0x3cf4218,
     solo_param_repository: 0x3cf8bc8,
     world_chr_man: 0x3cdcdd8,
@@ -910,6 +927,8 @@ pub const BASE_ADDRESSES_2_00_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xe158b0,
     event_patch2: 0xe15890,
     font_patch: 0x2647eb0,
+    sound_draw_patch: 0x33cd76,
+    targeting_debug_draw: 0x3cd90ba,
 };
 
 pub const BASE_ADDRESSES_2_00_1: BaseAddresses = BaseAddresses {
@@ -932,7 +951,6 @@ pub const BASE_ADDRESSES_2_00_1: BaseAddresses = BaseAddresses {
     hit_ins: 0x3ce0eb0,
     hit_ins_hitbox_offset: 0x3ce0ebc,
     map_item_man: 0x3cde840,
-    menu_man_ins: 0x3ce2580,
     msg_repository: 0x3cf4218,
     solo_param_repository: 0x3cf8bc8,
     world_chr_man: 0x3cdcdd8,
@@ -951,6 +969,8 @@ pub const BASE_ADDRESSES_2_00_1: BaseAddresses = BaseAddresses {
     event_patch1: 0xe15990,
     event_patch2: 0xe15970,
     font_patch: 0x2647f90,
+    sound_draw_patch: 0x33cd76,
+    targeting_debug_draw: 0x3cd90ba,
 };
 
 pub const BASE_ADDRESSES_2_02_0: BaseAddresses = BaseAddresses {
@@ -973,7 +993,6 @@ pub const BASE_ADDRESSES_2_02_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3d6a0e0,
     hit_ins_hitbox_offset: 0x3d6a0ec,
     map_item_man: 0x3d67a50,
-    menu_man_ins: 0x3d6b7b0,
     msg_repository: 0x3d7d4f8,
     solo_param_repository: 0x3d81ee8,
     world_chr_man: 0x3d65f88,
@@ -992,6 +1011,8 @@ pub const BASE_ADDRESSES_2_02_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xe53190,
     event_patch2: 0xe53170,
     font_patch: 0x268ca70,
+    sound_draw_patch: 0x33e5c6,
+    targeting_debug_draw: 0x3d6226b,
 };
 
 pub const BASE_ADDRESSES_2_02_3: BaseAddresses = BaseAddresses {
@@ -1014,7 +1035,6 @@ pub const BASE_ADDRESSES_2_02_3: BaseAddresses = BaseAddresses {
     hit_ins: 0x3d6a100,
     hit_ins_hitbox_offset: 0x3d6a10c,
     map_item_man: 0x3d67a70,
-    menu_man_ins: 0x3d6b7d0,
     msg_repository: 0x3d7d518,
     solo_param_repository: 0x3d81f08,
     world_chr_man: 0x3d65fa8,
@@ -1033,6 +1053,8 @@ pub const BASE_ADDRESSES_2_02_3: BaseAddresses = BaseAddresses {
     event_patch1: 0xe531b0,
     event_patch2: 0xe53190,
     font_patch: 0x268ca90,
+    sound_draw_patch: 0x33e5c6,
+    targeting_debug_draw: 0x3d6228b,
 };
 
 pub const BASE_ADDRESSES_2_03_0: BaseAddresses = BaseAddresses {
@@ -1055,7 +1077,6 @@ pub const BASE_ADDRESSES_2_03_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3d6a100,
     hit_ins_hitbox_offset: 0x3d6a10c,
     map_item_man: 0x3d67a70,
-    menu_man_ins: 0x3d6b7d0,
     msg_repository: 0x3d7d518,
     solo_param_repository: 0x3d81f08,
     world_chr_man: 0x3d65fa8,
@@ -1074,6 +1095,8 @@ pub const BASE_ADDRESSES_2_03_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xe536a0,
     event_patch2: 0xe53680,
     font_patch: 0x268d330,
+    sound_draw_patch: 0x33e5c6,
+    targeting_debug_draw: 0x3d6228b,
 };
 
 pub const BASE_ADDRESSES_2_04_0: BaseAddresses = BaseAddresses {
@@ -1096,7 +1119,6 @@ pub const BASE_ADDRESSES_2_04_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3d6a0e0,
     hit_ins_hitbox_offset: 0x3d6a0ec,
     map_item_man: 0x3d67a50,
-    menu_man_ins: 0x3d6b7b0,
     msg_repository: 0x3d7d4f8,
     solo_param_repository: 0x3d81ee8,
     world_chr_man: 0x3d65f88,
@@ -1115,6 +1137,8 @@ pub const BASE_ADDRESSES_2_04_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xe53600,
     event_patch2: 0xe535e0,
     font_patch: 0x268d360,
+    sound_draw_patch: 0x33e5c6,
+    targeting_debug_draw: 0x3d6226b,
 };
 
 pub const BASE_ADDRESSES_2_05_0: BaseAddresses = BaseAddresses {
@@ -1137,7 +1161,6 @@ pub const BASE_ADDRESSES_2_05_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3d6a0e0,
     hit_ins_hitbox_offset: 0x3d6a0ec,
     map_item_man: 0x3d67a50,
-    menu_man_ins: 0x3d6b7b0,
     msg_repository: 0x3d7d4f8,
     solo_param_repository: 0x3d81ee8,
     world_chr_man: 0x3d65f88,
@@ -1156,6 +1179,8 @@ pub const BASE_ADDRESSES_2_05_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xe53600,
     event_patch2: 0xe535e0,
     font_patch: 0x268d360,
+    sound_draw_patch: 0x33e5c6,
+    targeting_debug_draw: 0x3d6226b,
 };
 
 pub const BASE_ADDRESSES_2_06_0: BaseAddresses = BaseAddresses {
@@ -1178,7 +1203,6 @@ pub const BASE_ADDRESSES_2_06_0: BaseAddresses = BaseAddresses {
     hit_ins: 0x3d6a0e0,
     hit_ins_hitbox_offset: 0x3d6a0ec,
     map_item_man: 0x3d67a50,
-    menu_man_ins: 0x3d6b7b0,
     msg_repository: 0x3d7d4f8,
     solo_param_repository: 0x3d81ee8,
     world_chr_man: 0x3d65f88,
@@ -1197,4 +1221,6 @@ pub const BASE_ADDRESSES_2_06_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xe535d0,
     event_patch2: 0xe535b0,
     font_patch: 0x268d330,
+    sound_draw_patch: 0x33e596,
+    targeting_debug_draw: 0x3d6226b,
 };

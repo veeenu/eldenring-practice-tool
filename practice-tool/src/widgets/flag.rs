@@ -1,11 +1,11 @@
-use libeldenring::memedit::Bitflag as BitflagInner;
+use libeldenring::memedit::FlagToggler as FlagTogglerInner;
 use practice_tool_core::key::Key;
 use practice_tool_core::widgets::flag::{Flag, FlagWidget};
 use practice_tool_core::widgets::Widget;
 
-struct Bitflag(BitflagInner<u8>);
+struct FlagToggler(Box<dyn FlagTogglerInner>);
 
-impl Flag for Bitflag {
+impl Flag for FlagToggler {
     fn set(&mut self, value: bool) {
         self.0.set(value);
     }
@@ -17,8 +17,8 @@ impl Flag for Bitflag {
 
 pub(crate) fn flag_widget(
     label: &str,
-    bitflag: BitflagInner<u8>,
+    flag_toggler: Box<dyn FlagTogglerInner>,
     key: Option<Key>,
 ) -> Box<dyn Widget> {
-    Box::new(FlagWidget::new(label, Bitflag(bitflag), key))
+    Box::new(FlagWidget::new(label, FlagToggler(flag_toggler), key))
 }

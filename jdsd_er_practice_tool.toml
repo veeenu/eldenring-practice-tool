@@ -22,6 +22,9 @@ commands = [
     { flag = "hitbox_character" },
     { flag = "hitbox_event" },
     { flags = ["weapon_hitbox1", "weapon_hitbox2", "weapon_hitbox3"], hotkey = "f9", label = "Weapon hitboxes" },
+    { flag = "poise_view" },
+    { flag = "all_targeting_view" },
+    { flag = "sound_view" },
   ]},
 
   { flag = "no_damage", hotkey = "1" },
