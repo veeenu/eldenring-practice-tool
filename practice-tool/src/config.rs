@@ -8,7 +8,6 @@ use practice_tool_core::key::Key;
 use practice_tool_core::widgets::Widget;
 use serde::Deserialize;
 
-use crate::widgets::action_freeze::action_freeze;
 use crate::widgets::character_stats::character_stats_edit;
 use crate::widgets::cycle_color::cycle_color;
 use crate::widgets::cycle_speed::cycle_speed;
@@ -235,27 +234,22 @@ impl CfgCommand {
     fn into_widget(self, settings: &Settings, chains: &Pointers) -> Option<Box<dyn Widget>> {
         let widget = match self {
             CfgCommand::Flag { flag, hotkey } => {
-                flag_widget(&flag.label, (flag.getter)(chains).clone(), hotkey)
+                flag_widget(&flag.label, (*(flag.getter)(chains)).clone_box(), hotkey)
             },
             CfgCommand::MultiFlag { flag, hotkey } => multi_flag(
                 &flag.label,
-                flag.items.iter().map(|flag| flag(chains).clone()).collect(),
+                flag.items.iter().map(|flag| flag(chains).clone_box()).collect(),
                 hotkey,
             ),
             CfgCommand::MultiFlagUser { flags, hotkey, label } => multi_flag(
                 label.as_str(),
-                flags.iter().map(|flag| (flag.getter)(chains).clone()).collect(),
+                flags.iter().map(|flag| (*(flag.getter)(chains)).clone_box()).collect(),
                 hotkey,
             ),
             CfgCommand::SpecialFlag { flag, hotkey } if flag == "deathcam" => deathcam(
                 chains.deathcam.0.clone(),
                 chains.deathcam.1.clone(),
                 chains.deathcam.2.clone(),
-                hotkey,
-            ),
-            CfgCommand::SpecialFlag { flag, hotkey } if flag == "action_freeze" => action_freeze(
-                chains.func_dbg_action_force.clone(),
-                chains.func_dbg_action_force_state_values,
                 hotkey,
             ),
             CfgCommand::SpecialFlag { flag, hotkey: _ } => {
@@ -383,7 +377,7 @@ impl Default for Config {
 #[serde(try_from = "String")]
 struct FlagSpec {
     label: String,
-    getter: fn(&Pointers) -> &Bitflag<u8>,
+    getter: fn(&Pointers) -> Box<dyn FlagToggler>,
 }
 
 impl std::fmt::Debug for FlagSpec {
@@ -393,7 +387,7 @@ impl std::fmt::Debug for FlagSpec {
 }
 
 impl FlagSpec {
-    fn new(label: &str, getter: fn(&Pointers) -> &Bitflag<u8>) -> FlagSpec {
+    fn new(label: &str, getter: fn(&Pointers) -> Box<dyn FlagToggler>) -> FlagSpec {
         FlagSpec { label: label.to_string(), getter }
     }
 }
@@ -405,7 +399,7 @@ impl TryFrom<String> for FlagSpec {
         macro_rules! flag_spec {
             ($x:expr, [ $( ($flag_name:ident, $flag_label:expr), )* ]) => {
                 match $x {
-                    $(stringify!($flag_name) => Ok(FlagSpec::new($flag_label, |c| &c.$flag_name)),)*
+                    $(stringify!($flag_name) => Ok(FlagSpec::new($flag_label, |c| Box::new(c.$flag_name.clone()))),)*
                     e => Err(format!("\"{}\" is not a valid flag specifier", e)),
                 }
             }
@@ -429,6 +423,7 @@ impl TryFrom<String> for FlagSpec {
             (torrent_gravity, "No Gravity (Torrent)"),
             (collision, "No Collision"),
             (torrent_collision, "No Collision (Torrent)"),
+            (action_freeze, "Action freeze"),
             (display_stable_pos, "Show stable pos"),
             (weapon_hitbox1, "Weapon hitbox #1"),
             (weapon_hitbox2, "Weapon hitbox #2"),
@@ -438,6 +433,9 @@ impl TryFrom<String> for FlagSpec {
             (hitbox_f, "Walls hitbox"),
             (hitbox_character, "Character hitbox"),
             (hitbox_event, "Event hitbox"),
+            (poise_view, "Poise View"),
+            (sound_view, "Sound View"),
+            (all_targeting_view, "Targeting View"),
             (field_area_direction, "Direction HUD"),
             (field_area_altimeter, "Altimeter HUD"),
             (field_area_compass, "Compass HUD"),

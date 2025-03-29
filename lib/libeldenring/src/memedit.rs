@@ -110,9 +110,6 @@ impl<T> PointerChain<T> {
     }
 }
 
-#[derive(Clone, Debug)]
-pub struct Bitflag<T>(PointerChain<T>, T);
-
 // impl<T: Display + Debug> Debug for PointerChain<T> {
 //     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
 //         write!(f, "PointerChain({} @ {:p}", self.proc.0, self.base)?;
@@ -129,20 +126,34 @@ pub struct Bitflag<T>(PointerChain<T>, T);
 //     }
 // }
 
-impl<T> Bitflag<T>
+pub trait FlagToggler: Send + Sync + Debug {
+    fn clone_box(&self) -> Box<dyn FlagToggler>;
+    fn toggle(&self) -> Option<bool>;
+    fn get(&self) -> Option<bool>;
+    fn set(&self, flag: bool);
+}
+
+#[derive(Clone, Debug)]
+pub struct Bitflag<T>(PointerChain<T>, T);
+
+impl<T> FlagToggler for Bitflag<T>
 where
-    T: BitXor<Output = T>
+    T: Send
+        + Sync
+        + Copy
+        + Debug
+        + BitXor<Output = T>
         + BitAnd<Output = T>
         + BitOr<Output = T>
         + Not<Output = T>
         + PartialEq
-        + Copy,
+        + 'static,
 {
-    pub fn new(c: PointerChain<T>, mask: T) -> Self {
-        Bitflag(c, mask)
+    fn clone_box(&self) -> Box<dyn FlagToggler> {
+        Box::new(self.clone())
     }
 
-    pub fn toggle(&self) -> Option<bool> {
+    fn toggle(&self) -> Option<bool> {
         if let Some(x) = self.0.read() {
             self.0.write(x ^ self.1);
             Some(x == self.1)
@@ -151,13 +162,60 @@ where
         }
     }
 
-    pub fn get(&self) -> Option<bool> {
+    fn get(&self) -> Option<bool> {
         self.0.read().map(|x| (x & self.1) == self.1)
     }
 
-    pub fn set(&self, flag: bool) {
+    fn set(&self, flag: bool) {
         if let Some(x) = self.0.read() {
             self.0.write(if flag { x | self.1 } else { x & !self.1 });
+        }
+    }
+}
+
+impl<T> Bitflag<T> {
+    pub fn new(c: PointerChain<T>, mask: T) -> Self {
+        Bitflag(c, mask)
+    }
+}
+
+#[derive(Clone, Debug)]
+pub struct BytesPatch<const N: usize>(PointerChain<[u8; N]>, [u8; N], [u8; N]);
+
+impl<const N: usize> FlagToggler for BytesPatch<N> {
+    fn clone_box(&self) -> Box<dyn FlagToggler> {
+        Box::new(self.clone())
+    }
+
+    fn toggle(&self) -> Option<bool> {
+        if let Some(x) = self.0.read() {
+            let was_on = x == self.1;
+            self.0.write(if was_on { self.2 } else { self.1 });
+            Some(!was_on)
+        } else {
+            None
+        }
+    }
+
+    fn get(&self) -> Option<bool> {
+        self.0.read().map(|x| (x == self.1))
+    }
+
+    fn set(&self, flag: bool) {
+        if let Some(x) = self.0.read() {
+            if (x == self.1) != flag {
+                self.0.write(if flag { self.1 } else { self.2 });
+            }
+        }
+    }
+}
+
+impl<const N: usize> BytesPatch<N> {
+    pub fn new(c: PointerChain<[u8; N]>, bytes_on: [u8; N]) -> Self {
+        if let Some(x) = c.read() {
+            BytesPatch(c, bytes_on, x)
+        } else {
+            BytesPatch(c, bytes_on, [0; N])
         }
     }
 }
@@ -172,4 +230,9 @@ macro_rules! bitflag {
     ($b:expr; $($e:expr),+) => { Bitflag::new(PointerChain::new(&[$($e,)*]), $b) }
 }
 
-pub use {bitflag, pointer_chain};
+#[macro_export]
+macro_rules! bytes_patch {
+    ($b:expr; $($e:expr),+) => { BytesPatch::new(PointerChain::new(&[$($e,)*]), $b) }
+}
+
+pub use {bitflag, bytes_patch, pointer_chain};

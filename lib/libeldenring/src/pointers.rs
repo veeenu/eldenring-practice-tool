@@ -72,7 +72,7 @@ pub struct Pointers {
     pub warp1: PointerChain<u64>,
     pub warp2: PointerChain<u64>,
 
-    pub deathcam: (Bitflag<u8>, Bitflag<u8>, PointerChain<u8>),
+    pub deathcam: (Bitflag<u8>, Bitflag<u8>, BytesPatch<1>),
 
     // HitIns
     pub hitbox_high: Bitflag<u8>,
@@ -81,6 +81,9 @@ pub struct Pointers {
     pub hitbox_character: Bitflag<u8>,
 
     pub hitbox_event: Bitflag<u8>,
+    pub poise_view: Bitflag<u8>,
+    pub sound_view: BytesPatch<2>,
+    pub all_targeting_view: Bitflag<u8>,
 
     pub mesh_color: PointerChain<i32>,
 
@@ -97,8 +100,7 @@ pub struct Pointers {
     // Functions
     pub func_item_spawn: usize,
     pub func_item_inject: usize,
-    pub func_dbg_action_force: PointerChain<u8>,
-    pub func_dbg_action_force_state_values: (u8, u8),
+    pub action_freeze: BytesPatch<1>,
     pub show_all_map_layers: Bitflag<u8>,
     pub show_all_graces: Bitflag<u8>,
 
@@ -233,11 +235,14 @@ impl Pointers {
             base_fps,
             base_anim,
             dbg_event_man_off,
+            world_chr_man_dbg,
+            func_dbg_action_force,
+            sound_draw_patch,
+            targeting_debug_draw,
             ..
         } = base_addresses;
 
         // Special cases
-
         let map_id_offset = {
             match version {
                 V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 => 0x6c8,
@@ -477,7 +482,7 @@ impl Pointers {
             deathcam: (
                 bitflag!(0b100; world_chr_man, player_ins, 0x1c8),
                 bitflag!(0b100; world_chr_man, torrent_enemy_ins, 0x18, 0, 0x1c8),
-                pointer_chain!(field_area, 0x98, 0x7c),
+                bytes_patch!([0x07]; field_area, 0x98, 0x7c),
             ),
 
             field_area_direction: bitflag!(0b1; field_area + 0x9),
@@ -491,6 +496,9 @@ impl Pointers {
             hitbox_f: bitflag!(0b1; hit_ins_hitbox_offset + 0x4),
             hitbox_character: bitflag!(0b1; hit_ins_hitbox_offset + 0x3),
             hitbox_event: bitflag!(0b1; dbg_event_man_off, 0x4),
+            poise_view: bitflag!(0b1; world_chr_man_dbg, 0x69),
+            sound_view: bytes_patch!([0x90, 0x90]; sound_draw_patch),
+            all_targeting_view: bitflag!(0b1; targeting_debug_draw),
             mesh_color: pointer_chain!(hit_ins_hitbox_offset + 0x8),
             show_geom,
             show_chr,
@@ -501,13 +509,12 @@ impl Pointers {
 
             func_item_spawn,
             func_item_inject,
-            func_dbg_action_force: pointer_chain!(base_addresses.func_dbg_action_force + 7),
-            func_dbg_action_force_state_values: match version {
-                V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
-                | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 => (0xB1, 0xB2),
-                V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 | V2_00_1 | V2_02_0 | V2_02_3
-                | V2_03_0 | V2_04_0 | V2_05_0 | V2_06_0 => (0xC1, 0xC2),
-            },
+            action_freeze: bytes_patch!(match version {
+                    V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
+                    | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 => [0xB2],
+                    V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 | V2_00_1 | V2_02_0 | V2_02_3
+                    | V2_03_0 | V2_04_0 | V2_05_0 | V2_06_0 => [0xC2],
+                }; func_dbg_action_force + 7),
             current_target: pointer_chain!(current_target),
             show_all_map_layers: bitflag!(0b1; func_check_graces),
             show_all_graces: bitflag!(0b1; func_check_graces + 0x1),
