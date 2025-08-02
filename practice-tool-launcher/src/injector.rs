@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use hudhook::inject::Process;
 use hudhook::tracing::debug;
 use libjdsd_er_practice_tool::update::Update;
@@ -67,7 +67,7 @@ fn perform_injection() -> Result<()> {
     Ok(())
 }
 
-fn main() -> Result<()> {
+pub fn run() -> Result<()> {
     tracing_init();
 
     match Update::check() {

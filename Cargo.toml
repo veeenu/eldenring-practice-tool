@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+  "practice-tool-launcher",
   "practice-tool",
   "lib/libeldenring",
   "lib/param-tinkerer",
@@ -29,6 +30,7 @@ once_cell = "1.19.0"
 parking_lot = "0.12.1"
 hudhook = { version = "0.7.0", features = ["dx12", "inject"], default-features = false }
 practice-tool-core = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
+practice-tool-launcher = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
 practice-tool-tasks = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
 
 [workspace.dependencies.windows]
@@ -40,9 +42,13 @@ features = [
   "Win32_UI_Input_XboxController",
   "Win32_UI_WindowsAndMessaging",
   "Win32_Storage_FileSystem",
+  "Win32_System_Diagnostics",
+  "Win32_System_Diagnostics_Debug",
   "Win32_System_LibraryLoader",
+  "Win32_System_Memory",
   "Win32_System_SystemInformation",
   "Win32_System_SystemServices",
+  "Win32_System_Threading",
 ]
 
 [patch.'crates-io']
@@ -52,5 +58,6 @@ imgui = { git = "https://github.com/imgui-rs/imgui-rs", rev = "1d06e2c049352e2d5
 imgui-sys = { git = "https://github.com/imgui-rs/imgui-rs", rev = "1d06e2c049352e2d5d1e5877204f69d28148be2f" }
 
 [patch.'https://github.com/veeenu/practice-tool-core']
-# practice-tool-core = { path = "../practice-tool-core" }
-# practice-tool-tasks = { path = "../practice-tool-core/tasks" }
+practice-tool-core = { path = "../practice-tool-core" }
+practice-tool-tasks = { path = "../practice-tool-core/tasks" }
+practice-tool-launcher = { path = "../practice-tool-core/launcher" }

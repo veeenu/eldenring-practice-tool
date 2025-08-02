@@ -1,0 +1,26 @@
+[package]
+name = "eldenring-practice-tool-launcher"
+edition = "2024"
+version.workspace = true
+authors.workspace = true
+
+[[bin]]
+path = "src/main.rs"
+name = "jdsd_er_practice_tool"
+
+[dependencies]
+anyhow = "1.0.98"
+
+practice-tool-core.workspace = true
+practice-tool-launcher.workspace = true
+open = "5.3.2"
+textwrap-macros = "0.3.0"
+
+[target.'x86_64-pc-windows-msvc'.dependencies]
+hudhook.workspace = true
+windows.workspace = true
+libeldenring = { path = "../lib/libeldenring" }
+eldenring-practice-tool = { path = "../practice-tool" }
+
+[build-dependencies]
+embed-resource = "3.0.5"

@@ -4,13 +4,13 @@ version.workspace = true
 authors.workspace = true
 edition = "2021"
 
-[[bin]]
-name = "jdsd_er_practice_tool"
-path = "src/bin/jdsd_er_practice_tool.rs"
-
-[[bin]]
-name = "install"
-path = "src/bin/install.rs"
+# [[bin]]
+# name = "jdsd_er_practice_tool"
+# path = "src/bin/jdsd_er_practice_tool.rs"
+#
+# [[bin]]
+# name = "install"
+# path = "src/bin/install.rs"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
@@ -42,6 +42,3 @@ once_cell.workspace = true
 parking_lot.workspace = true
 windows.workspace = true
 practice-tool-core.workspace = true
-
-[build-dependencies]
-embed-resource = "2.4.3"

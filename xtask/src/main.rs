@@ -17,7 +17,7 @@ fn main() -> Result<()> {
     match task.as_deref() {
         Some("dist") => dist()?,
         Some("codegen") => codegen::codegen()?,
-        Some("inject") => inject(env::args().skip(1).map(String::from))?,
+        Some("inject") => inject(env::args().skip(1))?,
         Some("run") => run()?,
         Some("install") => install()?,
         Some("uninstall") => uninstall()?,
@@ -67,11 +67,19 @@ fn run() -> Result<()> {
 
 fn dist() -> Result<()> {
     Distribution::new("jdsd_er_practice_tool.zip")
-        .with_artifact("libjdsd_er_practice_tool.dll", "jdsd_er_practice_tool.dll")
-        .with_artifact("jdsd_er_practice_tool.exe", "jdsd_er_practice_tool.exe")
-        .with_file("lib/data/RELEASE-README.txt", "README.txt")
-        .with_file("jdsd_er_practice_tool.toml", "jdsd_er_practice_tool.toml")
-        .build(&["--locked", "--release", "--workspace", "--exclude", "xtask"])
+        .with_artifact("libjdsd_er_practice_tool.dll", "jdsd_er_practice_tool.dll", 0o644)
+        .with_artifact("jdsd_er_practice_tool.exe", "jdsd_er_practice_tool.exe", 0o755)
+        .with_file(
+            project_root().join("target").join("release").join("jdsd_er_practice_tool"),
+            "jdsd_er_practice_tool-linux-x86_64",
+            0o755,
+        )
+        .with_file("lib/data/RELEASE-README.txt", "README.txt", 0o644)
+        .with_file("jdsd_er_practice_tool.toml", "jdsd_er_practice_tool.toml", 0o644)
+        .cargo_build(&["--locked", "--release", "--package", "eldenring-practice-tool-launcher"])?
+        .build(&["--locked", "--release", "--workspace", "--exclude", "xtask"])?;
+
+    Ok(())
 }
 
 fn install() -> Result<()> {
