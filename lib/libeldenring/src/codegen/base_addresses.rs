@@ -152,7 +152,7 @@ impl TryFrom<(u32, u32, u32)> for Version {
             (maj, min, patch) => {
                 log::error!("Unrecognized version {maj}.{min:02}.{patch}");
                 Err(())
-            }
+            },
         }
     }
 }
@@ -1270,4 +1270,3 @@ pub const BASE_ADDRESSES_2_06_1: BaseAddresses = BaseAddresses {
     sound_draw_patch: 0x33e596,
     targeting_debug_draw: 0x3d6226b,
 };
-
