@@ -116,6 +116,7 @@ pub enum Version {
     V2_04_0,
     V2_05_0,
     V2_06_0,
+    V2_06_1,
 }
 
 impl TryFrom<(u32, u32, u32)> for Version {
@@ -147,6 +148,7 @@ impl TryFrom<(u32, u32, u32)> for Version {
             (2, 4, 0) => Ok(Version::V2_04_0),
             (2, 5, 0) => Ok(Version::V2_05_0),
             (2, 6, 0) => Ok(Version::V2_06_0),
+            (2, 6, 1) => Ok(Version::V2_06_1),
             (maj, min, patch) => {
                 log::error!("Unrecognized version {maj}.{min:02}.{patch}");
                 Err(())
@@ -182,6 +184,7 @@ impl From<Version> for (u32, u32, u32) {
             Version::V2_04_0 => (2, 4, 0),
             Version::V2_05_0 => (2, 5, 0),
             Version::V2_06_0 => (2, 6, 0),
+            Version::V2_06_1 => (2, 6, 1),
         }
     }
 }
@@ -213,6 +216,7 @@ impl From<Version> for BaseAddresses {
             Version::V2_04_0 => BASE_ADDRESSES_2_04_0,
             Version::V2_05_0 => BASE_ADDRESSES_2_05_0,
             Version::V2_06_0 => BASE_ADDRESSES_2_06_0,
+            Version::V2_06_1 => BASE_ADDRESSES_2_06_1,
         }
     }
 }
@@ -1221,6 +1225,48 @@ pub const BASE_ADDRESSES_2_06_0: BaseAddresses = BaseAddresses {
     event_patch1: 0xe535d0,
     event_patch2: 0xe535b0,
     font_patch: 0x268d330,
+    sound_draw_patch: 0x33e596,
+    targeting_debug_draw: 0x3d6226b,
+};
+
+pub const BASE_ADDRESSES_2_06_1: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3d62748,
+    chr_dbg_flags: 0x3d6619f,
+    csfd4_virtual_memory_flag: 0x3d68448,
+    cs_flipper: 0x4589ad8,
+    cs_lua_event_manager: 0x3d67e48,
+    cs_menu_man: 0x8ba7b5f4,
+    cs_menu_man_imp: 0x3d6b7b0,
+    cs_net_man: 0x3d5ae60,
+    cs_regulation_manager: 0x3d86c58,
+    cs_session_manager: 0x3d7a4d0,
+    damage_ctrl: 0x3d66378,
+    field_area: 0x3d691d8,
+    game_data_man: 0x3d5df38,
+    game_man: 0x3d69918,
+    global_pos: 0x3d65f88,
+    group_mask: 0x3b33cff,
+    hit_ins: 0x3d6a0e0,
+    hit_ins_hitbox_offset: 0x3d6a0ec,
+    map_item_man: 0x3d67a50,
+    msg_repository: 0x3d7d4f8,
+    solo_param_repository: 0x3d81ee8,
+    world_chr_man: 0x3d65f88,
+    world_chr_man_dbg: 0x3d66198,
+    world_chr_man_imp: 0x3d65f88,
+    func_item_spawn: 0x55ac60,
+    func_item_inject: 0x560670,
+    func_remove_intro_screens: 0xb0c44d,
+    func_dbg_action_force: 0x5bed8c0,
+    lua_warp: 0x599cce,
+    current_target: 0x71737e,
+    func_check_graces: 0x3d6cfc0,
+    base_fps: 0x3d76060,
+    base_anim: 0x3b12e30,
+    dbg_event_man_off: 0x3d67ff8,
+    event_patch1: 0xe53630,
+    event_patch2: 0xe53610,
+    font_patch: 0x268d390,
     sound_draw_patch: 0x33e596,
     targeting_debug_draw: 0x3d6226b,
 };
