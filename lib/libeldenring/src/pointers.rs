@@ -399,17 +399,12 @@ impl Pointers {
 
             quitout: pointer_chain!(cs_menu_man_imp, 0x8, 0x5d),
             cursor_show: bitflag!(0b1; cs_menu_man_imp, 0xAC),
-            menu_timer: pointer_chain!(
-                cs_menu_man_imp,
-                match version {
-                    V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 => 0x708 + 0x24,
-                    V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0
-                    | V1_07_0 | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 | V2_00_1 =>
-                        0x718 + 0x24,
-                    V2_02_0 | V2_02_3 | V2_03_0 | V2_04_0 | V2_05_0 | V2_06_0 | V2_06_1 =>
-                        0x720 + 0x24,
-                }
-            ),
+            menu_timer: pointer_chain!(cs_menu_man_imp, match version {
+                V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 => 0x708 + 0x24,
+                V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0 | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0
+                | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1 | V2_00_0 | V2_00_1 => 0x718 + 0x24,
+                V2_02_0 | V2_02_3 | V2_03_0 | V2_04_0 | V2_05_0 | V2_06_0 | V2_06_1 => 0x720 + 0x24,
+            }),
 
             gravity: bitflag!(0b1; world_chr_man, player_ins, 0x190, 0x68, 0x1d3),
             display_stable_pos: bitflag!(0b1; world_chr_man, player_ins,

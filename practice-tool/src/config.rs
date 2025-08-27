@@ -404,49 +404,46 @@ impl TryFrom<String> for FlagSpec {
                 }
             }
         }
-        flag_spec!(
-            value.as_str(),
-            [
-                (one_shot, "One shot"),
-                (no_damage, "All no damage"),
-                (no_dead, "No death"),
-                (no_hit, "No hit"),
-                (no_goods_consume, "Inf Consumables"),
-                (no_stamina_consume, "Inf Stamina"),
-                (no_fp_consume, "Inf Focus"),
-                (no_ashes_of_war_fp_consume, "Inf Focus (AoW)"),
-                (no_arrows_consume, "Inf arrows"),
-                (no_attack, "No attack"),
-                (no_move, "No move"),
-                (no_update_ai, "No update AI"),
-                (no_trigger_event, "No trigger events"),
-                (runearc, "Rune Arc"),
-                (gravity, "No Gravity"),
-                (torrent_gravity, "No Gravity (Torrent)"),
-                (collision, "No Collision"),
-                (torrent_collision, "No Collision (Torrent)"),
-                (action_freeze, "Action freeze"),
-                (display_stable_pos, "Show stable pos"),
-                (weapon_hitbox1, "Weapon hitbox #1"),
-                (weapon_hitbox2, "Weapon hitbox #2"),
-                (weapon_hitbox3, "Weapon hitbox #3"),
-                (hitbox_high, "High world hitbox"),
-                (hitbox_low, "Low world hitbox"),
-                (hitbox_f, "Walls hitbox"),
-                (hitbox_character, "Character hitbox"),
-                (hitbox_event, "Event hitbox"),
-                (poise_view, "Poise View"),
-                (sound_view, "Sound View"),
-                (all_targeting_view, "Targeting View"),
-                (field_area_direction, "Direction HUD"),
-                (field_area_altimeter, "Altimeter HUD"),
-                (field_area_compass, "Compass HUD"),
-                // (show_map, "Show/hide map"),
-                (show_chr, "Show/hide character"),
-                (show_all_map_layers, "Show all map layers"),
-                (show_all_graces, "Show all graces"),
-            ]
-        )
+        flag_spec!(value.as_str(), [
+            (one_shot, "One shot"),
+            (no_damage, "All no damage"),
+            (no_dead, "No death"),
+            (no_hit, "No hit"),
+            (no_goods_consume, "Inf Consumables"),
+            (no_stamina_consume, "Inf Stamina"),
+            (no_fp_consume, "Inf Focus"),
+            (no_ashes_of_war_fp_consume, "Inf Focus (AoW)"),
+            (no_arrows_consume, "Inf arrows"),
+            (no_attack, "No attack"),
+            (no_move, "No move"),
+            (no_update_ai, "No update AI"),
+            (no_trigger_event, "No trigger events"),
+            (runearc, "Rune Arc"),
+            (gravity, "No Gravity"),
+            (torrent_gravity, "No Gravity (Torrent)"),
+            (collision, "No Collision"),
+            (torrent_collision, "No Collision (Torrent)"),
+            (action_freeze, "Action freeze"),
+            (display_stable_pos, "Show stable pos"),
+            (weapon_hitbox1, "Weapon hitbox #1"),
+            (weapon_hitbox2, "Weapon hitbox #2"),
+            (weapon_hitbox3, "Weapon hitbox #3"),
+            (hitbox_high, "High world hitbox"),
+            (hitbox_low, "Low world hitbox"),
+            (hitbox_f, "Walls hitbox"),
+            (hitbox_character, "Character hitbox"),
+            (hitbox_event, "Event hitbox"),
+            (poise_view, "Poise View"),
+            (sound_view, "Sound View"),
+            (all_targeting_view, "Targeting View"),
+            (field_area_direction, "Direction HUD"),
+            (field_area_altimeter, "Altimeter HUD"),
+            (field_area_compass, "Compass HUD"),
+            // (show_map, "Show/hide map"),
+            (show_chr, "Show/hide character"),
+            (show_all_map_layers, "Show all map layers"),
+            (show_all_graces, "Show all graces"),
+        ])
     }
 }
 
@@ -474,27 +471,24 @@ impl TryFrom<String> for MultiFlagSpec {
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
         match value.as_str() {
-            "show_map" => Ok(MultiFlagSpec::new(
-                "Show/hide map",
-                vec![
-                    |c| &c.show_geom[0],
-                    |c| &c.show_geom[1],
-                    |c| &c.show_geom[2],
-                    |c| &c.show_geom[3],
-                    |c| &c.show_geom[4],
-                    |c| &c.show_geom[5],
-                    |c| &c.show_geom[6],
-                    |c| &c.show_geom[7],
-                    |c| &c.show_geom[8],
-                    |c| &c.show_geom[9],
-                    |c| &c.show_geom[10],
-                    |c| &c.show_geom[11],
-                    |c| &c.show_geom[12],
-                    |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 13 }], // UGLY
-                    |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 14 }], // AS
-                    |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 15 }], // SIN
-                ],
-            )),
+            "show_map" => Ok(MultiFlagSpec::new("Show/hide map", vec![
+                |c| &c.show_geom[0],
+                |c| &c.show_geom[1],
+                |c| &c.show_geom[2],
+                |c| &c.show_geom[3],
+                |c| &c.show_geom[4],
+                |c| &c.show_geom[5],
+                |c| &c.show_geom[6],
+                |c| &c.show_geom[7],
+                |c| &c.show_geom[8],
+                |c| &c.show_geom[9],
+                |c| &c.show_geom[10],
+                |c| &c.show_geom[11],
+                |c| &c.show_geom[12],
+                |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 13 }], // UGLY
+                |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 14 }], // AS
+                |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 15 }], // SIN
+            ])),
             e => Err(format!("\"{}\" is not a valid multiflag specifier", e)),
         }
     }
