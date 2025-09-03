@@ -51,8 +51,8 @@ impl Update {
             };
             let notes = format!(
                 "A new version of the practice tool is available!\n\nLatest version:    \
-                 {}\nInstalled version: {}\n\nRelease notes:\n{}\n",
-                version, PRACTICE_TOOL_VERSION, notes
+                 {version}\nInstalled version: {PRACTICE_TOOL_VERSION}\n\nRelease \
+                 notes:\n{notes}\n",
             );
 
             let url = release.html_url;

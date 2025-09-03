@@ -1,0 +1,29 @@
+name: Release
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          submodules: recursive
+
+      - name: Install Rust toolchain
+        run: |
+          rustup toolchain install stable --target x86_64-pc-windows-msvc --profile minimal -c rustfmt,clippy
+
+      - name: Distribution build
+        run: cargo xtask dist
+      
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          name: Elden Ring Practice Tool v${{ github.ref_name }}
+          body_path: lib/data/RELEASE-GH.txt
+          generate_release_notes: true
+          files: target/dist/jdsd_er_practice_tool.zip

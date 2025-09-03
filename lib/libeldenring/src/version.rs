@@ -57,7 +57,7 @@ pub fn check_version() -> Result<Version, (u32, u32, u32)> {
     let minor = (version_info.dwFileVersionMS) & 0xffff;
     let patch = (version_info.dwFileVersionLS >> 16) & 0xffff;
 
-    info!("Version {} {} {}", major, minor, patch);
+    info!("Version {major} {minor} {patch}");
     match Version::try_from((major, minor, patch)) {
         Ok(version) => {
             while VERSION.set(version).is_err() {}

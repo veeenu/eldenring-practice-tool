@@ -125,7 +125,7 @@ impl<'a> From<&'a ItemIDNode> for ItemIDNodeRef<'a> {
 }
 
 impl ItemIDNode {
-    fn filter(&self, filter: &str) -> Option<ItemIDNodeRef> {
+    fn filter(&self, filter: &str) -> Option<ItemIDNodeRef<'_>> {
         if filter.is_empty() {
             Some(ItemIDNodeRef::from(self))
         } else {
@@ -138,10 +138,8 @@ impl ItemIDNode {
                     }
                 },
                 ItemIDNode::Node { node, children } => {
-                    let children: Vec<_> = children
-                        .iter()
-                        .filter_map(|c| c.filter(filter).map(ItemIDNodeRef::from))
-                        .collect();
+                    let children: Vec<_> =
+                        children.iter().filter_map(|c| c.filter(filter)).collect();
                     if children.is_empty() {
                         None
                     } else {

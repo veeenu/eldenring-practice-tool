@@ -310,7 +310,7 @@ impl Widget for Target {
         pbar("SP", sp, max_sp, COLOR_SP);
         pbar("MP", mp, max_mp, COLOR_MP);
 
-        ui.text(format!("Poise    {:>6.0}/{:>6.0} {:.2}s", poise, poise_max, poise_time));
+        ui.text(format!("Poise    {poise:>6.0}/{poise_max:>6.0} {poise_time:.2}s"));
         let pct = if poise_max.abs() < 0.0001 { 0.0 } else { poise / poise_max };
         let tok = ui.push_style_color(StyleColor::PlotHistogram, COLOR_BASE);
         ProgressBar::new(pct).size(pbar_size).overlay_text("").build(ui);

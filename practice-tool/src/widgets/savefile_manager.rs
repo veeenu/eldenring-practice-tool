@@ -12,11 +12,11 @@ pub(crate) fn savefile_manager(key_load: Option<Key>, key_close: Key) -> Box<dyn
 fn get_savefile_path() -> Result<PathBuf, String> {
     let re = regex::Regex::new(r"^[a-f0-9]+$").unwrap();
     let savefile_path: PathBuf =
-        [std::env::var("APPDATA").map_err(|e| format!("{}", e))?.as_str(), "EldenRing"]
+        [std::env::var("APPDATA").map_err(|e| format!("{e}"))?.as_str(), "EldenRing"]
             .iter()
             .collect();
     std::fs::read_dir(savefile_path)
-        .map_err(|e| format!("{}", e))?
+        .map_err(|e| format!("{e}"))?
         .filter_map(|e| e.ok())
         .find(|e| re.is_match(&e.file_name().to_string_lossy()) && e.path().is_dir())
         .map(|e| e.path())

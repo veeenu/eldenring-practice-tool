@@ -72,7 +72,7 @@ pub fn print_hex<T: Sized>(ptr: *const T) {
 
     bytes.chunks(16).for_each(|bs| {
         for i in bs {
-            print!("{:02x} ", i);
+            print!("{i:02x} ");
         }
 
         print!("  ");

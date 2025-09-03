@@ -49,7 +49,7 @@ pub fn macro_param(t: TokenStream) -> TokenStream {
                                     get_ident,
                                 )
                             },
-                            other => panic!("Wrong attribute parameters: {:#?}", other),
+                            other => panic!("Wrong attribute parameters: {other:#?}"),
                         }
                     })
                     .collect::<Vec<_>>(),
@@ -106,7 +106,7 @@ pub fn macro_param(t: TokenStream) -> TokenStream {
                             t.#visit_ty(stringify!(#ident), &mut self.#ident);
                         })
                     },
-                    other => panic!("Unrecognized type {:#?}", other),
+                    other => panic!("Unrecognized type {other:#?}"),
                 }
             },
             &Field {
@@ -123,7 +123,7 @@ pub fn macro_param(t: TokenStream) -> TokenStream {
                 None
             },
             field => {
-                panic!("Unrecognized field {:#?}", field);
+                panic!("Unrecognized field {field:#?}");
             },
         })
         .collect::<Vec<_>>();

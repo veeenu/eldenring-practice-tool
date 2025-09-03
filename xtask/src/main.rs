@@ -17,7 +17,7 @@ fn main() -> Result<()> {
     match task.as_deref() {
         Some("dist") => dist()?,
         Some("codegen") => codegen::codegen()?,
-        Some("inject") => inject(env::args().skip(1).map(String::from))?,
+        Some("inject") => inject(env::args().skip(1))?,
         Some("run") => run()?,
         Some("install") => install()?,
         Some("uninstall") => uninstall()?,

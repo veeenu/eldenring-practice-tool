@@ -195,7 +195,7 @@ impl ParamTinkerer {
                                 .and_then(|param_id_names| param_id_names.get(&(id as usize)))
                                 .unwrap_or_else(|| {
                                     buf.clear();
-                                    write!(buf, "{}", id).ok();
+                                    write!(buf, "{id}").ok();
                                     &buf
                                 });
                             if ui

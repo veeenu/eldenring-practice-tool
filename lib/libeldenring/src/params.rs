@@ -20,7 +20,7 @@ pub static PARAMS: Lazy<RwLock<Params>> = Lazy::new(|| unsafe {
     wait_option(|| match params.refresh() {
         Ok(()) => Some(()),
         Err(e) => {
-            info!("Waiting on memory: {}", e);
+            info!("Waiting on memory: {e}");
             None
         },
     });
@@ -149,8 +149,8 @@ impl Params {
         let m = param_entries
             .iter()
             .map(|&param_ptr| {
-                let e = param_ptr.as_ref().ok_or_else(|| format!("Wrong ptr {:p}", param_ptr))?;
-                let name = e.name()?.to_string().map_err(|e| format!("{}", e))?;
+                let e = param_ptr.as_ref().ok_or_else(|| format!("Wrong ptr {param_ptr:p}"))?;
+                let name = e.name()?.to_string().map_err(|e| format!("{e}"))?;
 
                 let ptr = param_ptr as *const c_void;
                 let ptr = *(ptr.offset(0x80) as *const *const c_void);
@@ -161,7 +161,7 @@ impl Params {
             })
             .filter_map(|e: Result<_, String>| {
                 if let Err(ref e) = e {
-                    error!("{}", e);
+                    error!("{e}");
                 }
 
                 e.ok()
