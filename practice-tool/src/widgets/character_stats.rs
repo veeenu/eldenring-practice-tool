@@ -14,7 +14,7 @@ struct CharacterStatsEdit {
 }
 
 impl Stats for CharacterStatsEdit {
-    fn data(&mut self) -> Option<impl Iterator<Item = Datum>> {
+    fn data(&mut self) -> Option<impl Iterator<Item = Datum<'_>>> {
         self.stats.as_mut().map(|s| {
             let mut stats_data = vec![
                 Datum::int("Level", &mut s.level, 1, 713),

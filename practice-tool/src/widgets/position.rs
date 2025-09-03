@@ -104,7 +104,7 @@ impl PositionStorage for SavePosition {
 
         let [x, y, z, a, _] = self.saved_position;
 
-        write!(self.label_stored, "{:7.1} {:7.1} {:7.1} {:7.1}", x, y, z, a).ok();
+        write!(self.label_stored, "{x:7.1} {y:7.1} {z:7.1} {a:7.1}").ok();
 
         &self.label_stored
     }

@@ -3,7 +3,7 @@ use hudhook::tracing::trace;
 use tracing_subscriber::filter::LevelFilter;
 
 fn err_to_string<T: std::fmt::Display>(e: T) -> String {
-    format!("Error: {}", e)
+    format!("Error: {e}")
 }
 
 fn perform_injection() -> Result<(), String> {
@@ -18,7 +18,7 @@ fn perform_injection() -> Result<(), String> {
     }
 
     let dll_path = dll_path.canonicalize().map_err(err_to_string)?;
-    trace!("Injecting {:?}", dll_path);
+    trace!("Injecting {dll_path:?}");
 
     Process::by_title("ELDEN RING™")
         .map_err(|e| e.to_string())?

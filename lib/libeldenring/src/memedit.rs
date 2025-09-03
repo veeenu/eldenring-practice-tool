@@ -198,7 +198,7 @@ impl<const N: usize> FlagToggler for BytesPatch<N> {
     }
 
     fn get(&self) -> Option<bool> {
-        self.0.read().map(|x| (x == self.1))
+        self.0.read().map(|x| x == self.1)
     }
 
     fn set(&self, flag: bool) {

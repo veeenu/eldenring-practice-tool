@@ -97,13 +97,13 @@ impl PracticeTool {
 
             if !config_path.exists() {
                 std::fs::write(&config_path, include_str!("../../jdsd_er_practice_tool.toml"))
-                    .map_err(|e| format!("Couldn't write default config file: {}", e))?;
+                    .map_err(|e| format!("Couldn't write default config file: {e}"))?;
             }
 
             let config_content = std::fs::read_to_string(config_path)
-                .map_err(|e| format!("Couldn't read config file: {}", e))?;
-            println!("{}", config_content);
-            Config::parse(&config_content).map_err(String::from)
+                .map_err(|e| format!("Couldn't read config file: {e}"))?;
+            println!("{config_content}");
+            Config::parse(&config_content)
         }
 
         let (config, config_err) = match load_config() {
@@ -199,7 +199,7 @@ impl PracticeTool {
 
         let version_label = {
             let (maj, min, patch) = version::get_version().into();
-            format!("Game Ver {}.{:02}.{}", maj, min, patch)
+            format!("Game Ver {maj}.{min:02}.{patch}")
         };
         let settings = config.settings.clone();
         let radial_menu = config.radial_menu.clone();

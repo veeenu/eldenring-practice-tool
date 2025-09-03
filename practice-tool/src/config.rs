@@ -337,7 +337,7 @@ impl TryFrom<String> for LevelFilterSerde {
     fn try_from(value: String) -> Result<Self, Self::Error> {
         Ok(LevelFilterSerde(
             LevelFilter::from_str(&value)
-                .map_err(|e| format!("Couldn't parse log level filter: {}", e))?,
+                .map_err(|e| format!("Couldn't parse log level filter: {e}"))?,
         ))
     }
 }
@@ -489,7 +489,7 @@ impl TryFrom<String> for MultiFlagSpec {
                 |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 14 }], // AS
                 |c| &c.show_geom[if c.show_geom.len() <= 13 { 12 } else { 15 }], // SIN
             ])),
-            e => Err(format!("\"{}\" is not a valid multiflag specifier", e)),
+            e => Err(format!("\"{e}\" is not a valid multiflag specifier")),
         }
     }
 }

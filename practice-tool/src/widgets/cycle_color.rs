@@ -29,7 +29,7 @@ impl ReadWrite for CycleColor {
         self.label.clear();
 
         match self.current {
-            Some(c) => write!(self.label, "Mesh Color [{}]", c).ok(),
+            Some(c) => write!(self.label, "Mesh Color [{c}]").ok(),
             None => write!(self.label, "Mesh Color").ok(),
         };
 
