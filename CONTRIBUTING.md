@@ -55,3 +55,15 @@ outstanding lints. Use `nightly` for opting into the experimental lints and form
 cargo +nightly clippy
 cargo +nightly fmt --all
 ```
+
+# Issuing a new release
+
+To issue a new release, follow these steps:
+
+1. Change the version number in `Cargo.toml`
+2. Edit `lib/data/RELEASE-GH.txt` with an appropriate release message
+3. Open a pull request named `Bump to version x.y.z`
+4. Merge that pull request and create a tag on that merged commit of `x.y.z`, without
+   prepending a `v`
+
+This will kick off a workflow that will create the release automatically.

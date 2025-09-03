@@ -1,0 +1,4 @@
+The tool is free, and will always be free for everyone. If you enjoy it, please consider supporting me!
+https://www.patreon.com/johndisandonato
+
+This release adds support for Elden Ring 1.16.1.
