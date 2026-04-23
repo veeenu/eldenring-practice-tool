@@ -88,6 +88,11 @@ fn error_messagebox((major, minor, patch): (u32, u32, u32)) {
     .collect::<Vec<_>>();
 
     unsafe {
-        MessageBoxW(Some(HWND(null_mut())), PCWSTR(text.as_ptr()), PCWSTR(caption.as_ptr()), MB_OK | MB_ICONERROR)
+        MessageBoxW(
+            Some(HWND(null_mut())),
+            PCWSTR(text.as_ptr()),
+            PCWSTR(caption.as_ptr()),
+            MB_OK | MB_ICONERROR,
+        )
     };
 }

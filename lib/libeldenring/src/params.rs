@@ -185,9 +185,9 @@ impl Params {
         param_idx: usize,
         visitor: &mut T,
     ) {
-        if let Some((lambda, ptr)) = PARAM_VTABLE.get(param).and_then(|lambda| {
-            unsafe { self.get_param_idx_ptr(param, param_idx) }.map(|v| (lambda, v))
-        }) {
+        if let Some((lambda, ptr)) =
+            PARAM_VTABLE.get(param).zip(unsafe { self.get_param_idx_ptr(param, param_idx) })
+        {
             lambda(ptr, visitor);
         };
     }
