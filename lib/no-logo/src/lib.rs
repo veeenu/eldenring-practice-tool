@@ -16,7 +16,7 @@ use windows::Win32::System::Memory::{
 use windows::Win32::System::SystemInformation::GetSystemDirectoryW;
 use windows::Win32::System::SystemServices::DLL_PROCESS_ATTACH;
 
-type FnDirectInput8Create = unsafe extern "stdcall" fn(
+type FnDirectInput8Create = unsafe extern "system" fn(
     _: HINSTANCE,
     _: u32,
     _: *const c_void,
@@ -24,9 +24,9 @@ type FnDirectInput8Create = unsafe extern "stdcall" fn(
     _: *const c_void,
 ) -> HRESULT;
 
-type FnHResult = unsafe extern "stdcall" fn() -> HRESULT;
+type FnHResult = unsafe extern "system" fn() -> HRESULT;
 type FnGetClassObject =
-    unsafe extern "stdcall" fn(*const c_void, *const c_void, *const c_void) -> HRESULT;
+    unsafe extern "system" fn(*const c_void, *const c_void, *const c_void) -> HRESULT;
 
 const fn pcstr(s: &'static CStr) -> PCSTR {
     PCSTR(s.as_ptr() as *const u8)
@@ -89,7 +89,7 @@ unsafe fn apply_patch() {
 
 /// # Safety
 #[no_mangle]
-pub unsafe extern "stdcall" fn DirectInput8Create(
+pub unsafe extern "system" fn DirectInput8Create(
     a: HINSTANCE,
     b: u32,
     c: *const c_void,

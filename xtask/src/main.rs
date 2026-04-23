@@ -104,7 +104,7 @@ fn uninstall() -> Result<()> {
 fn inject<S: AsRef<OsStr>>(args: impl Iterator<Item = S>) -> Result<()> {
     cargo_command("build").args(["--release", "--bin", "inject"]).status().context("cargo")?;
 
-    steam_command(target_path("release").join("inject"), APPID)?
+    steam_command(target_path("release").join("inject"), APPID, "eldenring")?
         .args(args)
         .status()
         .context("inject")?;

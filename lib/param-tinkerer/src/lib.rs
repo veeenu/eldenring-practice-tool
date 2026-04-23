@@ -20,7 +20,7 @@ use windows::Win32::System::LibraryLoader::{
 
 /// Returns the path of the implementor's DLL.
 pub fn get_dll_path() -> Option<PathBuf> {
-    let mut hmodule = HMODULE(0);
+    let mut hmodule = HMODULE(std::ptr::null_mut());
     // SAFETY
     // This is reckless, but it should never fail, and if it does, it's ok to crash
     // and burn.
@@ -38,7 +38,7 @@ pub fn get_dll_path() -> Option<PathBuf> {
     let mut sz_filename = [0u16; MAX_PATH as usize];
     // SAFETY
     // pointer to sz_filename always defined and MAX_PATH bounds manually checked
-    let len = unsafe { GetModuleFileNameW(hmodule, &mut sz_filename) } as usize;
+    let len = unsafe { GetModuleFileNameW(Some(hmodule), &mut sz_filename) } as usize;
 
     Some(OsString::from_wide(&sz_filename[..len]).into())
 }
