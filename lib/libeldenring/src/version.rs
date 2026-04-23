@@ -26,7 +26,7 @@ pub fn check_version() -> Result<Version, (u32, u32, u32)> {
 
     let file_path = {
         let mut buf = vec![0u16; MAX_PATH as usize];
-        unsafe { GetModuleFileNameW(GetModuleHandleW(None).unwrap(), &mut buf) };
+        unsafe { GetModuleFileNameW(Some(GetModuleHandleW(None).unwrap()), &mut buf) };
         U16CString::from_vec_truncate(buf)
     };
 
@@ -36,7 +36,7 @@ pub fn check_version() -> Result<Version, (u32, u32, u32)> {
     unsafe {
         GetFileVersionInfoW(
             PCWSTR(file_path.as_ptr()),
-            0,
+            None,
             version_info_size,
             version_info_buf.as_mut_ptr() as _,
         )
@@ -44,7 +44,7 @@ pub fn check_version() -> Result<Version, (u32, u32, u32)> {
     };
 
     let mut version_info: *mut VS_FIXEDFILEINFO = null_mut();
-    unsafe {
+    let _ = unsafe {
         VerQueryValueW(
             version_info_buf.as_ptr() as _,
             w!("\\\\\0"),
@@ -88,6 +88,6 @@ fn error_messagebox((major, minor, patch): (u32, u32, u32)) {
     .collect::<Vec<_>>();
 
     unsafe {
-        MessageBoxW(HWND(0), PCWSTR(text.as_ptr()), PCWSTR(caption.as_ptr()), MB_OK | MB_ICONERROR)
+        MessageBoxW(Some(HWND(null_mut())), PCWSTR(text.as_ptr()), PCWSTR(caption.as_ptr()), MB_OK | MB_ICONERROR)
     };
 }

@@ -45,7 +45,7 @@ use windows::Win32::System::SystemServices::DLL_PROCESS_ATTACH;
 use windows::Win32::UI::Input::KeyboardAndMouse::{GetAsyncKeyState, VK_RSHIFT};
 use windows::Win32::UI::Input::XboxController::XINPUT_STATE;
 
-type FDirectInput8Create = unsafe extern "stdcall" fn(
+type FDirectInput8Create = unsafe extern "system" fn(
     hinst: HINSTANCE,
     dwversion: u32,
     riidltf: *const GUID,
@@ -72,7 +72,7 @@ static DIRECTINPUT8CREATE: Lazy<FDirectInput8Create> = Lazy::new(|| unsafe {
 });
 
 #[no_mangle]
-unsafe extern "stdcall" fn DirectInput8Create(
+unsafe extern "system" fn DirectInput8Create(
     hinst: HINSTANCE,
     dwversion: u32,
     riidltf: *const GUID,
@@ -83,7 +83,7 @@ unsafe extern "stdcall" fn DirectInput8Create(
 }
 
 type FXInputGetState =
-    unsafe extern "stdcall" fn(dw_user_index: u32, xinput_state: *mut XINPUT_STATE) -> u32;
+    unsafe extern "system" fn(dw_user_index: u32, xinput_state: *mut XINPUT_STATE) -> u32;
 
 static XINPUTGETSTATE: Lazy<FXInputGetState> = Lazy::new(|| unsafe {
     let mut path = [0u16; MAX_PATH as usize];
@@ -113,7 +113,7 @@ static XINPUTGETSTATE: Lazy<FXInputGetState> = Lazy::new(|| unsafe {
     mem::transmute(hook.trampoline())
 });
 
-unsafe extern "stdcall" fn xinput_get_state_impl(
+unsafe extern "system" fn xinput_get_state_impl(
     dw_user_index: u32,
     xinput_state: *mut XINPUT_STATE,
 ) -> u32 {
@@ -229,7 +229,7 @@ fn await_rshift() -> bool {
 
 #[no_mangle]
 #[allow(clippy::missing_safety_doc)]
-pub unsafe extern "stdcall" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut c_void) -> bool {
+pub unsafe extern "system" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut c_void) -> bool {
     if reason == DLL_PROCESS_ATTACH {
         if version::check_version().is_err() {
             return false;
@@ -238,7 +238,9 @@ pub unsafe extern "stdcall" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut 
         Lazy::force(&DIRECTINPUT8CREATE);
         Lazy::force(&XINPUTGETSTATE);
 
+        let hmodule_addr = hmodule.0 as usize;
         thread::spawn(move || {
+            let hmodule = HINSTANCE(hmodule_addr as *mut c_void);
             apply_no_logo();
 
             if util::get_dll_path()

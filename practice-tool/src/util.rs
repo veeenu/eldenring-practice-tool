@@ -32,7 +32,14 @@ pub fn message_box<S: AsRef<str>, T: AsRef<str>>(
         .collect::<Vec<_>>();
     let text = OsStr::new(text.as_ref()).encode_wide().chain(Some(0)).collect::<Vec<_>>();
 
-    unsafe { MessageBoxW(HWND(0), PCWSTR(text.as_ptr()), PCWSTR(caption.as_ptr()), style) }
+    unsafe {
+        MessageBoxW(
+            Some(HWND(std::ptr::null_mut())),
+            PCWSTR(text.as_ptr()),
+            PCWSTR(caption.as_ptr()),
+            style,
+        )
+    }
 }
 
 /// Return the path of the implementor's DLL.
@@ -57,7 +64,7 @@ pub fn get_dll_path() -> Option<PathBuf> {
     let mut sz_filename = [0u16; MAX_PATH as _];
     // SAFETY
     // pointer to sz_filename always defined and MAX_PATH bounds manually checked
-    let len = unsafe { GetModuleFileNameW(hmodule, &mut sz_filename) } as usize;
+    let len = unsafe { GetModuleFileNameW(Some(hmodule), &mut sz_filename) } as usize;
 
     Some(OsString::from_wide(&sz_filename[..len]).into())
 }
