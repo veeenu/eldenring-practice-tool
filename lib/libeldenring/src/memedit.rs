@@ -235,4 +235,6 @@ macro_rules! bytes_patch {
     ($b:expr; $($e:expr),+) => { BytesPatch::new(PointerChain::new(&[$($e,)*]), $b) }
 }
 
-pub use {bitflag, bytes_patch, pointer_chain};
+pub use bitflag;
+pub use bytes_patch;
+pub use pointer_chain;
