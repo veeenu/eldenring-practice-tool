@@ -15291,5 +15291,126 @@
         "value": 2148283648
       }
     ]
+  },
+  {
+    "node": "Tarnished Edition",
+    "children": [
+      {
+        "node": "Leontiel's Greatsword",
+        "value": 3560000
+      },
+      {
+        "node": "Hefty Scimitar",
+        "value": 8530000
+      },
+      {
+        "node": "Golden Order Flail",
+        "value": 13510000
+      },
+      {
+        "node": "Silver Grooved Shield",
+        "value": 31540000
+      },
+      {
+        "node": "Ritual Thrusting Shield",
+        "value": 62520000
+      },
+      {
+        "node": "Reverse-Bladed Sword",
+        "value": 64530000
+      },
+      {
+        "node": "Reed Great Katana",
+        "value": 66530000
+      },
+      {
+        "node": "Idus Sword",
+        "value": 67530000
+      },
+      {
+        "node": "Broken Gold Mask",
+        "value": 273775456
+      },
+      {
+        "node": "Gold Tattoo (Chest)",
+        "value": 273775556
+      },
+      {
+        "node": "Gold Tattoo (Arm)",
+        "value": 273775656
+      },
+      {
+        "node": "Gold Tattoo (Leg)",
+        "value": 273775756
+      },
+      {
+        "node": "Silver Grooved Helm",
+        "value": 273785456
+      },
+      {
+        "node": "Silver Grooved Armor",
+        "value": 273785556
+      },
+      {
+        "node": "Silver Grooved Gauntlets",
+        "value": 273785656
+      },
+      {
+        "node": "Silver Grooved Greaves",
+        "value": 273785756
+      },
+      {
+        "node": "Silver Grooved Armor (Altered)",
+        "value": 273786556
+      },
+      {
+        "node": "Leontiel's Hat",
+        "value": 273795456
+      },
+      {
+        "node": "Leontiel's Armor",
+        "value": 273795556
+      },
+      {
+        "node": "Leontiel's Leather Gloves",
+        "value": 273795656
+      },
+      {
+        "node": "Leontiel's Boots",
+        "value": 273795756
+      },
+      {
+        "node": "Leontiel's Hat (Altered)",
+        "value": 273796456
+      },
+      {
+        "node": "Steel Helm",
+        "value": 273805456
+      },
+      {
+        "node": "Steel Armor",
+        "value": 273805556
+      },
+      {
+        "node": "Steel Gauntlets",
+        "value": 273805656
+      },
+      {
+        "node": "Steel Greaves",
+        "value": 273805756
+      },
+      {
+        "node": "Spectral Steed Regalia: Tree Sentinel",
+        "value": 1075751424
+      },
+      {
+        "node": "Spectral Steed Regalia: Carian Silver",
+        "value": 1075751434
+      },
+      {
+        "node": "Spectral Steed Regalia: Funereal Night",
+        "value": 1075751444
+      }
+    ]
   }
 ]
