@@ -284,7 +284,10 @@ impl CfgCommand {
             ),
             CfgCommand::CycleSpeed { cycle_speed: values, hotkey } => cycle_speed(
                 values.as_slice(),
-                [chains.animation_speed.clone(), chains.torrent_animation_speed.clone()],
+                [
+                    SpeedTarget::Static(chains.animation_speed.clone()),
+                    chains.torrent_animation_speed.clone(),
+                ],
                 hotkey,
             ),
             CfgCommand::CycleColor { cycle_color: values, hotkey } => {
