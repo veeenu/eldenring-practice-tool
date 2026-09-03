@@ -284,8 +284,8 @@ impl Widget for Target {
         //     let g = ((rgba >> 16) & 0xff) as u8;
         //     let b = ((rgba >> 8) & 0xff) as u8;
         //     let a = (rgba & 0xff) as u8;
-        //     [(r as f32 / 255.), (g as f32 / 255.), (b as f32 / 255.), (a as f32 /
-        // 255.)] }
+        //     [(r as f32 / 255.), (g as f32 / 255.), (b as f32 / 255.), (a as
+        // f32 / 255.)] }
 
         const COLOR_BASE: [f32; 4] = [1.0, 0.7529412, 0.4392157, 1.0];
         const COLOR_HP: [f32; 4] = [0.60784316, 0.28627452, 0.28627452, 1.0];
