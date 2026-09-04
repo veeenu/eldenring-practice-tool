@@ -46,8 +46,8 @@ pub fn message_box<S: AsRef<str>, T: AsRef<str>>(
 pub fn get_dll_path() -> Option<PathBuf> {
     let mut hmodule: HMODULE = Default::default();
     // SAFETY
-    // This is reckless, but it should never fail, and if it does, it's ok to crash
-    // and burn.
+    // This is reckless, but it should never fail, and if it does, it's ok to
+    // crash and burn.
     let gmh_result = unsafe {
         GetModuleHandleExA(
             GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT | GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
@@ -63,7 +63,8 @@ pub fn get_dll_path() -> Option<PathBuf> {
 
     let mut sz_filename = [0u16; MAX_PATH as _];
     // SAFETY
-    // pointer to sz_filename always defined and MAX_PATH bounds manually checked
+    // pointer to sz_filename always defined and MAX_PATH bounds manually
+    // checked
     let len = unsafe { GetModuleFileNameW(Some(hmodule), &mut sz_filename) } as usize;
 
     Some(OsString::from_wide(&sz_filename[..len]).into())
