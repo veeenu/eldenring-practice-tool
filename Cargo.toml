@@ -10,7 +10,7 @@ members = [
 ]
 
 [workspace.package]
-version = "1.9.6"
+version = "1.9.7"
 authors = ["Andrea Venuta <venutawebdesign@gmail.com>"]
 
 [profile.release]
@@ -27,7 +27,7 @@ imgui = "0.12.0"
 imgui-sys = "0.12.0"
 once_cell = "1.19.0"
 parking_lot = "0.12.1"
-hudhook = { version = "0.9.0", features = ["dx12", "inject"], default-features = false }
+hudhook = { version = "0.9.3", features = ["dx12", "inject"], default-features = false }
 practice-tool-core = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
 practice-tool-tasks = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
 
