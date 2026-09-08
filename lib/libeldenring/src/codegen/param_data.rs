@@ -58,6 +58,7 @@ pub static PARAM_VTABLE: Lazy<HashMap<String, BoxedVisitorLambda>> = Lazy::new(|
         ("ChrActivateConditionParam".to_string(), unsafe {
             get_lambda::<ChrActivateConditionParam>()
         }),
+        ("ChrEquipModelParam".to_string(), unsafe { get_lambda::<ChrEquipModelParam>() }),
         ("ChrModelParam".to_string(), unsafe { get_lambda::<ChrModelParam>() }),
         ("ClearCountCorrectParam".to_string(), unsafe { get_lambda::<ClearCountCorrectParam>() }),
         ("CommonSystemParam".to_string(), unsafe { get_lambda::<CommonSystemParam>() }),
@@ -93,6 +94,7 @@ pub static PARAM_VTABLE: Lazy<HashMap<String, BoxedVisitorLambda>> = Lazy::new(|
         ("FaceParam".to_string(), unsafe { get_lambda::<FaceParam>() }),
         ("FaceRangeParam".to_string(), unsafe { get_lambda::<FaceRangeParam>() }),
         ("FeTextEffectParam".to_string(), unsafe { get_lambda::<FeTextEffectParam>() }),
+        ("FinalDamageRateParam".to_string(), unsafe { get_lambda::<FinalDamageRateParam>() }),
         ("FootSfxParam".to_string(), unsafe { get_lambda::<FootSfxParam>() }),
         ("GameAreaParam".to_string(), unsafe { get_lambda::<GameAreaParam>() }),
         ("GameInfoParam".to_string(), unsafe { get_lambda::<GameInfoParam>() }),
@@ -104,6 +106,9 @@ pub static PARAM_VTABLE: Lazy<HashMap<String, BoxedVisitorLambda>> = Lazy::new(|
         ("Gconfig_LightingQuality".to_string(), unsafe { get_lambda::<Gconfig_LightingQuality>() }),
         ("Gconfig_MotionBlurQuality".to_string(), unsafe {
             get_lambda::<Gconfig_MotionBlurQuality>()
+        }),
+        ("Gconfig_RaytracingQuality".to_string(), unsafe {
+            get_lambda::<Gconfig_RaytracingQuality>()
         }),
         ("Gconfig_ReflectionQuality".to_string(), unsafe {
             get_lambda::<Gconfig_ReflectionQuality>()
@@ -154,6 +159,9 @@ pub static PARAM_VTABLE: Lazy<HashMap<String, BoxedVisitorLambda>> = Lazy::new(|
         ("MapDefaultInfoParam".to_string(), unsafe { get_lambda::<MapDefaultInfoParam>() }),
         ("MapGdRegionDrawParam".to_string(), unsafe { get_lambda::<MapGdRegionDrawParam>() }),
         ("MapGdRegionInfo".to_string(), unsafe { get_lambda::<MapGdRegionInfo>() }),
+        ("MapGridCreateHeightDetailLimitInfo".to_string(), unsafe {
+            get_lambda::<MapGridCreateHeightDetailLimitInfo>()
+        }),
         ("MapGridCreateHeightLimitInfo".to_string(), unsafe {
             get_lambda::<MapGridCreateHeightLimitInfo>()
         }),
@@ -161,7 +169,9 @@ pub static PARAM_VTABLE: Lazy<HashMap<String, BoxedVisitorLambda>> = Lazy::new(|
             get_lambda::<MapMimicryEstablishmentParam>()
         }),
         ("MapNameTexParam".to_string(), unsafe { get_lambda::<MapNameTexParam>() }),
+        ("MapNameTexParam_m61".to_string(), unsafe { get_lambda::<MapNameTexParam_m61>() }),
         ("MapPieceTexParam".to_string(), unsafe { get_lambda::<MapPieceTexParam>() }),
+        ("MapPieceTexParam_m61".to_string(), unsafe { get_lambda::<MapPieceTexParam_m61>() }),
         ("MaterialEx".to_string(), unsafe { get_lambda::<MaterialEx>() }),
         ("MenuCommonParam".to_string(), unsafe { get_lambda::<MenuCommonParam>() }),
         ("MenuOffscrRendParam".to_string(), unsafe { get_lambda::<MenuOffscrRendParam>() }),
@@ -171,6 +181,9 @@ pub static PARAM_VTABLE: Lazy<HashMap<String, BoxedVisitorLambda>> = Lazy::new(|
         ("MenuValueTableSpecParam".to_string(), unsafe { get_lambda::<MenuValueTableSpecParam>() }),
         ("MimicryEstablishmentTexParam".to_string(), unsafe {
             get_lambda::<MimicryEstablishmentTexParam>()
+        }),
+        ("MimicryEstablishmentTexParam_m61".to_string(), unsafe {
+            get_lambda::<MimicryEstablishmentTexParam_m61>()
         }),
         ("MissileParam".to_string(), unsafe { get_lambda::<MissileParam>() }),
         ("ModelSfxParam".to_string(), unsafe { get_lambda::<ModelSfxParam>() }),
@@ -224,6 +237,10 @@ pub static PARAM_VTABLE: Lazy<HashMap<String, BoxedVisitorLambda>> = Lazy::new(|
         ("SfxBlockResShareParam".to_string(), unsafe { get_lambda::<SfxBlockResShareParam>() }),
         ("ShopLineupParam".to_string(), unsafe { get_lambda::<ShopLineupParam>() }),
         ("SignPuddleParam".to_string(), unsafe { get_lambda::<SignPuddleParam>() }),
+        ("SignPuddleSubCategoryParam".to_string(), unsafe {
+            get_lambda::<SignPuddleSubCategoryParam>()
+        }),
+        ("SignPuddleTabParam".to_string(), unsafe { get_lambda::<SignPuddleTabParam>() }),
         ("SoundAssetSoundObjEnableDistParam".to_string(), unsafe {
             get_lambda::<SoundAssetSoundObjEnableDistParam>()
         }),
@@ -257,6 +274,7 @@ pub static PARAM_VTABLE: Lazy<HashMap<String, BoxedVisitorLambda>> = Lazy::new(|
         }),
         ("WeatherLotParam".to_string(), unsafe { get_lambda::<WeatherLotParam>() }),
         ("WeatherLotTexParam".to_string(), unsafe { get_lambda::<WeatherLotTexParam>() }),
+        ("WeatherLotTexParam_m61".to_string(), unsafe { get_lambda::<WeatherLotTexParam_m61>() }),
         ("WeatherParam".to_string(), unsafe { get_lambda::<WeatherParam>() }),
         ("WepAbsorpPosParam".to_string(), unsafe { get_lambda::<WepAbsorpPosParam>() }),
         ("WetAspectParam".to_string(), unsafe { get_lambda::<WetAspectParam>() }),
@@ -1679,6 +1697,14 @@ pub struct ChrActivateConditionParam {
     pub time_end_hour: u8,
     pub time_end_min: u8,
     pub pad2: [u8; 2],
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
+pub struct ChrEquipModelParam {
+    pub unknown_0x0: i32,
+    pub unknown_0x4: i32,
+    pub unknown_0x8: i32,
 }
 
 #[derive(ParamStruct, Debug)]
@@ -3361,6 +3387,18 @@ pub struct FeTextEffectParam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
+pub struct FinalDamageRateParam {
+    pub phys_rate: f32,
+    pub mag_rate: f32,
+    pub fire_rate: f32,
+    pub thun_rate: f32,
+    pub dark_rate: f32,
+    pub stamina_rate: f32,
+    pub sa_rate: f32,
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
 pub struct FootSfxParam {
     pub sfx_id_00: u32,
     pub sfx_id_01: u32,
@@ -3963,6 +4001,21 @@ pub struct Gconfig_MotionBlurQuality {
     pub sample_count_bias: i32,
     pub recurrence_count_bias: i32,
     pub blur_max_length_scale: f32,
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
+pub struct Gconfig_RaytracingQuality {
+    pub enable_raytrace_ao: u8,
+    pub enable_raytrace_shadows: u8,
+    pub unk0x02: u8,
+    pub unk0x03: u8,
+    pub unk_float0x04: f32,
+    pub unk0x08: i32,
+    pub unk_float0x0_c: f32,
+    pub unk0x10: i32,
+    pub penumbra_size: f32,
+    pub render_distance: f32,
 }
 
 #[derive(ParamStruct, Debug)]
@@ -4824,6 +4877,32 @@ pub struct MapGdRegionInfo {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
+pub struct MapGridCreateHeightDetailLimitInfo {
+    pub map_id: i32,
+    pub unknown_0x4: i32,
+    pub unknown_0x8: i32,
+    pub unknown_0xc: i32,
+    pub unknown_0x10: i32,
+    pub unknown_0x14: i32,
+    pub unknown_0x18: i32,
+    pub unknown_0x1c: i32,
+    pub unknown_0x20: i32,
+    pub unknown_0x24: i32,
+    pub unknown_0x28: i32,
+    pub unknown_0x2c: u8,
+    pub unknown_0x2d: u8,
+    pub unknown_0x2e: u8,
+    pub unknown_0x2f: u8,
+    pub unknown_0x30: u8,
+    pub unknown_0x31: u8,
+    pub unknown_0x32: u16,
+    pub unknown_0x34: i32,
+    pub unknown_0x38: i32,
+    pub unknown_0x3c: i32,
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
 pub struct MapGridCreateHeightLimitInfo {
     pub grid_enable_create_height_min: f32,
     pub grid_enable_create_height_max: f32,
@@ -4862,6 +4941,27 @@ pub struct MapNameTexParam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
+pub struct MapNameTexParam_m61 {
+    pub disable_param_reserve2: [u8; 3],
+    pub src_r: u8,
+    pub src_g: u8,
+    pub src_b: u8,
+    pub pad1: [u8; 1],
+    pub map_name_id: i32,
+    pub unknown_0xc: i32,
+    pub unknown_0x10: u8,
+    pub unknown_0x11: u8,
+    pub unknown_0x12: u8,
+    pub unknown_0x13: u8,
+    pub unknown_0x14: i32,
+    pub unknown_text_id_1: i32,
+    pub unknown_text_id_2: i32,
+    pub unknown_0x20: i32,
+    pub unknown_0x24: i32,
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
 pub struct MapPieceTexParam {
     pub disable_param_reserve2: [u8; 3],
     pub src_r: u8,
@@ -4870,6 +4970,24 @@ pub struct MapPieceTexParam {
     pub pad1: [u8; 1],
     pub save_map_name_id: i32,
     pub multi_play_area_id: i32,
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
+pub struct MapPieceTexParam_m61 {
+    pub disable_param_reserve2: [u8; 3],
+    pub src_r: u8,
+    pub src_g: u8,
+    pub src_b: u8,
+    pub pad1: [u8; 1],
+    pub save_map_name_id: i32,
+    pub multi_play_area_id: i32,
+    pub unknown_0x10: i32,
+    pub unknown_0x14: i32,
+    pub unknown_0x18: i32,
+    pub unknown_0x1c: i32,
+    pub unknown_play_region_1: i32,
+    pub unknown_play_region_2: i32,
 }
 
 #[derive(ParamStruct, Debug)]
@@ -5027,6 +5145,22 @@ pub struct MimicryEstablishmentTexParam {
     pub pad1: [u8; 1],
     pub mimicry_establishment_param_id: i32,
     pub pad2: [u8; 4],
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
+pub struct MimicryEstablishmentTexParam_m61 {
+    pub disable_param_reserve2: [u8; 3],
+    pub src_r: u8,
+    pub src_g: u8,
+    pub src_b: u8,
+    pub pad1: [u8; 1],
+    pub mimicry_establishment_param_id: i32,
+    pub unknown_0xc: i32,
+    pub unknown_0x10: i32,
+    pub unknown_0x14: i32,
+    pub unknown_0x18: i32,
+    pub unknown_0x1c: i32,
 }
 
 #[derive(ParamStruct, Debug)]
@@ -7000,6 +7134,25 @@ pub struct SignPuddleParam {
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
+pub struct SignPuddleSubCategoryParam {
+    pub start_pad: [u8; 4],
+    pub sign_puddle_category_text: i32,
+    pub sign_puddle_tab_id: u16,
+    pub unknown_0xa: u16,
+    pub end_pad: [u8; 4],
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
+pub struct SignPuddleTabParam {
+    pub is_dlc_tab: i32,
+    pub tab_text_id: i32,
+    pub unknown_0x8: i32,
+    pub unknown_0xc: i32,
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
 pub struct SoundAssetSoundObjEnableDistParam {
     pub sound_obj_enable_dist: f32,
 }
@@ -7838,6 +7991,21 @@ pub struct WeatherLotTexParam {
     pub pad1: [u8; 1],
     pub weather_log_id: i32,
     pub pad2: [u8; 4],
+}
+
+#[derive(ParamStruct, Debug)]
+#[repr(C)]
+pub struct WeatherLotTexParam_m61 {
+    pub disable_param_reserve2: [u8; 3],
+    pub src_r: u8,
+    pub src_g: u8,
+    pub src_b: u8,
+    pub pad1: [u8; 1],
+    pub weather_log_id: i32,
+    pub unknown_0xc: i32,
+    pub unknown_0x10: i32,
+    pub unknown_0x14: i32,
+    pub unknown_0x18: i32,
 }
 
 #[derive(ParamStruct, Debug)]
