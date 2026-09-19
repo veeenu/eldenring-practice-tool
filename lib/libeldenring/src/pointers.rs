@@ -117,7 +117,6 @@ pub enum SpeedTarget {
 #[derive(Debug)]
 pub enum SpeedTargetResolution {
     Ready(PointerChain<f32>),
-    NotMounted,
     Unavailable(&'static str),
 }
 
@@ -132,7 +131,6 @@ impl SpeedTarget {
     pub fn read(&self) -> Option<f32> {
         match self.resolve() {
             SpeedTargetResolution::Ready(pointer) => pointer.read(),
-            SpeedTargetResolution::NotMounted => None,
             SpeedTargetResolution::Unavailable(_) => None,
         }
     }
@@ -140,7 +138,6 @@ impl SpeedTarget {
     pub fn write(&self, value: f32) -> Option<()> {
         match self.resolve() {
             SpeedTargetResolution::Ready(pointer) => pointer.write(value),
-            SpeedTargetResolution::NotMounted => None,
             SpeedTargetResolution::Unavailable(_) => None,
         }
     }
@@ -151,7 +148,6 @@ impl SpeedTarget {
 #[derive(Clone, Debug)]
 pub struct DynamicTorrentSpeed {
     world_chr_man: usize,
-    mounted: PointerChain<u8>,
     player_group_id: PointerChain<u8>,
     fallback: PointerChain<f32>,
 }
@@ -159,11 +155,10 @@ pub struct DynamicTorrentSpeed {
 impl DynamicTorrentSpeed {
     pub fn new(
         world_chr_man: usize,
-        mounted: PointerChain<u8>,
         player_group_id: PointerChain<u8>,
         fallback: PointerChain<f32>,
     ) -> Self {
-        Self { world_chr_man, mounted, player_group_id, fallback }
+        Self { world_chr_man, player_group_id, fallback }
     }
 
     fn is_plausible_speed(value: f32) -> bool {
@@ -195,13 +190,6 @@ impl DynamicTorrentSpeed {
     }
 
     pub fn resolve(&self) -> SpeedTargetResolution {
-        let Some(mounted) = self.mounted.read() else {
-            return SpeedTargetResolution::Unavailable("mount_state");
-        };
-        if mounted & 1 == 0 {
-            return SpeedTargetResolution::NotMounted;
-        }
-
         let mut candidates = Vec::new();
         if let Some(group_id) = self.player_group_id.read() {
             if let Some(pointer) = self.find_group(group_id) {
@@ -467,7 +455,6 @@ impl Pointers {
             | V2_07_0 | V2_07_1 => 0x1cc90,
         };
 
-        let torrent_mounted = pointer_chain!(world_chr_man, player_ins, 0x1C8);
         let torrent_player_group_id = pointer_chain!(world_chr_man, player_ins, 0x190, 0, 0x7F);
         let torrent_static_slot_speed =
             pointer_chain!(world_chr_man, torrent_enemy_ins, 0x18, 0, 0x190, 0x28, 0x17C8);
@@ -602,7 +589,6 @@ impl Pointers {
             animation_speed: pointer_chain!(world_chr_man, player_ins, 0x190, 0x28, 0x17C8),
             torrent_animation_speed: SpeedTarget::DynamicTorrent(DynamicTorrentSpeed::new(
                 world_chr_man,
-                torrent_mounted,
                 torrent_player_group_id,
                 torrent_static_slot_speed,
             )),
