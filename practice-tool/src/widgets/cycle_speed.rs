@@ -58,13 +58,11 @@ impl ReadWrite for CycleSpeed {
 
         let player = match self.ptr[0].resolve() {
             SpeedTargetResolution::Ready(pointer) => pointer,
-            SpeedTargetResolution::NotMounted => return,
             SpeedTargetResolution::Unavailable(_) => return,
         };
         let torrent = match self.ptr[1].resolve() {
             SpeedTargetResolution::Ready(pointer) => Some(pointer),
-            SpeedTargetResolution::NotMounted => None,
-            SpeedTargetResolution::Unavailable(_) => return,
+            SpeedTargetResolution::Unavailable(_) => None,
         };
 
         let Some(previous_player) = player.read() else {
