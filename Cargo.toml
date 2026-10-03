@@ -49,5 +49,5 @@ features = [
 # hudhook = { path = "../hudhook" }
 
 [patch.'https://github.com/veeenu/practice-tool-core']
-# practice-tool-core = { path = "../practice-tool-core" }
-# practice-tool-tasks = { path = "../practice-tool-core/tasks" }
+practice-tool-core = { path = "../practice-tool-core" }
+practice-tool-tasks = { path = "../practice-tool-core/tasks" }
