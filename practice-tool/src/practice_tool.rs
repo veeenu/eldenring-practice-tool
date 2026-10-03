@@ -689,8 +689,7 @@ impl PracticeTool {
 
         let pressed_a_after = self.gamepad_state.Gamepad.wButtons.contains(XINPUT_GAMEPAD_A);
         let pressed_b_after = self.gamepad_state.Gamepad.wButtons.contains(XINPUT_GAMEPAD_B);
-        let pressed_combo =
-            combo.is_pressed(unsafe { &*(&self.gamepad_state as *const _ as *const _) });
+        let pressed_combo = combo.is_pressed(&self.gamepad_state);
 
         let released_a = !pressed_a_after && pressed_a_before;
         let released_b = !pressed_b_after && pressed_b_before;
@@ -703,11 +702,6 @@ impl PracticeTool {
         let debounce_elapsed = self.radial_menu_open_time.elapsed() > RADIAL_MENU_DEBOUNCE;
 
         if BLOCK_XINPUT.load(Ordering::SeqCst) {
-            let menu = self
-                .radial_menu
-                .iter()
-                .map(|RadialMenu { label, .. }| label.as_str())
-                .collect::<Vec<_>>();
             let x = self.gamepad_state.Gamepad.sThumbLX as f32;
             let y = -(self.gamepad_state.Gamepad.sThumbLY as f32);
 
@@ -720,7 +714,8 @@ impl PracticeTool {
                 self.gamepad_stick = ImVec2 { x, y };
             }
 
-            let menu_out = radial_menu(ui, &menu, self.gamepad_stick, h * 0.1, h * 0.25);
+            let menu_out =
+                radial_menu(ui, &self.radial_menu, self.gamepad_stick, h * 0.1, h * 0.25);
 
             if released_a {
                 if let Some(i) = menu_out {
@@ -843,7 +838,7 @@ impl ImguiRenderLoop for PracticeTool {
         }
 
         for w in &mut self.widgets {
-            w.log(self.log_tx.clone());
+            w.log(&self.log_tx);
         }
 
         let now = Instant::now();
