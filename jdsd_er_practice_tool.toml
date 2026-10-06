@@ -36,6 +36,7 @@ commands = [
   { flag = "one_shot", hotkey = "7" },
   { flag = "runearc", hotkey = "o" },
   { target = "ctrl+n" },
+  { input_viewer = false, seconds = 5 },
   { flags = ["field_area_direction", "field_area_altimeter" , "field_area_compass"], label = "Field area HUD" },
   { flag = "no_update_ai", hotkey = "f1" },
   { flag = "no_trigger_event" },
