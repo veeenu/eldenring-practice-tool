@@ -317,7 +317,6 @@ dependencies = [
  "semver",
  "serde",
  "serde_json",
- "serde_path_to_error",
  "textwrap-macros",
  "toml 0.5.11",
  "tracing-subscriber",

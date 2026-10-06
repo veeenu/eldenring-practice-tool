@@ -30,9 +30,7 @@ regex = "1.5.5"
 semver = "1.0.7"
 serde = { version = "1.0.136", features = ["derive"] }
 serde_json = "1.0.79"
-serde_path_to_error = "0.1.7"
 textwrap-macros = "0.3.0"
-toml = "0.5.8"
 tracing-subscriber = "0.3.16"
 ureq = { version = "2.4.0", features = ["json"] }
 
@@ -46,6 +44,9 @@ windows.workspace = true
 practice-tool-core.workspace = true
 practice-tool-core-windows.workspace = true
 practice-tool-memedit.workspace = true
+
+[dev-dependencies]
+toml = "0.5.8"
 
 [build-dependencies]
 embed-resource = "2.4.3"

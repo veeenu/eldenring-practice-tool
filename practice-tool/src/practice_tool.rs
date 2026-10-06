@@ -12,8 +12,11 @@ use imgui::*;
 use libeldenring::prelude::*;
 use libeldenring::version;
 use pkg_version::*;
+use practice_tool_core::config::RadialMenu;
+use practice_tool_core::config_editor::{ConfigEditor, ERROR_COLOR};
 use practice_tool_core::crossbeam_channel::{self, Receiver, Sender};
 use practice_tool_core::gamepad::{BLOCK_XINPUT, GAMEPAD_STATE};
+use practice_tool_core::icons::{Icon, Icons};
 use practice_tool_core::profiler::{Phase, Profiler};
 use practice_tool_core::widgets::radial_menu::radial_menu;
 use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
@@ -21,7 +24,7 @@ use sys::ImVec2;
 use tracing_subscriber::prelude::*;
 use windows::Win32::UI::Input::XboxController::{XINPUT_GAMEPAD_A, XINPUT_GAMEPAD_B, XINPUT_STATE};
 
-use crate::config::{Config, IndicatorType, RadialMenu, Settings};
+use crate::config::{config_path, Config, IndicatorType, Settings};
 use crate::update::Update;
 use crate::util;
 
@@ -66,6 +69,8 @@ pub(crate) struct PracticeTool {
     log_tx: Sender<String>,
     ui_state: UiState,
     fonts: Option<FontIDs>,
+    icons: Icons,
+    config_editor: ConfigEditor<Config>,
     config_err: Option<String>,
     update_available: Update,
 
@@ -100,13 +105,8 @@ impl PracticeTool {
         log_panics::init();
 
         fn load_config() -> Result<Config, String> {
-            let config_path = crate::util::get_dll_path()
-                .map(|mut path| {
-                    path.pop();
-                    path.push("jdsd_er_practice_tool.toml");
-                    path
-                })
-                .ok_or_else(|| "Couldn't find config file".to_string())?;
+            let config_path =
+                config_path().ok_or_else(|| "Couldn't find config file".to_string())?;
 
             if !config_path.exists() {
                 std::fs::write(&config_path, include_str!("../../jdsd_er_practice_tool.toml"))
@@ -213,30 +213,19 @@ impl PracticeTool {
             let (maj, min, patch) = version::get_version().into();
             format!("Game Ver {maj}.{min:02}.{patch}")
         };
-        let help_text = format!(
-            "Press the {} key to open/close the tool's\ninterface.\n\nYou can toggle flags/launch \
-             commands by\nclicking in the UI or by pressing\nthe hotkeys (in the \
-             parentheses).\n\nYou can configure your tool by editing\nthe \
-             jdsd_er_practice_tool.toml file with\na text editor. If you break something,\njust \
-             download a fresh file!\n\nThank you for using my tool! <3\n",
-            config.settings.display
-        );
-        let settings = config.settings.clone();
-        let radial_menu = config.radial_menu.clone();
-        let widgets = config.make_commands(&POINTERS);
-
         let (log_tx, log_rx) = crossbeam_channel::unbounded();
-        info!("Practice tool initialized");
 
-        PracticeTool {
-            settings,
+        let mut tool = PracticeTool {
+            settings: config.settings.clone(),
             version_label,
-            help_text,
-            widgets,
+            help_text: String::new(),
+            widgets: Vec::new(),
             log: Vec::new(),
             log_rx,
             log_tx,
             fonts: None,
+            icons: Icons::default(),
+            config_editor: ConfigEditor::new(config_path()),
             ui_state: UiState::Closed,
             config_err,
             position_prev: Default::default(),
@@ -251,7 +240,7 @@ impl PracticeTool {
             cur_anim_buf: Default::default(),
             imgui_debug_buf: Default::default(),
             update_available,
-            radial_menu,
+            radial_menu: Vec::new(),
             gamepad_state: Default::default(),
             gamepad_stick: Default::default(),
             radial_menu_open_time: Instant::now(),
@@ -262,7 +251,18 @@ impl PracticeTool {
                     .unwrap_or_default()
                     .with_file_name("jdsd_er_practice_tool.profile.csv"),
             ),
-        }
+        };
+        tool.apply_config(config);
+        info!("Practice tool initialized");
+
+        tool
+    }
+
+    fn apply_config(&mut self, config: Config) {
+        self.help_text = help_text(&config.settings);
+        self.settings = config.settings.clone();
+        self.radial_menu = config.radial_menu.clone();
+        self.widgets = config.make_commands(&POINTERS);
     }
 
     fn render_visible(&mut self, ui: &imgui::Ui) {
@@ -278,9 +278,6 @@ impl PracticeTool {
                     | WindowFlags::ALWAYS_AUTO_RESIZE
             })
             .build(|| {
-                if let Some(e) = self.config_err.as_ref() {
-                    ui.text(e);
-                }
                 self.profiler.mark(Phase::UiSetup);
 
                 if !(ui.io().want_capture_keyboard && ui.is_any_item_active()) {
@@ -434,8 +431,15 @@ impl PracticeTool {
 
                 ui.same_line();
 
-                if ui.small_button("Help") {
+                if self.icons.small_button(ui, "##help", Icon::Help) {
                     ui.open_popup("##help_window");
+                }
+
+                ui.same_line();
+
+                if let Some(config) = self.config_editor.render(ui, &self.icons) {
+                    self.apply_config(config);
+                    self.config_err = None;
                 }
 
                 match &self.update_available {
@@ -532,6 +536,10 @@ impl PracticeTool {
                     });
 
                 ui.new_line();
+
+                if let Some(e) = &self.config_err {
+                    ui.text_colored(ERROR_COLOR, e);
+                }
 
                 self.profiler.mark(Phase::UiSetup);
 
@@ -679,8 +687,14 @@ impl PracticeTool {
                 }
                 self.profiler.mark(Phase::WidgetsRender);
 
-                for w in self.widgets.iter_mut() {
-                    w.interact(ui);
+                // Not while typing or editing the configuration, e.g. while
+                // capturing hotkeys.
+                if !(ui.io().want_capture_keyboard
+                    && (ui.is_any_item_active() || self.config_editor.is_open()))
+                {
+                    for w in self.widgets.iter_mut() {
+                        w.interact(ui);
+                    }
                 }
                 self.profiler.mark(Phase::WidgetsInteract);
             });
@@ -884,7 +898,15 @@ impl ImguiRenderLoop for PracticeTool {
         self.profiler.end(ui_state);
     }
 
-    fn initialize(&mut self, ctx: &mut Context, _: &mut dyn RenderContext) {
+    fn initialize(&mut self, ctx: &mut Context, render_context: &mut dyn RenderContext) {
+        let (data, width, height) = Icons::atlas();
+        self.icons = Icons::new(
+            render_context
+                .load_texture(&data, width, height)
+                .map_err(|e| error!("Couldn't load icons: {e:?}"))
+                .ok(),
+        );
+
         let fonts = ctx.fonts();
         self.fonts = Some(FontIDs {
             small: fonts.add_font(&[FontSource::TtfData {
@@ -904,6 +926,17 @@ impl ImguiRenderLoop for PracticeTool {
             }]),
         });
     }
+}
+
+fn help_text(settings: &Settings) -> String {
+    format!(
+        "Press the {} key to open/close the tool's\ninterface.\n\nYou can toggle flags/launch \
+         commands by\nclicking in the UI or by pressing\nthe hotkeys (in the parentheses).\n\nYou \
+         can configure your tool with the\ncogwheel button next to the help one,\nor by editing \
+         the\njdsd_er_practice_tool.toml file with\na text editor. If you break something,\njust \
+         download a fresh file!\n\nThank you for using my tool! <3\n",
+        settings.display
+    )
 }
 
 // Display some imgui debug information. Very expensive.
