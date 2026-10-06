@@ -6,17 +6,16 @@ use libeldenring::prelude::*;
 use practice_tool_core::controller::ControllerCombination;
 use practice_tool_core::key::Key;
 use practice_tool_core::widgets::Widget;
+use practice_tool_memedit::widgets::{flag_widget, multi_flag};
 use serde::Deserialize;
 
 use crate::widgets::character_stats::character_stats_edit;
 use crate::widgets::cycle_color::cycle_color;
 use crate::widgets::cycle_speed::cycle_speed;
 use crate::widgets::deathcam::deathcam;
-use crate::widgets::flag::flag_widget;
 use crate::widgets::group::group;
 use crate::widgets::item_spawn::ItemSpawner;
 use crate::widgets::label::label_widget;
-use crate::widgets::multiflag::multi_flag;
 use crate::widgets::nudge_pos::nudge_position;
 use crate::widgets::position::save_position;
 use crate::widgets::quitout::quitout;
@@ -240,16 +239,16 @@ impl CfgCommand {
     fn into_widget(self, settings: &Settings, chains: &Pointers) -> Option<Box<dyn Widget>> {
         let widget = match self {
             CfgCommand::Flag { flag, hotkey } => {
-                flag_widget(&flag.label, (*(flag.getter)(chains)).clone_box(), hotkey)
+                flag_widget(&flag.label, (flag.getter)(chains), hotkey)
             },
             CfgCommand::MultiFlag { flag, hotkey } => multi_flag(
                 &flag.label,
-                flag.items.iter().map(|flag| flag(chains).clone_box()).collect(),
+                flag.items.iter().map(|flag| flag(chains).clone()).collect(),
                 hotkey,
             ),
             CfgCommand::MultiFlagUser { flags, hotkey, label } => multi_flag(
                 label.as_str(),
-                flags.iter().map(|flag| (*(flag.getter)(chains)).clone_box()).collect(),
+                flags.iter().map(|flag| (flag.getter)(chains)).collect(),
                 hotkey,
             ),
             CfgCommand::SpecialFlag { flag, hotkey } if flag == "deathcam" => deathcam(

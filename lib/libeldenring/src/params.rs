@@ -13,7 +13,7 @@ use windows::Win32::System::Memory::{VirtualQuery, MEMORY_BASIC_INFORMATION, PAG
 pub use crate::codegen::param_data::*;
 use crate::prelude::base_addresses::BaseAddresses;
 use crate::prelude::*;
-use crate::{pointer_chain, version};
+use crate::version;
 
 pub static PARAMS: Lazy<RwLock<Params>> = Lazy::new(|| unsafe {
     let mut params = Params::new();
