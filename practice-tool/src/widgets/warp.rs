@@ -19,8 +19,8 @@ pub(crate) struct Warp {
     label_close: String,
     hotkey_close: Key,
     warp_ptr: usize,
-    arg1: PointerChain<u64>,
-    arg2: PointerChain<u64>,
+    arg1: &'static PointerChain<u64>,
+    arg2: &'static PointerChain<u64>,
     current_grace: usize,
     filter_string: String,
     filter_list: [bool; GRACES.len()],
@@ -29,8 +29,8 @@ pub(crate) struct Warp {
 impl Warp {
     pub(crate) fn new(
         warp_ptr: usize,
-        arg1: PointerChain<u64>,
-        arg2: PointerChain<u64>,
+        arg1: &'static PointerChain<u64>,
+        arg2: &'static PointerChain<u64>,
         hotkey_close: Key,
     ) -> Self {
         let label_close = format!("Close ({hotkey_close})");

@@ -236,14 +236,18 @@ enum CfgCommand {
 }
 
 impl CfgCommand {
-    fn into_widget(self, settings: &Settings, chains: &Pointers) -> Option<Box<dyn Widget>> {
+    fn into_widget(
+        self,
+        settings: &Settings,
+        chains: &'static Pointers,
+    ) -> Option<Box<dyn Widget>> {
         let widget = match self {
             CfgCommand::Flag { flag, hotkey } => {
                 flag_widget(&flag.label, (flag.getter)(chains), hotkey)
             },
             CfgCommand::MultiFlag { flag, hotkey } => multi_flag(
                 &flag.label,
-                flag.items.iter().map(|flag| flag(chains).clone()).collect(),
+                flag.items.iter().map(|flag| flag(chains)).collect(),
                 hotkey,
             ),
             CfgCommand::MultiFlagUser { flags, hotkey, label } => multi_flag(
@@ -251,12 +255,9 @@ impl CfgCommand {
                 flags.iter().map(|flag| (flag.getter)(chains)).collect(),
                 hotkey,
             ),
-            CfgCommand::SpecialFlag { flag, hotkey } if flag == "deathcam" => deathcam(
-                chains.deathcam.0.clone(),
-                chains.deathcam.1.clone(),
-                chains.deathcam.2.clone(),
-                hotkey,
-            ),
+            CfgCommand::SpecialFlag { flag, hotkey } if flag == "deathcam" => {
+                deathcam(&chains.deathcam.0, &chains.deathcam.1, &chains.deathcam.2, hotkey)
+            },
             CfgCommand::SpecialFlag { flag, hotkey: _ } => {
                 error!("Invalid flag {}", flag);
                 return None;
@@ -268,56 +269,53 @@ impl CfgCommand {
             CfgCommand::ItemSpawner { hotkey_load } => Box::new(ItemSpawner::new(
                 chains.func_item_inject,
                 chains.base_addresses.map_item_man,
-                chains.gravity.clone(),
+                &chains.gravity,
                 hotkey_load.into_option(),
                 settings.display,
             )),
             CfgCommand::Position { position, save } => save_position(
-                chains.global_position.clone(),
-                chains.chunk_position.clone(),
-                chains.torrent_chunk_position.clone(),
+                &chains.global_position,
+                &chains.chunk_position,
+                &chains.torrent_chunk_position,
                 position.into_option(),
                 save,
             ),
             CfgCommand::NudgePosition { nudge, nudge_up, nudge_down } => nudge_position(
-                chains.global_position.clone(),
-                chains.chunk_position.clone(),
-                chains.torrent_chunk_position.clone(),
+                &chains.global_position,
+                &chains.chunk_position,
+                &chains.torrent_chunk_position,
                 nudge,
                 nudge_up,
                 nudge_down,
             ),
             CfgCommand::CycleSpeed { cycle_speed: values, hotkey } => cycle_speed(
                 values.as_slice(),
-                [
-                    SpeedTarget::Static(chains.animation_speed.clone()),
-                    chains.torrent_animation_speed.clone(),
-                ],
+                [&chains.animation_speed, &chains.torrent_animation_speed],
                 hotkey,
             ),
             CfgCommand::CycleColor { cycle_color: values, hotkey } => {
-                cycle_color(values.as_slice(), chains.mesh_color.clone(), hotkey)
+                cycle_color(values.as_slice(), &chains.mesh_color, hotkey)
             },
             CfgCommand::CharacterStats { hotkey_open } => character_stats_edit(
-                chains.character_stats.clone(),
-                chains.character_points.clone(),
-                chains.character_blessings.clone(),
+                &chains.character_stats,
+                &chains.character_points,
+                chains.character_blessings.as_ref(),
                 hotkey_open.into_option(),
                 settings.display,
             ),
-            CfgCommand::Runes { amount, hotkey } => runes(amount, chains.runes.clone(), hotkey),
+            CfgCommand::Runes { amount, hotkey } => runes(amount, &chains.runes, hotkey),
             CfgCommand::Warp { .. } => Box::new(Warp::new(
                 chains.func_warp,
-                chains.warp1.clone(),
-                chains.warp2.clone(),
+                &chains.warp1,
+                &chains.warp2,
                 settings.display,
             )),
             CfgCommand::Target { hotkey } => Box::new(Target::new(
-                chains.current_target.clone(),
-                chains.chunk_position.clone(),
+                &chains.current_target,
+                &chains.chunk_position,
                 hotkey.into_option(),
             )),
-            CfgCommand::Quitout { hotkey } => quitout(chains.quitout.clone(), hotkey.into_option()),
+            CfgCommand::Quitout { hotkey } => quitout(&chains.quitout, hotkey.into_option()),
             CfgCommand::Group { label, commands } => group(
                 label.as_str(),
                 commands.into_iter().filter_map(|c| c.into_widget(settings, chains)).collect(),
@@ -357,7 +355,7 @@ impl Config {
             .map_err(|e| format!("TOML config error at {}: {}", e.path(), e.inner()))
     }
 
-    pub(crate) fn make_commands(self, chains: &Pointers) -> Vec<Box<dyn Widget>> {
+    pub(crate) fn make_commands(self, chains: &'static Pointers) -> Vec<Box<dyn Widget>> {
         self.commands.into_iter().filter_map(|c| c.into_widget(&self.settings, chains)).collect()
     }
 }
@@ -385,7 +383,7 @@ impl Default for Config {
 #[serde(try_from = "String")]
 struct FlagSpec {
     label: String,
-    getter: fn(&Pointers) -> Box<dyn FlagToggler>,
+    getter: fn(&'static Pointers) -> &'static dyn FlagToggler,
 }
 
 impl std::fmt::Debug for FlagSpec {
@@ -395,7 +393,7 @@ impl std::fmt::Debug for FlagSpec {
 }
 
 impl FlagSpec {
-    fn new(label: &str, getter: fn(&Pointers) -> Box<dyn FlagToggler>) -> FlagSpec {
+    fn new(label: &str, getter: fn(&'static Pointers) -> &'static dyn FlagToggler) -> FlagSpec {
         FlagSpec { label: label.to_string(), getter }
     }
 }
@@ -407,7 +405,7 @@ impl TryFrom<String> for FlagSpec {
         macro_rules! flag_spec {
             ($x:expr, [ $( ($flag_name:ident, $flag_label:expr), )* ]) => {
                 match $x {
-                    $(stringify!($flag_name) => Ok(FlagSpec::new($flag_label, |c| Box::new(c.$flag_name.clone()))),)*
+                    $(stringify!($flag_name) => Ok(FlagSpec::new($flag_label, |c| &c.$flag_name)),)*
                     e => Err(format!("\"{}\" is not a valid flag specifier", e)),
                 }
             }
@@ -459,7 +457,7 @@ impl TryFrom<String> for FlagSpec {
 #[serde(try_from = "String")]
 struct MultiFlagSpec {
     label: String,
-    items: Vec<fn(&Pointers) -> &Bitflag<u8>>,
+    items: Vec<fn(&'static Pointers) -> &'static Bitflag<u8>>,
 }
 
 impl std::fmt::Debug for MultiFlagSpec {
@@ -469,7 +467,10 @@ impl std::fmt::Debug for MultiFlagSpec {
 }
 
 impl MultiFlagSpec {
-    fn new(label: &str, items: Vec<fn(&Pointers) -> &Bitflag<u8>>) -> MultiFlagSpec {
+    fn new(
+        label: &str,
+        items: Vec<fn(&'static Pointers) -> &'static Bitflag<u8>>,
+    ) -> MultiFlagSpec {
         MultiFlagSpec { label: label.to_string(), items }
     }
 }
