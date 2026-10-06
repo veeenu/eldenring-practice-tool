@@ -3,8 +3,7 @@ use std::fmt::Write;
 
 use imgui::sys::{igGetCursorPosX, igGetCursorPosY, igGetWindowPos, ImVec2};
 use imgui::{ProgressBar, StyleColor};
-use libeldenring::memedit::PointerChain;
-use libeldenring::pointer_chain;
+use libeldenring::memedit::{pointer_chain, PointerChain};
 use libeldenring::prelude::Position as ErPosition;
 use practice_tool_core::key::Key;
 use practice_tool_core::widgets::Widget;
@@ -85,7 +84,7 @@ pub(crate) struct Target {
     entity_addr: u64,
     player_position: ErPosition,
 
-    distance_text: String,
+    text: String,
 }
 
 unsafe impl Send for Target {}
@@ -128,7 +127,7 @@ impl Target {
             entity_addr: 0,
             player_position,
 
-            distance_text: String::new(),
+            text: String::new(),
         }
     }
 
@@ -299,30 +298,37 @@ impl Widget for Target {
         const COLOR_SLEEP: [f32; 4] = [0.627451, 0.70980392, 0.7764706, 1.0];
         const COLOR_MAD: [f32; 4] = [0.627451, 0.70980392, 0.7764706, 1.0];
 
-        let pbar = |label, cur, max, c| {
-            ui.text(format!("{label:8} {cur:>6}/{max:>6}"));
+        // Formats into a reused buffer instead of allocating every frame.
+        let text = &mut self.text;
+
+        let pbar = |text: &mut String, label: &str, cur: u32, max: u32, c: [f32; 4]| {
+            text.clear();
+            write!(text, "{label:8} {cur:>6}/{max:>6}").ok();
+            ui.text(&*text);
             let pct = div(cur, max);
             let _tok = ui.push_style_color(StyleColor::PlotHistogram, c);
             ProgressBar::new(pct).size(pbar_size).overlay_text("").build(ui);
         };
 
-        pbar("HP", hp, max_hp, COLOR_HP);
-        pbar("SP", sp, max_sp, COLOR_SP);
-        pbar("MP", mp, max_mp, COLOR_MP);
+        pbar(text, "HP", hp, max_hp, COLOR_HP);
+        pbar(text, "SP", sp, max_sp, COLOR_SP);
+        pbar(text, "MP", mp, max_mp, COLOR_MP);
 
-        ui.text(format!("Poise    {poise:>6.0}/{poise_max:>6.0} {poise_time:.2}s"));
+        text.clear();
+        write!(text, "Poise    {poise:>6.0}/{poise_max:>6.0} {poise_time:.2}s").ok();
+        ui.text(&*text);
         let pct = if poise_max.abs() < 0.0001 { 0.0 } else { poise / poise_max };
         let tok = ui.push_style_color(StyleColor::PlotHistogram, COLOR_BASE);
         ProgressBar::new(pct).size(pbar_size).overlay_text("").build(ui);
         drop(tok);
 
-        pbar("Poison", poison, poison_max, COLOR_POISON);
-        pbar("Rot", rot, rot_max, COLOR_ROT);
-        pbar("Bleed", bleed, bleed_max, COLOR_BLEED);
-        pbar("Blight", blight, blight_max, COLOR_BLIGHT);
-        pbar("Frost", frost, frost_max, COLOR_FROST);
-        pbar("Sleep", sleep, sleep_max, COLOR_SLEEP);
-        pbar("Mad", mad, mad_max, COLOR_MAD);
+        pbar(text, "Poison", poison, poison_max, COLOR_POISON);
+        pbar(text, "Rot", rot, rot_max, COLOR_ROT);
+        pbar(text, "Bleed", bleed, bleed_max, COLOR_BLEED);
+        pbar(text, "Blight", blight, blight_max, COLOR_BLIGHT);
+        pbar(text, "Frost", frost, frost_max, COLOR_FROST);
+        pbar(text, "Sleep", sleep, sleep_max, COLOR_SLEEP);
+        pbar(text, "Mad", mad, mad_max, COLOR_MAD);
 
         ui.new_line();
 
@@ -350,16 +356,11 @@ impl Widget for Target {
 
             relative_angle -= PI;
 
-            self.distance_text.clear();
-            write!(
-                &mut self.distance_text,
-                "{distance:>6.3}m {:>8.3}deg",
-                relative_angle * 180.0 / PI
-            )
-            .unwrap();
-            ui.text(&self.distance_text);
+            text.clear();
+            write!(text, "{distance:>6.3}m {:>8.3}deg", relative_angle * 180.0 / PI).unwrap();
+            ui.text(&*text);
             ui.same_line();
-            let [_, text_height] = ui.calc_text_size(&self.distance_text);
+            let [_, text_height] = ui.calc_text_size(&*text);
 
             let draw_list = ui.get_foreground_draw_list();
 

@@ -12,4 +12,5 @@ serde_json = "1.0.79"
 parking_lot.workspace = true
 once_cell.workspace = true
 windows.workspace = true
+practice-tool-memedit.workspace = true
 tracing = "0.1.37"

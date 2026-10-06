@@ -312,6 +312,7 @@ dependencies = [
  "pkg-version",
  "practice-tool-core",
  "practice-tool-core-windows",
+ "practice-tool-memedit",
  "regex",
  "semver",
  "serde",
@@ -690,6 +691,7 @@ dependencies = [
  "macro-param",
  "once_cell",
  "parking_lot",
+ "practice-tool-memedit",
  "serde",
  "serde_json",
  "tracing",
@@ -1025,6 +1027,16 @@ version = "0.1.0"
 source = "git+https://github.com/veeenu/practice-tool-core#34483e5f9ac2b8106b3336b481499b7feb2231d5"
 dependencies = [
  "hudhook",
+ "practice-tool-core",
+ "windows",
+]
+
+[[package]]
+name = "practice-tool-memedit"
+version = "0.1.0"
+source = "git+https://github.com/veeenu/practice-tool-core#34483e5f9ac2b8106b3336b481499b7feb2231d5"
+dependencies = [
+ "cc",
  "practice-tool-core",
  "windows",
 ]
