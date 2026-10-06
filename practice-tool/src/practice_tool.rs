@@ -13,6 +13,7 @@ use libeldenring::prelude::*;
 use libeldenring::version;
 use pkg_version::*;
 use practice_tool_core::crossbeam_channel::{self, Receiver, Sender};
+use practice_tool_core::profiler::{Phase, Profiler};
 use practice_tool_core::widgets::radial_menu::radial_menu;
 use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 use sys::ImVec2;
@@ -42,6 +43,16 @@ enum UiState {
     MenuOpen,
     Closed,
     Hidden,
+}
+
+impl UiState {
+    fn name(&self) -> &'static str {
+        match self {
+            UiState::MenuOpen => "open",
+            UiState::Closed => "closed",
+            UiState::Hidden => "hidden",
+        }
+    }
 }
 
 pub(crate) struct PracticeTool {
@@ -79,6 +90,8 @@ pub(crate) struct PracticeTool {
     radial_menu_open_time: Instant,
     press_queue: Vec<imgui::Key>,
     release_queue: Vec<imgui::Key>,
+
+    profiler: Profiler,
 }
 
 impl PracticeTool {
@@ -236,6 +249,11 @@ impl PracticeTool {
             radial_menu_open_time: Instant::now(),
             press_queue: Vec::new(),
             release_queue: Vec::new(),
+            profiler: Profiler::new(
+                util::get_dll_path()
+                    .unwrap_or_default()
+                    .with_file_name("jdsd_er_practice_tool.profile.csv"),
+            ),
         }
     }
 
@@ -255,16 +273,19 @@ impl PracticeTool {
                 if let Some(e) = self.config_err.as_ref() {
                     ui.text(e);
                 }
+                self.profiler.mark(Phase::UiSetup);
 
                 if !(ui.io().want_capture_keyboard && ui.is_any_item_active()) {
                     for w in self.widgets.iter_mut() {
                         w.interact(ui);
                     }
                 }
+                self.profiler.mark(Phase::WidgetsInteract);
 
                 for w in self.widgets.iter_mut() {
                     w.render(ui);
                 }
+                self.profiler.mark(Phase::WidgetsRender);
 
                 if ui.button_with_size("Close", [BUTTON_WIDTH * scaling_factor(ui), BUTTON_HEIGHT])
                 {
@@ -512,6 +533,8 @@ impl PracticeTool {
 
                 ui.new_line();
 
+                self.profiler.mark(Phase::UiSetup);
+
                 for indicator in &self.settings.indicators {
                     if !indicator.enabled {
                         continue;
@@ -651,14 +674,17 @@ impl PracticeTool {
                         },
                     }
                 }
+                self.profiler.mark(Phase::Indicators);
 
                 for w in self.widgets.iter_mut() {
                     w.render_closed(ui);
                 }
+                self.profiler.mark(Phase::WidgetsRender);
 
                 for w in self.widgets.iter_mut() {
                     w.interact(ui);
                 }
+                self.profiler.mark(Phase::WidgetsInteract);
             });
 
         for st in stack_tokens.into_iter().rev() {
@@ -670,6 +696,7 @@ impl PracticeTool {
         for w in self.widgets.iter_mut() {
             w.interact(ui);
         }
+        self.profiler.mark(Phase::WidgetsInteract);
     }
 
     fn render_radial(&mut self, ui: &imgui::Ui) {
@@ -686,6 +713,7 @@ impl PracticeTool {
 
         let [_, h] = ui.io().display_size;
         unsafe { (XINPUTGETSTATE)(0, &mut self.gamepad_state) };
+        self.profiler.mark(Phase::XInput);
 
         let pressed_a_after = self.gamepad_state.Gamepad.wButtons.contains(XINPUT_GAMEPAD_A);
         let pressed_b_after = self.gamepad_state.Gamepad.wButtons.contains(XINPUT_GAMEPAD_B);
@@ -800,6 +828,7 @@ impl ImguiRenderLoop for PracticeTool {
     }
 
     fn render(&mut self, ui: &mut imgui::Ui) {
+        self.profiler.begin();
         let font_token = self.set_font(ui);
 
         let display = self.settings.display.is_pressed(ui);
@@ -822,11 +851,16 @@ impl ImguiRenderLoop for PracticeTool {
             }
         }
 
+        self.profiler.mark(Phase::Hotkeys);
         self.render_radial(ui);
+
+        let ui_state = self.ui_state.name();
+        self.profiler.mark(Phase::Radial);
 
         match &self.ui_state {
             UiState::MenuOpen => {
                 self.pointers.cursor_show.set(true);
+                self.profiler.mark(Phase::CursorShow);
                 self.render_visible(ui);
             },
             UiState::Closed => {
@@ -836,6 +870,8 @@ impl ImguiRenderLoop for PracticeTool {
                 self.render_hidden(ui);
             },
         }
+
+        self.profiler.mark(Phase::UiFinish);
 
         for w in &mut self.widgets {
             w.log(&self.log_tx);
@@ -847,6 +883,7 @@ impl ImguiRenderLoop for PracticeTool {
 
         self.render_logs(ui);
         drop(font_token);
+        self.profiler.end(ui_state);
     }
 
     fn initialize(&mut self, ctx: &mut Context, _: &mut dyn RenderContext) {
