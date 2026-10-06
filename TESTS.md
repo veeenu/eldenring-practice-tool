@@ -35,6 +35,7 @@ Use this file as a guideline for testing the various features in the practice to
 - [ ] Speed: should change character's animation speed.
 - [ ] Add runes: self-descriptive.
 - [ ] Quitout: should exit to main menu.
+- [ ] Input viewer: should show controller and keyboard input.
 - [ ] Item spawn: should spawn the desired item.
 - [ ] Item spawn: should apply upgrades and affinity correctly to the spawned item.
 - [ ] Item spawn: should provide the specified amount of items.
