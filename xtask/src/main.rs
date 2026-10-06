@@ -32,7 +32,7 @@ fn print_help() {
         r#"
 Tasks:
 
-run ............. compile and start the practice tool
+run ............. compile and start the practice tool, with render loop profiling
 dist ............ build distribution artifacts
 codegen ......... generate Rust code: parameters, base addresses, ...
 inject <args> ... standalone dll inject
@@ -45,7 +45,15 @@ help ............ print this help
 
 fn run() -> Result<()> {
     let status = cargo_command("build")
-        .args(["--lib", "--package", "eldenring-practice-tool"])
+        .args([
+            "--profile",
+            "profiling",
+            "--lib",
+            "--package",
+            "eldenring-practice-tool",
+            "--features",
+            "profiling",
+        ])
         .status()
         .context("cargo")?;
 
@@ -55,10 +63,10 @@ fn run() -> Result<()> {
 
     fs::copy(
         project_root().join("jdsd_er_practice_tool.toml"),
-        target_path("debug").join("jdsd_er_practice_tool.toml"),
+        target_path("profiling").join("jdsd_er_practice_tool.toml"),
     )?;
 
-    let dll_path = target_path("debug").join("libjdsd_er_practice_tool.dll").canonicalize()?;
+    let dll_path = target_path("profiling").join("libjdsd_er_practice_tool.dll").canonicalize()?;
 
     inject(iter::once(dll_path))?;
 
