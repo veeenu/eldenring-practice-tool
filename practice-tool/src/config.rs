@@ -1,8 +1,9 @@
-use std::str::FromStr;
+use std::path::PathBuf;
 
 use hudhook::tracing::error;
-use hudhook::tracing::metadata::LevelFilter;
 use libeldenring::prelude::*;
+use practice_tool_core::config::{parse_toml, LevelFilterSerde, PlaceholderOption, RadialMenu};
+use practice_tool_core::config_editor::{ConfigSchema, Field, Kind};
 use practice_tool_core::controller::ControllerCombination;
 use practice_tool_core::key::Key;
 use practice_tool_core::widgets::input_viewer::InputViewer;
@@ -10,6 +11,7 @@ use practice_tool_core::widgets::Widget;
 use practice_tool_memedit::widgets::{flag_widget, multi_flag};
 use serde::Deserialize;
 
+use crate::util::get_dll_path;
 use crate::widgets::character_stats::character_stats_edit;
 use crate::widgets::cycle_color::cycle_color;
 use crate::widgets::cycle_speed::cycle_speed;
@@ -50,19 +52,7 @@ pub(crate) struct Settings {
     pub(crate) radial_menu_open: Option<ControllerCombination>,
 }
 
-#[derive(Debug, Deserialize, Clone)]
-pub(crate) struct RadialMenu {
-    pub key: Key,
-    pub label: String,
-}
-
-impl AsRef<str> for RadialMenu {
-    fn as_ref(&self) -> &str {
-        &self.label
-    }
-}
-
-#[derive(Debug, Deserialize, Clone)]
+#[derive(Debug, Deserialize, Clone, Copy)]
 pub(crate) enum IndicatorType {
     Igt,
     Position,
@@ -82,19 +72,22 @@ pub(crate) struct Indicator {
     pub(crate) enabled: bool,
 }
 
+/// Indicator specifiers, their types, and whether they're enabled by default.
+pub(crate) const INDICATORS: &[(&str, IndicatorType, bool)] = &[
+    ("game_version", IndicatorType::GameVersion, true),
+    ("igt", IndicatorType::Igt, true),
+    ("position", IndicatorType::Position, false),
+    ("position_change", IndicatorType::PositionChange, false),
+    ("position_distance", IndicatorType::PositionDistance, false),
+    ("animation", IndicatorType::Animation, false),
+    ("fps", IndicatorType::Fps, false),
+    ("framecount", IndicatorType::FrameCount, false),
+    ("imgui_debug", IndicatorType::ImguiDebug, false),
+];
+
 impl Indicator {
     fn default_set() -> Vec<Indicator> {
-        vec![
-            Indicator { indicator: IndicatorType::GameVersion, enabled: true },
-            Indicator { indicator: IndicatorType::Igt, enabled: true },
-            Indicator { indicator: IndicatorType::Position, enabled: false },
-            Indicator { indicator: IndicatorType::PositionChange, enabled: false },
-            Indicator { indicator: IndicatorType::PositionDistance, enabled: false },
-            Indicator { indicator: IndicatorType::Animation, enabled: false },
-            Indicator { indicator: IndicatorType::Fps, enabled: false },
-            Indicator { indicator: IndicatorType::FrameCount, enabled: false },
-            Indicator { indicator: IndicatorType::ImguiDebug, enabled: false },
-        ]
+        INDICATORS.iter().map(|&(_, indicator, enabled)| Indicator { indicator, enabled }).collect()
     }
 }
 
@@ -108,51 +101,11 @@ impl TryFrom<IndicatorConfig> for Indicator {
     type Error = String;
 
     fn try_from(indicator: IndicatorConfig) -> Result<Self, Self::Error> {
-        match indicator.indicator.as_str() {
-            "igt" => Ok(Indicator { indicator: IndicatorType::Igt, enabled: indicator.enabled }),
-            "position" => {
-                Ok(Indicator { indicator: IndicatorType::Position, enabled: indicator.enabled })
-            },
-            "position_change" => Ok(Indicator {
-                indicator: IndicatorType::PositionChange,
-                enabled: indicator.enabled,
-            }),
-            "position_distance" => Ok(Indicator {
-                indicator: IndicatorType::PositionDistance,
-                enabled: indicator.enabled,
-            }),
-            "animation" => {
-                Ok(Indicator { indicator: IndicatorType::Animation, enabled: indicator.enabled })
-            },
-            "game_version" => {
-                Ok(Indicator { indicator: IndicatorType::GameVersion, enabled: indicator.enabled })
-            },
-            "fps" => Ok(Indicator { indicator: IndicatorType::Fps, enabled: indicator.enabled }),
-            "framecount" => {
-                Ok(Indicator { indicator: IndicatorType::FrameCount, enabled: indicator.enabled })
-            },
-            "imgui_debug" => {
-                Ok(Indicator { indicator: IndicatorType::ImguiDebug, enabled: indicator.enabled })
-            },
-            value => Err(format!("Unrecognized indicator: {value}")),
-        }
-    }
-}
-
-#[derive(Deserialize, Debug)]
-#[serde(untagged)]
-enum PlaceholderOption<T> {
-    Data(T),
-    #[allow(dead_code)]
-    Placeholder(bool),
-}
-
-impl<T> PlaceholderOption<T> {
-    fn into_option(self) -> Option<T> {
-        match self {
-            PlaceholderOption::Data(d) => Some(d),
-            PlaceholderOption::Placeholder(_) => None,
-        }
+        INDICATORS
+            .iter()
+            .find(|(id, ..)| *id == indicator.indicator)
+            .map(|&(_, kind, _)| Indicator { indicator: kind, enabled: indicator.enabled })
+            .ok_or_else(|| format!("Unrecognized indicator: {}", indicator.indicator))
     }
 }
 
@@ -341,32 +294,9 @@ fn default_input_viewer_seconds() -> usize {
     5
 }
 
-#[derive(Deserialize, Debug, Clone)]
-#[serde(try_from = "String")]
-pub(crate) struct LevelFilterSerde(LevelFilter);
-
-impl LevelFilterSerde {
-    pub(crate) fn inner(&self) -> LevelFilter {
-        self.0
-    }
-}
-
-impl TryFrom<String> for LevelFilterSerde {
-    type Error = String;
-
-    fn try_from(value: String) -> Result<Self, Self::Error> {
-        Ok(LevelFilterSerde(
-            LevelFilter::from_str(&value)
-                .map_err(|e| format!("Couldn't parse log level filter: {e}"))?,
-        ))
-    }
-}
-
 impl Config {
     pub(crate) fn parse(cfg: &str) -> Result<Self, String> {
-        let de = &mut toml::de::Deserializer::new(cfg);
-        serde_path_to_error::deserialize(de)
-            .map_err(|e| format!("TOML config error at {}: {}", e.path(), e.inner()))
+        parse_toml(cfg)
     }
 
     pub(crate) fn make_commands(self, chains: &'static Pointers) -> Vec<Box<dyn Widget>> {
@@ -378,7 +308,7 @@ impl Default for Config {
     fn default() -> Self {
         Config {
             settings: Settings {
-                log_level: LevelFilterSerde(LevelFilter::DEBUG),
+                log_level: LevelFilterSerde::try_from("DEBUG".to_string()).unwrap(),
                 display: "0".parse().unwrap(),
                 hide: "rshift+0".parse().ok(),
                 dxgi_debug: false,
@@ -393,11 +323,13 @@ impl Default for Config {
     }
 }
 
+type FlagGetter = fn(&'static Pointers) -> &'static dyn FlagToggler;
+
 #[derive(Deserialize)]
 #[serde(try_from = "String")]
 struct FlagSpec {
     label: String,
-    getter: fn(&'static Pointers) -> &'static dyn FlagToggler,
+    getter: FlagGetter,
 }
 
 impl std::fmt::Debug for FlagSpec {
@@ -407,63 +339,63 @@ impl std::fmt::Debug for FlagSpec {
 }
 
 impl FlagSpec {
-    fn new(label: &str, getter: fn(&'static Pointers) -> &'static dyn FlagToggler) -> FlagSpec {
+    fn new(label: &str, getter: FlagGetter) -> FlagSpec {
         FlagSpec { label: label.to_string(), getter }
     }
 }
+
+/// Valid flag specifiers, their labels, and the pointer chains they toggle.
+#[rustfmt::skip]
+pub(crate) const FLAGS: &[(&str, &str, FlagGetter)] = &[
+    ("one_shot", "One shot", |c| &c.one_shot),
+    ("no_damage", "All no damage", |c| &c.no_damage),
+    ("no_dead", "No death", |c| &c.no_dead),
+    ("no_hit", "No hit", |c| &c.no_hit),
+    ("no_goods_consume", "Inf Consumables", |c| &c.no_goods_consume),
+    ("no_stamina_consume", "Inf Stamina", |c| &c.no_stamina_consume),
+    ("no_fp_consume", "Inf Focus", |c| &c.no_fp_consume),
+    ("no_ashes_of_war_fp_consume", "Inf Focus (AoW)", |c| &c.no_ashes_of_war_fp_consume),
+    ("no_arrows_consume", "Inf arrows", |c| &c.no_arrows_consume),
+    ("no_attack", "No attack", |c| &c.no_attack),
+    ("no_move", "No move", |c| &c.no_move),
+    ("no_update_ai", "No update AI", |c| &c.no_update_ai),
+    ("no_trigger_event", "No trigger events", |c| &c.no_trigger_event),
+    ("runearc", "Rune Arc", |c| &c.runearc),
+    ("gravity", "No Gravity", |c| &c.gravity),
+    ("torrent_gravity", "No Gravity (Torrent)", |c| &c.torrent_gravity),
+    ("collision", "No Collision", |c| &c.collision),
+    ("torrent_collision", "No Collision (Torrent)", |c| &c.torrent_collision),
+    ("action_freeze", "Action freeze", |c| &c.action_freeze),
+    ("display_stable_pos", "Show stable pos", |c| &c.display_stable_pos),
+    ("weapon_hitbox1", "Weapon hitbox #1", |c| &c.weapon_hitbox1),
+    ("weapon_hitbox2", "Weapon hitbox #2", |c| &c.weapon_hitbox2),
+    ("weapon_hitbox3", "Weapon hitbox #3", |c| &c.weapon_hitbox3),
+    ("hitbox_high", "High world hitbox", |c| &c.hitbox_high),
+    ("hitbox_low", "Low world hitbox", |c| &c.hitbox_low),
+    ("hitbox_f", "Walls hitbox", |c| &c.hitbox_f),
+    ("hitbox_character", "Character hitbox", |c| &c.hitbox_character),
+    ("hitbox_event", "Event hitbox", |c| &c.hitbox_event),
+    ("poise_view", "Poise View", |c| &c.poise_view),
+    ("sound_view", "Sound View", |c| &c.sound_view),
+    ("all_targeting_view", "Targeting View", |c| &c.all_targeting_view),
+    ("field_area_direction", "Direction HUD", |c| &c.field_area_direction),
+    ("field_area_altimeter", "Altimeter HUD", |c| &c.field_area_altimeter),
+    ("field_area_compass", "Compass HUD", |c| &c.field_area_compass),
+    // ("show_map", "Show/hide map", |c| &c.show_map),
+    ("show_chr", "Show/hide character", |c| &c.show_chr),
+    ("show_all_map_layers", "Show all map layers", |c| &c.show_all_map_layers),
+    ("show_all_graces", "Show all graces", |c| &c.show_all_graces),
+];
 
 impl TryFrom<String> for FlagSpec {
     type Error = String;
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
-        macro_rules! flag_spec {
-            ($x:expr, [ $( ($flag_name:ident, $flag_label:expr), )* ]) => {
-                match $x {
-                    $(stringify!($flag_name) => Ok(FlagSpec::new($flag_label, |c| &c.$flag_name)),)*
-                    e => Err(format!("\"{}\" is not a valid flag specifier", e)),
-                }
-            }
-        }
-        flag_spec!(value.as_str(), [
-            (one_shot, "One shot"),
-            (no_damage, "All no damage"),
-            (no_dead, "No death"),
-            (no_hit, "No hit"),
-            (no_goods_consume, "Inf Consumables"),
-            (no_stamina_consume, "Inf Stamina"),
-            (no_fp_consume, "Inf Focus"),
-            (no_ashes_of_war_fp_consume, "Inf Focus (AoW)"),
-            (no_arrows_consume, "Inf arrows"),
-            (no_attack, "No attack"),
-            (no_move, "No move"),
-            (no_update_ai, "No update AI"),
-            (no_trigger_event, "No trigger events"),
-            (runearc, "Rune Arc"),
-            (gravity, "No Gravity"),
-            (torrent_gravity, "No Gravity (Torrent)"),
-            (collision, "No Collision"),
-            (torrent_collision, "No Collision (Torrent)"),
-            (action_freeze, "Action freeze"),
-            (display_stable_pos, "Show stable pos"),
-            (weapon_hitbox1, "Weapon hitbox #1"),
-            (weapon_hitbox2, "Weapon hitbox #2"),
-            (weapon_hitbox3, "Weapon hitbox #3"),
-            (hitbox_high, "High world hitbox"),
-            (hitbox_low, "Low world hitbox"),
-            (hitbox_f, "Walls hitbox"),
-            (hitbox_character, "Character hitbox"),
-            (hitbox_event, "Event hitbox"),
-            (poise_view, "Poise View"),
-            (sound_view, "Sound View"),
-            (all_targeting_view, "Targeting View"),
-            (field_area_direction, "Direction HUD"),
-            (field_area_altimeter, "Altimeter HUD"),
-            (field_area_compass, "Compass HUD"),
-            // (show_map, "Show/hide map"),
-            (show_chr, "Show/hide character"),
-            (show_all_map_layers, "Show all map layers"),
-            (show_all_graces, "Show all graces"),
-        ])
+        FLAGS
+            .iter()
+            .find(|(id, ..)| *id == value)
+            .map(|&(_, label, getter)| FlagSpec::new(label, getter))
+            .ok_or_else(|| format!("\"{value}\" is not a valid flag specifier"))
     }
 }
 
@@ -515,6 +447,73 @@ impl TryFrom<String> for MultiFlagSpec {
             e => Err(format!("\"{e}\" is not a valid multiflag specifier")),
         }
     }
+}
+
+impl ConfigSchema for Config {
+    type Config = Config;
+
+    const SETTINGS: Kind = Kind {
+        name: "Settings",
+        fields: &[
+            ("log_level", Field::Choice(&["DEBUG", "TRACE", "INFO", "WARN", "ERROR", "OFF"])),
+            ("display", Field::Key),
+            ("hide", Field::OptKey),
+            ("dxgi_debug", Field::Bool(false)),
+            ("show_console", Field::Bool(false)),
+            ("disable_update_prompt", Field::Bool(false)),
+            ("radial_menu_open", Field::OptCombo),
+            ("indicators", Field::Indicators),
+        ],
+    };
+    #[rustfmt::skip]
+    const WIDGETS: &'static [Kind] = &[
+        Kind { name: "Flag", fields: &[("flag", Field::Flag), ("hotkey", Field::OptKey)] },
+        Kind { name: "Multi flag", fields: &[("flags", Field::Flags), ("label", Field::Text("Multi flag")), ("hotkey", Field::OptKey)] },
+        Kind { name: "Label", fields: &[("label", Field::Text(""))] },
+        Kind { name: "Group", fields: &[("group", Field::Text("Group")), ("commands", Field::Widgets)] },
+        Kind { name: "Savefile manager", fields: &[("savefile_manager", Field::KeyOrTrue)] },
+        Kind { name: "Item spawner", fields: &[("item_spawner", Field::KeyOrTrue)] },
+        Kind { name: "Character stats", fields: &[("character_stats", Field::KeyOrTrue)] },
+        Kind { name: "Position", fields: &[("position", Field::KeyOrTrue), ("save", Field::OptKey)] },
+        Kind { name: "Nudge position", fields: &[("nudge", Field::Float(1.)), ("nudge_up", Field::OptKey), ("nudge_down", Field::OptKey)] },
+        Kind { name: "Cycle speed", fields: &[("cycle_speed", Field::Floats(&[0.5, 1., 2.])), ("hotkey", Field::OptKey)] },
+        Kind { name: "Cycle color", fields: &[("cycle_color", Field::Ints(&[0, 1, 2, 3])), ("hotkey", Field::OptKey)] },
+        Kind { name: "Runes", fields: &[("runes", Field::Int(10000)), ("hotkey", Field::OptKey)] },
+        Kind { name: "Quitout", fields: &[("quitout", Field::KeyOrTrue)] },
+        Kind { name: "Target", fields: &[("target", Field::KeyOrTrue)] },
+        Kind { name: "Warp", fields: &[("warp", Field::Bool(true))] },
+        Kind { name: "Input viewer", fields: &[("input_viewer", Field::KeyOrTrue), ("seconds", Field::Int(5))] },
+    ];
+
+    /// Also lists the specifiers that other commands accept under the `flag`
+    /// key, so that the editor offers everything the parser does.
+    fn flags() -> impl Iterator<Item = (&'static str, &'static str)> {
+        FLAGS
+            .iter()
+            .map(|&(id, label, _)| (id, label))
+            .chain([("show_map", "Show/hide map"), ("deathcam", "Deathcam")])
+    }
+
+    fn indicators() -> impl Iterator<Item = (&'static str, bool)> {
+        INDICATORS.iter().map(|&(id, _, enabled)| (id, enabled))
+    }
+
+    fn parse(content: &str) -> Result<Config, String> {
+        Config::parse(content)
+    }
+
+    fn show_cursor(show: bool) {
+        POINTERS.cursor_show.set(show);
+    }
+}
+
+/// Path of the configuration file, next to the DLL.
+pub(crate) fn config_path() -> Option<PathBuf> {
+    get_dll_path().map(|mut path| {
+        path.pop();
+        path.push("jdsd_er_practice_tool.toml");
+        path
+    })
 }
 
 #[cfg(test)]
