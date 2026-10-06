@@ -4,11 +4,11 @@ use practice_tool_core::widgets::store_value::{ReadWrite, StoreValue};
 use practice_tool_core::widgets::Widget;
 
 struct Quitout {
-    ptr: PointerChain<u8>,
+    ptr: &'static PointerChain<u8>,
 }
 
 impl Quitout {
-    fn new(ptr: PointerChain<u8>) -> Self {
+    fn new(ptr: &'static PointerChain<u8>) -> Self {
         Self { ptr }
     }
 }
@@ -27,6 +27,6 @@ impl ReadWrite for Quitout {
     }
 }
 
-pub(crate) fn quitout(ptr: PointerChain<u8>, key: Option<Key>) -> Box<dyn Widget> {
+pub(crate) fn quitout(ptr: &'static PointerChain<u8>, key: Option<Key>) -> Box<dyn Widget> {
     Box::new(StoreValue::new(Quitout::new(ptr), key))
 }

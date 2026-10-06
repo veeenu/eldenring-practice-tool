@@ -161,7 +161,7 @@ pub(crate) struct ItemSpawner<'a> {
     map_item_man: usize,
     hotkey_load: Option<Key>,
     hotkey_close: Key,
-    sentinel: Bitflag<u8>,
+    sentinel: &'static Bitflag<u8>,
 
     label_load: String,
     label_close: String,
@@ -180,7 +180,7 @@ impl ItemSpawner<'_> {
     pub(crate) fn new(
         func_ptr: usize,
         map_item_man: usize,
-        sentinel: Bitflag<u8>,
+        sentinel: &'static Bitflag<u8>,
         hotkey_load: Option<Key>,
         hotkey_close: Key,
     ) -> Self {

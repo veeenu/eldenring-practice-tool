@@ -1,7 +1,6 @@
-#![allow(clippy::new_without_default)]
-
 use std::fmt::Display;
 
+use once_cell::sync::Lazy;
 use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 
 use crate::memedit::*;
@@ -64,7 +63,7 @@ pub struct Pointers {
     pub stable_position: Position,
     pub chunk_position: Position,
     pub torrent_chunk_position: Position,
-    pub animation_speed: PointerChain<f32>,
+    pub animation_speed: SpeedTarget,
     pub torrent_animation_speed: SpeedTarget,
 
     // CSLuaEventManager
@@ -108,7 +107,7 @@ pub struct Pointers {
 }
 
 /// A fixed or dynamically resolved animation-speed field.
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub enum SpeedTarget {
     Static(PointerChain<f32>),
     DynamicTorrent(DynamicTorrentSpeed),
@@ -145,7 +144,7 @@ impl SpeedTarget {
 
 /// Resolves the active Torrent from fixed pointer chains and a dynamic group
 /// lookup.
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct DynamicTorrentSpeed {
     world_chr_man: usize,
     player_group_id: PointerChain<u8>,
@@ -215,7 +214,7 @@ impl DynamicTorrentSpeed {
 //
 
 /// Encodes the position vector and two rotation angles.
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct Position {
     pub x: PointerChain<f32>,
     pub y: PointerChain<f32>,
@@ -312,8 +311,13 @@ impl Display for CharacterBlessings {
     }
 }
 
+/// The pointer chains for the running game version. They only hold addresses,
+/// so one instance serves the whole module. Must not be forced before the
+/// game version has been checked.
+pub static POINTERS: Lazy<Pointers> = Lazy::new(Pointers::new);
+
 impl Pointers {
-    pub fn new() -> Self {
+    fn new() -> Self {
         let version = version::get_version();
         use Version::*;
 
@@ -586,7 +590,13 @@ impl Pointers {
                     map_id_offset
                 )),
             },
-            animation_speed: pointer_chain!(world_chr_man, player_ins, 0x190, 0x28, 0x17C8),
+            animation_speed: SpeedTarget::Static(pointer_chain!(
+                world_chr_man,
+                player_ins,
+                0x190,
+                0x28,
+                0x17C8
+            )),
             torrent_animation_speed: SpeedTarget::DynamicTorrent(DynamicTorrentSpeed::new(
                 world_chr_man,
                 torrent_player_group_id,
