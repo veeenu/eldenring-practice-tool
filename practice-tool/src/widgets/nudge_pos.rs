@@ -6,9 +6,9 @@ use practice_tool_core::widgets::Widget;
 use crate::widgets::position::SavePosition;
 
 pub(crate) fn nudge_position(
-    global_position: Position,
-    chunk_position: Position,
-    torrent_chunk_position: Position,
+    global_position: &'static Position,
+    chunk_position: &'static Position,
+    torrent_chunk_position: &'static Position,
     nudge: f32,
     key_nudge_up: Option<Key>,
     key_nudge_down: Option<Key>,

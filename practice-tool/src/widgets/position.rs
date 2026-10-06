@@ -7,9 +7,9 @@ use practice_tool_core::widgets::position::{Position, PositionStorage};
 use practice_tool_core::widgets::Widget;
 
 pub(super) struct SavePosition {
-    global_position: ErPosition,
-    chunk_position: ErPosition,
-    torrent_chunk_position: ErPosition,
+    global_position: &'static ErPosition,
+    chunk_position: &'static ErPosition,
+    torrent_chunk_position: &'static ErPosition,
 
     label_current: String,
     label_stored: String,
@@ -22,9 +22,9 @@ pub(super) struct SavePosition {
 
 impl SavePosition {
     pub(super) fn new(
-        global_position: ErPosition,
-        chunk_position: ErPosition,
-        torrent_chunk_position: ErPosition,
+        global_position: &'static ErPosition,
+        chunk_position: &'static ErPosition,
+        torrent_chunk_position: &'static ErPosition,
         nudge: f32,
     ) -> Self {
         Self {
@@ -135,9 +135,9 @@ impl NudgePositionStorage for SavePosition {
 }
 
 pub(crate) fn save_position(
-    global_position: ErPosition,
-    chunk_position: ErPosition,
-    torrent_chunk_position: ErPosition,
+    global_position: &'static ErPosition,
+    chunk_position: &'static ErPosition,
+    torrent_chunk_position: &'static ErPosition,
     key_load: Option<Key>,
     key_save: Option<Key>,
 ) -> Box<dyn Widget> {

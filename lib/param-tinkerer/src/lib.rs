@@ -48,7 +48,6 @@ struct ParamTinkerer {
     shown: bool,
     selected_param: usize,
     selected_param_id: usize,
-    pointers: Pointers,
 }
 
 impl ParamTinkerer {
@@ -106,12 +105,7 @@ impl ParamTinkerer {
             },
         }
 
-        ParamTinkerer {
-            shown: true,
-            selected_param: 0,
-            selected_param_id: 0,
-            pointers: Pointers::new(),
-        }
+        ParamTinkerer { shown: true, selected_param: 0, selected_param_id: 0 }
     }
 }
 
@@ -120,7 +114,7 @@ impl ImguiRenderLoop for ParamTinkerer {
         if ui.is_key_index_released(0x50) {
             // P key
             self.shown = !self.shown;
-            self.pointers.cursor_show.set(self.shown);
+            POINTERS.cursor_show.set(self.shown);
         }
 
         if !self.shown {

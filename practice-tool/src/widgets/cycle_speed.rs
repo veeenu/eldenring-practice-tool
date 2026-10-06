@@ -8,7 +8,7 @@ use practice_tool_core::widgets::Widget;
 
 #[derive(Debug)]
 struct CycleSpeed {
-    ptr: [SpeedTarget; 2],
+    ptr: [&'static SpeedTarget; 2],
     values: Vec<f32>,
     current: Option<f32>,
     desired: Option<f32>,
@@ -16,7 +16,7 @@ struct CycleSpeed {
 }
 
 impl CycleSpeed {
-    fn new(values: &[f32], ptr: [SpeedTarget; 2]) -> Self {
+    fn new(values: &[f32], ptr: [&'static SpeedTarget; 2]) -> Self {
         let mut values = values.to_vec();
         values.sort_by(|a, b| a.partial_cmp(b).unwrap_or(Ordering::Equal));
         CycleSpeed { ptr, values, current: None, desired: None, label: String::new() }
@@ -102,7 +102,7 @@ impl ReadWrite for CycleSpeed {
 
 pub(crate) fn cycle_speed(
     values: &[f32],
-    ptr: [SpeedTarget; 2],
+    ptr: [&'static SpeedTarget; 2],
     key: Option<Key>,
 ) -> Box<dyn Widget> {
     Box::new(StoreValue::new(CycleSpeed::new(values, ptr), key))

@@ -8,14 +8,14 @@ use practice_tool_core::widgets::Widget;
 
 #[derive(Debug)]
 struct CycleColor {
-    ptr: PointerChain<i32>,
+    ptr: &'static PointerChain<i32>,
     values: Vec<i32>,
     current: Option<i32>,
     label: String,
 }
 
 impl CycleColor {
-    fn new(values: &[i32], ptr: PointerChain<i32>) -> Self {
+    fn new(values: &[i32], ptr: &'static PointerChain<i32>) -> Self {
         let mut values = values.to_vec();
         values.sort_by(|a, b| a.partial_cmp(b).unwrap_or(Ordering::Equal));
         CycleColor { ptr, values, current: None, label: String::new() }
@@ -52,7 +52,7 @@ impl ReadWrite for CycleColor {
 
 pub(crate) fn cycle_color(
     values: &[i32],
-    ptr: PointerChain<i32>,
+    ptr: &'static PointerChain<i32>,
     key: Option<Key>,
 ) -> Box<dyn Widget> {
     Box::new(StoreValue::new(CycleColor::new(values, ptr), key))
