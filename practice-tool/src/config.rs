@@ -5,6 +5,7 @@ use hudhook::tracing::metadata::LevelFilter;
 use libeldenring::prelude::*;
 use practice_tool_core::controller::ControllerCombination;
 use practice_tool_core::key::Key;
+use practice_tool_core::widgets::input_viewer::InputViewer;
 use practice_tool_core::widgets::Widget;
 use practice_tool_memedit::widgets::{flag_widget, multi_flag};
 use serde::Deserialize;
@@ -220,6 +221,12 @@ enum CfgCommand {
         #[serde(rename = "target")]
         hotkey: PlaceholderOption<Key>,
     },
+    InputViewer {
+        #[serde(rename = "input_viewer")]
+        hotkey: PlaceholderOption<Key>,
+        #[serde(default = "default_input_viewer_seconds")]
+        seconds: usize,
+    },
     Warp {
         #[serde(rename = "warp")]
         _warp: bool,
@@ -315,6 +322,9 @@ impl CfgCommand {
                 &chains.chunk_position,
                 hotkey.into_option(),
             )),
+            CfgCommand::InputViewer { hotkey, seconds } => {
+                Box::new(InputViewer::new(seconds, hotkey.into_option()))
+            },
             CfgCommand::Quitout { hotkey } => quitout(&chains.quitout, hotkey.into_option()),
             CfgCommand::Group { label, commands } => group(
                 label.as_str(),
@@ -325,6 +335,10 @@ impl CfgCommand {
 
         Some(widget)
     }
+}
+
+fn default_input_viewer_seconds() -> usize {
+    5
 }
 
 #[derive(Deserialize, Debug, Clone)]
