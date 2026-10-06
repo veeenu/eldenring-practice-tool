@@ -36,6 +36,7 @@ once_cell = "1.19.0"
 parking_lot = "0.12.1"
 hudhook = { version = "0.9.3", features = ["dx12", "inject"], default-features = false }
 practice-tool-core = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
+practice-tool-core-windows = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
 practice-tool-tasks = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
 
 [workspace.dependencies.windows]
@@ -56,5 +57,6 @@ features = [
 # hudhook = { path = "../hudhook" }
 
 [patch.'https://github.com/veeenu/practice-tool-core']
-practice-tool-core = { path = "../practice-tool-core" }
-practice-tool-tasks = { path = "../practice-tool-core/tasks" }
+# practice-tool-core = { path = "../practice-tool-core" }
+# practice-tool-tasks = { path = "../practice-tool-core/tasks" }
+# practice-tool-core-windows = { path = "../practice-tool-core/windows" }

@@ -44,6 +44,7 @@ once_cell.workspace = true
 parking_lot.workspace = true
 windows.workspace = true
 practice-tool-core.workspace = true
+practice-tool-core-windows.workspace = true
 
 [build-dependencies]
 embed-resource = "2.4.3"

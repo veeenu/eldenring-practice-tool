@@ -1,5 +1,5 @@
 use std::fmt::Write;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::Ordering;
 use std::sync::Mutex;
 use std::thread;
 use std::time::{Duration, Instant};
@@ -13,6 +13,7 @@ use libeldenring::prelude::*;
 use libeldenring::version;
 use pkg_version::*;
 use practice_tool_core::crossbeam_channel::{self, Receiver, Sender};
+use practice_tool_core::gamepad::{BLOCK_XINPUT, GAMEPAD_STATE};
 use practice_tool_core::profiler::{Phase, Profiler};
 use practice_tool_core::widgets::radial_menu::radial_menu;
 use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
@@ -22,13 +23,11 @@ use windows::Win32::UI::Input::XboxController::{XINPUT_GAMEPAD_A, XINPUT_GAMEPAD
 
 use crate::config::{Config, IndicatorType, RadialMenu, Settings};
 use crate::update::Update;
-use crate::{util, XINPUTGETSTATE};
+use crate::util;
 
 const MAJOR: usize = pkg_version_major!();
 const MINOR: usize = pkg_version_minor!();
 const PATCH: usize = pkg_version_patch!();
-
-pub(crate) static BLOCK_XINPUT: AtomicBool = AtomicBool::new(false);
 
 struct FontIDs {
     small: FontId,
@@ -712,7 +711,7 @@ impl PracticeTool {
         let pressed_b_before = self.gamepad_state.Gamepad.wButtons.contains(XINPUT_GAMEPAD_B);
 
         let [_, h] = ui.io().display_size;
-        unsafe { (XINPUTGETSTATE)(0, &mut self.gamepad_state) };
+        self.gamepad_state = GAMEPAD_STATE.load();
         self.profiler.mark(Phase::XInput);
 
         let pressed_a_after = self.gamepad_state.Gamepad.wButtons.contains(XINPUT_GAMEPAD_A);
