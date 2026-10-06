@@ -96,7 +96,7 @@ fn uninstall() -> Result<()> {
     FileInstall::new()
         .with_file(target_path("release").join("libjdsd_er_practice_tool.dll"), "dinput8.dll")
         .with_file(project_root().join("jdsd_er_practice_tool.toml"), "jdsd_er_practice_tool.toml")
-        .uninstall("DSIII_PATH")?;
+        .uninstall("ER_PATH")?;
 
     Ok(())
 }
