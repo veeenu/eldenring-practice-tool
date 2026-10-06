@@ -16,6 +16,10 @@ path = "src/bin/install.rs"
 crate-type = ["cdylib", "rlib"]
 name = "libjdsd_er_practice_tool"
 
+[features]
+# Record per-frame render loop timings to jdsd_er_practice_tool.profile.csv
+profiling = ["practice-tool-core/profiling"]
+
 [dependencies]
 anyhow = "1.0.79"
 const_format = "0.2.23"

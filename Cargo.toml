@@ -17,6 +17,13 @@ authors = ["Andrea Venuta <venutawebdesign@gmail.com>"]
 strip = "symbols"
 lto = true
 
+# Release codegen plus full debug info, so profiling builds match what ships
+# but can be symbolized. Outputs to its own directory, separate from release.
+[profile.profiling]
+inherits = "release"
+debug = 2
+strip = "none"
+
 [profile.fastdev]
 inherits = "release"
 debug = true
@@ -49,5 +56,5 @@ features = [
 # hudhook = { path = "../hudhook" }
 
 [patch.'https://github.com/veeenu/practice-tool-core']
-# practice-tool-core = { path = "../practice-tool-core" }
-# practice-tool-tasks = { path = "../practice-tool-core/tasks" }
+practice-tool-core = { path = "../practice-tool-core" }
+practice-tool-tasks = { path = "../practice-tool-core/tasks" }
