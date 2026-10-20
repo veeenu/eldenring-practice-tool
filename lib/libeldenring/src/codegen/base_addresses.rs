@@ -120,6 +120,7 @@ pub enum Version {
     V2_06_2,
     V2_07_0,
     V2_07_1,
+    V2_07_2,
 }
 
 impl TryFrom<(u32, u32, u32)> for Version {
@@ -155,6 +156,7 @@ impl TryFrom<(u32, u32, u32)> for Version {
             (2, 6, 2) => Ok(Version::V2_06_2),
             (2, 7, 0) => Ok(Version::V2_07_0),
             (2, 7, 1) => Ok(Version::V2_07_1),
+            (2, 7, 2) => Ok(Version::V2_07_2),
             (maj, min, patch) => {
                 log::error!("Unrecognized version {maj}.{min:02}.{patch}");
                 Err(())
@@ -194,6 +196,7 @@ impl From<Version> for (u32, u32, u32) {
             Version::V2_06_2 => (2, 6, 2),
             Version::V2_07_0 => (2, 7, 0),
             Version::V2_07_1 => (2, 7, 1),
+            Version::V2_07_2 => (2, 7, 2),
         }
     }
 }
@@ -229,6 +232,7 @@ impl From<Version> for BaseAddresses {
             Version::V2_06_2 => BASE_ADDRESSES_2_06_2,
             Version::V2_07_0 => BASE_ADDRESSES_2_07_0,
             Version::V2_07_1 => BASE_ADDRESSES_2_07_1,
+            Version::V2_07_2 => BASE_ADDRESSES_2_07_2,
         }
     }
 }
@@ -1407,4 +1411,46 @@ pub const BASE_ADDRESSES_2_07_1: BaseAddresses = BaseAddresses {
     font_patch: 0x268fc20,
     sound_draw_patch: 0x33e486,
     targeting_debug_draw: 0x3d662c9,
+};
+
+pub const BASE_ADDRESSES_2_07_2: BaseAddresses = BaseAddresses {
+    bullet_man: 0x3d697c8,
+    chr_dbg_flags: 0x3d6d22f,
+    csfd4_virtual_memory_flag: 0x3d6f4d8,
+    cs_flipper: 0x4590b78,
+    cs_lua_event_manager: 0x3d6eed8,
+    cs_menu_man: 0x8ba7c834,
+    cs_menu_man_imp: 0x3d72840,
+    cs_net_man: 0x3d61ee0,
+    cs_regulation_manager: 0x3d8dcf8,
+    cs_session_manager: 0x3d81560,
+    damage_ctrl: 0x3d6d408,
+    field_area: 0x3d70268,
+    game_data_man: 0x3d64fb8,
+    game_man: 0x3d709a8,
+    global_pos: 0x3d6d018,
+    group_mask: 0x3b3ad17,
+    hit_ins: 0x3d71170,
+    hit_ins_hitbox_offset: 0x3d7117c,
+    map_item_man: 0x3d6eae0,
+    msg_repository: 0x3d84588,
+    solo_param_repository: 0x3d88f78,
+    world_chr_man: 0x3d6d018,
+    world_chr_man_dbg: 0x3d6d228,
+    world_chr_man_imp: 0x3d6d018,
+    func_item_spawn: 0x55bea0,
+    func_item_inject: 0x5618b0,
+    func_remove_intro_screens: 0xb0df2d,
+    func_dbg_action_force: 0x1f3832c,
+    lua_warp: 0x59af0e,
+    current_target: 0x71857e,
+    func_check_graces: 0x3d74050,
+    base_fps: 0x3d7d0f0,
+    base_anim: 0x3b19e30,
+    dbg_event_man_off: 0x3d6f088,
+    event_patch1: 0xe56ae0,
+    event_patch2: 0xe56ac0,
+    font_patch: 0x2691350,
+    sound_draw_patch: 0x33e486,
+    targeting_debug_draw: 0x3d692e9,
 };
