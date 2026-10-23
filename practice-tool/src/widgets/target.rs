@@ -8,7 +8,7 @@ use libeldenring::prelude::Position as ErPosition;
 use practice_tool_core::key::Key;
 use practice_tool_core::widgets::Widget;
 use windows::Win32::System::Memory::{
-    VirtualAlloc, MEM_COMMIT, MEM_RESERVE, PAGE_EXECUTE_READWRITE,
+    VirtualAlloc, VirtualFree, MEM_COMMIT, MEM_RELEASE, MEM_RESERVE, PAGE_EXECUTE_READWRITE,
 };
 
 #[derive(Debug, Default)]
@@ -212,6 +212,19 @@ fn u64_to_array(val: u64) -> [u8; 8] {
     }
 
     buf
+}
+
+// The patched game code jumps into the allocation and writes into
+// `entity_addr`, so both must be unhooked before they're freed.
+impl Drop for Target {
+    fn drop(&mut self) {
+        if self.is_enabled {
+            self.disable();
+        }
+        if let Some(alloc_addr) = self.alloc_addr.eval() {
+            unsafe { VirtualFree(alloc_addr as _, 0, MEM_RELEASE) }.ok();
+        }
+    }
 }
 
 impl Widget for Target {
