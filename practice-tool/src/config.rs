@@ -1,6 +1,7 @@
 use std::path::PathBuf;
 
 use hudhook::tracing::error;
+use hudhook::util::get_dll_path;
 use libeldenring::prelude::*;
 use practice_tool_core::config::{parse_toml, LevelFilterSerde, PlaceholderOption, RadialMenu};
 use practice_tool_core::config_editor::{ConfigSchema, Field, Kind};
@@ -11,7 +12,6 @@ use practice_tool_core::widgets::Widget;
 use practice_tool_memedit::widgets::{flag_widget, multi_flag};
 use serde::Deserialize;
 
-use crate::util::get_dll_path;
 use crate::widgets::character_stats::character_stats_edit;
 use crate::widgets::cycle_color::cycle_color;
 use crate::widgets::cycle_speed::cycle_speed;
@@ -304,25 +304,6 @@ impl Config {
     }
 }
 
-impl Default for Config {
-    fn default() -> Self {
-        Config {
-            settings: Settings {
-                log_level: LevelFilterSerde::try_from("DEBUG".to_string()).unwrap(),
-                display: "0".parse().unwrap(),
-                hide: "rshift+0".parse().ok(),
-                dxgi_debug: false,
-                show_console: false,
-                indicators: Indicator::default_set(),
-                disable_update_prompt: false,
-                radial_menu_open: ControllerCombination::try_from("l3+r3").ok(),
-            },
-            radial_menu: Vec::new(),
-            commands: Vec::new(),
-        }
-    }
-}
-
 type FlagGetter = fn(&'static Pointers) -> &'static dyn FlagToggler;
 
 #[derive(Deserialize)]
@@ -507,6 +488,9 @@ impl ConfigSchema for Config {
     }
 }
 
+/// The bundled configuration, written next to the DLL when the file is missing.
+pub(crate) const DEFAULT_CONFIG: &str = include_str!("../../jdsd_er_practice_tool.toml");
+
 /// Path of the configuration file, next to the DLL.
 pub(crate) fn config_path() -> Option<PathBuf> {
     get_dll_path().map(|mut path| {
@@ -518,15 +502,12 @@ pub(crate) fn config_path() -> Option<PathBuf> {
 
 #[cfg(test)]
 mod tests {
-    use super::Config;
+    use super::{Config, DEFAULT_CONFIG};
 
     #[test]
     fn test_parse_ok() {
-        println!(
-            "{:?}",
-            toml::from_str::<toml::Value>(include_str!("../../jdsd_er_practice_tool.toml"))
-        );
-        println!("{:?}", Config::parse(include_str!("../../jdsd_er_practice_tool.toml")));
+        println!("{:?}", toml::from_str::<toml::Value>(DEFAULT_CONFIG));
+        println!("{:?}", Config::parse(DEFAULT_CONFIG));
     }
 
     #[test]

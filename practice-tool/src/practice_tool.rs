@@ -1,12 +1,13 @@
 use std::fmt::Write;
 use std::sync::atomic::Ordering;
-use std::sync::Mutex;
+use std::sync::{Mutex, OnceLock};
 use std::thread;
 use std::time::{Duration, Instant};
 
 use const_format::formatcp;
 use hudhook::tracing::metadata::LevelFilter;
 use hudhook::tracing::*;
+use hudhook::util::get_dll_path;
 use hudhook::{ImguiRenderLoop, RenderContext};
 use imgui::*;
 use libeldenring::prelude::*;
@@ -18,19 +19,20 @@ use practice_tool_core::crossbeam_channel::{self, Receiver, Sender};
 use practice_tool_core::gamepad::{BLOCK_XINPUT, GAMEPAD_STATE};
 use practice_tool_core::icons::{Icon, Icons};
 use practice_tool_core::profiler::{Phase, Profiler};
+use practice_tool_core::update::Update;
 use practice_tool_core::widgets::radial_menu::radial_menu;
 use practice_tool_core::widgets::{scaling_factor, Widget, BUTTON_HEIGHT, BUTTON_WIDTH};
 use sys::ImVec2;
 use tracing_subscriber::prelude::*;
 use windows::Win32::UI::Input::XboxController::{XINPUT_GAMEPAD_A, XINPUT_GAMEPAD_B, XINPUT_STATE};
 
-use crate::config::{config_path, Config, IndicatorType, Settings};
-use crate::update::Update;
-use crate::util;
+use crate::config::{config_path, Config, IndicatorType, Settings, DEFAULT_CONFIG};
 
 const MAJOR: usize = pkg_version_major!();
 const MINOR: usize = pkg_version_minor!();
 const PATCH: usize = pkg_version_patch!();
+
+static UPDATE: OnceLock<Update> = OnceLock::new();
 
 struct FontIDs {
     small: FontId,
@@ -71,8 +73,7 @@ pub(crate) struct PracticeTool {
     fonts: Option<FontIDs>,
     icons: Icons,
     config_editor: ConfigEditor<Config>,
-    config_err: Option<String>,
-    update_available: Update,
+    config_msg: Option<String>,
 
     position_bufs: [String; 4],
     position_prev: [f32; 3],
@@ -104,36 +105,51 @@ impl PracticeTool {
         hudhook::alloc_console().ok();
         log_panics::init();
 
-        fn load_config() -> Result<Config, String> {
-            let config_path =
-                config_path().ok_or_else(|| "Couldn't find config file".to_string())?;
+        /// Loads the config file, creating it if missing. Returns a message for
+        /// the user when something about it needs their attention.
+        fn load_config() -> (Config, Option<String>) {
+            let default = || Config::parse(DEFAULT_CONFIG).expect("Bundled config is valid");
 
-            if !config_path.exists() {
-                std::fs::write(&config_path, include_str!("../../jdsd_er_practice_tool.toml"))
-                    .map_err(|e| format!("Couldn't write default config file: {e}"))?;
+            let Some(path) = config_path() else {
+                let msg =
+                    "Couldn't locate the configuration file. Using the default configuration.";
+                return (default(), Some(msg.to_string()));
+            };
+
+            if !path.exists() {
+                let msg = match std::fs::write(&path, DEFAULT_CONFIG) {
+                    Ok(()) => format!(
+                        "Configuration file not found. A default one has been created at {}.",
+                        path.display()
+                    ),
+                    Err(e) => format!(
+                        "Configuration file not found, and a default one couldn't be created at \
+                         {}: {e}. Using the default configuration.",
+                        path.display()
+                    ),
+                };
+                return (default(), Some(msg));
             }
 
-            let config_content = std::fs::read_to_string(config_path)
-                .map_err(|e| format!("Couldn't read config file: {e}"))?;
-            println!("{config_content}");
-            Config::parse(&config_content)
+            match std::fs::read_to_string(&path)
+                .map_err(|e| format!("Couldn't read config file: {e}"))
+                .and_then(|content| Config::parse(&content))
+            {
+                Ok(config) => (config, None),
+                Err(e) => (
+                    default(),
+                    Some(format!(
+                        "{e}\nFix the configuration file at {}, or delete it to have a default \
+                         one created, then restart the game.",
+                        path.display()
+                    )),
+                ),
+            }
         }
 
-        let (config, config_err) = match load_config() {
-            Ok(config) => (config, None),
-            Err(e) => (
-                Config::default(),
-                Some({
-                    error!("{}", e);
-                    format!(
-                        "Configuration error, please review your jdsd_er_practice_tool.toml \
-                         file.\n\n{e}"
-                    )
-                }),
-            ),
-        };
+        let (config, config_msg) = load_config();
 
-        let log_file = util::get_dll_path()
+        let log_file = get_dll_path()
             .map(|mut path| {
                 path.pop();
                 path.push("jdsd_er_practice_tool.log");
@@ -172,6 +188,16 @@ impl PracticeTool {
             },
         }
 
+        if let Some(msg) = &config_msg {
+            info!("{msg}");
+        }
+
+        // Checked in the background, so that an unreachable network doesn't
+        // delay the overlay.
+        if !config.settings.disable_update_prompt {
+            thread::spawn(|| UPDATE.get_or_init(crate::check_update));
+        }
+
         if config.settings.dxgi_debug {
             hudhook::util::enable_debug_interface();
         }
@@ -206,9 +232,6 @@ impl PracticeTool {
             },
         );
 
-        let update_available =
-            if config.settings.disable_update_prompt { Update::UpToDate } else { Update::check() };
-
         let version_label = {
             let (maj, min, patch) = version::get_version().into();
             format!("Game Ver {maj}.{min:02}.{patch}")
@@ -227,7 +250,7 @@ impl PracticeTool {
             icons: Icons::default(),
             config_editor: ConfigEditor::new(config_path()),
             ui_state: UiState::Closed,
-            config_err,
+            config_msg,
             position_prev: Default::default(),
             position_bufs: Default::default(),
             position_change_buf: Default::default(),
@@ -239,7 +262,6 @@ impl PracticeTool {
             framecount_buf: Default::default(),
             cur_anim_buf: Default::default(),
             imgui_debug_buf: Default::default(),
-            update_available,
             radial_menu: Vec::new(),
             gamepad_state: Default::default(),
             gamepad_stick: Default::default(),
@@ -247,7 +269,7 @@ impl PracticeTool {
             press_queue: Vec::new(),
             release_queue: Vec::new(),
             profiler: Profiler::new(
-                util::get_dll_path()
+                get_dll_path()
                     .unwrap_or_default()
                     .with_file_name("jdsd_er_practice_tool.profile.csv"),
             ),
@@ -439,31 +461,21 @@ impl PracticeTool {
 
                 if let Some(config) = self.config_editor.render(ui, &self.icons) {
                     self.apply_config(config);
-                    self.config_err = None;
+                    self.config_msg = None;
                 }
 
-                match &self.update_available {
-                    Update::UpToDate => {},
-                    Update::Available { .. } => {
-                        ui.same_line();
+                let update_color = match UPDATE.get() {
+                    Some(Update::Available { .. }) => Some([0.1, 0.7, 0.1, 1.0]),
+                    Some(Update::Error(_)) => Some([1.0, 0.0, 0.0, 1.0]),
+                    Some(Update::UpToDate) | None => None,
+                };
 
-                        let green = [0.1, 0.7, 0.1, 1.0];
-                        let _token = ui.push_style_color(StyleColor::Button, green);
-
-                        if ui.small_button("Update") {
-                            ui.open_popup("##update");
-                        }
-                    },
-                    Update::Error(_) => {
-                        ui.same_line();
-
-                        let red = [1.0, 0.0, 0.0, 1.0];
-                        let _token = ui.push_style_color(StyleColor::Button, red);
-
-                        if ui.small_button("Update") {
-                            ui.open_popup("##update");
-                        }
-                    },
+                if let Some(color) = update_color {
+                    ui.same_line();
+                    let _token = ui.push_style_color(StyleColor::Button, color);
+                    if ui.small_button("Update") {
+                        ui.open_popup("##update");
+                    }
                 }
 
                 ui.modal_popup_config("##help_window")
@@ -511,22 +523,20 @@ impl PracticeTool {
                     .build(|| {
                         POINTERS.cursor_show.set(true);
 
-                        match &self.update_available {
-                            Update::UpToDate => {
-                                ui.close_current_popup();
-                            },
-                            Update::Available { url, notes } => {
+                        match UPDATE.get() {
+                            Some(Update::Available { url, notes }) => {
                                 ui.text(notes);
                                 if ui.button("Download") {
                                     open::that(url).ok();
                                 }
                                 ui.same_line();
                             },
-                            Update::Error(e) => {
-                                ui.text("Update error: could not check for updates.");
+                            Some(Update::Error(e)) => {
+                                ui.text("Could not check for updates.");
                                 ui.separator();
                                 ui.text(e);
                             },
+                            Some(Update::UpToDate) | None => ui.close_current_popup(),
                         }
 
                         if ui.button("Close") {
@@ -537,8 +547,8 @@ impl PracticeTool {
 
                 ui.new_line();
 
-                if let Some(e) = &self.config_err {
-                    ui.text_colored(ERROR_COLOR, e);
+                if let Some(msg) = &self.config_msg {
+                    ui.text_colored(ERROR_COLOR, msg);
                 }
 
                 self.profiler.mark(Phase::UiSetup);

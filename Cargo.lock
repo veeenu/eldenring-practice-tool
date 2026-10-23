@@ -314,13 +314,11 @@ dependencies = [
  "practice-tool-core-windows",
  "practice-tool-memedit",
  "regex",
- "semver",
  "serde",
  "serde_json",
  "textwrap-macros",
  "toml 0.5.11",
  "tracing-subscriber",
- "ureq",
  "windows",
 ]
 
@@ -690,6 +688,7 @@ dependencies = [
  "macro-param",
  "once_cell",
  "parking_lot",
+ "practice-tool-core-windows",
  "practice-tool-memedit",
  "serde",
  "serde_json",

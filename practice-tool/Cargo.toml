@@ -8,10 +8,6 @@ edition = "2021"
 name = "jdsd_er_practice_tool"
 path = "src/bin/jdsd_er_practice_tool.rs"
 
-[[bin]]
-name = "install"
-path = "src/bin/install.rs"
-
 [lib]
 crate-type = ["cdylib", "rlib"]
 name = "libjdsd_er_practice_tool"
@@ -27,12 +23,10 @@ log-panics = { version = "2.0.0", features = ["with-backtrace"] }
 open = "2.1.1"
 pkg-version = "1.0.0"
 regex = "1.5.5"
-semver = "1.0.7"
 serde = { version = "1.0.136", features = ["derive"] }
 serde_json = "1.0.79"
 textwrap-macros = "0.3.0"
 tracing-subscriber = "0.3.16"
-ureq = { version = "2.4.0", features = ["json"] }
 
 libeldenring = { path = "../lib/libeldenring" }
 

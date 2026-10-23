@@ -18,53 +18,47 @@ mod config;
 mod practice_tool;
 mod widgets;
 
-pub mod update;
 pub mod util;
 
 use std::ffi::c_void;
-use std::time::{Duration, Instant};
-use std::{mem, ptr, thread};
 
 use hudhook::hooks::dx12::ImguiDx12Hooks;
-use hudhook::tracing::error;
+use hudhook::tracing::{error, trace};
 use hudhook::{eject, Hudhook};
 use libeldenring::codegen::base_addresses::BaseAddresses;
 use libeldenring::version;
 use once_cell::sync::Lazy;
+use pkg_version::*;
 use practice_tool::PracticeTool;
+use practice_tool_core::update::{Update, Version};
+use practice_tool_core_windows::dinput8::{system_direct_input8_create, FDirectInput8Create};
+use practice_tool_core_windows::startup::{on_process_attach, Events};
 use practice_tool_core_windows::xinput::hook_xinput;
-use windows::core::{s, w, GUID, HRESULT, PCWSTR};
-use windows::Win32::Foundation::{HINSTANCE, MAX_PATH};
-use windows::Win32::System::LibraryLoader::{GetModuleHandleW, GetProcAddress, LoadLibraryW};
+use windows::core::{GUID, HRESULT};
+use windows::Win32::Foundation::HINSTANCE;
+use windows::Win32::System::LibraryLoader::GetModuleHandleW;
 use windows::Win32::System::Memory::{
     VirtualProtect, PAGE_EXECUTE_READWRITE, PAGE_PROTECTION_FLAGS,
 };
-use windows::Win32::System::SystemInformation::GetSystemDirectoryW;
 use windows::Win32::System::SystemServices::DLL_PROCESS_ATTACH;
-use windows::Win32::UI::Input::KeyboardAndMouse::{GetAsyncKeyState, VK_RSHIFT};
 
-type FDirectInput8Create = unsafe extern "system" fn(
-    hinst: HINSTANCE,
-    dwversion: u32,
-    riidltf: *const GUID,
-    ppvout: *mut *mut c_void,
-    punkouter: HINSTANCE,
-) -> HRESULT;
+/// Events coordinating the copies of the tool and its exe.
+pub fn events() -> Events {
+    Events::new("jdsd_er_practice_tool")
+}
 
-static DIRECTINPUT8CREATE: Lazy<FDirectInput8Create> = Lazy::new(|| unsafe {
-    let mut dinput8_path = [0u16; MAX_PATH as usize];
-    let count = GetSystemDirectoryW(Some(&mut dinput8_path)) as usize;
+/// Checks GitHub for a newer release of the tool.
+pub fn check_update() -> Update {
+    Update::check(
+        "veeenu/eldenring-practice-tool",
+        Version::new(pkg_version_major!(), pkg_version_minor!(), pkg_version_patch!()),
+    )
+}
 
-    // If count == 0, this will be fun
-    ptr::copy_nonoverlapping(w!("\\dinput8.dll").0, dinput8_path[count..].as_mut_ptr(), 12);
+static DIRECTINPUT8CREATE: Lazy<FDirectInput8Create> = Lazy::new(|| {
+    let directinput8create = system_direct_input8_create();
 
-    let dinput8 = LoadLibraryW(PCWSTR(dinput8_path.as_ptr())).unwrap();
-    let directinput8create = mem::transmute::<
-        Option<unsafe extern "system" fn() -> isize>,
-        FDirectInput8Create,
-    >(GetProcAddress(dinput8, s!("DirectInput8Create")));
-
-    apply_no_logo();
+    unsafe { apply_no_logo() };
 
     directinput8create
 });
@@ -149,42 +143,15 @@ fn start_practice_tool(hmodule: HINSTANCE) {
     }
 }
 
-fn await_rshift() -> bool {
-    let duration_threshold = Duration::from_secs(2);
-    let check_window = Duration::from_secs(10);
-    let poll_interval = Duration::from_millis(100);
-
-    let start_time = Instant::now();
-    let mut key_down_start: Option<Instant> = None;
-
-    while start_time.elapsed() < check_window {
-        let state = unsafe { GetAsyncKeyState(VK_RSHIFT.0 as i32) };
-        let key_down = state < 0;
-
-        match (key_down, key_down_start) {
-            (true, None) => {
-                key_down_start = Some(Instant::now());
-            },
-            (true, Some(start)) => {
-                if start.elapsed() >= duration_threshold {
-                    return true;
-                }
-            },
-            (false, _) => {
-                key_down_start = None;
-            },
-        }
-
-        thread::sleep(poll_interval);
-    }
-
-    false
-}
-
 #[no_mangle]
 #[allow(clippy::missing_safety_doc)]
-pub unsafe extern "system" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut c_void) -> bool {
+pub unsafe extern "system" fn DllMain(
+    hmodule: HINSTANCE,
+    reason: u32,
+    reserved: *mut c_void,
+) -> bool {
     if reason == DLL_PROCESS_ATTACH {
+        trace!("DllMain()");
         if version::check_version().is_err() {
             return false;
         }
@@ -194,23 +161,9 @@ pub unsafe extern "system" fn DllMain(hmodule: HINSTANCE, reason: u32, _: *mut c
             error!("{e}");
         }
 
-        let hmodule_addr = hmodule.0 as usize;
-        thread::spawn(move || {
-            let hmodule = HINSTANCE(hmodule_addr as *mut c_void);
-            apply_no_logo();
-
-            if util::get_dll_path()
-                .and_then(|path| {
-                    path.file_name().map(|s| s.to_string_lossy().to_lowercase() == "dinput8.dll")
-                })
-                .unwrap_or(false)
-            {
-                if await_rshift() {
-                    start_practice_tool(hmodule)
-                }
-            } else {
-                start_practice_tool(hmodule)
-            }
+        let hmodule_ptr = hmodule.0 as usize;
+        on_process_attach(events(), !reserved.is_null(), move || {
+            start_practice_tool(HINSTANCE(hmodule_ptr as *mut c_void))
         });
     }
 

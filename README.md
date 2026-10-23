@@ -44,22 +44,39 @@ The tool will automatically appear over the game. Press `0` to open and close it
 
 ### Installed
 
-- Extract all files from the zip archive. Anywhere will do.
+- Extract all files from the zip archive.
 - Locate your **ELDEN RING** installation (Steam → right click **ELDEN
   RING** → Manage → Browse Local Files).
-- Copy `jdsd_er_practice_tool.toml` and `jdsd_er_practice_tool.dll` in the folder you
-  just found. Rename `jdsd_er_practice_tool.dll` to `dinput8.dll`. 
+- Copy all the files to the folder you just found, the one that contains `eldenring.exe`.
 - Double-click `eldenring.exe` to start the game. **Never** start the game from Steam: the tool won't work.
-- During the startup, from now on, hold the right shift button for a few seconds until 
-  the tool appears on screen.
 
-If you don't want to load the tool, don't press right shift during startup!
+The tool is now installed. To load it, start the game, press the right shift button and
+keep it pressed for a few seconds until the tool appears on screen.
 
-If you want to uninstall the tool, remove `dinput8.dll` and `jdsd_er_practice_tool.toml`.
+If you don't do that, the tool won't load and the game will start normally. You can still load
+the tool later by double-clicking `jdsd_er_practice_tool.exe` in the game folder.
+
+If you play on multiple patches of the game, repeat this for each of their game folders.
+
+To **update** the tool, copy the files of the new version over the old ones.
+To **uninstall** it, delete `dinput8.dll` from the game folder.
+
+### Trying a new version
+
+The tool always loads the `dinput8.dll` that sits next to the `jdsd_er_practice_tool.exe` you
+double-click. To try a new version without touching your installed one, start the game without
+pressing right shift, then double-click the new version's `jdsd_er_practice_tool.exe`.
 
 ## Running the tool on Linux
 
 The tool fully supports Linux and should run on Steam Deck seamlessly.
+
+For both ways of running the tool, you **must** set the launch options of the game in Steam as
+follows:
+
+```sh
+WINEDLLOVERRIDES="dinput8=n,b" %command%
+```
 
 ### Standalone
 
@@ -71,11 +88,7 @@ protontricks-launch --appid 1245620 jdsd_er_practice_tool.exe
 
 ### Installed
 
-Follow the same instructions as above. Additionally, you have to set the launch options in Steam as follows:
-
-```sh
-WINEDLLOVERRIDES="dinput8=n,b" %command%
-```
+Follow the same instructions from the "Installed" section above.
 
 ## Help
 
