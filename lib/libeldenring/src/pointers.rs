@@ -453,6 +453,14 @@ impl Pointers {
             | V2_07_0 | V2_07_1 | V2_07_2 => 0x1cc90,
         };
 
+        let weapon_hitbox = match version {
+            V1_02_0 | V1_02_1 | V1_02_2 | V1_02_3 | V1_03_0 | V1_03_1 | V1_03_2 | V1_04_0
+            | V1_04_1 | V1_05_0 | V1_06_0 | V1_07_0 | V1_08_0 | V1_08_1 | V1_09_0 | V1_09_1
+            | V2_00_0 | V2_00_1 | V2_02_0 | V2_02_3 | V2_03_0 | V2_04_0 | V2_05_0 | V2_06_0
+            | V2_06_1 | V2_06_2 | V2_07_0 | V2_07_1 => 0xA0,
+            V2_07_2 => 0xA8,
+        };
+
         let torrent_player_group_id = pointer_chain!(world_chr_man, player_ins, 0x190, 0, 0x7F);
         let torrent_static_slot_speed =
             pointer_chain!(world_chr_man, torrent_enemy_ins, 0x18, 0, 0x190, 0x28, 0x17C8);
@@ -600,9 +608,9 @@ impl Pointers {
             field_area_direction: bitflag!(0b1; field_area + 0x9),
             field_area_altimeter: bitflag!(0b1; field_area + 0xA),
             field_area_compass: bitflag!(0b1; field_area + 0xB),
-            weapon_hitbox1: bitflag!(0b1; damage_ctrl, 0xA0),
-            weapon_hitbox2: bitflag!(0b1; damage_ctrl, 0xA1),
-            weapon_hitbox3: bitflag!(0b1; damage_ctrl, 0xA4),
+            weapon_hitbox1: bitflag!(0b1; damage_ctrl, weapon_hitbox),
+            weapon_hitbox2: bitflag!(0b1; damage_ctrl, weapon_hitbox + 0x1),
+            weapon_hitbox3: bitflag!(0b1; damage_ctrl, weapon_hitbox + 0x4),
             hitbox_high: bitflag!(0b1; hit_ins_hitbox_offset),
             hitbox_low: bitflag!(0b1; hit_ins_hitbox_offset + 0x1),
             hitbox_f: bitflag!(0b1; hit_ins_hitbox_offset + 0x4),
