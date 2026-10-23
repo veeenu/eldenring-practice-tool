@@ -14,11 +14,14 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use anyhow::{anyhow, Result};
+use anyhow::{anyhow, bail, Result};
 use hudhook::inject::Process;
 use hudhook::tracing::debug;
-use libjdsd_er_practice_tool::update::Update;
 use libjdsd_er_practice_tool::util::*;
+use libjdsd_er_practice_tool::{check_update, events};
+use practice_tool_core::update::Update;
+use practice_tool_core_windows::message_box;
+use practice_tool_core_windows::startup::{is_running, request_start};
 use textwrap_macros::dedent;
 use windows::Win32::UI::WindowsAndMessaging::*;
 
@@ -42,13 +45,25 @@ fn perform_injection() -> Result<()> {
         .trim())
     })?;
 
+    let events = events();
+    if is_running(&events) {
+        bail!(
+            "The practice tool is already running.\n\nTo start a different copy, restart the game \
+             first."
+        );
+    }
+
     debug!("Searching for tool DLL...");
-    let dll_path = get_dll_path_exe().map_err(|e| {
-        anyhow!(
-            "Could not find the tool DLL: {e}.\n\nPlease make sure you have extracted the \
-             practice tool's zip file contents to a directory before trying again."
-        )
-    })?;
+    let mut dll_path = std::env::current_exe()?;
+    dll_path.set_file_name("dinput8.dll");
+
+    if !dll_path.exists() {
+        bail!(
+            "Could not find {}.\n\nExtract all the files from the zip archive before running the \
+             practice tool, and make sure your antivirus didn't delete it.",
+            dll_path.display()
+        );
+    }
 
     debug!("Checking EAC...");
     if check_eac(&process)? {
@@ -64,24 +79,31 @@ fn perform_injection() -> Result<()> {
         )
     })?;
 
+    // A freshly loaded DLL is running by now. If it isn't, the game had already
+    // loaded this very file at startup, so injecting it did nothing: ask
+    // that copy to start instead.
+    if !is_running(&events) {
+        request_start(&events).map_err(|e| anyhow!("Could not start the practice tool: {e}."))?;
+    }
+
     Ok(())
 }
 
 fn main() -> Result<()> {
     tracing_init();
 
-    match Update::check() {
+    match check_update() {
         Update::Error(e) => {
             let _ = message_box(
                 "Elden Ring Practice Tool - Error",
-                format!("Could not check for updates: {e}"),
+                &format!("Could not check for updates: {e}"),
                 MB_OK | MB_ICONERROR,
             );
         },
         Update::Available { url, notes } => {
             if let MESSAGEBOX_RESULT(1) = message_box(
                 "Elden Ring Practice Tool - Update available",
-                format!("{notes}\n\nDo you want to download it?"),
+                &format!("{notes}\n\nDo you want to download it?"),
                 MB_OKCANCEL | MB_ICONINFORMATION,
             ) {
                 return Ok(open::that(&url)?);
@@ -91,7 +113,7 @@ fn main() -> Result<()> {
     }
 
     if let Err(e) = perform_injection() {
-        message_box("Error", e.to_string(), MB_OK | MB_ICONERROR);
+        message_box("Elden Ring Practice Tool - Error", &e.to_string(), MB_OK | MB_ICONERROR);
     }
 
     Ok(())
