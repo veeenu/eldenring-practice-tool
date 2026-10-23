@@ -1,4 +1,7 @@
 The tool is free, and will always be free for everyone. If you enjoy it, please consider supporting me!
 https://www.patreon.com/johndisandonato
 
-This release adds support for Elden Ring 1.16.1.
+This release adds support for Elden Ring 1.17.2, and a few new things: performance optimizations,
+an input viewer, a configuration editor, and (hopefully) easier installation.
+
+If you have the tool already installed, copy the new files over the old ones. Check out the README for all the details.
