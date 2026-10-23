@@ -5,9 +5,9 @@ use practice_tool_core::widgets::Widget;
 
 #[derive(Debug)]
 struct CharacterStatsEdit {
-    stats_ptr: PointerChain<CharacterStats>,
-    points_ptr: PointerChain<CharacterPoints>,
-    blessings_ptr: Option<PointerChain<CharacterBlessings>>,
+    stats_ptr: &'static PointerChain<CharacterStats>,
+    points_ptr: &'static PointerChain<CharacterPoints>,
+    blessings_ptr: Option<&'static PointerChain<CharacterBlessings>>,
     stats: Option<CharacterStats>,
     points: Option<CharacterPoints>,
     blessings: Option<CharacterBlessings>,
@@ -82,9 +82,9 @@ impl Stats for CharacterStatsEdit {
 }
 
 pub(crate) fn character_stats_edit(
-    character_stats: PointerChain<CharacterStats>,
-    character_points: PointerChain<CharacterPoints>,
-    character_blessings: Option<PointerChain<CharacterBlessings>>,
+    character_stats: &'static PointerChain<CharacterStats>,
+    character_points: &'static PointerChain<CharacterPoints>,
+    character_blessings: Option<&'static PointerChain<CharacterBlessings>>,
     key_open: Option<Key>,
     key_close: Key,
 ) -> Box<dyn Widget> {

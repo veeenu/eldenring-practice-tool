@@ -82,7 +82,7 @@ pub(crate) struct Target {
     hotkey: Option<Key>,
     is_enabled: bool,
     entity_addr: u64,
-    player_position: ErPosition,
+    player_position: &'static ErPosition,
 
     text: String,
 }
@@ -92,8 +92,8 @@ unsafe impl Sync for Target {}
 
 impl Target {
     pub(crate) fn new(
-        detour_addr: PointerChain<u64>,
-        player_position: ErPosition,
+        detour_addr: &'static PointerChain<u64>,
+        player_position: &'static ErPosition,
         hotkey: Option<Key>,
     ) -> Self {
         let detour_addr = detour_addr.cast();
