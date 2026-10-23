@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-macro-param = { path = "../macro-param" }
+macro-param.workspace = true
 log = "0.4.16"
 widestring = "0.5.1"
 serde = "1.0.136"
