@@ -502,12 +502,38 @@ pub(crate) fn config_path() -> Option<PathBuf> {
 
 #[cfg(test)]
 mod tests {
-    use super::{Config, DEFAULT_CONFIG};
+    use super::{CfgCommand, Config, DEFAULT_CONFIG};
 
     #[test]
     fn test_parse_ok() {
         println!("{:?}", toml::from_str::<toml::Value>(DEFAULT_CONFIG));
         println!("{:?}", Config::parse(DEFAULT_CONFIG));
+    }
+
+    #[test]
+    fn test_parse_multi_flag() {
+        let config = Config::parse(
+            r#"commands = [
+              { flags = ["gravity", "collision"], label = "No clip", hotkey = "f1" },
+              { flag = "gravity" },
+              { label = "Label" }
+            ]
+            radial-menu = []
+            [settings]
+            log_level = "DEBUG"
+            display = "0"
+            "#,
+        )
+        .unwrap();
+
+        assert!(matches!(
+            config.commands.as_slice(),
+            [
+                CfgCommand::MultiFlagUser { flags, .. },
+                CfgCommand::Flag { .. },
+                CfgCommand::Label { .. },
+            ] if flags.len() == 2
+        ));
     }
 
     #[test]

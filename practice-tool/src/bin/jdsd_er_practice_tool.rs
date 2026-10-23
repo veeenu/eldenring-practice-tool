@@ -16,7 +16,7 @@
 
 use anyhow::{anyhow, bail, Result};
 use hudhook::inject::Process;
-use hudhook::tracing::debug;
+use hudhook::tracing::{debug, error};
 use libjdsd_er_practice_tool::util::*;
 use libjdsd_er_practice_tool::{check_update, events};
 use practice_tool_core::update::Update;
@@ -93,13 +93,8 @@ fn main() -> Result<()> {
     tracing_init();
 
     match check_update() {
-        Update::Error(e) => {
-            let _ = message_box(
-                "Elden Ring Practice Tool - Error",
-                &format!("Could not check for updates: {e}"),
-                MB_OK | MB_ICONERROR,
-            );
-        },
+        // Shown in the overlay.
+        Update::Error(e) => error!("Could not check for updates: {e}"),
         Update::Available { url, notes } => {
             if let MESSAGEBOX_RESULT(1) = message_box(
                 "Elden Ring Practice Tool - Update available",

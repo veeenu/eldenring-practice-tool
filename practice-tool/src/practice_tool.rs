@@ -181,10 +181,21 @@ impl PracticeTool {
                     .with(stdout_layer)
                     .init();
             },
-            e => match e {
-                None => error!("Could not construct log file path"),
-                Some(Err(e)) => error!("Could not initialize log file: {:?}", e),
-                _ => unreachable!(),
+            e => {
+                tracing_subscriber::fmt()
+                    .with_max_level(config.settings.log_level.inner())
+                    .with_thread_ids(true)
+                    .with_file(true)
+                    .with_line_number(true)
+                    .with_thread_names(true)
+                    .with_ansi(true)
+                    .init();
+
+                match e {
+                    None => error!("Could not construct log file path"),
+                    Some(Err(e)) => error!("Could not initialize log file: {:?}", e),
+                    _ => unreachable!(),
+                }
             },
         }
 
