@@ -39,6 +39,7 @@ practice-tool-core = { git = "https://github.com/veeenu/practice-tool-core", ver
 practice-tool-core-windows = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
 practice-tool-memedit = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
 practice-tool-tasks = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
+macro-param = { git = "https://github.com/veeenu/practice-tool-core", version = "0.1.0" }
 
 [workspace.dependencies.windows]
 version = "0.62.0"
@@ -62,3 +63,4 @@ features = [
 # practice-tool-tasks = { path = "../practice-tool-core/tasks" }
 # practice-tool-core-windows = { path = "../practice-tool-core/windows" }
 # practice-tool-memedit = { path = "../practice-tool-core/memedit" }
+# macro-param = { path = "../practice-tool-core/macro-param" }

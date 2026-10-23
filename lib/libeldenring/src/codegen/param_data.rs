@@ -310,6 +310,12 @@ pub struct ActionButtonParam {
     pub spot_dummy_poly: i32,
     pub text_box_type: u8,
     pub padding3: [u8; 2],
+    #[bitflag(padding5, 0)]
+    #[bitflag(isInvalidForRide, 1)]
+    #[bitflag(isGrayoutForRide, 2)]
+    #[bitflag(isInvalidForCrouching, 3)]
+    #[bitflag(isGrayoutForCrouching, 4)]
+    pub bitfield0: u8,
     pub text_id: i32,
     pub invalid_flag: u32,
     pub grayout_flag: u32,
@@ -411,33 +417,21 @@ pub struct AiAnimTblParam {
     pub atk27_max_dist: u16,
     pub atk28_max_dist: u16,
     pub atk29_max_dist: u16,
-    #[bitflag(atk0_AtkDistType, 0)]
-    #[bitflag(atk1_AtkDistType, 1)]
-    #[bitflag(atk2_AtkDistType, 2)]
-    #[bitflag(atk3_AtkDistType, 3)]
-    #[bitflag(atk4_AtkDistType, 4)]
-    #[bitflag(atk5_AtkDistType, 5)]
-    #[bitflag(atk6_AtkDistType, 6)]
-    #[bitflag(atk7_AtkDistType, 7)]
     pub bitfield0: u8,
-    #[bitflag(atk8_AtkDistType, 0)]
-    #[bitflag(atk9_AtkDistType, 1)]
-    #[bitflag(atk10_AtkDistType, 2)]
-    #[bitflag(atk11_AtkDistType, 3)]
-    #[bitflag(atk12_AtkDistType, 4)]
-    #[bitflag(atk13_AtkDistType, 5)]
-    #[bitflag(atk14_AtkDistType, 6)]
-    #[bitflag(atk15_AtkDistType, 7)]
     pub bitfield1: u8,
-    #[bitflag(atk16_AtkDistType, 0)]
-    #[bitflag(atk17_AtkDistType, 1)]
-    #[bitflag(atk18_AtkDistType, 2)]
-    #[bitflag(atk19_AtkDistType, 3)]
-    #[bitflag(atk20_AtkDistType, 4)]
-    #[bitflag(atk21_AtkDistType, 5)]
-    #[bitflag(atk22_AtkDistType, 6)]
-    #[bitflag(atk23_AtkDistType, 7)]
     pub bitfield2: u8,
+    pub bitfield3: u8,
+    pub bitfield4: u8,
+    pub bitfield5: u8,
+    pub bitfield6: u8,
+    pub bitfield7: u8,
+    pub bitfield8: u8,
+    pub bitfield9: u8,
+    pub bitfield10: u8,
+    pub bitfield11: u8,
+    pub bitfield12: u8,
+    pub bitfield13: u8,
+    pub bitfield14: u8,
     pub pad0: [u8; 13],
 }
 
@@ -606,6 +600,11 @@ pub struct AiSoundParam {
     pub life_frame: f32,
     pub b_sp_effect_enable: u8,
     pub ty: u8,
+    #[bitflag(opposeTarget, 0)]
+    #[bitflag(friendlyTarget, 1)]
+    #[bitflag(selfTarget, 2)]
+    #[bitflag(disableOnTargetPCompany, 3)]
+    pub bitfield0: u8,
     pub rank: u8,
     pub forget_time: f32,
     pub priority: i32,
@@ -767,6 +766,13 @@ pub struct AssetGeometryParam {
     pub repick_replacement_item_lot_param_id: i32,
     pub no_generate_carver: u8,
     pub no_hit_huge_after_break: u8,
+    #[bitflag(isEnabledBreakSync, 0)]
+    #[bitflag(isHiddenOnRepick, 1)]
+    #[bitflag(isCreateMultiPlayOnly, 2)]
+    #[bitflag(isDisableBulletHitSfx, 3)]
+    #[bitflag(isEnableSignPreBreak, 4)]
+    #[bitflag(isEnableSignPostBreak, 5)]
+    pub bitfield2: u8,
     pub generate_multi_forbidden_region: u8,
     pub resident_se_id0: i32,
     pub resident_se_id1: i32,
@@ -1036,6 +1042,11 @@ pub struct AtkParam {
     pub def_sfx_material2: u16,
     pub atk_dark_correction: u16,
     pub atk_dark: u16,
+    #[bitflag(pad5, 0)]
+    #[bitflag(isDisableParry, 1)]
+    #[bitflag(isDisableBothHandsAtkBonus, 2)]
+    #[bitflag(isInvalidatedByNoDamageInAir, 3)]
+    pub bitfield2: u8,
     pub dmg_level_vs_player: i8,
     pub status_ailment_atk_power_correct_rate: u16,
     pub sp_effect_atk_power_correct_rate_by_point: u16,
@@ -1089,6 +1100,8 @@ pub struct AttackElementCorrectParam {
     #[bitflag(isMagicCorrect_byDark, 6)]
     #[bitflag(isFaithCorrect_byDark, 7)]
     pub bitfield2: u8,
+    #[bitflag(isLuckCorrect_byDark, 0)]
+    pub bitfield3: u8,
     pub overwrite_strength_correct_rate_by_physics: i16,
     pub overwrite_dexterity_correct_rate_by_physics: i16,
     pub overwrite_magic_correct_rate_by_physics: i16,
@@ -1158,6 +1171,8 @@ pub struct AutoCreateEnvSoundParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct BaseChrSelectMenuParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub chr_init_param: u32,
     pub origin_chr_init_param: u32,
@@ -1186,6 +1201,8 @@ pub struct BehaviorParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct BonfireWarpParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub eventflag_id: u32,
     pub bonfire_entity_id: u32,
@@ -1197,6 +1214,9 @@ pub struct BonfireWarpParam {
     pub bonfire_sub_category_id: i32,
     pub cleared_event_flag_id: u32,
     pub icon_id: u16,
+    #[bitflag(dispMask00, 0)]
+    #[bitflag(dispMask01, 1)]
+    pub bitfield1: u8,
     pub pad2: [u8; 1],
     pub area_no: u8,
     pub grid_xno: u8,
@@ -1263,6 +1283,8 @@ pub struct BonfireWarpParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct BonfireWarpSubCategoryParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub text_id: i32,
     pub tab_id: u16,
@@ -1273,6 +1295,8 @@ pub struct BonfireWarpSubCategoryParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct BonfireWarpTabParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub text_id: i32,
     pub sort_id: i32,
@@ -1283,6 +1307,8 @@ pub struct BonfireWarpTabParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct BuddyParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub trigger_sp_effect_id: i32,
     pub npc_param_id: i32,
@@ -1315,10 +1341,14 @@ pub struct BuddyParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct BuddyStoneParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub talk_chr_entity_id: u32,
     pub eliminate_target_entity_id: u32,
     pub summoned_event_flag_id: u32,
+    #[bitflag(isSpecial, 0)]
+    pub bitfield1: u8,
     pub pad2: [u8; 3],
     pub buddy_id: i32,
     pub doping_sp_effect_id: i32,
@@ -1366,6 +1396,8 @@ pub struct BudgetParam {
 #[repr(C)]
 pub struct BulletCreateLimitParam {
     pub limit_num_by_group: u8,
+    #[bitflag(isLimitEachOwner, 0)]
+    pub bitfield0: u8,
     pub pad: [u8; 30],
 }
 
@@ -1423,25 +1455,29 @@ pub struct BulletParam {
     pub sp_attribute: u8,
     pub material_attack_type: u8,
     pub material_attack_material: u8,
-    pub launch_condition_type: u8,
     #[bitflag(isPenetrateChr, 0)]
     #[bitflag(isPenetrateObj, 1)]
-    #[bitflag(pad, 2)]
-    #[bitflag(FollowType, 3)]
-    #[bitflag(EmittePosType, 4)]
-    #[bitflag(isAttackSFX, 5)]
-    #[bitflag(isEndlessHit, 6)]
-    #[bitflag(isPenetrateMap, 7)]
     pub bitfield0: u8,
-    #[bitflag(isHitBothTeam, 0)]
-    #[bitflag(isUseSharedHitList, 1)]
-    #[bitflag(isUseMultiDmyPolyIfPlace, 2)]
-    #[bitflag(isHitOtherBulletForceEraseA, 3)]
-    #[bitflag(isHitOtherBulletForceEraseB, 4)]
-    #[bitflag(isHitForceMagic, 5)]
-    #[bitflag(isIgnoreSfxIfHitWater, 6)]
-    #[bitflag(isIgnoreMoveStateIfHitWater, 7)]
+    pub launch_condition_type: u8,
+    #[bitflag(isAttackSFX, 6)]
+    #[bitflag(isEndlessHit, 7)]
     pub bitfield1: u8,
+    #[bitflag(isPenetrateMap, 0)]
+    #[bitflag(isHitBothTeam, 1)]
+    #[bitflag(isUseSharedHitList, 2)]
+    #[bitflag(isUseMultiDmyPolyIfPlace, 3)]
+    #[bitflag(isHitOtherBulletForceEraseA, 4)]
+    #[bitflag(isHitOtherBulletForceEraseB, 5)]
+    #[bitflag(isHitForceMagic, 6)]
+    #[bitflag(isIgnoreSfxIfHitWater, 7)]
+    pub bitfield2: u8,
+    #[bitflag(isIgnoreMoveStateIfHitWater, 0)]
+    #[bitflag(isHitDarkForceMagic, 1)]
+    #[bitflag(isEnableAutoHoming, 4)]
+    #[bitflag(isSyncBulletCulcDumypolyPos, 5)]
+    #[bitflag(isOwnerOverrideInitAngle, 6)]
+    #[bitflag(isInheritSfxToChild, 7)]
+    pub bitfield3: u8,
     pub dark_damage_damp: i8,
     pub bullet_sfx_delete_type_by_hit: i8,
     pub bullet_sfx_delete_type_by_life_dead: i8,
@@ -1456,15 +1492,15 @@ pub struct BulletParam {
     pub sfx_posture_type: u8,
     pub create_limit_group_id: u8,
     pub pad5: [u8; 1],
-    #[bitflag(isHitDarkForceMagic, 0)]
-    #[bitflag(dmgCalcSide, 1)]
-    #[bitflag(isEnableAutoHoming, 2)]
-    #[bitflag(isSyncBulletCulcDumypolyPos, 3)]
-    #[bitflag(isOwnerOverrideInitAngle, 4)]
-    #[bitflag(isInheritSfxToChild, 5)]
-    #[bitflag(isInheritSpeedToChild, 6)]
-    #[bitflag(isDisableHitSfx_byChrAndObj, 7)]
-    pub bitfield2: u8,
+    #[bitflag(isInheritSpeedToChild, 0)]
+    #[bitflag(isDisableHitSfx_byChrAndObj, 1)]
+    #[bitflag(isCheckWall_byCenterRay, 2)]
+    #[bitflag(isHitFlare, 3)]
+    #[bitflag(isUseBulletWallFilter, 4)]
+    #[bitflag(pad1, 5)]
+    #[bitflag(isNonDependenceMagicForFunnleNum, 6)]
+    #[bitflag(isAiInterruptShootNoDamageBullet, 7)]
+    pub bitfield4: u8,
     pub random_create_radius: f32,
     pub follow_offset_base_height: f32,
     pub asset_no_hit: i32,
@@ -1623,6 +1659,8 @@ pub struct CharaInitParam {
     pub npc_player_type: u8,
     pub npc_player_draw_type: i8,
     pub npc_player_sex: u8,
+    #[bitflag(isSyncTarget, 4)]
+    pub bitfield0: u8,
     pub pad6: [u8; 2],
     pub wep_param_type_right1: u8,
     pub wep_param_type_right2: u8,
@@ -1692,6 +1730,13 @@ pub struct ChrActivateConditionParam {
     #[bitflag(weatherStorm, 6)]
     #[bitflag(weatherStormForBattle, 7)]
     pub bitfield0: u8,
+    #[bitflag(weatherSnow, 0)]
+    #[bitflag(weatherHeavySnow, 1)]
+    #[bitflag(weatherFog, 2)]
+    #[bitflag(weatherHeavyFog, 3)]
+    #[bitflag(weatherHeavyFogRain, 4)]
+    #[bitflag(weatherSandStorm, 5)]
+    pub bitfield1: u8,
     pub time_start_hour: u8,
     pub time_start_min: u8,
     pub time_end_hour: u8,
@@ -1710,6 +1755,8 @@ pub struct ChrEquipModelParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct ChrModelParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub model_memory_type: u8,
     pub tex_memory_type: u8,
@@ -1777,6 +1824,9 @@ pub struct CoolTimeParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct CutsceneGparamTimeParam {
+    #[bitflag(disableParam_NT, 0)]
+    #[bitflag(disableParam_Debug, 1)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub dst_timezone_morning: u8,
     pub dst_timezone_noon: u8,
@@ -1792,6 +1842,9 @@ pub struct CutsceneGparamTimeParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct CutsceneGparamWeatherParam {
+    #[bitflag(disableParam_NT, 0)]
+    #[bitflag(disableParam_Debug, 1)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub dst_weather_sunny: i16,
     pub dst_weather_clear_sky: i16,
@@ -1849,6 +1902,9 @@ pub struct CutsceneGparamWeatherParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct CutsceneMapIdParam {
+    #[bitflag(disableParam_NT, 0)]
+    #[bitflag(disableParam_Debug, 1)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub play_map_id: u32,
     pub require_map_id0: u32,
@@ -1865,6 +1921,9 @@ pub struct CutsceneMapIdParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct CutSceneTextureLoadParam {
+    #[bitflag(disableParam_NT, 0)]
+    #[bitflag(disableParam_Debug, 1)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub tex_name_00: [u8; 16],
     pub tex_name_01: [u8; 16],
@@ -1909,6 +1968,17 @@ pub struct DecalParam {
     pub near_size: f32,
     pub far_size: f32,
     pub mask_speffect_id: i32,
+    #[bitflag(replaceTextureId_byMaterial, 4)]
+    #[bitflag(useDeferredDecal, 11)]
+    #[bitflag(usePaintDecal, 12)]
+    #[bitflag(bloodTypeEnable, 13)]
+    #[bitflag(bUseNormal, 14)]
+    #[bitflag(pad_08, 15)]
+    #[bitflag(pad_09, 16)]
+    #[bitflag(usePom, 17)]
+    #[bitflag(useEmissive, 18)]
+    #[bitflag(putVertical, 19)]
+    pub bitfield0: u32,
     pub random_size_min: i16,
     pub random_size_max: i16,
     pub random_roll_min: f32,
@@ -1958,6 +2028,7 @@ pub struct DecalParam {
     pub dist_thin_out_max_num: u8,
     pub dist_thin_out_check_num: u8,
     pub delay_appear_frame: i16,
+    pub bitfield1: u32,
     pub fade_in_time_sec: f32,
     pub thin_out_overlap_multi_radius: f32,
     pub thin_out_neighbor_add_radius: f32,
@@ -1974,6 +2045,8 @@ pub struct DecalParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct DirectionCameraParam {
+    #[bitflag(isUseOption, 0)]
+    pub bitfield0: u8,
     pub pad1: [u8; 15],
 }
 
@@ -2064,12 +2137,21 @@ pub struct EquipMtrlSetParam {
     pub material_cate05: u8,
     pub material_cate06: u8,
     pub pad_cate: [u8; 2],
+    #[bitflag(isDisableDispNum01, 0)]
+    #[bitflag(isDisableDispNum02, 1)]
+    #[bitflag(isDisableDispNum03, 2)]
+    #[bitflag(isDisableDispNum04, 3)]
+    #[bitflag(isDisableDispNum05, 4)]
+    #[bitflag(isDisableDispNum06, 5)]
+    pub bitfield0: u8,
     pub pad: [u8; 3],
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct EquipParamAccessory {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub ref_id: i32,
     pub sfx_variation_id: i32,
@@ -2093,15 +2175,13 @@ pub struct EquipParamAccessory {
     pub vagrant_item_lot_id: i32,
     pub vagrant_bonus_ene_drop_item_lot_id: i32,
     pub vagrant_item_ene_drop_item_lot_id: i32,
-    #[bitflag(disableParam_NT, 0)]
-    #[bitflag(disableParamReserve1, 1)]
-    #[bitflag(isDeposit, 2)]
-    #[bitflag(isEquipOutBrake, 3)]
-    #[bitflag(disableMultiDropShare, 4)]
-    #[bitflag(isDiscard, 5)]
-    #[bitflag(isDrop, 6)]
-    #[bitflag(showLogCondType, 7)]
-    pub bitfield0: u8,
+    #[bitflag(isDeposit, 0)]
+    #[bitflag(isEquipOutBrake, 1)]
+    #[bitflag(disableMultiDropShare, 2)]
+    #[bitflag(isDiscard, 3)]
+    #[bitflag(isDrop, 4)]
+    #[bitflag(showLogCondType, 5)]
+    pub bitfield1: u8,
     pub rarity: u8,
     pub pad2: [u8; 2],
     pub sale_value: i32,
@@ -2127,6 +2207,8 @@ pub struct EquipParamCustomWeapon {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct EquipParamGem {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub icon_id: u16,
     pub rank: i8,
@@ -2142,81 +2224,84 @@ pub struct EquipParamGem {
     pub sort_id: i32,
     pub comp_trophy_sed_id: i16,
     pub trophy_seq_id: i16,
-    #[bitflag(disableParam_NT, 0)]
-    #[bitflag(disableParamReserve1, 1)]
-    #[bitflag(configurableWepAttr00, 2)]
-    #[bitflag(configurableWepAttr01, 3)]
-    #[bitflag(configurableWepAttr02, 4)]
-    #[bitflag(configurableWepAttr03, 5)]
-    #[bitflag(configurableWepAttr04, 6)]
-    #[bitflag(configurableWepAttr05, 7)]
-    pub bitfield0: u8,
-    #[bitflag(configurableWepAttr06, 0)]
-    #[bitflag(configurableWepAttr07, 1)]
-    #[bitflag(configurableWepAttr08, 2)]
-    #[bitflag(configurableWepAttr09, 3)]
-    #[bitflag(configurableWepAttr10, 4)]
-    #[bitflag(configurableWepAttr11, 5)]
-    #[bitflag(configurableWepAttr12, 6)]
-    #[bitflag(configurableWepAttr13, 7)]
+    #[bitflag(configurableWepAttr00, 0)]
+    #[bitflag(configurableWepAttr01, 1)]
+    #[bitflag(configurableWepAttr02, 2)]
+    #[bitflag(configurableWepAttr03, 3)]
+    #[bitflag(configurableWepAttr04, 4)]
+    #[bitflag(configurableWepAttr05, 5)]
+    #[bitflag(configurableWepAttr06, 6)]
+    #[bitflag(configurableWepAttr07, 7)]
     pub bitfield1: u8,
-    pub rarity: u8,
-    #[bitflag(configurableWepAttr14, 0)]
-    #[bitflag(configurableWepAttr15, 1)]
-    #[bitflag(configurableWepAttr16, 2)]
-    #[bitflag(configurableWepAttr17, 3)]
-    #[bitflag(configurableWepAttr18, 4)]
-    #[bitflag(configurableWepAttr19, 5)]
-    #[bitflag(configurableWepAttr20, 6)]
-    #[bitflag(configurableWepAttr21, 7)]
+    #[bitflag(configurableWepAttr08, 0)]
+    #[bitflag(configurableWepAttr09, 1)]
+    #[bitflag(configurableWepAttr10, 2)]
+    #[bitflag(configurableWepAttr11, 3)]
+    #[bitflag(configurableWepAttr12, 4)]
+    #[bitflag(configurableWepAttr13, 5)]
+    #[bitflag(configurableWepAttr14, 6)]
+    #[bitflag(configurableWepAttr15, 7)]
     pub bitfield2: u8,
-    #[bitflag(configurableWepAttr22, 0)]
-    #[bitflag(configurableWepAttr23, 1)]
-    #[bitflag(isDiscard, 2)]
-    #[bitflag(isDrop, 3)]
-    #[bitflag(isDeposit, 4)]
-    #[bitflag(disableMultiDropShare, 5)]
-    #[bitflag(showDialogCondType, 6)]
-    #[bitflag(showLogCondType, 7)]
+    pub rarity: u8,
+    #[bitflag(configurableWepAttr16, 0)]
+    #[bitflag(configurableWepAttr17, 1)]
+    #[bitflag(configurableWepAttr18, 2)]
+    #[bitflag(configurableWepAttr19, 3)]
+    #[bitflag(configurableWepAttr20, 4)]
+    #[bitflag(configurableWepAttr21, 5)]
+    #[bitflag(configurableWepAttr22, 6)]
+    #[bitflag(configurableWepAttr23, 7)]
     pub bitfield3: u8,
+    #[bitflag(isDiscard, 0)]
+    #[bitflag(isDrop, 1)]
+    #[bitflag(isDeposit, 2)]
+    #[bitflag(disableMultiDropShare, 3)]
+    #[bitflag(showLogCondType, 6)]
+    #[bitflag(pad, 7)]
+    pub bitfield4: u8,
     pub default_wep_attr: u8,
     pub pad2: [u8; 2],
-    #[bitflag(pad, 0)]
-    #[bitflag(canMountWep_Dagger, 1)]
-    #[bitflag(canMountWep_SwordNormal, 2)]
-    #[bitflag(canMountWep_SwordLarge, 3)]
-    #[bitflag(canMountWep_SwordGigantic, 4)]
-    #[bitflag(canMountWep_SaberNormal, 5)]
-    #[bitflag(canMountWep_SaberLarge, 6)]
-    #[bitflag(canMountWep_katana, 7)]
-    pub bitfield4: u8,
-    #[bitflag(canMountWep_SwordDoubleEdge, 0)]
-    #[bitflag(canMountWep_SwordPierce, 1)]
-    #[bitflag(canMountWep_RapierHeavy, 2)]
-    #[bitflag(canMountWep_AxeNormal, 3)]
-    #[bitflag(canMountWep_AxeLarge, 4)]
-    #[bitflag(canMountWep_HammerNormal, 5)]
-    #[bitflag(canMountWep_HammerLarge, 6)]
-    #[bitflag(canMountWep_Flail, 7)]
+    #[bitflag(canMountWep_Dagger, 0)]
+    #[bitflag(canMountWep_SwordNormal, 1)]
+    #[bitflag(canMountWep_SwordLarge, 2)]
+    #[bitflag(canMountWep_SwordGigantic, 3)]
+    #[bitflag(canMountWep_SaberNormal, 4)]
+    #[bitflag(canMountWep_SaberLarge, 5)]
+    #[bitflag(canMountWep_katana, 6)]
+    #[bitflag(canMountWep_SwordDoubleEdge, 7)]
     pub bitfield5: u8,
-    #[bitflag(canMountWep_SpearNormal, 0)]
-    #[bitflag(canMountWep_SpearLarge, 1)]
-    #[bitflag(canMountWep_SpearHeavy, 2)]
-    #[bitflag(canMountWep_SpearAxe, 3)]
-    #[bitflag(canMountWep_Sickle, 4)]
-    #[bitflag(canMountWep_Knuckle, 5)]
-    #[bitflag(canMountWep_Claw, 6)]
-    #[bitflag(canMountWep_Whip, 7)]
+    #[bitflag(canMountWep_SwordPierce, 0)]
+    #[bitflag(canMountWep_RapierHeavy, 1)]
+    #[bitflag(canMountWep_AxeNormal, 2)]
+    #[bitflag(canMountWep_AxeLarge, 3)]
+    #[bitflag(canMountWep_HammerNormal, 4)]
+    #[bitflag(canMountWep_HammerLarge, 5)]
+    #[bitflag(canMountWep_Flail, 6)]
+    #[bitflag(canMountWep_SpearNormal, 7)]
     pub bitfield6: u8,
-    #[bitflag(canMountWep_AxhammerLarge, 0)]
-    #[bitflag(canMountWep_BowSmall, 1)]
-    #[bitflag(canMountWep_BowNormal, 2)]
-    #[bitflag(canMountWep_BowLarge, 3)]
-    #[bitflag(canMountWep_ClossBow, 4)]
-    #[bitflag(canMountWep_Ballista, 5)]
-    #[bitflag(canMountWep_Staff, 6)]
-    #[bitflag(canMountWep_Sorcery, 7)]
+    #[bitflag(canMountWep_SpearLarge, 0)]
+    #[bitflag(canMountWep_SpearHeavy, 1)]
+    #[bitflag(canMountWep_SpearAxe, 2)]
+    #[bitflag(canMountWep_Sickle, 3)]
+    #[bitflag(canMountWep_Knuckle, 4)]
+    #[bitflag(canMountWep_Claw, 5)]
+    #[bitflag(canMountWep_Whip, 6)]
+    #[bitflag(canMountWep_AxhammerLarge, 7)]
     pub bitfield7: u8,
+    #[bitflag(canMountWep_BowSmall, 0)]
+    #[bitflag(canMountWep_BowNormal, 1)]
+    #[bitflag(canMountWep_BowLarge, 2)]
+    #[bitflag(canMountWep_ClossBow, 3)]
+    #[bitflag(canMountWep_Ballista, 4)]
+    #[bitflag(canMountWep_Staff, 5)]
+    #[bitflag(canMountWep_Sorcery, 6)]
+    #[bitflag(canMountWep_Talisman, 7)]
+    pub bitfield8: u8,
+    #[bitflag(canMountWep_ShieldSmall, 0)]
+    #[bitflag(canMountWep_ShieldNormal, 1)]
+    #[bitflag(canMountWep_ShieldLarge, 2)]
+    #[bitflag(canMountWep_Torch, 3)]
+    pub bitfield9: u8,
     pub reserved2_can_mount_wep: [u8; 3],
     pub sp_effect_msg_id0: i32,
     pub sp_effect_msg_id1: i32,
@@ -2230,6 +2315,8 @@ pub struct EquipParamGem {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct EquipParamGoods {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub ref_id_default: i32,
     pub sfx_variation_id: i32,
@@ -2261,33 +2348,33 @@ pub struct EquipParamGoods {
     pub use_limit_category: u8,
     pub replace_category: u8,
     pub reserve4: [u8; 2],
-    #[bitflag(disableParam_NT, 0)]
-    #[bitflag(disableParamReserve1, 1)]
-    #[bitflag(enable_live, 2)]
-    #[bitflag(enable_gray, 3)]
-    #[bitflag(enable_white, 4)]
-    #[bitflag(enable_black, 5)]
-    #[bitflag(enable_multi, 6)]
-    #[bitflag(disable_offline, 7)]
-    pub bitfield0: u8,
-    #[bitflag(isEquip, 0)]
-    #[bitflag(isConsume, 1)]
-    #[bitflag(isAutoEquip, 2)]
-    #[bitflag(isEstablishment, 3)]
-    #[bitflag(isOnlyOne, 4)]
-    #[bitflag(isDiscard, 5)]
-    #[bitflag(isDeposit, 6)]
-    #[bitflag(isDisableHand, 7)]
+    #[bitflag(enable_live, 0)]
+    #[bitflag(enable_gray, 1)]
+    #[bitflag(enable_white, 2)]
+    #[bitflag(enable_black, 3)]
+    #[bitflag(enable_multi, 4)]
+    #[bitflag(disable_offline, 5)]
+    #[bitflag(isEquip, 6)]
+    #[bitflag(isConsume, 7)]
     pub bitfield1: u8,
-    #[bitflag(isRemoveItem_forGameClear, 0)]
-    #[bitflag(isSuppleItem, 1)]
-    #[bitflag(isFullSuppleItem, 2)]
-    #[bitflag(isEnhance, 3)]
-    #[bitflag(isFixItem, 4)]
-    #[bitflag(disableMultiDropShare, 5)]
-    #[bitflag(disableUseAtColiseum, 6)]
-    #[bitflag(disableUseAtOutOfColiseum, 7)]
+    #[bitflag(isAutoEquip, 0)]
+    #[bitflag(isEstablishment, 1)]
+    #[bitflag(isOnlyOne, 2)]
+    #[bitflag(isDiscard, 3)]
+    #[bitflag(isDeposit, 4)]
+    #[bitflag(isDisableHand, 5)]
+    #[bitflag(isRemoveItem_forGameClear, 6)]
+    #[bitflag(isSuppleItem, 7)]
     pub bitfield2: u8,
+    #[bitflag(isFullSuppleItem, 0)]
+    #[bitflag(isEnhance, 1)]
+    #[bitflag(isFixItem, 2)]
+    #[bitflag(disableMultiDropShare, 3)]
+    #[bitflag(disableUseAtColiseum, 4)]
+    #[bitflag(disableUseAtOutOfColiseum, 5)]
+    #[bitflag(isEnableFastUseItem, 6)]
+    #[bitflag(isApplySpecialEffect, 7)]
+    pub bitfield3: u8,
     pub sync_num_vary_id: u8,
     pub ref_id_1: i32,
     pub ref_virtual_wep_id: i32,
@@ -2297,28 +2384,28 @@ pub struct EquipParamGoods {
     pub cast_sfx_id: i32,
     pub fire_sfx_id: i32,
     pub effect_sfx_id: i32,
-    #[bitflag(isEnableFastUseItem, 0)]
-    #[bitflag(isApplySpecialEffect, 1)]
-    #[bitflag(enable_ActiveBigRune, 2)]
-    #[bitflag(isBonfireWarpItem, 3)]
-    #[bitflag(enable_Ladder, 4)]
-    #[bitflag(isUseMultiPlayPreparation, 5)]
-    #[bitflag(canMultiUse, 6)]
-    #[bitflag(isShieldEnchant, 7)]
-    pub bitfield3: u8,
+    #[bitflag(enable_ActiveBigRune, 0)]
+    #[bitflag(isBonfireWarpItem, 1)]
+    #[bitflag(enable_Ladder, 2)]
+    #[bitflag(isUseMultiPlayPreparation, 3)]
+    #[bitflag(canMultiUse, 4)]
+    #[bitflag(isShieldEnchant, 5)]
+    #[bitflag(isWarpProhibited, 6)]
+    #[bitflag(isUseMultiPenaltyOnly, 7)]
+    pub bitfield4: u8,
     pub supple_type: u8,
     pub auto_replenish_type: u8,
-    #[bitflag(isWarpProhibited, 0)]
-    #[bitflag(isUseMultiPenaltyOnly, 1)]
-    #[bitflag(isDrop, 2)]
-    #[bitflag(showLogCondType, 3)]
-    #[bitflag(isSummonHorse, 4)]
-    #[bitflag(showDialogCondType, 5)]
-    #[bitflag(isSleepCollectionItem, 6)]
-    #[bitflag(enableRiding, 7)]
-    pub bitfield4: u8,
+    #[bitflag(isDrop, 0)]
+    #[bitflag(showLogCondType, 1)]
+    #[bitflag(isSummonHorse, 2)]
+    #[bitflag(isSleepCollectionItem, 5)]
+    #[bitflag(enableRiding, 6)]
+    #[bitflag(disableRiding, 7)]
+    pub bitfield5: u8,
     pub max_repository_num: i16,
     pub sort_group_id: u8,
+    #[bitflag(isUseNoAttackRegion, 0)]
+    pub bitfield6: u8,
     pub sale_value: i32,
     pub rarity: u8,
     pub use_limit_summon_buddy: u8,
@@ -2354,6 +2441,8 @@ pub struct EquipParamGoods {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct EquipParamProtector {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub sort_id: i32,
     pub wandering_equip_id: u32,
@@ -2428,28 +2517,26 @@ pub struct EquipParamProtector {
     pub sort_group_id: u8,
     pub parts_dmg_type: u8,
     pub pad04: [u8; 2],
-    #[bitflag(disableParam_NT, 0)]
-    #[bitflag(disableParamReserve1, 1)]
-    #[bitflag(isDeposit, 2)]
-    #[bitflag(headEquip, 3)]
-    #[bitflag(bodyEquip, 4)]
-    #[bitflag(armEquip, 5)]
-    #[bitflag(legEquip, 6)]
-    #[bitflag(useFaceScale, 7)]
-    pub bitfield0: u8,
+    #[bitflag(isDeposit, 0)]
+    #[bitflag(headEquip, 1)]
+    #[bitflag(bodyEquip, 2)]
+    #[bitflag(armEquip, 3)]
+    #[bitflag(legEquip, 4)]
+    #[bitflag(useFaceScale, 5)]
+    #[bitflag(isSkipWeakDamageAnim, 6)]
+    #[bitflag(pad06, 7)]
+    pub bitfield1: u8,
     pub defense_material_variation_value_weak: u8,
     pub auto_foot_effect_decal_base_id2: i16,
     pub auto_foot_effect_decal_base_id3: i16,
     pub defense_material_variation_value: u8,
-    #[bitflag(isSkipWeakDamageAnim, 0)]
-    #[bitflag(pad06, 1)]
-    #[bitflag(isDiscard, 2)]
-    #[bitflag(isDrop, 3)]
-    #[bitflag(disableMultiDropShare, 4)]
-    #[bitflag(simpleModelForDlc, 5)]
-    #[bitflag(showLogCondType, 6)]
-    #[bitflag(showDialogCondType, 7)]
-    pub bitfield1: u8,
+    #[bitflag(isDiscard, 0)]
+    #[bitflag(isDrop, 1)]
+    #[bitflag(disableMultiDropShare, 2)]
+    #[bitflag(simpleModelForDlc, 3)]
+    #[bitflag(showLogCondType, 4)]
+    #[bitflag(pad, 7)]
+    pub bitfield2: u8,
     pub neutral_damage_cut_rate: f32,
     pub slash_damage_cut_rate: f32,
     pub blow_damage_cut_rate: f32,
@@ -2470,42 +2557,44 @@ pub struct EquipParamProtector {
     pub toughness_recover_correction: f32,
     pub dark_damage_cut_rate: f32,
     pub defense_dark: u16,
-    #[bitflag(pad, 0)]
-    #[bitflag(invisibleFlag48, 1)]
-    #[bitflag(invisibleFlag49, 2)]
-    #[bitflag(invisibleFlag50, 3)]
-    #[bitflag(invisibleFlag51, 4)]
-    #[bitflag(invisibleFlag52, 5)]
-    #[bitflag(invisibleFlag53, 6)]
-    #[bitflag(invisibleFlag54, 7)]
-    pub bitfield2: u8,
-    #[bitflag(invisibleFlag55, 0)]
-    #[bitflag(invisibleFlag56, 1)]
-    #[bitflag(invisibleFlag57, 2)]
-    #[bitflag(invisibleFlag58, 3)]
-    #[bitflag(invisibleFlag59, 4)]
-    #[bitflag(invisibleFlag60, 5)]
-    #[bitflag(invisibleFlag61, 6)]
-    #[bitflag(invisibleFlag62, 7)]
+    #[bitflag(invisibleFlag48, 0)]
+    #[bitflag(invisibleFlag49, 1)]
+    #[bitflag(invisibleFlag50, 2)]
+    #[bitflag(invisibleFlag51, 3)]
+    #[bitflag(invisibleFlag52, 4)]
+    #[bitflag(invisibleFlag53, 5)]
+    #[bitflag(invisibleFlag54, 6)]
+    #[bitflag(invisibleFlag55, 7)]
     pub bitfield3: u8,
-    #[bitflag(invisibleFlag63, 0)]
-    #[bitflag(invisibleFlag64, 1)]
-    #[bitflag(invisibleFlag65, 2)]
-    #[bitflag(invisibleFlag66, 3)]
-    #[bitflag(invisibleFlag67, 4)]
-    #[bitflag(invisibleFlag68, 5)]
-    #[bitflag(invisibleFlag69, 6)]
-    #[bitflag(invisibleFlag70, 7)]
+    #[bitflag(invisibleFlag56, 0)]
+    #[bitflag(invisibleFlag57, 1)]
+    #[bitflag(invisibleFlag58, 2)]
+    #[bitflag(invisibleFlag59, 3)]
+    #[bitflag(invisibleFlag60, 4)]
+    #[bitflag(invisibleFlag61, 5)]
+    #[bitflag(invisibleFlag62, 6)]
+    #[bitflag(invisibleFlag63, 7)]
     pub bitfield4: u8,
-    #[bitflag(invisibleFlag71, 0)]
-    #[bitflag(invisibleFlag72, 1)]
-    #[bitflag(invisibleFlag73, 2)]
-    #[bitflag(invisibleFlag74, 3)]
-    #[bitflag(invisibleFlag75, 4)]
-    #[bitflag(invisibleFlag76, 5)]
-    #[bitflag(invisibleFlag77, 6)]
-    #[bitflag(invisibleFlag78, 7)]
+    #[bitflag(invisibleFlag64, 0)]
+    #[bitflag(invisibleFlag65, 1)]
+    #[bitflag(invisibleFlag66, 2)]
+    #[bitflag(invisibleFlag67, 3)]
+    #[bitflag(invisibleFlag68, 4)]
+    #[bitflag(invisibleFlag69, 5)]
+    #[bitflag(invisibleFlag70, 6)]
+    #[bitflag(invisibleFlag71, 7)]
     pub bitfield5: u8,
+    #[bitflag(invisibleFlag72, 0)]
+    #[bitflag(invisibleFlag73, 1)]
+    #[bitflag(invisibleFlag74, 2)]
+    #[bitflag(invisibleFlag75, 3)]
+    #[bitflag(invisibleFlag76, 4)]
+    #[bitflag(invisibleFlag77, 5)]
+    #[bitflag(invisibleFlag78, 6)]
+    #[bitflag(invisibleFlag79, 7)]
+    pub bitfield6: u8,
+    #[bitflag(invisibleFlag80, 0)]
+    pub bitfield7: u8,
     pub posture_control_id: u8,
     pub pad2: [u8; 4],
     pub sale_value: i32,
@@ -2612,6 +2701,8 @@ pub struct EquipParamProtector {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct EquipParamWeapon {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub behavior_variation_id: i32,
     pub sort_id: i32,
@@ -2709,42 +2800,43 @@ pub struct EquipParamWeapon {
     pub blood_guard_resist: i8,
     pub curse_guard_resist: i8,
     pub atk_attribute: u8,
-    #[bitflag(disableParam_NT, 0)]
-    #[bitflag(disableParamReserve1, 1)]
-    #[bitflag(rightHandEquipable, 2)]
-    #[bitflag(leftHandEquipable, 3)]
-    #[bitflag(bothHandEquipable, 4)]
-    #[bitflag(arrowSlotEquipable, 5)]
-    #[bitflag(boltSlotEquipable, 6)]
-    #[bitflag(enableGuard, 7)]
-    pub bitfield0: u8,
-    #[bitflag(enableParry, 0)]
-    #[bitflag(enableMagic, 1)]
-    #[bitflag(enableSorcery, 2)]
-    #[bitflag(enableMiracle, 3)]
-    #[bitflag(enableVowMagic, 4)]
-    #[bitflag(isNormalAttackType, 5)]
-    #[bitflag(isBlowAttackType, 6)]
-    #[bitflag(isSlashAttackType, 7)]
+    #[bitflag(rightHandEquipable, 0)]
+    #[bitflag(leftHandEquipable, 1)]
+    #[bitflag(bothHandEquipable, 2)]
+    #[bitflag(arrowSlotEquipable, 3)]
+    #[bitflag(boltSlotEquipable, 4)]
+    #[bitflag(enableGuard, 5)]
+    #[bitflag(enableParry, 6)]
+    #[bitflag(enableMagic, 7)]
     pub bitfield1: u8,
-    #[bitflag(isThrustAttackType, 0)]
-    #[bitflag(isEnhance, 1)]
-    #[bitflag(isHeroPointCorrect, 2)]
-    #[bitflag(isCustom, 3)]
-    #[bitflag(disableBaseChangeReset, 4)]
-    #[bitflag(disableRepair, 5)]
-    #[bitflag(isDarkHand, 6)]
-    #[bitflag(simpleModelForDlc, 7)]
+    #[bitflag(enableSorcery, 0)]
+    #[bitflag(enableMiracle, 1)]
+    #[bitflag(enableVowMagic, 2)]
+    #[bitflag(isNormalAttackType, 3)]
+    #[bitflag(isBlowAttackType, 4)]
+    #[bitflag(isSlashAttackType, 5)]
+    #[bitflag(isThrustAttackType, 6)]
+    #[bitflag(isEnhance, 7)]
     pub bitfield2: u8,
-    #[bitflag(lanternWep, 0)]
-    #[bitflag(isVersusGhostWep, 1)]
-    #[bitflag(baseChangeCategory, 2)]
-    #[bitflag(isDragonSlayer, 3)]
-    #[bitflag(isDeposit, 4)]
-    #[bitflag(disableMultiDropShare, 5)]
-    #[bitflag(isDiscard, 6)]
-    #[bitflag(isDrop, 7)]
+    #[bitflag(isHeroPointCorrect, 0)]
+    #[bitflag(isCustom, 1)]
+    #[bitflag(disableBaseChangeReset, 2)]
+    #[bitflag(disableRepair, 3)]
+    #[bitflag(isDarkHand, 4)]
+    #[bitflag(simpleModelForDlc, 5)]
+    #[bitflag(lanternWep, 6)]
+    #[bitflag(isVersusGhostWep, 7)]
     pub bitfield3: u8,
+    #[bitflag(isDragonSlayer, 6)]
+    #[bitflag(isDeposit, 7)]
+    pub bitfield4: u8,
+    #[bitflag(disableMultiDropShare, 0)]
+    #[bitflag(isDiscard, 1)]
+    #[bitflag(isDrop, 2)]
+    #[bitflag(showLogCondType, 3)]
+    #[bitflag(enableThrow, 4)]
+    #[bitflag(disableGemAttr, 7)]
+    pub bitfield5: u8,
     pub def_sfx_material1: u16,
     pub wep_collidable_type0: u8,
     pub wep_collidable_type1: u8,
@@ -2778,15 +2870,12 @@ pub struct EquipParamWeapon {
     pub def_se_material2: u16,
     pub absorp_param_id: i32,
     pub toughness_correct_rate: f32,
-    #[bitflag(showLogCondType, 0)]
-    #[bitflag(enableThrow, 1)]
-    #[bitflag(showDialogCondType, 2)]
-    #[bitflag(disableGemAttr, 3)]
-    #[bitflag(isValidTough_ProtSADmg, 4)]
-    #[bitflag(isDualBlade, 5)]
-    #[bitflag(isAutoEquip, 6)]
-    #[bitflag(isEnableEmergencyStep, 7)]
-    pub bitfield4: u8,
+    #[bitflag(isValidTough_ProtSADmg, 0)]
+    #[bitflag(isDualBlade, 1)]
+    #[bitflag(isAutoEquip, 2)]
+    #[bitflag(isEnableEmergencyStep, 3)]
+    #[bitflag(invisibleOnRemo, 4)]
+    pub bitfield6: u8,
     pub correct_type_magic: u8,
     pub correct_type_fire: u8,
     pub correct_type_thunder: u8,
@@ -2847,15 +2936,15 @@ pub struct EquipParamWeapon {
     pub sale_value: i32,
     pub reinforce_shop_category: u8,
     pub max_arrow_quantity: u8,
-    #[bitflag(invisibleOnRemo, 0)]
-    #[bitflag(pad2, 1)]
-    #[bitflag(residentSfx_1_IsVisibleForHang, 2)]
-    #[bitflag(residentSfx_2_IsVisibleForHang, 3)]
-    #[bitflag(residentSfx_3_IsVisibleForHang, 4)]
-    #[bitflag(residentSfx_4_IsVisibleForHang, 5)]
-    #[bitflag(isSoulParamIdChange_model0, 6)]
-    #[bitflag(isSoulParamIdChange_model1, 7)]
-    pub bitfield5: u8,
+    #[bitflag(residentSfx_1_IsVisibleForHang, 0)]
+    #[bitflag(residentSfx_2_IsVisibleForHang, 1)]
+    #[bitflag(residentSfx_3_IsVisibleForHang, 2)]
+    #[bitflag(residentSfx_4_IsVisibleForHang, 3)]
+    #[bitflag(isSoulParamIdChange_model0, 4)]
+    #[bitflag(isSoulParamIdChange_model1, 5)]
+    #[bitflag(isSoulParamIdChange_model2, 6)]
+    #[bitflag(isSoulParamIdChange_model3, 7)]
+    pub bitfield7: u8,
     pub wep_se_id_offset: i8,
     pub base_change_price: i32,
     pub level_sync_correct_id: i16,
@@ -3034,6 +3123,13 @@ pub struct FaceParam {
     pub chr_body_scale_larm: u8,
     pub chr_body_scale_lleg: u8,
     pub burn_scar: u8,
+    #[bitflag(override_eye_partsId, 0)]
+    #[bitflag(override_eye_irisColor, 1)]
+    #[bitflag(override_eye_cataract, 2)]
+    #[bitflag(override_eye_cataractColor, 3)]
+    #[bitflag(override_eye_scleraColor, 4)]
+    #[bitflag(override_burn_scar, 5)]
+    pub bitfield0: u8,
     pub pad: [u8; 5],
     pub age: u8,
     pub gender: u8,
@@ -3382,6 +3478,8 @@ pub struct FeTextEffectParam {
     pub pad1: [u8; 2],
     pub text_id: i32,
     pub se_id: i32,
+    #[bitflag(canMixMapName, 0)]
+    pub bitfield0: u8,
     pub pad2: [u8; 19],
 }
 
@@ -3605,6 +3703,8 @@ pub struct FootSfxParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct GameAreaParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub bonus_soul_single: u32,
     pub bonus_soul_multi: u32,
@@ -4107,9 +4207,13 @@ pub struct Gconfig_WaterQuality {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct GestureParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub item_id: i32,
     pub msg_anim_id: i32,
+    #[bitflag(cannotUseRiding, 0)]
+    pub bitfield1: u8,
     pub pad1: [u8; 3],
 }
 
@@ -4123,6 +4227,8 @@ pub struct GparamGridRegionInfo {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct GparamRefSettingsParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub ref_target_map_id: i32,
     pub reserve: [u8; 24],
@@ -4409,6 +4515,9 @@ pub struct HitMtrlParam {
     pub ai_volume_rate: f32,
     pub sp_effect_id_on_hit0: i32,
     pub sp_effect_id_on_hit1: i32,
+    #[bitflag(disableFallDamage, 6)]
+    #[bitflag(isHardnessForSoundReverb, 7)]
+    pub bitfield0: u8,
     pub hardness_type: u8,
     pub pad2: [u8; 6],
     pub sp_effect_id_on_hit0_clear_count_2: i32,
@@ -4507,6 +4616,9 @@ pub struct ItemLotParam {
     #[bitflag(cumulateReset08, 15)]
     pub bitfield0: u16,
     pub game_clear_offset: i8,
+    #[bitflag(canExecByFriendlyGhost, 0)]
+    #[bitflag(canExecByHostileGhost, 1)]
+    pub bitfield1: u8,
     pub p_ad2: u16,
 }
 
@@ -4575,6 +4687,8 @@ pub struct KnockBackParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct KnowledgeLoadScreenItemParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub unlock_flag_id: u32,
     pub invalid_flag_id: u32,
@@ -4715,6 +4829,8 @@ pub struct LockCamParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct MagicParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub yes_no_dialog_message_id: i32,
     pub limit_cancel_sp_effect_id: i32,
@@ -4745,42 +4861,42 @@ pub struct MagicParam {
     pub has_sp_effect_type: u16,
     pub replace_category: u8,
     pub use_limit_category: u8,
-    #[bitflag(disableParam_NT, 0)]
-    #[bitflag(disableParamReserve1, 1)]
-    #[bitflag(vowType0, 2)]
-    #[bitflag(vowType1, 3)]
-    #[bitflag(vowType2, 4)]
-    #[bitflag(vowType3, 5)]
-    #[bitflag(vowType4, 6)]
-    #[bitflag(vowType5, 7)]
-    pub bitfield0: u8,
-    #[bitflag(vowType6, 0)]
-    #[bitflag(vowType7, 1)]
-    #[bitflag(enable_multi, 2)]
-    #[bitflag(enable_multi_only, 3)]
-    #[bitflag(isEnchant, 4)]
-    #[bitflag(isShieldEnchant, 5)]
-    #[bitflag(enable_live, 6)]
-    #[bitflag(enable_gray, 7)]
+    #[bitflag(vowType0, 0)]
+    #[bitflag(vowType1, 1)]
+    #[bitflag(vowType2, 2)]
+    #[bitflag(vowType3, 3)]
+    #[bitflag(vowType4, 4)]
+    #[bitflag(vowType5, 5)]
+    #[bitflag(vowType6, 6)]
+    #[bitflag(vowType7, 7)]
     pub bitfield1: u8,
-    #[bitflag(enable_white, 0)]
-    #[bitflag(enable_black, 1)]
-    #[bitflag(disableOffline, 2)]
-    #[bitflag(castResonanceMagic, 3)]
-    #[bitflag(isValidTough_ProtSADmg, 4)]
-    #[bitflag(isWarpMagic, 5)]
-    #[bitflag(enableRiding, 6)]
-    #[bitflag(disableRiding, 7)]
+    #[bitflag(enable_multi, 0)]
+    #[bitflag(enable_multi_only, 1)]
+    #[bitflag(isEnchant, 2)]
+    #[bitflag(isShieldEnchant, 3)]
+    #[bitflag(enable_live, 4)]
+    #[bitflag(enable_gray, 5)]
+    #[bitflag(enable_white, 6)]
+    #[bitflag(enable_black, 7)]
     pub bitfield2: u8,
-    #[bitflag(isUseNoAttackRegion, 0)]
-    #[bitflag(pad_1, 1)]
-    #[bitflag(vowType8, 2)]
-    #[bitflag(vowType9, 3)]
-    #[bitflag(vowType10, 4)]
-    #[bitflag(vowType11, 5)]
-    #[bitflag(vowType12, 6)]
-    #[bitflag(vowType13, 7)]
+    #[bitflag(disableOffline, 0)]
+    #[bitflag(castResonanceMagic, 1)]
+    #[bitflag(isValidTough_ProtSADmg, 2)]
+    #[bitflag(isWarpMagic, 3)]
+    #[bitflag(enableRiding, 4)]
+    #[bitflag(disableRiding, 5)]
+    #[bitflag(isUseNoAttackRegion, 6)]
+    #[bitflag(pad_1, 7)]
     pub bitfield3: u8,
+    #[bitflag(vowType8, 0)]
+    #[bitflag(vowType9, 1)]
+    #[bitflag(vowType10, 2)]
+    #[bitflag(vowType11, 3)]
+    #[bitflag(vowType12, 4)]
+    #[bitflag(vowType13, 5)]
+    #[bitflag(vowType14, 6)]
+    #[bitflag(vowType15, 7)]
+    pub bitfield4: u8,
     pub cast_sfx_id: i32,
     pub fire_sfx_id: i32,
     pub effect_sfx_id: i32,
@@ -4834,6 +4950,8 @@ pub struct MagicParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct MapDefaultInfoParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub enable_fast_travel_event_flag_id: u32,
     pub weather_lot_time_offset_ingame_seconds: i32,
@@ -4863,6 +4981,8 @@ pub struct MapDefaultInfoParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct MapGdRegionDrawParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub override_ivlocal_light_scale: f32,
 }
@@ -4870,6 +4990,8 @@ pub struct MapGdRegionDrawParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct MapGdRegionInfo {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub map_region_id: u32,
     pub reserve: [u8; 24],
@@ -4930,6 +5052,8 @@ pub struct MapMimicryEstablishmentParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct MapNameTexParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub src_r: u8,
     pub src_g: u8,
@@ -4942,6 +5066,8 @@ pub struct MapNameTexParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct MapNameTexParam_m61 {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub src_r: u8,
     pub src_g: u8,
@@ -4963,6 +5089,8 @@ pub struct MapNameTexParam_m61 {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct MapPieceTexParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub src_r: u8,
     pub src_g: u8,
@@ -4975,6 +5103,8 @@ pub struct MapPieceTexParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct MapPieceTexParam_m61 {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub src_r: u8,
     pub src_g: u8,
@@ -5138,6 +5268,8 @@ pub struct MenuValueTableSpecParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct MimicryEstablishmentTexParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub src_r: u8,
     pub src_g: u8,
@@ -5150,6 +5282,8 @@ pub struct MimicryEstablishmentTexParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct MimicryEstablishmentTexParam_m61 {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub src_r: u8,
     pub src_g: u8,
@@ -5284,6 +5418,8 @@ pub struct MultiEstusFlaskBonusParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct MultiPlayCorrectionParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub client1_sp_effect_id: i32,
     pub client2_sp_effect_id: i32,
@@ -5323,6 +5459,13 @@ pub struct NetworkAreaParam {
     pub cell_offset_x: f32,
     pub cell_offset_y: f32,
     pub cell_offset_z: f32,
+    #[bitflag(enableBloodstain, 0)]
+    #[bitflag(enableBloodMessage, 1)]
+    #[bitflag(enableGhost, 2)]
+    #[bitflag(enableMultiPlay, 3)]
+    #[bitflag(enableRingSearch, 4)]
+    #[bitflag(enableBreakInSearch, 5)]
+    pub bitfield0: u8,
     pub dummy: [u8; 3],
 }
 
@@ -5759,6 +5902,8 @@ pub struct NpcAiBehaviorProbabilityParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct NpcParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub behavior_variation_id: i32,
     pub resist_correct_id_poison: i32,
@@ -5882,82 +6027,82 @@ pub struct NpcParam {
     pub hit_stop_type: u8,
     pub ladder_end_chk_offset_top: u8,
     pub ladder_end_chk_offset_low: u8,
-    #[bitflag(disableParam_NT, 0)]
-    #[bitflag(disableParamReserve1, 1)]
-    #[bitflag(useRagdollCamHit, 2)]
-    #[bitflag(disableClothRigidHit, 3)]
-    #[bitflag(useUndulationAddAnimFB, 4)]
-    #[bitflag(isWeakA, 5)]
-    #[bitflag(isGhost, 6)]
-    #[bitflag(isNoDamageMotion, 7)]
-    pub bitfield0: u8,
-    #[bitflag(isUnduration, 0)]
-    #[bitflag(isChangeWanderGhost, 1)]
-    #[bitflag(modelDispMask0, 2)]
-    #[bitflag(modelDispMask1, 3)]
-    #[bitflag(modelDispMask2, 4)]
-    #[bitflag(modelDispMask3, 5)]
-    #[bitflag(modelDispMask4, 6)]
-    #[bitflag(modelDispMask5, 7)]
+    #[bitflag(useRagdollCamHit, 0)]
+    #[bitflag(disableClothRigidHit, 1)]
+    #[bitflag(useUndulationAddAnimFB, 2)]
+    #[bitflag(isWeakA, 3)]
+    #[bitflag(isGhost, 4)]
+    #[bitflag(isNoDamageMotion, 5)]
+    #[bitflag(isUnduration, 6)]
+    #[bitflag(isChangeWanderGhost, 7)]
     pub bitfield1: u8,
-    #[bitflag(modelDispMask6, 0)]
-    #[bitflag(modelDispMask7, 1)]
-    #[bitflag(modelDispMask8, 2)]
-    #[bitflag(modelDispMask9, 3)]
-    #[bitflag(modelDispMask10, 4)]
-    #[bitflag(modelDispMask11, 5)]
-    #[bitflag(modelDispMask12, 6)]
-    #[bitflag(modelDispMask13, 7)]
+    #[bitflag(modelDispMask0, 0)]
+    #[bitflag(modelDispMask1, 1)]
+    #[bitflag(modelDispMask2, 2)]
+    #[bitflag(modelDispMask3, 3)]
+    #[bitflag(modelDispMask4, 4)]
+    #[bitflag(modelDispMask5, 5)]
+    #[bitflag(modelDispMask6, 6)]
+    #[bitflag(modelDispMask7, 7)]
     pub bitfield2: u8,
-    #[bitflag(modelDispMask14, 0)]
-    #[bitflag(modelDispMask15, 1)]
-    #[bitflag(isEnableNeckTurn, 2)]
-    #[bitflag(disableRespawn, 3)]
-    #[bitflag(isMoveAnimWait, 4)]
-    #[bitflag(isCrowd, 5)]
-    #[bitflag(isWeakB, 6)]
-    #[bitflag(isWeakC, 7)]
+    #[bitflag(modelDispMask8, 0)]
+    #[bitflag(modelDispMask9, 1)]
+    #[bitflag(modelDispMask10, 2)]
+    #[bitflag(modelDispMask11, 3)]
+    #[bitflag(modelDispMask12, 4)]
+    #[bitflag(modelDispMask13, 5)]
+    #[bitflag(modelDispMask14, 6)]
+    #[bitflag(modelDispMask15, 7)]
     pub bitfield3: u8,
-    #[bitflag(isWeakD, 0)]
-    #[bitflag(doesAlwaysUseSpecialTurn, 1)]
-    #[bitflag(isRideAtkTarget, 2)]
-    #[bitflag(isEnableStepDispInterpolate, 3)]
-    #[bitflag(isStealthTarget, 4)]
-    #[bitflag(disableInitializeDead, 5)]
-    #[bitflag(isHitRumble, 6)]
-    #[bitflag(isSmoothTurn, 7)]
+    #[bitflag(isEnableNeckTurn, 0)]
+    #[bitflag(disableRespawn, 1)]
+    #[bitflag(isMoveAnimWait, 2)]
+    #[bitflag(isCrowd, 3)]
+    #[bitflag(isWeakB, 4)]
+    #[bitflag(isWeakC, 5)]
+    #[bitflag(isWeakD, 6)]
+    #[bitflag(doesAlwaysUseSpecialTurn, 7)]
     pub bitfield4: u8,
-    #[bitflag(isWeakE, 0)]
-    #[bitflag(isWeakF, 1)]
-    #[bitflag(modelDispMask16, 2)]
-    #[bitflag(modelDispMask17, 3)]
-    #[bitflag(modelDispMask18, 4)]
-    #[bitflag(modelDispMask19, 5)]
-    #[bitflag(modelDispMask20, 6)]
-    #[bitflag(modelDispMask21, 7)]
+    #[bitflag(isRideAtkTarget, 0)]
+    #[bitflag(isEnableStepDispInterpolate, 1)]
+    #[bitflag(isStealthTarget, 2)]
+    #[bitflag(disableInitializeDead, 3)]
+    #[bitflag(isHitRumble, 4)]
+    #[bitflag(isSmoothTurn, 5)]
+    #[bitflag(isWeakE, 6)]
+    #[bitflag(isWeakF, 7)]
     pub bitfield5: u8,
-    #[bitflag(modelDispMask22, 0)]
-    #[bitflag(modelDispMask23, 1)]
-    #[bitflag(modelDispMask24, 2)]
-    #[bitflag(modelDispMask25, 3)]
-    #[bitflag(modelDispMask26, 4)]
-    #[bitflag(modelDispMask27, 5)]
-    #[bitflag(modelDispMask28, 6)]
-    #[bitflag(modelDispMask29, 7)]
+    #[bitflag(modelDispMask16, 0)]
+    #[bitflag(modelDispMask17, 1)]
+    #[bitflag(modelDispMask18, 2)]
+    #[bitflag(modelDispMask19, 3)]
+    #[bitflag(modelDispMask20, 4)]
+    #[bitflag(modelDispMask21, 5)]
+    #[bitflag(modelDispMask22, 6)]
+    #[bitflag(modelDispMask23, 7)]
     pub bitfield6: u8,
+    #[bitflag(modelDispMask24, 0)]
+    #[bitflag(modelDispMask25, 1)]
+    #[bitflag(modelDispMask26, 2)]
+    #[bitflag(modelDispMask27, 3)]
+    #[bitflag(modelDispMask28, 4)]
+    #[bitflag(modelDispMask29, 5)]
+    #[bitflag(modelDispMask30, 6)]
+    #[bitflag(modelDispMask31, 7)]
+    pub bitfield7: u8,
     pub item_search_radius: f32,
     pub chr_hit_height: f32,
     pub chr_hit_radius: f32,
     pub special_turn_type: u8,
-    #[bitflag(modelDispMask30, 0)]
-    #[bitflag(modelDispMask31, 1)]
-    #[bitflag(isSoulGetByBoss, 2)]
-    #[bitflag(isBulletOwner_byObject, 3)]
-    #[bitflag(isUseLowHitFootIk, 4)]
-    #[bitflag(isCalculatePvPDamage, 5)]
-    #[bitflag(isHostSyncChr, 6)]
-    #[bitflag(isSkipWeakDamageAnim, 7)]
-    pub bitfield7: u8,
+    #[bitflag(isSoulGetByBoss, 0)]
+    #[bitflag(isBulletOwner_byObject, 1)]
+    #[bitflag(isUseLowHitFootIk, 2)]
+    #[bitflag(isCalculatePvPDamage, 3)]
+    #[bitflag(isHostSyncChr, 4)]
+    #[bitflag(isSkipWeakDamageAnim, 5)]
+    #[bitflag(isKeepHitOnRide, 6)]
+    #[bitflag(isSpCollide, 7)]
+    pub bitfield8: u8,
     pub def_dark: u16,
     pub threat_lv: u32,
     pub special_turn_distance_threshold: f32,
@@ -6019,15 +6164,15 @@ pub struct NpcParam {
     pub sp_effect_id31: i32,
     pub disable_lock_on_ang: f32,
     pub cloth_off_lod_level: i8,
-    #[bitflag(isKeepHitOnRide, 0)]
-    #[bitflag(isSpCollide, 1)]
-    #[bitflag(isUseFootIKNormalByUnduration, 2)]
-    #[bitflag(attachHitInitializeDead, 3)]
-    #[bitflag(excludeGroupRewardCheck, 4)]
-    #[bitflag(enableAILockDmyPoly_212, 5)]
-    #[bitflag(enableAILockDmyPoly_213, 6)]
-    #[bitflag(enableAILockDmyPoly_214, 7)]
-    pub bitfield8: u8,
+    #[bitflag(isUseFootIKNormalByUnduration, 0)]
+    #[bitflag(attachHitInitializeDead, 1)]
+    #[bitflag(excludeGroupRewardCheck, 2)]
+    #[bitflag(enableAILockDmyPoly_212, 3)]
+    #[bitflag(enableAILockDmyPoly_213, 4)]
+    #[bitflag(enableAILockDmyPoly_214, 5)]
+    #[bitflag(disableActivateOpen_xb1, 6)]
+    #[bitflag(disableActivateLegacy_xb1, 7)]
+    pub bitfield9: u8,
     pub estus_flask_recovery_param_id: i16,
     pub role_name_id: i32,
     pub estus_flask_lot_point: u16,
@@ -6089,11 +6234,17 @@ pub struct NpcParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct NpcThinkParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub logic_id: i32,
     pub battle_goal_id: i32,
     pub search_eye_dist: u16,
     pub search_eye_ang_y: u8,
+    #[bitflag(isNoAvoidHugeEnemy, 0)]
+    #[bitflag(enableWeaponOnOff, 1)]
+    #[bitflag(targetAILockDmyPoly, 2)]
+    pub bitfield1: u8,
     pub sp_effect_id_ranged_attack: i32,
     pub search_target_lv1_forget_time: f32,
     pub search_target_lv2_forget_time: f32,
@@ -6135,15 +6286,15 @@ pub struct NpcThinkParam {
     pub disable_path_move: u8,
     pub skip_arrival_visible_check: u8,
     pub think_attr_do_admirer: u8,
-    #[bitflag(disableParam_NT, 0)]
-    #[bitflag(disableParamReserve1, 1)]
-    #[bitflag(isNoAvoidHugeEnemy, 2)]
-    #[bitflag(enableWeaponOnOff, 3)]
-    #[bitflag(targetAILockDmyPoly, 4)]
-    #[bitflag(pad8, 5)]
-    #[bitflag(enableNaviFlg_Edge, 6)]
-    #[bitflag(enableNaviFlg_LargeSpace, 7)]
-    pub bitfield0: u8,
+    #[bitflag(enableNaviFlg_Edge, 0)]
+    #[bitflag(enableNaviFlg_LargeSpace, 1)]
+    #[bitflag(enableNaviFlg_Ladder, 2)]
+    #[bitflag(enableNaviFlg_Hole, 3)]
+    #[bitflag(enableNaviFlg_Door, 4)]
+    #[bitflag(enableNaviFlg_InSideWall, 5)]
+    #[bitflag(enableNaviFlg_Lava, 6)]
+    #[bitflag(enableNaviFlg_Edge_Ordinary, 7)]
+    pub bitfield2: u8,
     pub enable_navi_flg_reserve1: [u8; 3],
     pub search_threshold_lv0to_lv1: i32,
     pub search_threshold_lv1to_lv2: i32,
@@ -6323,6 +6474,8 @@ pub struct ObjectParam {
     pub rigid_penetration_scale_normal: f32,
     pub rigid_penetration_scale_hard: f32,
     pub land_touch_sfx_id: i32,
+    #[bitflag(isDamageCover, 0)]
+    pub bitfield2: u8,
     pub pad_4: [u8; 1],
     pub paint_decal_target_texture_size: u16,
     pub life_time_for_dc: f32,
@@ -6354,6 +6507,8 @@ pub struct PartsDrawParam {
     pub lv45_play_dist: f32,
     pub tex_lv01_border_dist: f32,
     pub tex_lv01_play_dist: f32,
+    #[bitflag(enableCrossFade, 0)]
+    pub bitfield0: u32,
     pub draw_dist: f32,
     pub draw_fade_range: f32,
     pub shadow_draw_dist: f32,
@@ -6501,6 +6656,8 @@ pub struct PlayerCommonParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct PlayRegionParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub match_area_id: i32,
     pub multi_play_start_limit_event_flag_id: u32,
@@ -6509,15 +6666,15 @@ pub struct PlayRegionParam {
     pub boss_area_id: u32,
     pub cult_npc_white_ghost_entity_id_by_free: i16,
     pub b_map_guradian_region: u8,
-    #[bitflag(disableParam_NT, 0)]
-    #[bitflag(disableParamReserve1, 1)]
-    #[bitflag(bYellowCostumeRegion, 2)]
-    #[bitflag(multiPlayStartLimitEventFlagId_targetFlagState, 3)]
-    #[bitflag(breakInLimitEventFlagId_1_targetFlagState, 4)]
-    #[bitflag(whiteSignLimitEventFlagId_1_targetFlagState, 5)]
-    #[bitflag(redSignLimitEventFlagId_1_targetFlagState, 6)]
-    #[bitflag(breakInLimitEventFlagId_2_targetFlagState, 7)]
-    pub bitfield0: u8,
+    #[bitflag(bYellowCostumeRegion, 0)]
+    #[bitflag(multiPlayStartLimitEventFlagId_targetFlagState, 1)]
+    #[bitflag(breakInLimitEventFlagId_1_targetFlagState, 2)]
+    #[bitflag(whiteSignLimitEventFlagId_1_targetFlagState, 3)]
+    #[bitflag(redSignLimitEventFlagId_1_targetFlagState, 4)]
+    #[bitflag(breakInLimitEventFlagId_2_targetFlagState, 5)]
+    #[bitflag(breakInLimitEventFlagId_3_targetFlagState, 6)]
+    #[bitflag(whiteSignLimitEventFlagId_2_targetFlagState, 7)]
+    pub bitfield1: u8,
     pub warp_item_use_permit_bonfire_id_1: u32,
     pub warp_item_use_permit_bonfire_id_2: u32,
     pub warp_item_use_permit_bonfire_id_3: u32,
@@ -6528,15 +6685,17 @@ pub struct PlayRegionParam {
     pub warp_item_prohibition_event_flag_id_3: u32,
     pub warp_item_prohibition_event_flag_id_4: u32,
     pub warp_item_prohibition_event_flag_id_5: u32,
-    #[bitflag(breakInLimitEventFlagId_3_targetFlagState, 0)]
-    #[bitflag(whiteSignLimitEventFlagId_2_targetFlagState, 1)]
-    #[bitflag(enableBloodstain, 2)]
-    #[bitflag(enableBloodMessage, 3)]
-    #[bitflag(enableGhost, 4)]
-    #[bitflag(dispMask00, 5)]
-    #[bitflag(dispMask01, 6)]
-    #[bitflag(whiteSignLimitEventFlagId_3_targetFlagState, 7)]
-    pub bitfield1: u8,
+    #[bitflag(enableBloodstain, 0)]
+    #[bitflag(enableBloodMessage, 1)]
+    #[bitflag(enableGhost, 2)]
+    #[bitflag(dispMask00, 3)]
+    #[bitflag(dispMask01, 4)]
+    #[bitflag(whiteSignLimitEventFlagId_3_targetFlagState, 5)]
+    #[bitflag(redSignLimitEventFlagId_2_targetFlagState, 6)]
+    #[bitflag(redSignLimitEventFlagId_3_targetFlagState, 7)]
+    pub bitfield2: u8,
+    #[bitflag(isAutoIntrudePoint, 0)]
+    pub bitfield3: u8,
     pub pad2: [u8; 2],
     pub multi_play_hashost_limit_event_flag_id: u32,
     pub other_max_distance: f32,
@@ -6901,6 +7060,11 @@ pub struct RandomAppearParam {
     #[bitflag(slot94, 6)]
     #[bitflag(slot95, 7)]
     pub bitfield11: u8,
+    #[bitflag(slot96, 0)]
+    #[bitflag(slot97, 1)]
+    #[bitflag(slot98, 2)]
+    #[bitflag(slot99, 3)]
+    pub bitfield12: u8,
 }
 
 #[derive(ParamStruct, Debug)]
@@ -7051,6 +7215,8 @@ pub struct RoleParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct RollingObjLotParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub asset_id_0: i32,
     pub asset_id_1: i32,
@@ -7127,6 +7293,8 @@ pub struct ShopLineupParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct SignPuddleParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub match_area_id: i32,
     pub pad1: [u8; 24],
@@ -7198,6 +7366,8 @@ pub struct SoundAutoReverbSelectParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct SoundChrPhysicsSeParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub contact_land_se_id: i32,
     pub contact_land_add_se_id: i32,
@@ -7244,6 +7414,8 @@ pub struct SoundCommonSystemParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct SoundCutsceneParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub reverb_type: u8,
     pub pad0: [u8; 3],
@@ -7622,6 +7794,12 @@ pub struct SpEffect {
     pub change_madness_resist_point: i32,
     pub sleep_damage_rate: u8,
     pub apply_parts_group: u8,
+    #[bitflag(clearTarget, 0)]
+    #[bitflag(fakeTargetIgnoreAjin, 1)]
+    #[bitflag(fakeTargetIgnoreMirageArts, 2)]
+    #[bitflag(requestForceJoinBlackSOS_B, 3)]
+    #[bitflag(unk353_4, 4)]
+    pub bitfield10: u8,
     pub pad2: [u8; 1],
     pub change_super_armor_point: f32,
     pub change_sa_point: f32,
@@ -7725,10 +7903,17 @@ pub struct SpEffectVfx {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct SwordArtsParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub sword_arts_type: u8,
     pub arts_speed_type: u8,
     pub ref_status: i8,
+    #[bitflag(isRefRightArts, 0)]
+    #[bitflag(isGrayoutLeftHand, 1)]
+    #[bitflag(isGrayoutRightHand, 2)]
+    #[bitflag(isGrayoutBothHand, 3)]
+    pub bitfield1: u8,
     pub use_point_l1: i8,
     pub use_point_l2: i8,
     pub use_point_r1: i8,
@@ -7747,6 +7932,8 @@ pub struct SwordArtsParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct TalkParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub msg_id: i32,
     pub voice_id: i32,
@@ -7764,6 +7951,8 @@ pub struct TalkParam {
     pub pad2: [u8; 4],
     pub timeout: f32,
     pub talk_animation_id: i32,
+    #[bitflag(isForceDisp, 0)]
+    pub bitfield1: u8,
     pub pad1: [u8; 31],
 }
 
@@ -7829,6 +8018,13 @@ pub struct ThrowParam {
     pub throw_type: u8,
     pub self_esc_cycle_cnt: u8,
     pub dmy_has_chr_dir_type: u8,
+    #[bitflag(isTurnAtker, 0)]
+    #[bitflag(isSkipWepCate, 1)]
+    #[bitflag(isSkipSphereCast, 2)]
+    #[bitflag(isEnableCorrectPos_forThrowAdjust, 3)]
+    #[bitflag(isEnableThrowFollowingFallAssist, 4)]
+    #[bitflag(isEnableThrowFollowingFeedback, 5)]
+    pub bitfield0: u8,
     pub atk_sorb_dmy_id: i16,
     pub def_sorb_dmy_id: i16,
     pub dist_start: f32,
@@ -7859,6 +8055,8 @@ pub struct ToughnessParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct TutorialParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub menu_type: u8,
     pub trigger_type: u8,
@@ -7940,6 +8138,8 @@ pub struct WeatherAssetReplaceParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct WeatherLotParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub weather_type0: i16,
     pub weather_type1: i16,
@@ -7984,6 +8184,8 @@ pub struct WeatherLotParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct WeatherLotTexParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub src_r: u8,
     pub src_g: u8,
@@ -7996,6 +8198,8 @@ pub struct WeatherLotTexParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct WeatherLotTexParam_m61 {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub src_r: u8,
     pub src_g: u8,
@@ -8033,6 +8237,8 @@ pub struct WeatherParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct WepAbsorpPosParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub hang_pos_type: u8,
     pub is_skeleton_bind: u8,
@@ -8122,6 +8328,8 @@ pub struct WhiteSignCoolTimeParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct WorldMapLegacyConvParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub src_area_no: u8,
     pub src_grid_xno: u8,
@@ -8137,12 +8345,16 @@ pub struct WorldMapLegacyConvParam {
     pub dst_pos_x: f32,
     pub dst_pos_y: f32,
     pub dst_pos_z: f32,
+    #[bitflag(isBasePoint, 0)]
+    pub bitfield1: u8,
     pub pad4: [u8; 11],
 }
 
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct WorldMapPieceParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub open_event_flag_id: u32,
     pub open_travel_area_left: f32,
@@ -8162,6 +8374,8 @@ pub struct WorldMapPieceParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct WorldMapPlaceNameParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub world_map_piece_id: i32,
     pub text_id: i32,
@@ -8178,24 +8392,24 @@ pub struct WorldMapPlaceNameParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct WorldMapPointParam {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub event_flag_id: u32,
     pub dist_view_event_flag_id: u32,
     pub icon_id: u16,
     pub bgm_place_type: i16,
+    #[bitflag(isAreaIcon, 0)]
+    #[bitflag(isOverrideDistViewMarkPos, 1)]
+    #[bitflag(isEnableNoText, 2)]
+    pub bitfield1: u8,
     pub area_no_for_dist_view_mark: u8,
     pub grid_xno_for_dist_view_mark: u8,
     pub grid_zno_for_dist_view_mark: u8,
     pub cleared_event_flag_id: u32,
-    #[bitflag(disableParam_NT, 0)]
-    #[bitflag(disableParamReserve1, 1)]
-    #[bitflag(isAreaIcon, 2)]
-    #[bitflag(isOverrideDistViewMarkPos, 3)]
-    #[bitflag(isEnableNoText, 4)]
-    #[bitflag(pad3, 5)]
-    #[bitflag(dispMask00, 6)]
-    #[bitflag(dispMask01, 7)]
-    pub bitfield0: u8,
+    #[bitflag(dispMask00, 0)]
+    #[bitflag(dispMask01, 1)]
+    pub bitfield2: u8,
     pub pad2: [u8; 1],
     pub dist_view_icon_id: u16,
     pub angle: f32,
@@ -8270,6 +8484,8 @@ pub struct WorldMapPointParam {
 #[derive(ParamStruct, Debug)]
 #[repr(C)]
 pub struct WwiseValueToStrConvertParamFormat {
+    #[bitflag(disableParam_NT, 0)]
+    pub bitfield0: u8,
     pub disable_param_reserve2: [u8; 3],
     pub param_str: [u8; 32],
 }
